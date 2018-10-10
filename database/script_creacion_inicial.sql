@@ -122,7 +122,3 @@ alter table tpgdd.usuario_rol add constraint fk_usuario_rol foreign key (id_rol)
 
 
 
-
-
-
-select * from gd_esquema.Maestra
