@@ -121,4 +121,102 @@ alter table tpgdd.usuario_rol add constraint fk_usuario_usuario foreign key (id_
 alter table tpgdd.usuario_rol add constraint fk_usuario_rol foreign key (id_rol) references tpgdd.rol
 
 
+create table tpgdd.rubro (
+id numeric(10) identity(1,1),
+descripcion nvarchar(255)
+)
 
+alter table tpgdd.rubro add constraint pk_rubro primary key (id)
+
+
+create table tpgdd.grado (
+id numeric(1) identity(1,1),
+nombre nvarchar (20),
+comision numeric(10)
+)
+
+alter table tpgdd.grado add constraint pk_grado primary key (id)
+
+
+create table tpgdd.publicacion (
+id numeric(10) identity(1,1),
+id_rubro numeric(10),
+id_grado numeric(1),
+id_responsable numeric(10),
+estado nvarchar(15),
+fecha_publicacion date, -- Entiendo que es lo mismo que la fecha de inicio
+fecha_evento smalldatetime,
+descripcion nvarchar(255),
+direccion nvarchar(255)
+)
+
+alter table tpgdd.publicacion add constraint pk_publicacion primary key (id)
+alter table tpgdd.publicacion add constraint fk_publicacion_rubro foreign key (id_rubro) references tpgdd.rubro
+alter table tpgdd.publicacion add constraint fk_publicacion_grado foreign key (id_grado) references tpgdd.grado
+alter table tpgdd.publicacion add constraint fk_publicacion_responsable foreign key (id_responsable) references tpgdd.usuario
+
+
+create table tpgdd.ubicacion_tipo (
+id numeric(10) identity(1,1),
+descripcion nvarchar(30)
+)
+
+alter table tpgdd.ubicacion_tipo add constraint pk_ubicaciontipo primary key (id)
+
+
+create table tpgdd.ubicacion (
+id numeric(10) identity(1,1),
+id_publicacion numeric(10),
+fila nvarchar(2),
+asiento numeric(3),
+precio numeric(10,2),
+id_tipo numeric(10), -- Lo normalicé, mandando los datos del tipo de ubicación a otra tabla, pero podría ir mejor sin normalizar
+)
+
+alter table tpgdd.ubicacion add constraint pk_ubicacion primary key (id)
+alter table tpgdd.ubicacion add constraint fk_ubicacion_publicacion foreign key (id_publicacion) references tpgdd.publicacion
+alter table tpgdd.ubicacion add constraint fk_ubicacion_tipo foreign key (id_tipo) references tpgdd.ubicacion_tipo
+
+
+create table tpgdd.compra (
+id numeric(10) identity(1,1),
+id_publicacion numeric(10),
+id_usuario numeric(10), -- El DER dice cliente, pero entiendo que el que compra en definitiva es el usuario
+medio_pago nvarchar(255),
+mail nvarchar(255),
+importe_total numeric(10,2)
+)
+
+alter table tpgdd.compra add constraint pk_compra primary key (id)
+alter table tpgdd.compra add constraint fk_compra_publicacion foreign key (id_publicacion) references tpgdd.compra
+alter table tpgdd.compra add constraint fk_compra_usuario foreign key (id_usuario) references tpgdd.usuario
+
+
+create table tpgdd.compra_ubicacion (
+id_compra numeric(10),
+id_ubicacion numeric(10)
+)
+
+alter table tpgdd.compra_ubicacion add constraint fk_compraubicacion_compra foreign key (id_compra) references tpgdd.compra
+alter table tpgdd.compra_ubicacion add constraint fk_compraubicacion_ubicacion foreign key (id_ubicacion) references tpgdd.ubicacion
+
+
+create table tpgdd.rendicion (
+id numeric(10) identity(1,1),
+id_empresa numeric(10),
+fecha smalldatetime
+)
+
+alter table tpgdd.rendicion add constraint pk_rendicion primary key (id)
+alter table tpgdd.rendicion add constraint fk_rendicion_empresa foreign key (id_empresa) references tpgdd.empresa
+
+
+create table tpgdd.rendicion_item (
+id numeric(10),
+id_compra numeric(10),
+id_rendicion numeric(10),
+comision numeric(10,2)
+)
+
+alter table tpgdd.rendicion_item add constraint fk_rendicionitem_compra foreign key (id_compra) references tpgdd.compra
+alter table tpgdd.rendicion_item add constraint fk_rendicionitem_rendicion foreign key (id_rendicion) references tpgdd.rendicion
