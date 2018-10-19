@@ -95,7 +95,7 @@ alter table tpgdd.rol add constraint unq_rolnombre unique (rol_nombre)
 
 create table tpgdd.funcionalidad (
 func_id numeric(10) identity(1,1),
-func_nombre nvarchar(30) not null
+func_nombre nvarchar(100) not null
 )
 
 alter table tpgdd.funcionalidad add constraint pk_funcionalidad primary key (func_id)
@@ -241,3 +241,51 @@ select espec_empresa_razon_social,espec_empresa_cuit,espec_empresa_fecha_Creacio
 from gd_esquema.Maestra
 group by espec_empresa_razon_social,espec_empresa_cuit,espec_empresa_fecha_Creacion,espec_empresa_mail,espec_empresa_dom_calle,espec_empresa_nro_calle,espec_empresa_piso,espec_empresa_depto,espec_empresa_cod_postal
 order by 3 asc
+
+
+-- Migracion Rubro
+
+INSERT INTO tpgdd.rubro (rubro_descripcion)
+SELECT case Espectaculo_Rubro_Descripcion 
+       when '' THEN 'Sin definir' end
+FROM gd_esquema.Maestra
+WHERE Espectaculo_Rubro_Descripcion IS NOT NULL;
+
+
+
+-- Migracion Roles
+
+insert into tpgdd.rol (rol_nombre, rol_baja_logica)
+values ('Empresa', 1), 
+	   ('Administrativo', 1), 
+	   ('Cliente', 1)
+
+
+-- Migracion Funcionaliades
+
+insert into tpgdd.funcionalidad (func_nombre)
+VALUES ('Login y seguridad'),
+       ('Registro de Usuario'), 
+	   ('ABM de Cliente'), 
+	   ('ABM de Empresa de espectaculos'), 
+	   ('ABM de Categoria'), 
+	   ('ABM grado de publicacion'), 
+	   ('Generar Publicacion'), 
+	   ('Editar Publicación'), 
+	   ('Comprar'), 
+	   ('Historial del cliente'),
+	   ('Canje y administración de puntos'),
+	   ('Generar Pago de comisiones'),
+	   ('Listado Estadístico')
+
+
+-- Migracion Publicaciones (pendiente)
+
+insert into tpgdd.publicacion(publicacion_id, id_rubro, id_grado, id_responsable, publicacion_estado, publicacion_fecha_publicacion,
+                              publicacion_fecha_evento, publicacion_descripcion) -- publicacion_direccion, no esta en tabla Maestra?
+select distinct M.Espectaculo_Cod, R.rubro_id, (select 1 from tpgdd.grado), --id_responsable ??
+                M.Espectaculo_Estado, M.Espectaculo_Fecha, M.Espectaculo_Fecha_Venc, M.Espectaculo_Descripcion
+
+from gd_esquema.Maestra M
+inner join rubro R on R.rubro_descripcion = M.Espectaculo_Rubro_Descripcion
+
