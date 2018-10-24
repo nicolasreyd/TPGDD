@@ -141,6 +141,7 @@ alter table tpgdd.grado add constraint pk_grado primary key (grado_id)
 
 create table tpgdd.publicacion (
 publicacion_id numeric(10) identity(1,1),
+id_espectaculo numeric(10),
 id_rubro numeric(10),
 id_grado numeric(1),
 id_responsable numeric(10),
@@ -158,8 +159,9 @@ alter table tpgdd.publicacion add constraint fk_publicacion_responsable foreign 
 
 
 create table tpgdd.ubicacion_tipo (
-id numeric(10) identity(1,1),
-descripcion nvarchar(30)
+id numeric(10) not null,-- identity(1,1), --> La tabla maestra ya trae las claves
+descripcion nvarchar(30),
+ubicacion_sin_numerar bit
 )
 
 alter table tpgdd.ubicacion_tipo add constraint pk_ubicaciontipo primary key (id)
@@ -251,6 +253,9 @@ SELECT case Espectaculo_Rubro_Descripcion
 FROM gd_esquema.Maestra
 WHERE Espectaculo_Rubro_Descripcion IS NOT NULL;
 
+insert into tpgdd.rubro (rubro_descripcion)
+select distinct Espectaculo_Rubro_Descripcion from gd_esquema.Maestra
+
 
 
 -- Migracion Roles
@@ -279,6 +284,41 @@ VALUES ('Login y seguridad'),
 	   ('Listado Estadístico')
 
 
+
+
+-- Migracion tipos de ubicacion
+
+
+insert into tpgdd.ubicacion_tipo (id,descripcion,ubicacion_sin_numerar)
+select Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion,Ubicacion_Sin_numerar from gd_esquema.Maestra
+group by Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion,Ubicacion_Sin_numerar
+order by 1 asc
+
+
+
+-- Migracion espectaculos/publicaciones
+
+insert into tpgdd.publicacion (id_espectaculo,publicacion_descripcion,publicacion_fecha_publicacion,publicacion_fecha_evento,id_rubro,publicacion_estado)
+select espectaculo_cod,espectaculo_descripcion,Espectaculo_Fecha,Espectaculo_Fecha_Venc,rubro_id,Espectaculo_Estado
+from gd_esquema.Maestra join tpgdd.rubro on Espectaculo_Rubro_Descripcion=rubro_descripcion
+group by espectaculo_cod,espectaculo_descripcion,Espectaculo_Fecha,Espectaculo_Fecha_Venc,rubro_id,Espectaculo_Estado
+order by 1 asc
+
+
+
+-- Migracion ubicaciones
+
+/*
+insert into tpgdd.publicacion_ubicacion (
+select espectaculo_cod,Ubicacion_Tipo_Codigo,ubicacion_fila,Ubicacion_Asiento,Ubicacion_Precio,1
+from gd_esquema.Maestra
+group by espectaculo_cod,Ubicacion_Tipo_Codigo,ubicacion_fila,Ubicacion_Asiento,Ubicacion_Precio
+order by 1 asc
+
+*/
+
+/*
+
 -- Migracion Publicaciones (pendiente)
 
 insert into tpgdd.publicacion(publicacion_id, id_rubro, id_grado, id_responsable, publicacion_estado, publicacion_fecha_publicacion,
@@ -289,3 +329,4 @@ select distinct M.Espectaculo_Cod, R.rubro_id, (select 1 from tpgdd.grado), --id
 from gd_esquema.Maestra M
 inner join rubro R on R.rubro_descripcion = M.Espectaculo_Rubro_Descripcion
 
+*/
