@@ -7,7 +7,7 @@ go
 create table tpgdd.usuario (
 usuario_id numeric(10) identity(1,1),
 usuario_username varchar(16) not null,
-password varchar(32) not null,
+password varchar(64) not null,
 usuario_tipo varchar(7) not null,
 usuario_logins_fallidos numeric(1) not null default 0,
 usuario_baja_logica bit not null default 1
@@ -161,7 +161,6 @@ alter table tpgdd.publicacion add constraint fk_publicacion_responsable foreign 
 create table tpgdd.ubicacion_tipo (
 id numeric(10) not null,-- identity(1,1), --> La tabla maestra ya trae las claves
 descripcion nvarchar(30),
-ubicacion_sin_numerar bit
 )
 
 alter table tpgdd.ubicacion_tipo add constraint pk_ubicaciontipo primary key (id)
@@ -174,6 +173,7 @@ ubicacion_fila nvarchar(2),
 ubicacion_asiento numeric(3),
 ubicacion_precio numeric(10,2),
 id_tipo numeric(10), -- Lo normalicé, mandando los datos del tipo de ubicación a otra tabla, pero podría ir mejor sin normalizar
+ubicacion_sin_numerar bit --Lo movimos, estaba en ubicaicon_tipo
 )
 
 alter table tpgdd.ubicacion add constraint pk_ubicacion primary key (ubicacion_id)
@@ -204,46 +204,60 @@ alter table tpgdd.compra_ubicacion add constraint fk_compraubicacion_compra fore
 alter table tpgdd.compra_ubicacion add constraint fk_compraubicacion_ubicacion foreign key (id_ubicacion) references tpgdd.ubicacion
 
 
-create table tpgdd.rendicion (
-rendicion_id numeric(10) identity(1,1),
+create table tpgdd.factura (
+factura_id numeric(10) identity(1,1),
 id_empresa numeric(10),
-rendicion_fecha smalldatetime
+factura_fecha smalldatetime
 )
 
-alter table tpgdd.rendicion add constraint pk_rendicion primary key (rendicion_id)
-alter table tpgdd.rendicion add constraint fk_rendicion_empresa foreign key (id_empresa) references tpgdd.empresa
+alter table tpgdd.factura add constraint pk_factura primary key (factura_id)
+alter table tpgdd.factura add constraint fk_factura_empresa foreign key (id_empresa) references tpgdd.empresa
 
 
-create table tpgdd.rendicion_item (
+create table tpgdd.factura_item (
 id numeric(10),
 id_compra numeric(10),
-id_rendicion numeric(10),
+id_factura numeric(10),
 comision numeric(10,2)
 )
 
-alter table tpgdd.rendicion_item add constraint fk_rendicionitem_compra foreign key (id_compra) references tpgdd.compra
-alter table tpgdd.rendicion_item add constraint fk_rendicionitem_rendicion foreign key (id_rendicion) references tpgdd.rendicion
+alter table tpgdd.factura_item add constraint fk_facturaitem_compra foreign key (id_compra) references tpgdd.compra
+alter table tpgdd.factura_item add constraint fk_facturaitem_factura foreign key (id_factura) references tpgdd.factura
 
+-- Migracion clientes a usuarios
 
+insert into tpgdd.usuario (usuario_username,usuario_password,usuario_tipo)
+select DISTINCT concat('',cli_dni), 
+LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256','123'))),'cliente'
+from gd_esquema.Maestra 
+where Cli_Dni is not null;
 
--- Migracion clientes
+-- Migracion empresas a usuarios
 
-insert into tpgdd.cliente (cliente_numero_dni,cliente_apellido,cliente_nombre,cliente_fecha_nacimiento,cliente_email,cliente_domicilio_calle,cliente_domicilio_numero,cliente_domicilio_piso,cliente_domicilio_departamento,cliente_codigo_postal)
-select cli_dni, Cli_Apeliido, Cli_Nombre, Cli_Fecha_Nac,Cli_Mail,Cli_Dom_Calle,Cli_Nro_Calle,cli_piso,cli_depto,Cli_Cod_Postal
-from gd_esquema.Maestra
-where cli_dni is not null
-group by cli_dni, Cli_Apeliido, Cli_Nombre, Cli_Fecha_Nac,Cli_Mail,Cli_Dom_Calle,Cli_Nro_Calle,cli_piso,cli_depto,Cli_Cod_Postal
-order by 1 asc
-
+insert into tpgdd.usuario (usuario_username,usuario_password,usuario_tipo)
+select DISTINCT concat('',REPLACE(espec_empresa_cuit,'-',''), 
+LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256','123'))),'empresa'
+from gd_esquema.Maestra 
+where espec_empresa_cuit is not null;
 
 -- Migracion empresas
 
-insert into tpgdd.empresa (empresa_razon_social,empresa_cuit,empresa_fecha_creacion,empresa_email,empresa_domicilio_calle,empresa_domicilio_numero,empresa_domicilio_piso,empresa_domicilio_departamento,empresa_codigo_postal)
-select espec_empresa_razon_social,espec_empresa_cuit,espec_empresa_fecha_Creacion,espec_empresa_mail,espec_empresa_dom_calle,espec_empresa_nro_calle,espec_empresa_piso,espec_empresa_depto,espec_empresa_cod_postal
+insert into tpgdd.empresa (usuario_id,empresa_razon_social,empresa_cuit,empresa_fecha_creacion,empresa_email,empresa_domicilio_calle,empresa_domicilio_numero,empresa_domicilio_piso,empresa_domicilio_departamento,empresa_codigo_postal)
+select concat('',espec_empresa_cuit)
+espec_empresa_razon_social,espec_empresa_cuit,espec_empresa_fecha_Creacion,espec_empresa_mail,espec_empresa_dom_calle,espec_empresa_nro_calle,espec_empresa_piso,espec_empresa_depto,espec_empresa_cod_postal
 from gd_esquema.Maestra
 group by espec_empresa_razon_social,espec_empresa_cuit,espec_empresa_fecha_Creacion,espec_empresa_mail,espec_empresa_dom_calle,espec_empresa_nro_calle,espec_empresa_piso,espec_empresa_depto,espec_empresa_cod_postal
 order by 3 asc
 
+-- Migracion clientes
+
+insert into tpgdd.cliente (usuario_id,cliente_numero_dni,cliente_apellido,cliente_nombre,cliente_fecha_nacimiento,cliente_email,cliente_domicilio_calle,cliente_domicilio_numero,cliente_domicilio_piso,cliente_domicilio_departamento,cliente_codigo_postal)
+select concat('',cli_dni)
+cli_dni, Cli_Apeliido, Cli_Nombre, Cli_Fecha_Nac,Cli_Mail,Cli_Dom_Calle,Cli_Nro_Calle,cli_piso,cli_depto,Cli_Cod_Postal
+from gd_esquema.Maestra
+where cli_dni is not null
+group by cli_dni, Cli_Apeliido, Cli_Nombre, Cli_Fecha_Nac,Cli_Mail,Cli_Dom_Calle,Cli_Nro_Calle,cli_piso,cli_depto,Cli_Cod_Postal
+order by 1 asc
 
 -- Migracion Rubro
 
@@ -289,33 +303,53 @@ VALUES ('Login y seguridad'),
 -- Migracion tipos de ubicacion
 
 
-insert into tpgdd.ubicacion_tipo (id,descripcion,ubicacion_sin_numerar)
-select Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion,Ubicacion_Sin_numerar from gd_esquema.Maestra
-group by Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion,Ubicacion_Sin_numerar
+insert into tpgdd.ubicacion_tipo (id,descripcion)
+select Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion from gd_esquema.Maestra
+group by Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion
 order by 1 asc
 
 
 
 -- Migracion espectaculos/publicaciones
+/*El grado no esta en la tabla maestra por lo tanto se deja en null*/
 
-insert into tpgdd.publicacion (id_espectaculo,publicacion_descripcion,publicacion_fecha_publicacion,publicacion_fecha_evento,id_rubro,publicacion_estado)
-select espectaculo_cod,espectaculo_descripcion,Espectaculo_Fecha,Espectaculo_Fecha_Venc,rubro_id,Espectaculo_Estado
+insert into tpgdd.publicacion (id_responsable,id_espectaculo,publicacion_descripcion,publicacion_fecha_publicacion,publicacion_fecha_evento,id_rubro,publicacion_estado)
+usuario_id,espectaculo_cod,espectaculo_descripcion,Espectaculo_Fecha,Espectaculo_Fecha_Venc,rubro_id,Espectaculo_Estado
 from gd_esquema.Maestra join tpgdd.rubro on Espectaculo_Rubro_Descripcion=rubro_descripcion
+join tpgdd.usuario on usuario_username=CONCAT('', espec_empresa_cuit)
 group by espectaculo_cod,espectaculo_descripcion,Espectaculo_Fecha,Espectaculo_Fecha_Venc,rubro_id,Espectaculo_Estado
 order by 1 asc
 
+--Migracion compra
 
+insert into tpgdd.compra (id_publicacion, id_usuario, compra_medio_pago, compra_mail, compra_importe_total)
+select id_publicacion, usuario_id, forma_pago_desc, cli_mail, 
+(select SUM(ubicacion_precio) from tpgdd.Maestra as m2 where concat('',m2.cli_dni) = usuario_username and m2.espectaculo_cod = id_espectaculo)
+
+from gd_esquema.Maestra
+join tpgdd.publicacion on espectaculo_cod = id_espectaculo
+join tpgdd.usuario on CONCAT('',cli_dni) = usuario_username
+where compra_cantidad is not null
 
 -- Migracion ubicaciones
 
-/*
-insert into tpgdd.publicacion_ubicacion (
-select espectaculo_cod,Ubicacion_Tipo_Codigo,ubicacion_fila,Ubicacion_Asiento,Ubicacion_Precio,1
+
+insert into tpgdd.ubicacion (id_publicacion,ubicacion_fila,ubicacion_asiento,ubicacion_precio,id_tipo,ubicacion_sin_numerar)
+select id_publicacion,ubicacion_fila,Ubicacion_Asiento,Ubicacion_Precio,Ubicacion_Tipo_Codigo,ubicacion_sin_numerar
 from gd_esquema.Maestra
-group by espectaculo_cod,Ubicacion_Tipo_Codigo,ubicacion_fila,Ubicacion_Asiento,Ubicacion_Precio
+join tpgdd.publicacion on espectaculo_cod = id_espectaculo
+group by espectaculo_cod,ubicacion_fila,Ubicacion_Asiento,Ubicacion_Precio,Ubicacion_Tipo_Codigo,ubicacion_sin_numerar
 order by 1 asc
 
-*/
+
+
+/*insert into tpgdd.compra_ubicacion (id_compra,id_ubicacion)
+select compra_id, (select from tpgdd.Maestra)
+from tpgdd.compra
+join tpgdd.Maestra on 
+group by compra_id*/
+
+
 
 /*
 
