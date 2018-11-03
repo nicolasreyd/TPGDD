@@ -364,3 +364,47 @@ from gd_esquema.Maestra M
 inner join rubro R on R.rubro_descripcion = M.Espectaculo_Rubro_Descripcion
 
 */
+create procedure pr_compra_ubicacion
+as begin 
+
+DECLARE @medio_pago NVARCHAR(255)
+        ,@compra_mail NVARCHAR(255)
+        ,@ubicacion_fila NVARCHAR(2)
+		,@ubicacion_asiento numeric(3)
+		,@ubicacion_precio numeric(10,2)
+		,@ubicacion_sin_num bit
+		,@ubicacion_tipo_codigo numeric(10)
+		,@compra_key numeric(10)
+		,@ubi_key numeric(10)
+
+declare compra_ubi cursor
+for
+select top 1000 Forma_Pago_Desc, Cli_Mail,Ubicacion_Fila,Ubicacion_Asiento,Ubicacion_Precio,Ubicacion_Sin_numerar,Ubicacion_Tipo_Codigo 
+from gd_esquema.Maestra
+where Cli_Dni is not null
+
+open compra_ubi
+fetch next from compra_ubi into
+@medio_pago,@compra_mail,@ubicacion_fila,@ubicacion_asiento,@ubicacion_precio,@ubicacion_sin_num,@ubicacion_tipo_codigo
+
+while @@FETCH_STATUS = 0
+  begin
+
+  --insert a Compra
+  insert into gd_esquema.compra (id_publicacion, id_usuario, compra_medio_pago, compra_mail, compra_importe_total)
+  values(NULL,NULL,@medio_pago,@compra_mail, NULL)
+
+  --insert a Ubicacion
+  insert into gd_esquema.ubicacion (id_publicacion,ubicacion_fila,ubicacion_asiento,ubicacion_precio,id_tipo,ubicacion_sin_numerar)
+  values(NULL,@ubicacion_fila,@ubicacion_asiento,@ubicacion_precio,@ubicacion_tipo_codigo,@ubicacion_sin_num)
+
+  fetch next from compra_ubi into
+  @medio_pago,@compra_mail,@ubicacion_fila,@ubicacion_asiento,@ubicacion_precio,@ubicacion_sin_num,@ubicacion_tipo_codigo
+
+  end
+
+  CLOSE compra_ubi
+  DEALLOCATE compra_ubi
+end
+
+exec pr_compra_ubicacion
