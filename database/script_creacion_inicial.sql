@@ -1,4 +1,4 @@
-/* Script de creación inicial - TP 2C 2018 */
+/* Script de creaciÃ³n inicial - TP 2C 2018 */
 
 
 create schema tpgdd -- Hay que cambiarlo por el verdadero nombre del esquema
@@ -7,7 +7,7 @@ go
 create table tpgdd.usuario (
 usuario_id numeric(10) identity(1,1),
 usuario_username varchar(16) not null,
-password varchar(64) not null,
+usuario_password varchar(64) not null,
 usuario_tipo varchar(7) not null,
 usuario_logins_fallidos numeric(1) not null default 0,
 usuario_baja_logica bit not null default 1
@@ -172,7 +172,7 @@ id_publicacion numeric(10),
 ubicacion_fila nvarchar(2),
 ubicacion_asiento numeric(3),
 ubicacion_precio numeric(10,2),
-id_tipo numeric(10), -- Lo normalicé, mandando los datos del tipo de ubicación a otra tabla, pero podría ir mejor sin normalizar
+id_tipo numeric(10), -- Lo normalicÃ©, mandando los datos del tipo de ubicaciÃ³n a otra tabla, pero podrÃ­a ir mejor sin normalizar
 ubicacion_sin_numerar bit --Lo movimos, estaba en ubicaicon_tipo
 )
 
@@ -224,6 +224,12 @@ comision numeric(10,2)
 alter table tpgdd.factura_item add constraint fk_facturaitem_compra foreign key (id_compra) references tpgdd.compra
 alter table tpgdd.factura_item add constraint fk_facturaitem_factura foreign key (id_factura) references tpgdd.factura
 
+
+
+
+
+
+
 -- Migracion clientes a usuarios
 
 insert into tpgdd.usuario (usuario_username,usuario_password,usuario_tipo)
@@ -232,22 +238,35 @@ LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256','123'))),'cliente'
 from gd_esquema.Maestra 
 where Cli_Dni is not null;
 
+--Probado OK
+
 -- Migracion empresas a usuarios
 
 insert into tpgdd.usuario (usuario_username,usuario_password,usuario_tipo)
-select DISTINCT concat('',REPLACE(espec_empresa_cuit,'-',''), 
+select DISTINCT concat('',REPLACE(espec_empresa_cuit,'-','')), 
 LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256','123'))),'empresa'
 from gd_esquema.Maestra 
 where espec_empresa_cuit is not null;
 
+--Probado OK
+
 -- Migracion empresas
 
-insert into tpgdd.empresa (usuario_id,empresa_razon_social,empresa_cuit,empresa_fecha_creacion,empresa_email,empresa_domicilio_calle,empresa_domicilio_numero,empresa_domicilio_piso,empresa_domicilio_departamento,empresa_codigo_postal)
-select concat('',espec_empresa_cuit)
-espec_empresa_razon_social,espec_empresa_cuit,espec_empresa_fecha_Creacion,espec_empresa_mail,espec_empresa_dom_calle,espec_empresa_nro_calle,espec_empresa_piso,espec_empresa_depto,espec_empresa_cod_postal
+insert into tpgdd.empresa (usuario_id,empresa_razon_social,empresa_cuit,empresa_fecha_creacion,
+empresa_email,empresa_domicilio_calle,empresa_domicilio_numero,
+empresa_domicilio_piso,empresa_domicilio_departamento,empresa_codigo_postal)
+select (select usuario_id from tpgdd.usuario where usuario_username LIKE concat('',REPLACE(espec_empresa_cuit,'-',''))),
+espec_empresa_razon_social,
+espec_empresa_cuit,espec_empresa_fecha_Creacion,
+espec_empresa_mail,espec_empresa_dom_calle,espec_empresa_nro_calle,
+espec_empresa_piso,espec_empresa_depto,espec_empresa_cod_postal
 from gd_esquema.Maestra
-group by espec_empresa_razon_social,espec_empresa_cuit,espec_empresa_fecha_Creacion,espec_empresa_mail,espec_empresa_dom_calle,espec_empresa_nro_calle,espec_empresa_piso,espec_empresa_depto,espec_empresa_cod_postal
-order by 3 asc
+group by espec_empresa_razon_social,espec_empresa_cuit,espec_empresa_fecha_Creacion,
+espec_empresa_mail,espec_empresa_dom_calle,espec_empresa_nro_calle,
+espec_empresa_piso,espec_empresa_depto,espec_empresa_cod_postal
+order by 3
+
+--Probado OK
 
 -- Migracion clientes
 
@@ -259,17 +278,18 @@ where cli_dni is not null
 group by cli_dni, Cli_Apeliido, Cli_Nombre, Cli_Fecha_Nac,Cli_Mail,Cli_Dom_Calle,Cli_Nro_Calle,cli_piso,cli_depto,Cli_Cod_Postal
 order by 1 asc
 
+--Probado OK
+
 -- Migracion Rubro
 
 INSERT INTO tpgdd.rubro (rubro_descripcion)
 SELECT case Espectaculo_Rubro_Descripcion 
        when '' THEN 'Sin definir' end
-FROM gd_esquema.Maestra
-WHERE Espectaculo_Rubro_Descripcion IS NOT NULL;
+FROM tpgdd.Maestra
+WHERE Espectaculo_Rubro_Descripcion IS NOT NULL
+group by Espectaculo_Rubro_Descripcion 
 
-insert into tpgdd.rubro (rubro_descripcion)
-select distinct Espectaculo_Rubro_Descripcion from gd_esquema.Maestra
-
+--Probado OK
 
 
 -- Migracion Roles
@@ -279,6 +299,7 @@ values ('Empresa', 1),
 	   ('Administrativo', 1), 
 	   ('Cliente', 1)
 
+--Probado OK
 
 -- Migracion Funcionaliades
 
@@ -290,15 +311,14 @@ VALUES ('Login y seguridad'),
 	   ('ABM de Categoria'), 
 	   ('ABM grado de publicacion'), 
 	   ('Generar Publicacion'), 
-	   ('Editar Publicación'), 
+	   ('Editar PublicaciÃ³n'), 
 	   ('Comprar'), 
 	   ('Historial del cliente'),
-	   ('Canje y administración de puntos'),
+	   ('Canje y administraciÃ³n de puntos'),
 	   ('Generar Pago de comisiones'),
-	   ('Listado Estadístico')
+	   ('Listado EstadÃ­stico')
 
-
-
+--Probado OK
 
 -- Migracion tipos de ubicacion
 
@@ -308,19 +328,25 @@ select Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion from gd_esquema.Maestra
 group by Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion
 order by 1 asc
 
+--Probado OK
 
 
 -- Migracion espectaculos/publicaciones
 /*El grado no esta en la tabla maestra por lo tanto se deja en null*/
 
-insert into tpgdd.publicacion (id_responsable,id_espectaculo,publicacion_descripcion,publicacion_fecha_publicacion,publicacion_fecha_evento,id_rubro,publicacion_estado)
-usuario_id,espectaculo_cod,espectaculo_descripcion,Espectaculo_Fecha,Espectaculo_Fecha_Venc,rubro_id,Espectaculo_Estado
-from gd_esquema.Maestra join tpgdd.rubro on Espectaculo_Rubro_Descripcion=rubro_descripcion
-join tpgdd.usuario on usuario_username=CONCAT('', espec_empresa_cuit)
-group by espectaculo_cod,espectaculo_descripcion,Espectaculo_Fecha,Espectaculo_Fecha_Venc,rubro_id,Espectaculo_Estado
+insert into gd_esquema.publicacion (id_responsable,id_espectaculo,publicacion_descripcion,publicacion_fecha_publicacion,publicacion_fecha_evento,id_rubro,publicacion_estado)
+select (select usuario_id from gd_esquema.usuario
+         where usuario_username LIKE concat('',REPLACE(espec_empresa_cuit,'-','')))
+,espectaculo_cod,espectaculo_descripcion,
+Espectaculo_Fecha,Espectaculo_Fecha_Venc,rubro_id,Espectaculo_Estado
+from gd_esquema.Maestra join gd_esquema.rubro on Espectaculo_Rubro_Descripcion=rubro_descripcion
+group by espec_empresa_cuit,espectaculo_cod,espectaculo_descripcion,Espectaculo_Fecha,
+         Espectaculo_Fecha_Venc,rubro_id,Espectaculo_Estado
 order by 1 asc
 
---Migracion compra
+--Probado OK
+
+--Migracion compra (desuso, no borrar hasta ver como meter el compra_importe_total en el procedure)
 
 insert into tpgdd.compra (id_publicacion, id_usuario, compra_medio_pago, compra_mail, compra_importe_total)
 select id_publicacion, usuario_id, forma_pago_desc, cli_mail, 
@@ -331,40 +357,10 @@ join tpgdd.publicacion on espectaculo_cod = id_espectaculo
 join tpgdd.usuario on CONCAT('',cli_dni) = usuario_username
 where compra_cantidad is not null
 
--- Migracion ubicaciones
 
+ --Migracion Compra, Ubicacion y compra_ubicacion (para probar se seleccionan las primeras 1000 filas. Falta el campo compra_importe_total en Comrpa)
 
-insert into tpgdd.ubicacion (id_publicacion,ubicacion_fila,ubicacion_asiento,ubicacion_precio,id_tipo,ubicacion_sin_numerar)
-select id_publicacion,ubicacion_fila,Ubicacion_Asiento,Ubicacion_Precio,Ubicacion_Tipo_Codigo,ubicacion_sin_numerar
-from gd_esquema.Maestra
-join tpgdd.publicacion on espectaculo_cod = id_espectaculo
-group by espectaculo_cod,ubicacion_fila,Ubicacion_Asiento,Ubicacion_Precio,Ubicacion_Tipo_Codigo,ubicacion_sin_numerar
-order by 1 asc
-
-
-
-/*insert into tpgdd.compra_ubicacion (id_compra,id_ubicacion)
-select compra_id, (select from tpgdd.Maestra)
-from tpgdd.compra
-join tpgdd.Maestra on 
-group by compra_id*/
-
-
-
-/*
-
--- Migracion Publicaciones (pendiente)
-
-insert into tpgdd.publicacion(publicacion_id, id_rubro, id_grado, id_responsable, publicacion_estado, publicacion_fecha_publicacion,
-                              publicacion_fecha_evento, publicacion_descripcion) -- publicacion_direccion, no esta en tabla Maestra?
-select distinct M.Espectaculo_Cod, R.rubro_id, (select 1 from tpgdd.grado), --id_responsable ??
-                M.Espectaculo_Estado, M.Espectaculo_Fecha, M.Espectaculo_Fecha_Venc, M.Espectaculo_Descripcion
-
-from gd_esquema.Maestra M
-inner join rubro R on R.rubro_descripcion = M.Espectaculo_Rubro_Descripcion
-
-*/
-create procedure pr_compra_ubicacion
+create procedure [dbo].[pr_compra_ubicacion]
 as begin 
 
 DECLARE @medio_pago NVARCHAR(255)
@@ -376,30 +372,57 @@ DECLARE @medio_pago NVARCHAR(255)
 		,@ubicacion_tipo_codigo numeric(10)
 		,@compra_key numeric(10)
 		,@ubi_key numeric(10)
+		,@id_publicacion numeric(10)
+		,@espec_cod numeric(18)
+		,@id_usuario numeric(10)
+		,@dni_usuario numeric(18)
+		,@compra_importe_total numeric(10,2)
 
 declare compra_ubi cursor
 for
-select top 1000 Forma_Pago_Desc, Cli_Mail,Ubicacion_Fila,Ubicacion_Asiento,Ubicacion_Precio,Ubicacion_Sin_numerar,Ubicacion_Tipo_Codigo 
+select top 1000 Forma_Pago_Desc, Cli_Mail,Ubicacion_Fila,Ubicacion_Asiento,Ubicacion_Precio,
+Ubicacion_Sin_numerar,Ubicacion_Tipo_Codigo, Espectaculo_Cod,Cli_Dni 
 from gd_esquema.Maestra
 where Cli_Dni is not null
 
 open compra_ubi
 fetch next from compra_ubi into
-@medio_pago,@compra_mail,@ubicacion_fila,@ubicacion_asiento,@ubicacion_precio,@ubicacion_sin_num,@ubicacion_tipo_codigo
+@medio_pago,@compra_mail,@ubicacion_fila,@ubicacion_asiento,@ubicacion_precio,@ubicacion_sin_num,@ubicacion_tipo_codigo,
+@espec_cod,@dni_usuario
 
 while @@FETCH_STATUS = 0
   begin
 
+  select @compra_importe_total = SUM(ubicacion_precio) from gd_esquema.Maestra as M 
+  where concat('',M.cli_dni) = concat('',@dni_usuario) and M.espectaculo_cod = @espec_cod
+
+  select @id_publicacion =  publicacion_id from gd_esquema.Publicacion
+  where @espec_cod = id_espectaculo
+
+  select @id_usuario = usuario_id from gd_esquema.Usuario
+  where concat('', @dni_usuario) LIKE usuario_username
+
   --insert a Compra
   insert into gd_esquema.compra (id_publicacion, id_usuario, compra_medio_pago, compra_mail, compra_importe_total)
-  values(NULL,NULL,@medio_pago,@compra_mail, NULL)
+  values(@id_publicacion,@id_usuario,@medio_pago,@compra_mail, @compra_importe_total)
+
+  set @compra_key = scope_identity()
 
   --insert a Ubicacion
+   
   insert into gd_esquema.ubicacion (id_publicacion,ubicacion_fila,ubicacion_asiento,ubicacion_precio,id_tipo,ubicacion_sin_numerar)
-  values(NULL,@ubicacion_fila,@ubicacion_asiento,@ubicacion_precio,@ubicacion_tipo_codigo,@ubicacion_sin_num)
+  values(@id_publicacion,@ubicacion_fila,@ubicacion_asiento,@ubicacion_precio,@ubicacion_tipo_codigo,@ubicacion_sin_num)
+
+  set @ubi_key = scope_identity()
+
+  --insert a compra_ubicacion
+  insert into gd_esquema.compra_ubicacion (id_compra,id_ubicacion)
+  values(@compra_key,@ubi_key)
+
 
   fetch next from compra_ubi into
-  @medio_pago,@compra_mail,@ubicacion_fila,@ubicacion_asiento,@ubicacion_precio,@ubicacion_sin_num,@ubicacion_tipo_codigo
+  @medio_pago,@compra_mail,@ubicacion_fila,@ubicacion_asiento,@ubicacion_precio,@ubicacion_sin_num,@ubicacion_tipo_codigo,
+  @espec_cod,@dni_usuario
 
   end
 
@@ -408,3 +431,5 @@ while @@FETCH_STATUS = 0
 end
 
 exec pr_compra_ubicacion
+
+-- Probar
