@@ -1,6 +1,6 @@
 ﻿namespace PalcoNet
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         /// Variable del diseñador requerida.
@@ -28,12 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.iralogin = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // iralogin
+            // 
+            this.iralogin.Location = new System.Drawing.Point(81, 94);
+            this.iralogin.Name = "iralogin";
+            this.iralogin.Size = new System.Drawing.Size(75, 23);
+            this.iralogin.TabIndex = 0;
+            this.iralogin.Text = "Ir al login";
+            this.iralogin.UseVisualStyleBackColor = true;
+            this.iralogin.Click += new System.EventHandler(this.iralogin_Click);
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.iralogin);
+            this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button iralogin;
     }
 }
 
