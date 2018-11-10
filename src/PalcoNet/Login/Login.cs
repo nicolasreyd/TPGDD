@@ -15,7 +15,7 @@ namespace PalcoNet.Login
     {
         private String username;
         private String password;
-        private SQLConnector connection;
+        private DBOperations connection;
 
         public Login()
         {
@@ -45,7 +45,7 @@ namespace PalcoNet.Login
         private void login_button_Click(object sender, EventArgs e)
         {
 
-            SqlDataReader data = Main.db.command("select * from GD2C2018.gd_esquema.usuario where usuario_username LIKE '" + this.username + "'");
+            SqlDataReader data = App.db.command("select * from GD2C2018.gd_esquema.usuario where usuario_username LIKE '" + this.username + "'");
             data.Read();
 
             user_validate(data);
@@ -68,10 +68,26 @@ namespace PalcoNet.Login
       
             if (password_match(data))
             {
-                MessageBox.Show("contraseña correcta");
+                Console.WriteLine("Cantidad de roles");
+                App.currentUser = new Datos.Usuario(data.GetInt32(0),this.username);
+                Console.WriteLine(App.currentUser.getRoles().Count);
+
+                //Mostrar siguiente pantalla, si tiene mas de un rol
+                if (App.currentUser.getRoles().Count > 1)
+                {
+                    SeleccionRol roles = new SeleccionRol();
+                }
+                //Sino ir al menu principal
+                else
+                {
+                    //MenuPrincipal menu = new MenuPrincipal();
+                }
+                
+
             }
             else {
                 MessageBox.Show("contraseña incorrecta");
+                //aumentar cantidad de fallos y voler a intentar.
             }
         }
 
@@ -85,7 +101,7 @@ namespace PalcoNet.Login
            String passworddb = data.GetString(2);
            String passwordDecrypt = Herramientas.Encrypter.Encrypt256(this.password);
 
-           return Herramientas.Encrypter.Encrypt256(passworddb).Equals(this.password);
+           return passworddb.Equals(passwordDecrypt);
         }
     }
 }

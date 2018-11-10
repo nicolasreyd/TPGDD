@@ -5,7 +5,7 @@ create schema tpgdd -- Hay que cambiarlo por el verdadero nombre del esquema
 go
 
 create table tpgdd.usuario (
-usuario_id numeric(10) identity(1,1),
+usuario_id int identity(1,1),
 usuario_username varchar(16) not null,
 usuario_password varchar(64) not null,
 usuario_tipo varchar(7) not null,
@@ -234,7 +234,7 @@ alter table tpgdd.factura_item add constraint fk_facturaitem_factura foreign key
 
 insert into tpgdd.usuario (usuario_username,usuario_password,usuario_tipo)
 select DISTINCT concat('',cli_dni), 
-LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256','123'))),'cliente'
+HASHBYTES('SHA2_256','123'),'cliente'
 from gd_esquema.Maestra 
 where Cli_Dni is not null;
 
@@ -360,76 +360,43 @@ where compra_cantidad is not null
 
  --Migracion Compra, Ubicacion y compra_ubicacion (para probar se seleccionan las primeras 1000 filas. Falta el campo compra_importe_total en Comrpa)
 
-create procedure [dbo].[pr_compra_ubicacion]
-as begin 
-
-DECLARE @medio_pago NVARCHAR(255)
-        ,@compra_mail NVARCHAR(255)
-        ,@ubicacion_fila NVARCHAR(2)
-		,@ubicacion_asiento numeric(3)
-		,@ubicacion_precio numeric(10,2)
-		,@ubicacion_sin_num bit
-		,@ubicacion_tipo_codigo numeric(10)
-		,@compra_key numeric(10)
-		,@ubi_key numeric(10)
-		,@id_publicacion numeric(10)
-		,@espec_cod numeric(18)
-		,@id_usuario numeric(10)
-		,@dni_usuario numeric(18)
-		,@compra_importe_total numeric(10,2)
-
-declare compra_ubi cursor
-for
-select top 1000 Forma_Pago_Desc, Cli_Mail,Ubicacion_Fila,Ubicacion_Asiento,Ubicacion_Precio,
+insert into gd_esquema.compra_temp (Forma_Pago_Desc, Cli_Mail,Ubicacion_Fila,Ubicacion_Asiento,Ubicacion_Precio,
+Ubicacion_Sin_numerar,Ubicacion_Tipo_Codigo, Espectaculo_Cod,Cli_Dni) 
+select Forma_Pago_Desc, Cli_Mail,Ubicacion_Fila,Ubicacion_Asiento,Ubicacion_Precio,
 Ubicacion_Sin_numerar,Ubicacion_Tipo_Codigo, Espectaculo_Cod,Cli_Dni 
 from gd_esquema.Maestra
 where Cli_Dni is not null
 
-open compra_ubi
-fetch next from compra_ubi into
-@medio_pago,@compra_mail,@ubicacion_fila,@ubicacion_asiento,@ubicacion_precio,@ubicacion_sin_num,@ubicacion_tipo_codigo,
-@espec_cod,@dni_usuario
+--create procedure [dbo].[pr_compra_ubicacion]
+--as begin
 
-while @@FETCH_STATUS = 0
-  begin
+WHILE EXISTS (SELECT * FROM gd_esquema.compra_temp where flag_migrado=0)
+  BEGIN
 
-  select @compra_importe_total = SUM(ubicacion_precio) from gd_esquema.Maestra as M 
-  where concat('',M.cli_dni) = concat('',@dni_usuario) and M.espectaculo_cod = @espec_cod
+  SET IDENTITY_INSERT gd_esquema.compra ON
+  insert into gd_esquema.compra (compra_id, id_publicacion, id_usuario, compra_medio_pago, compra_mail, compra_importe_total)
+  SELECT top 10000
+  id,Espectaculo_Cod,1,Forma_Pago_Desc,Cli_Mail,100
+  FROM gd_esquema.compra_temp WHERE flag_migrado = 0 order by id asc;
+  SET IDENTITY_INSERT gd_esquema.compra OFF
 
-  select @id_publicacion =  publicacion_id from gd_esquema.Publicacion
-  where @espec_cod = id_espectaculo
+  SET IDENTITY_INSERT gd_esquema.ubicacion ON
+  insert into gd_esquema.ubicacion (ubicacion_id, id_publicacion,ubicacion_fila,ubicacion_asiento,ubicacion_precio,id_tipo,ubicacion_sin_numerar)
+  SELECT top 10000 
+  id,Espectaculo_Cod,Ubicacion_Fila,Ubicacion_Asiento,Ubicacion_Precio,Ubicacion_Tipo_Codigo,Ubicacion_Sin_numerar 
+  FROM gd_esquema.compra_temp WHERE flag_migrado = 0 order by id asc;
+  SET IDENTITY_INSERT gd_esquema.ubicacion OFF
 
-  select @id_usuario = usuario_id from gd_esquema.Usuario
-  where concat('', @dni_usuario) LIKE usuario_username
+  ;WITH CTE AS 
+  ( 
+  SELECT top 10000 * FROM gd_esquema.compra_temp WHERE flag_migrado = 0 order by id asc
+  ) 
+  UPDATE CTE SET flag_migrado=1 
 
-  --insert a Compra
-  insert into gd_esquema.compra (id_publicacion, id_usuario, compra_medio_pago, compra_mail, compra_importe_total)
-  values(@id_publicacion,@id_usuario,@medio_pago,@compra_mail, @compra_importe_total)
-
-  set @compra_key = scope_identity()
-
-  --insert a Ubicacion
-   
-  insert into gd_esquema.ubicacion (id_publicacion,ubicacion_fila,ubicacion_asiento,ubicacion_precio,id_tipo,ubicacion_sin_numerar)
-  values(@id_publicacion,@ubicacion_fila,@ubicacion_asiento,@ubicacion_precio,@ubicacion_tipo_codigo,@ubicacion_sin_num)
-
-  set @ubi_key = scope_identity()
-
-  --insert a compra_ubicacion
-  insert into gd_esquema.compra_ubicacion (id_compra,id_ubicacion)
-  values(@compra_key,@ubi_key)
+  END
 
 
-  fetch next from compra_ubi into
-  @medio_pago,@compra_mail,@ubicacion_fila,@ubicacion_asiento,@ubicacion_precio,@ubicacion_sin_num,@ubicacion_tipo_codigo,
-  @espec_cod,@dni_usuario
+  insert into gd_esquema.compra_ubicacion(id_compra,id_ubicacion)
+  select compra_id as id_compra,compra_id as id_ubicacion from gd_esquema.compra
 
-  end
-
-  CLOSE compra_ubi
-  DEALLOCATE compra_ubi
-end
-
-exec pr_compra_ubicacion
-
--- Probar
+-- Probado OK

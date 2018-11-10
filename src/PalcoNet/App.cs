@@ -10,13 +10,16 @@ using System.Windows.Forms;
 
 namespace PalcoNet
 {
-    public partial class Main : Form
+    public partial class App : Form
     {
 
-        public static SQLConnector db = new SQLConnector();
+        public static DBOperations db = new DBOperations();
         public static Login.Login login;
+        public static Datos.Usuario currentUser;
+        public static Datos.Rol currentRol;
 
-        public Main()
+
+        public App()
         {
             InitializeComponent();
         }

@@ -1,6 +1,6 @@
 ﻿namespace PalcoNet
 {
-    partial class Main
+    partial class App
     {
         /// <summary>
         /// Variable del diseñador requerida.
