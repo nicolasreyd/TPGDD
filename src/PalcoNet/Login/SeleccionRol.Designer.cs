@@ -60,6 +60,7 @@
             this.ButtonOKRoles.TabIndex = 2;
             this.ButtonOKRoles.Text = "OK";
             this.ButtonOKRoles.UseVisualStyleBackColor = true;
+            this.ButtonOKRoles.Click += new System.EventHandler(this.ButtonOKRoles_Click);
             // 
             // SeleccionRol
             // 
@@ -71,6 +72,7 @@
             this.Controls.Add(this.comboRoles);
             this.Name = "SeleccionRol";
             this.Text = "SeleccionRol";
+            this.Load += new System.EventHandler(this.SeleccionRol_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

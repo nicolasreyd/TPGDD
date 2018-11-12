@@ -16,15 +16,24 @@ namespace PalcoNet.Login
         private String username;
         private String password;
         private DBOperations connection;
+        int intentos_login;
+        
+        
 
         public Login()
         {
             InitializeComponent();
+            this.password_textbox.PasswordChar = '*';
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
             username_textbox.Focus();
+        }
+
+        private void label1_Click_2(object sender, EventArgs e)
+        {
+            password_textbox.Focus();
         }
 
         private void username_textbox_TextChanged(object sender, EventArgs e)
@@ -37,20 +46,43 @@ namespace PalcoNet.Login
             this.password = password_textbox.Text;
         }
 
-        private void label1_Click_2(object sender, EventArgs e)
-        {
-            password_textbox.Focus();
-        }
-
         private void login_button_Click(object sender, EventArgs e)
         {
+            var resultado = true;
 
-            SqlDataReader data = App.db.command("select * from GD2C2018.gd_esquema.usuario where usuario_username LIKE '" + this.username + "'");
-            data.Read();
+            if (String.IsNullOrEmpty(username))
+            {
+                errorProvider1.SetError(username_textbox, "El campo es requerido");
+                resultado = false;
+            }
 
-            user_validate(data);
+            if (String.IsNullOrEmpty(password))
+            {
+                errorProvider1.SetError(password_textbox, "El campo es requerido");
+                resultado = false;
+            }
+
+            if(resultado == true){
+            SqlDataReader data = App.db.command_reader("select * from GD2C2018.gd_esquema.usuario where usuario_username LIKE '" + this.username + "'");
+            if (data.Read())
+            {
+                //Datos leidos
+                String usuario_leido = data.GetString(1);
+                int id_leido = data.GetInt32(0);
+                String password_leida = data.GetString(2);
+                Boolean baja_leida = data.GetBoolean(5);
+
+                data.Close();
+                user_validate(usuario_leido, id_leido, password_leida, baja_leida);
+
+            }
+            else {
+                data.Close();
+                MessageBox.Show("Usuario incorrecto, vuelva a intentar");
+            }
+         }
            
-        }
+      }
 
        
 
@@ -59,49 +91,69 @@ namespace PalcoNet.Login
 
         }
 
-        private void user_validate(SqlDataReader data) 
+        private void user_validate(String usuario_leido, int id_leido, String password_leida, Boolean baja_leida) 
         {
-            if (!user_exists(data))
-            { //falta checkear baja logica
+
+            if(baja_leida == false){
+                MessageBox.Show("Usuario inhabilitado, intente con otro");
+                this.Hide();
+                Login nuevo_login = new Login();
+                nuevo_login.Show();
+            }
+
+            if (!user_exists(usuario_leido))
+            { 
                 MessageBox.Show("Usuario incorrecto, vuelva a intentar");
             }
-      
-            if (password_match(data))
+            else { 
+
+            if (password_match(password_leida))
             {
                 Console.WriteLine("Cantidad de roles");
-                App.currentUser = new Datos.Usuario(data.GetInt32(0),this.username);
+                App.currentUser = new Datos.Usuario(id_leido,this.username);
                 Console.WriteLine(App.currentUser.getRoles().Count);
 
                 //Mostrar siguiente pantalla, si tiene mas de un rol
                 if (App.currentUser.getRoles().Count > 1)
                 {
+                    this.Hide();
                     SeleccionRol roles = new SeleccionRol();
+                    roles.Show();
                 }
                 //Sino ir al menu principal
                 else
                 {
-                    //MenuPrincipal menu = new MenuPrincipal();
+                    this.Hide();
+                    MenuPrincipal menu = new MenuPrincipal();
+                    menu.Show();
                 }
                 
 
             }
             else {
                 MessageBox.Show("contraseña incorrecta");
-                //aumentar cantidad de fallos y voler a intentar.
-            }
+                intentos_login++;
+                if (intentos_login >= 3)
+                {
+                    App.db.inhabilitarUsuario(usuario_leido, id_leido);
+                }
+
+             }
+
+           }
         }
 
-        private bool user_exists(SqlDataReader data)
+
+        private bool user_exists(String data)
         {
-            return data.GetString(1) != null;
+            return data != null;
         }
 
-        private bool password_match(SqlDataReader data)
+        private bool password_match(String password)
         {  
-           String passworddb = data.GetString(2);
            String passwordDecrypt = Herramientas.Encrypter.Encrypt256(this.password);
 
-           return passworddb.Equals(passwordDecrypt);
+           return password.Equals(passwordDecrypt);
         }
     }
 }

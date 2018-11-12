@@ -8,10 +8,15 @@ namespace PalcoNet.Datos
 {
     public class Rol
     {
-        public static int id_rol;
-        public static String nombre_rol;
+        public Decimal id_rol;
+        public String nombre_rol;
 
-        public Rol(int idrol, String nombrerol) {
+        public String getNombre_rol() {
+         
+            return nombre_rol;
+        }
+
+        public Rol(Decimal idrol, String nombrerol) {
             id_rol = idrol;
             nombre_rol = nombrerol;
         }

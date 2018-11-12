@@ -31,7 +31,7 @@ namespace PalcoNet
             }
         }
 
-        public SqlDataReader command(string query)
+        public SqlDataReader command_reader(string query)
         {
 
             SqlCommand sqlcommand = new SqlCommand();
@@ -44,6 +44,19 @@ namespace PalcoNet
             return exec;
         }
 
+        public int command_update(string query)
+        {
+
+            SqlCommand sqlcommand = new SqlCommand();
+
+            sqlcommand.Connection = this.connection;
+            sqlcommand.CommandText = query;
+            Console.WriteLine(query);
+            int resultado = sqlcommand.ExecuteNonQuery();
+
+            return resultado;
+        }
+
         public void close(string query)
         {
             connection.Close();
@@ -52,16 +65,14 @@ namespace PalcoNet
         }
 
         public List<Datos.Rol> getRoles(int user_id) {
-            SqlDataReader data = command("select id_rol from gd_esquema.usuario_rol where id_usuario = "+ user_id);
-            
+            SqlDataReader data = command_reader("select distinct id_rol,rol_nombre from gd_esquema.usuario_rol join gd_esquema.rol on id_rol = rol_id where id_usuario = "+ user_id);
             List<Datos.Rol> roles = new List<Datos.Rol>();
 
             if (data.HasRows)
             {
                 while (data.Read())
                 {
-                    int id_rol = data.GetInt32(0);
-                    SqlDataReader nombre_rol = command("select rol_nombre from gd_esquema.rol where rol_id = " + id_rol);
+                    Decimal id_rol = data.GetDecimal(0);
                     String nombre = data.GetString(1);
                     roles.Add(new Datos.Rol(id_rol, nombre));
                 }
@@ -69,6 +80,12 @@ namespace PalcoNet
 
             data.Close();
             return roles;
+        }
+
+        public int inhabilitarUsuario(string usuario_leido, int id_leido)
+        {
+            int resultado = command_update("update gd_esquema.usuario set usuario_baja_logica = 0 where usuario_id = " + id_leido);
+            return resultado;
         }
     }
 
