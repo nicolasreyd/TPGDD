@@ -1,10 +1,10 @@
 /* Script de creación inicial - TP 2C 2018 */
 
 
-create schema tpgdd -- Hay que cambiarlo por el verdadero nombre del esquema
+create schema gd_esquema -- Hay que cambiarlo por el verdadero nombre del esquema
 go
 
-create table tpgdd.usuario (
+create table gd_esquema.usuario (
 usuario_id int identity(1,1),
 usuario_username varchar(16) not null,
 usuario_password varchar(64) not null,
@@ -13,13 +13,13 @@ usuario_logins_fallidos numeric(1) not null default 0,
 usuario_baja_logica bit not null default 1
 )
 
-alter table tpgdd.usuario add constraint pk_usuario primary key (usuario_id)
-alter table tpgdd.usuario add constraint unq_username unique (usuario_username)
+alter table gd_esquema.usuario add constraint pk_usuario primary key (usuario_id)
+alter table gd_esquema.usuario add constraint unq_username unique (usuario_username)
 
 
 
 
-create table tpgdd.empresa (
+create table gd_esquema.empresa (
 empresa_id numeric(10) identity(1,1),
 usuario_id numeric(10),
 empresa_razon_social nvarchar(255) not null,
@@ -36,14 +36,14 @@ empresa_ciudad nvarchar(50),
 empresa_baja_logica bit not null default 1
 )
 
-alter table tpgdd.empresa add constraint pk_empresa primary key (empresa_id)
-alter table tpgdd.empresa add constraint fk_empresa_usuario foreign key (usuario_id) references tpgdd.usuario
-alter table tpgdd.empresa add constraint unq_razonsocial unique (empresa_razon_social)
-alter table tpgdd.empresa add constraint unq_cuit unique (empresa_cuit)
+alter table gd_esquema.empresa add constraint pk_empresa primary key (empresa_id)
+alter table gd_esquema.empresa add constraint fk_empresa_usuario foreign key (usuario_id) references gd_esquema.usuario
+alter table gd_esquema.empresa add constraint unq_razonsocial unique (empresa_razon_social)
+alter table gd_esquema.empresa add constraint unq_cuit unique (empresa_cuit)
 
 
 
-create table tpgdd.cliente (
+create table gd_esquema.cliente (
 cliente_id numeric(10) identity(1,1),
 usuario_id numeric(10),
 cliente_tipo_dni nvarchar(4), --No hay tipos de doc en la tabla maestra
@@ -63,83 +63,117 @@ cliente_fecha_creacion date not null default getdate(),
 cliente_baja_logica bit not null default 1
 )
 
-alter table tpgdd.cliente add constraint pk_cliente primary key (cliente_id)
-alter table tpgdd.cliente add constraint fk_cliente_usuario foreign key (usuario_id) references tpgdd.usuario
-alter table tpgdd.cliente add constraint unq_dni unique (cliente_tipo_dni,cliente_numero_dni)
---alter table tpgdd.cliente add constraint unq_cuil unique (cuil)
+alter table gd_esquema.cliente add constraint pk_cliente primary key (cliente_id)
+alter table gd_esquema.cliente add constraint fk_cliente_usuario foreign key (usuario_id) references gd_esquema.usuario
+alter table gd_esquema.cliente add constraint unq_dni unique (cliente_tipo_dni,cliente_numero_dni)
+--alter table gd_esquema.cliente add constraint unq_cuil unique (cuil)
+
+create table gd_esquema.tarjeta_credito (
+tarjeta_credito_id numeric(10) identity(1,1),
+numero numeric(18,0) not null,
+fec_vencimiento date not null,
+cliente_id numeric(10)
+)
+
+alter table gd_esquema.tarjeta_credito add constraint pk_tarjeta_credito primary key (tarjeta_credito_id)
+alter table gd_esquema.tarjeta_credito add constraint fk_cliente foreign key (cliente_id) references gd_esquema.cliente
+
+create table gd_esquema.producto (
+producto_id numeric(10) identity(1,1),
+descripcion nvarchar(255)
+)
+
+alter table gd_esquema.producto add constraint pk_producto primary key (producto_id)
+
+create table gd_esquema.premio (
+premio_id numeric(10) identity(1,1),
+puntos numeric(18,0) not null,
+id_producto numeric(10)
+)
+
+alter table gd_esquema.premio add constraint pk_premio primary key (premio_id)
+alter table gd_esquema.premio add constraint fk_productopremio foreign key (id_producto) references gd_esquema.producto
+
+create table gd_esquema.cliente_premio (
+id_premio numeric(10),
+id_cliente numeric(10)
+)
+
+alter table gd_esquema.cliente_premio add constraint fk_clientecliente_premio foreign key (id_cliente) references gd_esquema.cliente
+alter table gd_esquema.cliente_premio add constraint fk_premiocliente_premio foreign key (id_premio) references gd_esquema.premio
 
 
 
-create table tpgdd.cliente_puntos (
+create table gd_esquema.cliente_puntos (
 id numeric(10) identity(1,1), -- Es necesario?
 cliente_id numeric(10) not null,
 puntos numeric(10) not null default 0,
 fecha_vencimiento date -- Por poner algo, resta definir la logica de negocio detras de esto
 )
 
-alter table tpgdd.cliente_puntos add constraint pk_cliente_puntos primary key (id)
-alter table tpgdd.cliente_puntos add constraint fk_cliente_puntos foreign key (cliente_id) references tpgdd.cliente
+alter table gd_esquema.cliente_puntos add constraint pk_cliente_puntos primary key (id)
+alter table gd_esquema.cliente_puntos add constraint fk_cliente_puntos foreign key (cliente_id) references gd_esquema.cliente
 
 
 
-create table tpgdd.rol (
+create table gd_esquema.rol (
 rol_id numeric(10) identity(1,1),
 rol_nombre nvarchar(30) not null,
 rol_baja_logica bit not null default 1
 )
 
-alter table tpgdd.rol add constraint pk_rol primary key (rol_id)
-alter table tpgdd.rol add constraint unq_rolnombre unique (rol_nombre)
+alter table gd_esquema.rol add constraint pk_rol primary key (rol_id)
+alter table gd_esquema.rol add constraint unq_rolnombre unique (rol_nombre)
 
 
 
-create table tpgdd.funcionalidad (
+create table gd_esquema.funcionalidad (
 func_id numeric(10) identity(1,1),
 func_nombre nvarchar(100) not null
 )
 
-alter table tpgdd.funcionalidad add constraint pk_funcionalidad primary key (func_id)
-alter table tpgdd.funcionalidad add constraint unq_funcionalidadnombre unique (func_nombre)
+alter table gd_esquema.funcionalidad add constraint pk_funcionalidad primary key (func_id)
+alter table gd_esquema.funcionalidad add constraint unq_funcionalidadnombre unique (func_nombre)
 
 
 
-create table tpgdd.rol_funcionalidad (
+create table gd_esquema.rol_funcionalidad (
 id_rol numeric(10) not null,
 id_funcionalidad numeric(10) not null
 )
 
-alter table tpgdd.rol_funcionalidad add constraint fk_rol_rol foreign key (id_rol) references tpgdd.rol
-alter table tpgdd.rol_funcionalidad add constraint fk_rol_funcionalidad foreign key (id_funcionalidad) references tpgdd.funcionalidad
+alter table gd_esquema.rol_funcionalidad add constraint fk_rol_rol foreign key (id_rol) references gd_esquema.rol
+alter table gd_esquema.rol_funcionalidad add constraint fk_rol_funcionalidad foreign key (id_funcionalidad) references gd_esquema.funcionalidad
 
 
 
-create table tpgdd.usuario_rol (
+create table gd_esquema.usuario_rol (
 id_usuario numeric(10) not null,
 id_rol numeric(10) not null
 )
 
-alter table tpgdd.usuario_rol add constraint fk_usuario_usuario foreign key (id_usuario) references tpgdd.usuario
-alter table tpgdd.usuario_rol add constraint fk_usuario_rol foreign key (id_rol) references tpgdd.rol
+alter table gd_esquema.usuario_rol add constraint fk_usuario_usuario foreign key (id_usuario) references gd_esquema.usuario
+alter table gd_esquema.usuario_rol add constraint fk_usuario_rol foreign key (id_rol) references gd_esquema.rol
 
 
-create table tpgdd.rubro (
+create table gd_esquema.rubro (
 rubro_id numeric(10) identity(1,1),
 rubro_descripcion nvarchar(255)
 )
 
-alter table tpgdd.rubro add constraint pk_rubro primary key (rubro_id)
+alter table gd_esquema.rubro add constraint pk_rubro primary key (rubro_id)
 
 
-create table tpgdd.grado (
+create table gd_esquema.grado (
 grado_id numeric(1) identity(1,1),
 grado_nombre nvarchar (20),
 grado_comision numeric(10)
 )
 
-alter table tpgdd.grado add constraint pk_grado primary key (grado_id)
+alter table gd_esquema.grado add constraint pk_grado primary key (grado_id)
 
 
-create table tpgdd.publicacion (
+create table gd_esquema.publicacion (
 publicacion_id numeric(10) identity(1,1),
 id_espectaculo numeric(10),
 id_rubro numeric(10),
@@ -152,21 +186,21 @@ publicacion_descripcion nvarchar(255),
 publicacion_direccion nvarchar(255)
 )
 
-alter table tpgdd.publicacion add constraint pk_publicacion primary key (publicacion_id)
-alter table tpgdd.publicacion add constraint fk_publicacion_rubro foreign key (id_rubro) references tpgdd.rubro
-alter table tpgdd.publicacion add constraint fk_publicacion_grado foreign key (id_grado) references tpgdd.grado
-alter table tpgdd.publicacion add constraint fk_publicacion_responsable foreign key (id_responsable) references tpgdd.usuario
+alter table gd_esquema.publicacion add constraint pk_publicacion primary key (publicacion_id)
+alter table gd_esquema.publicacion add constraint fk_publicacion_rubro foreign key (id_rubro) references gd_esquema.rubro
+alter table gd_esquema.publicacion add constraint fk_publicacion_grado foreign key (id_grado) references gd_esquema.grado
+alter table gd_esquema.publicacion add constraint fk_publicacion_responsable foreign key (id_responsable) references gd_esquema.usuario
 
 
-create table tpgdd.ubicacion_tipo (
+create table gd_esquema.ubicacion_tipo (
 id numeric(10) not null,-- identity(1,1), --> La tabla maestra ya trae las claves
 descripcion nvarchar(30),
 )
 
-alter table tpgdd.ubicacion_tipo add constraint pk_ubicaciontipo primary key (id)
+alter table gd_esquema.ubicacion_tipo add constraint pk_ubicaciontipo primary key (id)
 
 
-create table tpgdd.ubicacion (
+create table gd_esquema.ubicacion (
 ubicacion_id numeric(10) identity(1,1),
 id_publicacion numeric(10),
 ubicacion_fila nvarchar(2),
@@ -176,12 +210,12 @@ id_tipo numeric(10), -- Lo normalicé, mandando los datos del tipo de ubicación
 ubicacion_sin_numerar bit --Lo movimos, estaba en ubicaicon_tipo
 )
 
-alter table tpgdd.ubicacion add constraint pk_ubicacion primary key (ubicacion_id)
-alter table tpgdd.ubicacion add constraint fk_ubicacion_publicacion foreign key (id_publicacion) references tpgdd.publicacion
-alter table tpgdd.ubicacion add constraint fk_ubicacion_tipo foreign key (id_tipo) references tpgdd.ubicacion_tipo
+alter table gd_esquema.ubicacion add constraint pk_ubicacion primary key (ubicacion_id)
+alter table gd_esquema.ubicacion add constraint fk_ubicacion_publicacion foreign key (id_publicacion) references gd_esquema.publicacion
+alter table gd_esquema.ubicacion add constraint fk_ubicacion_tipo foreign key (id_tipo) references gd_esquema.ubicacion_tipo
 
 
-create table tpgdd.compra (
+create table gd_esquema.compra (
 compra_id numeric(10) identity(1,1),
 id_publicacion numeric(10),
 id_usuario numeric(10), -- El DER dice cliente, pero entiendo que el que compra en definitiva es el usuario
@@ -190,39 +224,39 @@ compra_mail nvarchar(255),
 compra_importe_total numeric(10,2)
 )
 
-alter table tpgdd.compra add constraint pk_compra primary key (compra_id)
-alter table tpgdd.compra add constraint fk_compra_publicacion foreign key (id_publicacion) references tpgdd.compra
-alter table tpgdd.compra add constraint fk_compra_usuario foreign key (id_usuario) references tpgdd.usuario
+alter table gd_esquema.compra add constraint pk_compra primary key (compra_id)
+alter table gd_esquema.compra add constraint fk_compra_publicacion foreign key (id_publicacion) references gd_esquema.compra
+alter table gd_esquema.compra add constraint fk_compra_usuario foreign key (id_usuario) references gd_esquema.usuario
 
 
-create table tpgdd.compra_ubicacion (
+create table gd_esquema.compra_ubicacion (
 id_compra numeric(10),
 id_ubicacion numeric(10)
 )
 
-alter table tpgdd.compra_ubicacion add constraint fk_compraubicacion_compra foreign key (id_compra) references tpgdd.compra
-alter table tpgdd.compra_ubicacion add constraint fk_compraubicacion_ubicacion foreign key (id_ubicacion) references tpgdd.ubicacion
+alter table gd_esquema.compra_ubicacion add constraint fk_compraubicacion_compra foreign key (id_compra) references gd_esquema.compra
+alter table gd_esquema.compra_ubicacion add constraint fk_compraubicacion_ubicacion foreign key (id_ubicacion) references gd_esquema.ubicacion
 
 
-create table tpgdd.factura (
+create table gd_esquema.factura (
 factura_id numeric(10) identity(1,1),
 id_empresa numeric(10),
 factura_fecha smalldatetime
 )
 
-alter table tpgdd.factura add constraint pk_factura primary key (factura_id)
-alter table tpgdd.factura add constraint fk_factura_empresa foreign key (id_empresa) references tpgdd.empresa
+alter table gd_esquema.factura add constraint pk_factura primary key (factura_id)
+alter table gd_esquema.factura add constraint fk_factura_empresa foreign key (id_empresa) references gd_esquema.empresa
 
 
-create table tpgdd.factura_item (
+create table gd_esquema.factura_item (
 id numeric(10),
 id_compra numeric(10),
 id_factura numeric(10),
 comision numeric(10,2)
 )
 
-alter table tpgdd.factura_item add constraint fk_facturaitem_compra foreign key (id_compra) references tpgdd.compra
-alter table tpgdd.factura_item add constraint fk_facturaitem_factura foreign key (id_factura) references tpgdd.factura
+alter table gd_esquema.factura_item add constraint fk_facturaitem_compra foreign key (id_compra) references gd_esquema.compra
+alter table gd_esquema.factura_item add constraint fk_facturaitem_factura foreign key (id_factura) references gd_esquema.factura
 
 
 
@@ -232,7 +266,7 @@ alter table tpgdd.factura_item add constraint fk_facturaitem_factura foreign key
 
 -- Migracion clientes a usuarios
 
-insert into tpgdd.usuario (usuario_username,usuario_password,usuario_tipo)
+insert into gd_esquema.usuario (usuario_username,usuario_password,usuario_tipo)
 select DISTINCT concat('',cli_dni), 
 HASHBYTES('SHA2_256','123'),'cliente'
 from gd_esquema.Maestra 
@@ -242,7 +276,7 @@ where Cli_Dni is not null;
 
 -- Migracion empresas a usuarios
 
-insert into tpgdd.usuario (usuario_username,usuario_password,usuario_tipo)
+insert into gd_esquema.usuario (usuario_username,usuario_password,usuario_tipo)
 select DISTINCT concat('',REPLACE(espec_empresa_cuit,'-','')), 
 LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256','123'))),'empresa'
 from gd_esquema.Maestra 
@@ -252,10 +286,10 @@ where espec_empresa_cuit is not null;
 
 -- Migracion empresas
 
-insert into tpgdd.empresa (usuario_id,empresa_razon_social,empresa_cuit,empresa_fecha_creacion,
+insert into gd_esquema.empresa (usuario_id,empresa_razon_social,empresa_cuit,empresa_fecha_creacion,
 empresa_email,empresa_domicilio_calle,empresa_domicilio_numero,
 empresa_domicilio_piso,empresa_domicilio_departamento,empresa_codigo_postal)
-select (select usuario_id from tpgdd.usuario where usuario_username LIKE concat('',REPLACE(espec_empresa_cuit,'-',''))),
+select (select usuario_id from gd_esquema.usuario where usuario_username LIKE concat('',REPLACE(espec_empresa_cuit,'-',''))),
 espec_empresa_razon_social,
 espec_empresa_cuit,espec_empresa_fecha_Creacion,
 espec_empresa_mail,espec_empresa_dom_calle,espec_empresa_nro_calle,
@@ -270,7 +304,7 @@ order by 3
 
 -- Migracion clientes
 
-insert into tpgdd.cliente (usuario_id,cliente_numero_dni,cliente_apellido,cliente_nombre,cliente_fecha_nacimiento,cliente_email,cliente_domicilio_calle,cliente_domicilio_numero,cliente_domicilio_piso,cliente_domicilio_departamento,cliente_codigo_postal)
+insert into gd_esquema.cliente (usuario_id,cliente_numero_dni,cliente_apellido,cliente_nombre,cliente_fecha_nacimiento,cliente_email,cliente_domicilio_calle,cliente_domicilio_numero,cliente_domicilio_piso,cliente_domicilio_departamento,cliente_codigo_postal)
 select concat('',cli_dni)
 cli_dni, Cli_Apeliido, Cli_Nombre, Cli_Fecha_Nac,Cli_Mail,Cli_Dom_Calle,Cli_Nro_Calle,cli_piso,cli_depto,Cli_Cod_Postal
 from gd_esquema.Maestra
@@ -282,10 +316,10 @@ order by 1 asc
 
 -- Migracion Rubro
 
-INSERT INTO tpgdd.rubro (rubro_descripcion)
+INSERT INTO gd_esquema.rubro (rubro_descripcion)
 SELECT case Espectaculo_Rubro_Descripcion 
        when '' THEN 'Sin definir' end
-FROM tpgdd.Maestra
+FROM gd_esquema.Maestra
 WHERE Espectaculo_Rubro_Descripcion IS NOT NULL
 group by Espectaculo_Rubro_Descripcion 
 
@@ -294,7 +328,7 @@ group by Espectaculo_Rubro_Descripcion
 
 -- Migracion Roles
 
-insert into tpgdd.rol (rol_nombre, rol_baja_logica)
+insert into gd_esquema.rol (rol_nombre, rol_baja_logica)
 values ('Empresa', 1), 
 	   ('Administrativo', 1), 
 	   ('Cliente', 1)
@@ -303,7 +337,7 @@ values ('Empresa', 1),
 
 -- Migracion Funcionaliades
 
-insert into tpgdd.funcionalidad (func_nombre)
+insert into gd_esquema.funcionalidad (func_nombre)
 VALUES ('Login y seguridad'),
        ('Registro de Usuario'), 
 	   ('ABM de Cliente'), 
@@ -323,7 +357,7 @@ VALUES ('Login y seguridad'),
 -- Migracion tipos de ubicacion
 
 
-insert into tpgdd.ubicacion_tipo (id,descripcion)
+insert into gd_esquema.ubicacion_tipo (id,descripcion)
 select Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion from gd_esquema.Maestra
 group by Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion
 order by 1 asc
@@ -348,13 +382,13 @@ order by 1 asc
 
 --Migracion compra (desuso, no borrar hasta ver como meter el compra_importe_total en el procedure)
 
-insert into tpgdd.compra (id_publicacion, id_usuario, compra_medio_pago, compra_mail, compra_importe_total)
+insert into gd_esquema.compra (id_publicacion, id_usuario, compra_medio_pago, compra_mail, compra_importe_total)
 select id_publicacion, usuario_id, forma_pago_desc, cli_mail, 
-(select SUM(ubicacion_precio) from tpgdd.Maestra as m2 where concat('',m2.cli_dni) = usuario_username and m2.espectaculo_cod = id_espectaculo)
+(select SUM(ubicacion_precio) from gd_esquema.Maestra as m2 where concat('',m2.cli_dni) = usuario_username and m2.espectaculo_cod = id_espectaculo)
 
 from gd_esquema.Maestra
-join tpgdd.publicacion on espectaculo_cod = id_espectaculo
-join tpgdd.usuario on CONCAT('',cli_dni) = usuario_username
+join gd_esquema.publicacion on espectaculo_cod = id_espectaculo
+join gd_esquema.usuario on CONCAT('',cli_dni) = usuario_username
 where compra_cantidad is not null
 
 
