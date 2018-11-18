@@ -64,10 +64,10 @@ namespace PalcoNet
            
         }
 
-        public List<Datos.Rol> getRoles(int user_id) {
-            SqlDataReader data = command_reader("select distinct id_rol,rol_nombre from gd_esquema.usuario_rol join gd_esquema.rol on id_rol = rol_id where id_usuario = "+ user_id);
+        public List<Datos.Rol> getRoles(Decimal user_id) {
             List<Datos.Rol> roles = new List<Datos.Rol>();
-
+            SqlDataReader data = command_reader("select distinct id_rol,rol_nombre from gd_esquema.usuario_rol join gd_esquema.rol on id_rol = rol_id where id_usuario = "+ user_id);
+            
             if (data.HasRows)
             {
                 while (data.Read())
@@ -82,7 +82,24 @@ namespace PalcoNet
             return roles;
         }
 
-        public int inhabilitarUsuario(string usuario_leido, int id_leido)
+        public List<String> getFuncionalidades(Decimal id_rol) {
+            List<String> funcionalidades = new List<String>();
+            SqlDataReader data = command_reader("select func_nombre from gd_esquema.rol_funcionalidad r join gd_esquema.funcionalidad on r.id_funcionalidad = func_id where r.id_rol = " + id_rol);
+
+            if (data.HasRows)
+            {
+                while (data.Read())
+                {
+                    String funcionalidad = data.GetString(0);
+                    funcionalidades.Add(funcionalidad);
+                }
+            }
+
+
+            return funcionalidades;
+        }
+
+        public int inhabilitarUsuario(string usuario_leido, Decimal id_leido)
         {
             int resultado = command_update("update gd_esquema.usuario set usuario_baja_logica = 0 where usuario_id = " + id_leido);
             return resultado;

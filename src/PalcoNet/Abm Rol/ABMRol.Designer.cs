@@ -1,6 +1,6 @@
 ﻿namespace PalcoNet.Abm_Rol
 {
-    partial class Form1
+    partial class ABMRol
     {
         /// <summary>
         /// Required designer variable.

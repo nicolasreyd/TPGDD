@@ -263,8 +263,8 @@ comision numeric(10,2)
 -- Migracion clientes a usuarios
 
 insert into INNERJOIN.usuario (usuario_username,usuario_password,usuario_tipo)
-select DISTINCT concat('',cli_dni), 
-HASHBYTES('SHA2_256','123'),'cliente'
+select DISTINCT concat('',cli_dni),
+LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256','123'), 2)),'cliente'
 from gd_esquema.Maestra 
 where Cli_Dni is not null;
 
@@ -334,19 +334,19 @@ values ('Empresa', 1),
 -- Migracion Funcionaliades
 
 insert into INNERJOIN.funcionalidad (func_nombre)
-VALUES ('Login y seguridad'),
-       ('Registro de Usuario'), 
+VALUES ('Registro de Usuario'), 
 	   ('ABM de Cliente'), 
 	   ('ABM de Empresa de espectaculos'), 
 	   ('ABM de Categoria'), 
 	   ('ABM grado de publicacion'), 
 	   ('Generar Publicacion'), 
-	   ('Editar Publicación'), 
+	   ('Editar Publicacion'), 
 	   ('Comprar'), 
 	   ('Historial del cliente'),
 	   ('Canje y administración de puntos'),
 	   ('Generar Pago de comisiones'),
-	   ('Listado Estadístico')
+	   ('Listado Estadistico'),
+	   ('ABM de Rol')
 
 --Probado OK
 

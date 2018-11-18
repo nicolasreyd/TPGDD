@@ -46,10 +46,25 @@ namespace PalcoNet.Login
 
         private void ButtonOKRoles_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("select rol_id,rol_nombre from gd_esquema.Rol where rol_nombre = " + this.comboRoles.SelectedItem);
             SqlDataReader data = App.db.command_reader("select rol_id,rol_nombre from gd_esquema.Rol where rol_nombre = '" + this.comboRoles.SelectedItem + "'");
-            App.currentRol = new Datos.Rol(data.GetDecimal(0), data.GetString(1));
-            data.Close();
+            if (data.Read())
+            {
+                //Datos leidos
+                String descripcion_leida = data.GetString(1);
+                Decimal id_leido = data.GetDecimal(0);
+
+                data.Close();
+                App.currentRol = new Datos.Rol(id_leido,descripcion_leida);
+
+                this.Hide();
+                MenuPrincipal menu = new MenuPrincipal();
+                menu.Show();
+            }
+            else
+            {
+                data.Close();
+                MessageBox.Show("Error al consultar roles");
+            }
 
         }
     }

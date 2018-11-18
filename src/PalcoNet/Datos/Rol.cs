@@ -20,5 +20,10 @@ namespace PalcoNet.Datos
             id_rol = idrol;
             nombre_rol = nombrerol;
         }
+
+        public List<String> getFuncionalidades()
+        {
+            return App.db.getFuncionalidades(this.id_rol);
+        }
     }
 }

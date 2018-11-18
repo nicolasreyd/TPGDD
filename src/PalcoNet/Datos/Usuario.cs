@@ -10,10 +10,10 @@ namespace PalcoNet.Datos
     {
 
         public string username;
-        public int user_id;
+        public Decimal user_id;
   
 
-        public Usuario(int id_usuario, String user_name)
+        public Usuario(Decimal id_usuario, String user_name)
         {
             this.username = user_name;
             this.user_id = id_usuario;

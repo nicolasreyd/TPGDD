@@ -28,32 +28,191 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.ABMRol_Button = new System.Windows.Forms.Button();
+            this.RegistroUsuario_Button = new System.Windows.Forms.Button();
+            this.ABMCliente_Button = new System.Windows.Forms.Button();
+            this.ABMEmpresaEspec_Button = new System.Windows.Forms.Button();
+            this.ABMCategoria_Button = new System.Windows.Forms.Button();
+            this.ABMGradoPubli_Button = new System.Windows.Forms.Button();
+            this.GenerarPulica_Button = new System.Windows.Forms.Button();
+            this.EditarPubli_Button = new System.Windows.Forms.Button();
+            this.Comprar_Button = new System.Windows.Forms.Button();
+            this.HistorialCli_Button = new System.Windows.Forms.Button();
+            this.AdminPuntos_Button = new System.Windows.Forms.Button();
+            this.PagoComisiones_Button = new System.Windows.Forms.Button();
+            this.ListadoEstadistico_Button = new System.Windows.Forms.Button();
+            this.CerrarSesion_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // ABMRol_Button
             // 
-            this.button1.Location = new System.Drawing.Point(95, 102);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(109, 40);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.ABMRol_Button.Location = new System.Drawing.Point(36, 33);
+            this.ABMRol_Button.Name = "ABMRol_Button";
+            this.ABMRol_Button.Size = new System.Drawing.Size(239, 35);
+            this.ABMRol_Button.TabIndex = 0;
+            this.ABMRol_Button.Text = "ABM Rol";
+            this.ABMRol_Button.UseVisualStyleBackColor = true;
+            this.ABMRol_Button.Click += new System.EventHandler(this.ABMRol_Button_Click);
+            // 
+            // RegistroUsuario_Button
+            // 
+            this.RegistroUsuario_Button.Location = new System.Drawing.Point(36, 94);
+            this.RegistroUsuario_Button.Name = "RegistroUsuario_Button";
+            this.RegistroUsuario_Button.Size = new System.Drawing.Size(239, 40);
+            this.RegistroUsuario_Button.TabIndex = 1;
+            this.RegistroUsuario_Button.Text = "Registro Usuario";
+            this.RegistroUsuario_Button.UseVisualStyleBackColor = true;
+            // 
+            // ABMCliente_Button
+            // 
+            this.ABMCliente_Button.Location = new System.Drawing.Point(36, 168);
+            this.ABMCliente_Button.Name = "ABMCliente_Button";
+            this.ABMCliente_Button.Size = new System.Drawing.Size(239, 37);
+            this.ABMCliente_Button.TabIndex = 2;
+            this.ABMCliente_Button.Text = "ABM Cliente";
+            this.ABMCliente_Button.UseVisualStyleBackColor = true;
+            // 
+            // ABMEmpresaEspec_Button
+            // 
+            this.ABMEmpresaEspec_Button.Location = new System.Drawing.Point(36, 231);
+            this.ABMEmpresaEspec_Button.Name = "ABMEmpresaEspec_Button";
+            this.ABMEmpresaEspec_Button.Size = new System.Drawing.Size(239, 39);
+            this.ABMEmpresaEspec_Button.TabIndex = 3;
+            this.ABMEmpresaEspec_Button.Text = "ABM Empresa Espectaculos";
+            this.ABMEmpresaEspec_Button.UseVisualStyleBackColor = true;
+            // 
+            // ABMCategoria_Button
+            // 
+            this.ABMCategoria_Button.Location = new System.Drawing.Point(36, 296);
+            this.ABMCategoria_Button.Name = "ABMCategoria_Button";
+            this.ABMCategoria_Button.Size = new System.Drawing.Size(239, 39);
+            this.ABMCategoria_Button.TabIndex = 4;
+            this.ABMCategoria_Button.Text = "ABM Categoria";
+            this.ABMCategoria_Button.UseVisualStyleBackColor = true;
+            this.ABMCategoria_Button.Click += new System.EventHandler(this.ABMCategoria_Button_Click);
+            // 
+            // ABMGradoPubli_Button
+            // 
+            this.ABMGradoPubli_Button.Location = new System.Drawing.Point(36, 367);
+            this.ABMGradoPubli_Button.Name = "ABMGradoPubli_Button";
+            this.ABMGradoPubli_Button.Size = new System.Drawing.Size(239, 40);
+            this.ABMGradoPubli_Button.TabIndex = 5;
+            this.ABMGradoPubli_Button.Text = "ABM Grado Publicacion";
+            this.ABMGradoPubli_Button.UseVisualStyleBackColor = true;
+            // 
+            // GenerarPulica_Button
+            // 
+            this.GenerarPulica_Button.Location = new System.Drawing.Point(36, 430);
+            this.GenerarPulica_Button.Name = "GenerarPulica_Button";
+            this.GenerarPulica_Button.Size = new System.Drawing.Size(239, 38);
+            this.GenerarPulica_Button.TabIndex = 6;
+            this.GenerarPulica_Button.Text = "Generar Publicacion";
+            this.GenerarPulica_Button.UseVisualStyleBackColor = true;
+            // 
+            // EditarPubli_Button
+            // 
+            this.EditarPubli_Button.Location = new System.Drawing.Point(336, 33);
+            this.EditarPubli_Button.Name = "EditarPubli_Button";
+            this.EditarPubli_Button.Size = new System.Drawing.Size(236, 35);
+            this.EditarPubli_Button.TabIndex = 7;
+            this.EditarPubli_Button.Text = "Editar Publicacion";
+            this.EditarPubli_Button.UseVisualStyleBackColor = true;
+            // 
+            // Comprar_Button
+            // 
+            this.Comprar_Button.Location = new System.Drawing.Point(336, 94);
+            this.Comprar_Button.Name = "Comprar_Button";
+            this.Comprar_Button.Size = new System.Drawing.Size(236, 40);
+            this.Comprar_Button.TabIndex = 8;
+            this.Comprar_Button.Text = "Comprar";
+            this.Comprar_Button.UseVisualStyleBackColor = true;
+            // 
+            // HistorialCli_Button
+            // 
+            this.HistorialCli_Button.Location = new System.Drawing.Point(336, 168);
+            this.HistorialCli_Button.Name = "HistorialCli_Button";
+            this.HistorialCli_Button.Size = new System.Drawing.Size(236, 37);
+            this.HistorialCli_Button.TabIndex = 9;
+            this.HistorialCli_Button.Text = "Historial Cliente";
+            this.HistorialCli_Button.UseVisualStyleBackColor = true;
+            // 
+            // AdminPuntos_Button
+            // 
+            this.AdminPuntos_Button.Location = new System.Drawing.Point(336, 231);
+            this.AdminPuntos_Button.Name = "AdminPuntos_Button";
+            this.AdminPuntos_Button.Size = new System.Drawing.Size(236, 39);
+            this.AdminPuntos_Button.TabIndex = 10;
+            this.AdminPuntos_Button.Text = "Canje y Admin de Puntos";
+            this.AdminPuntos_Button.UseVisualStyleBackColor = true;
+            // 
+            // PagoComisiones_Button
+            // 
+            this.PagoComisiones_Button.Location = new System.Drawing.Point(336, 296);
+            this.PagoComisiones_Button.Name = "PagoComisiones_Button";
+            this.PagoComisiones_Button.Size = new System.Drawing.Size(236, 39);
+            this.PagoComisiones_Button.TabIndex = 11;
+            this.PagoComisiones_Button.Text = "Generar Pago Comisiones";
+            this.PagoComisiones_Button.UseVisualStyleBackColor = true;
+            // 
+            // ListadoEstadistico_Button
+            // 
+            this.ListadoEstadistico_Button.Location = new System.Drawing.Point(336, 367);
+            this.ListadoEstadistico_Button.Name = "ListadoEstadistico_Button";
+            this.ListadoEstadistico_Button.Size = new System.Drawing.Size(236, 40);
+            this.ListadoEstadistico_Button.TabIndex = 12;
+            this.ListadoEstadistico_Button.Text = "Listado Estadistico";
+            this.ListadoEstadistico_Button.UseVisualStyleBackColor = true;
+            // 
+            // CerrarSesion_button
+            // 
+            this.CerrarSesion_button.Location = new System.Drawing.Point(425, 464);
+            this.CerrarSesion_button.Name = "CerrarSesion_button";
+            this.CerrarSesion_button.Size = new System.Drawing.Size(147, 36);
+            this.CerrarSesion_button.TabIndex = 13;
+            this.CerrarSesion_button.Text = "Cerrar Sesion";
+            this.CerrarSesion_button.UseVisualStyleBackColor = true;
             // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(545, 511);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(617, 512);
+            this.Controls.Add(this.CerrarSesion_button);
+            this.Controls.Add(this.ListadoEstadistico_Button);
+            this.Controls.Add(this.PagoComisiones_Button);
+            this.Controls.Add(this.AdminPuntos_Button);
+            this.Controls.Add(this.HistorialCli_Button);
+            this.Controls.Add(this.Comprar_Button);
+            this.Controls.Add(this.EditarPubli_Button);
+            this.Controls.Add(this.GenerarPulica_Button);
+            this.Controls.Add(this.ABMGradoPubli_Button);
+            this.Controls.Add(this.ABMCategoria_Button);
+            this.Controls.Add(this.ABMEmpresaEspec_Button);
+            this.Controls.Add(this.ABMCliente_Button);
+            this.Controls.Add(this.RegistroUsuario_Button);
+            this.Controls.Add(this.ABMRol_Button);
             this.Name = "MenuPrincipal";
             this.Text = "MenuPrincipal";
+            this.Load += new System.EventHandler(this.MenuPrincipal_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button ABMRol_Button;
+        private System.Windows.Forms.Button RegistroUsuario_Button;
+        private System.Windows.Forms.Button ABMCliente_Button;
+        private System.Windows.Forms.Button ABMEmpresaEspec_Button;
+        private System.Windows.Forms.Button ABMCategoria_Button;
+        private System.Windows.Forms.Button ABMGradoPubli_Button;
+        private System.Windows.Forms.Button GenerarPulica_Button;
+        private System.Windows.Forms.Button EditarPubli_Button;
+        private System.Windows.Forms.Button Comprar_Button;
+        private System.Windows.Forms.Button HistorialCli_Button;
+        private System.Windows.Forms.Button AdminPuntos_Button;
+        private System.Windows.Forms.Button PagoComisiones_Button;
+        private System.Windows.Forms.Button ListadoEstadistico_Button;
+        private System.Windows.Forms.Button CerrarSesion_button;
     }
 }

@@ -68,7 +68,7 @@ namespace PalcoNet.Login
             {
                 //Datos leidos
                 String usuario_leido = data.GetString(1);
-                int id_leido = data.GetInt32(0);
+                Decimal id_leido = data.GetDecimal(0);
                 String password_leida = data.GetString(2);
                 Boolean baja_leida = data.GetBoolean(5);
 
@@ -91,7 +91,7 @@ namespace PalcoNet.Login
 
         }
 
-        private void user_validate(String usuario_leido, int id_leido, String password_leida, Boolean baja_leida) 
+        private void user_validate(String usuario_leido, Decimal id_leido, String password_leida, Boolean baja_leida) 
         {
 
             if(baja_leida == false){
