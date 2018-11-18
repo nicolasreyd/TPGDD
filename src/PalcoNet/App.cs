@@ -17,11 +17,13 @@ namespace PalcoNet
         public static Login.Login login;
         public static Datos.Usuario currentUser;
         public static Datos.Rol currentRol;
+        public static AdminApp admin;
 
 
         public App()
         {
             InitializeComponent();
+            
         }
 
         private void iralogin_Click(object sender, EventArgs e)

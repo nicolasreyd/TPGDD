@@ -16,5 +16,10 @@ namespace PalcoNet.Abm_Rol
         {
             InitializeComponent();
         }
+
+        private void ABMRol_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

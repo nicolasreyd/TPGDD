@@ -95,7 +95,7 @@ namespace PalcoNet
                 }
             }
 
-
+            data.Close();
             return funcionalidades;
         }
 

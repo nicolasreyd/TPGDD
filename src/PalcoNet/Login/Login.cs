@@ -109,6 +109,7 @@ namespace PalcoNet.Login
 
             if (password_match(password_leida))
             {
+                this.password = "";
                 Console.WriteLine("Cantidad de roles");
                 App.currentUser = new Datos.Usuario(id_leido,this.username);
                 Console.WriteLine(App.currentUser.getRoles().Count);
@@ -133,6 +134,7 @@ namespace PalcoNet.Login
             else {
                 MessageBox.Show("contraseña incorrecta");
                 intentos_login++;
+                this.password = "";
                 if (intentos_login >= 3)
                 {
                     App.db.inhabilitarUsuario(usuario_leido, id_leido);

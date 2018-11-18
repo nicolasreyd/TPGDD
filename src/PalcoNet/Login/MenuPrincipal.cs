@@ -122,12 +122,20 @@ namespace PalcoNet.Login
 
         private void ABMRol_Button_Click(object sender, EventArgs e)
         {
-            //ABMRol abm = new ABMRol();
+            this.Hide();
+            Abm_Rol.ABMRol abm = new Abm_Rol.ABMRol();
+            abm.Show();
         }
 
         private void ABMCategoria_Button_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void CerrarSesion_button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            App.admin.cerrar_sesion();
         }
     }
 }
