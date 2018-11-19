@@ -35,13 +35,15 @@
             this.password_textbox = new System.Windows.Forms.TextBox();
             this.login_button = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // user_label
             // 
             this.user_label.AutoSize = true;
-            this.user_label.Location = new System.Drawing.Point(33, 71);
+            this.user_label.Location = new System.Drawing.Point(23, 47);
             this.user_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.user_label.MaximumSize = new System.Drawing.Size(150, 154);
             this.user_label.Name = "user_label";
@@ -52,7 +54,7 @@
             // 
             // username_textbox
             // 
-            this.username_textbox.Location = new System.Drawing.Point(160, 66);
+            this.username_textbox.Location = new System.Drawing.Point(138, 41);
             this.username_textbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.username_textbox.Name = "username_textbox";
             this.username_textbox.Size = new System.Drawing.Size(163, 26);
@@ -62,7 +64,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(38, 135);
+            this.label1.Location = new System.Drawing.Point(23, 103);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 20);
@@ -72,7 +74,7 @@
             // 
             // password_textbox
             // 
-            this.password_textbox.Location = new System.Drawing.Point(160, 131);
+            this.password_textbox.Location = new System.Drawing.Point(138, 97);
             this.password_textbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.password_textbox.Name = "password_textbox";
             this.password_textbox.Size = new System.Drawing.Size(163, 26);
@@ -81,10 +83,10 @@
             // 
             // login_button
             // 
-            this.login_button.Location = new System.Drawing.Point(160, 197);
+            this.login_button.Location = new System.Drawing.Point(186, 142);
             this.login_button.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.login_button.Name = "login_button";
-            this.login_button.Size = new System.Drawing.Size(130, 42);
+            this.login_button.Size = new System.Drawing.Size(115, 33);
             this.login_button.TabIndex = 4;
             this.login_button.Text = "Login";
             this.login_button.UseVisualStyleBackColor = true;
@@ -94,23 +96,34 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.user_label);
+            this.groupBox1.Controls.Add(this.login_button);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.password_textbox);
+            this.groupBox1.Controls.Add(this.username_textbox);
+            this.groupBox1.Location = new System.Drawing.Point(73, 37);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(390, 206);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Login";
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(456, 275);
-            this.Controls.Add(this.login_button);
-            this.Controls.Add(this.password_textbox);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.username_textbox);
-            this.Controls.Add(this.user_label);
+            this.ClientSize = new System.Drawing.Size(537, 288);
+            this.Controls.Add(this.groupBox1);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Login";
-            this.Text = "Login";
+            this.Text = "PalcoNet | Login";
             this.Load += new System.EventHandler(this.Login_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -122,5 +135,6 @@
         private System.Windows.Forms.TextBox password_textbox;
         private System.Windows.Forms.Button login_button;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

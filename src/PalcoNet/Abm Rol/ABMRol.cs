@@ -21,5 +21,20 @@ namespace PalcoNet.Abm_Rol
         {
 
         }
+
+        private void RolAlta_Button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Alta_Rol alta = new Alta_Rol();
+            alta.Show();
+
+        }
+
+        private void volver_menuprincipal_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            Login.MenuPrincipal menu = new Login.MenuPrincipal();
+            menu.Show();
+        }
     }
 }

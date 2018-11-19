@@ -57,6 +57,22 @@ namespace PalcoNet
             return resultado;
         }
 
+        public Decimal command_insert(string query)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+
+            sqlcommand.Connection = this.connection;
+            sqlcommand.CommandText = query;
+            Console.WriteLine(query);
+            Decimal resultado = Convert.ToDecimal(sqlcommand.ExecuteScalar());
+
+            if (resultado == 0) {
+                return -1;
+            }
+
+            return resultado;
+        }
+
         public void close(string query)
         {
             connection.Close();
@@ -99,10 +115,55 @@ namespace PalcoNet
             return funcionalidades;
         }
 
+
         public int inhabilitarUsuario(string usuario_leido, Decimal id_leido)
         {
             int resultado = command_update("update gd_esquema.usuario set usuario_baja_logica = 0 where usuario_id = " + id_leido);
             return resultado;
+        }
+
+        public List<Datos.Funcionalidad> getFuncionalidadesTotales()
+        {
+            List<Datos.Funcionalidad> funcionalidades = new List<Datos.Funcionalidad>();
+            SqlDataReader data = command_reader("select * from gd_esquema.funcionalidad");
+
+            if (data.HasRows)
+            {
+                while (data.Read())
+                {
+                    //Datos leidos
+                    Datos.Funcionalidad funcionalidad = new Datos.Funcionalidad(data.GetDecimal(0), data.GetString(1));
+                    funcionalidades.Add(funcionalidad);
+                }
+            }
+
+            data.Close();
+            return funcionalidades;
+        }
+
+        public int agregar_nuevo_rol(String nombre_alta, List<Datos.Funcionalidad> funcionalidades)
+        {
+            SqlCommand command;
+            Decimal id_generado = command_insert("insert into gd_esquema.rol values ('" + nombre_alta + "', 1); select SCOPE_IDENTITY()");
+            if (id_generado < 0)
+            {
+                return -1;
+            }
+            else {
+            foreach(Datos.Funcionalidad funcionalidad in funcionalidades){
+
+                command = new SqlCommand("insert into gd_esquema.rol_funcionalidad values(@id_rol,@funcionalidad_id)", this.connection);
+                command.Parameters.AddWithValue("@id_rol", id_generado);
+                command.Parameters.AddWithValue("@funcionalidad_id", funcionalidad.id);
+
+                command.ExecuteNonQuery();
+                
+
+            }
+            return 1;
+            }
+
+
         }
     }
 
