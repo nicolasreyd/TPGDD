@@ -6,37 +6,36 @@ using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Data;
 using System.Drawing;
-using System.Configuration;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace PalcoNet
 {
     public class DBOperations
     {
         private SqlConnection connection;
+        private const string ConnectionKey = "conexion";
 
+        private static string ConnectionString
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.ConnectionStrings[ConnectionKey].ConnectionString;
+            }
+        }
 
         public DBOperations()
         {
-
-            try
-            {
-                this.connection = new SqlConnection("Data Source=.\\SQLSERVER2012;Initial Catalog=GD2C2018;user=gdEspectaculos2018;password=gd2019");
-                this.connection.Open();
-                Console.WriteLine("Conectando a GD2C2018");
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Error al conectar");
-            }
         }
 
         public SqlDataReader command_reader(string query)
         {
-
+            Console.WriteLine(ConnectionString);
             SqlCommand sqlcommand = new SqlCommand();
-
+            connection = new SqlConnection(ConnectionString);
+            connection.Open();
             sqlcommand.Connection = this.connection;
+ 
             sqlcommand.CommandText = query;
             Console.WriteLine(query);
 
@@ -48,20 +47,23 @@ namespace PalcoNet
         {
 
             SqlCommand sqlcommand = new SqlCommand();
-
+            connection = new SqlConnection(ConnectionString);
+            connection.Open();
             sqlcommand.Connection = this.connection;
+
             sqlcommand.CommandText = query;
             Console.WriteLine(query);
             int resultado = sqlcommand.ExecuteNonQuery();
-
             return resultado;
         }
 
         public Decimal command_insert(string query)
         {
             SqlCommand sqlcommand = new SqlCommand();
-
+            connection = new SqlConnection(ConnectionString);
+            connection.Open();
             sqlcommand.Connection = this.connection;
+
             sqlcommand.CommandText = query;
             Console.WriteLine(query);
             Decimal resultado = Convert.ToDecimal(sqlcommand.ExecuteScalar());
