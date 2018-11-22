@@ -15,17 +15,27 @@ namespace PalcoNet.Abm_Rol
     {
 
         Herramientas.Funcionalidades_Pantallas func;
+        String nombre_filtro;
+        
 
         public Modificacion_Rol()
         {
             InitializeComponent();
             llenar_tabla();
             func = new Herramientas.Funcionalidades_Pantallas();
+            
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            this.Hide();
 
+            Decimal id = Convert.ToDecimal(dataGridView1.Rows[e.RowIndex].Cells[0].Value);
+
+            using (var form2 = new Modificacion_Formulario(id))
+            {
+                form2.ShowDialog();
+            }
         }
 
         private void llenar_tabla() {
@@ -42,7 +52,6 @@ namespace PalcoNet.Abm_Rol
            this.dataGridView1.AutoSize = true;
 
            //Oculto la columna de pk y baja logica
-           this.dataGridView1.Columns[0].Visible = false;
            this.dataGridView1.Columns[2].Visible = false;
 
 
@@ -56,6 +65,44 @@ namespace PalcoNet.Abm_Rol
         private void Limpiar_Button_Click(object sender, EventArgs e)
         {
             func.Limpiar(this);
+        }
+
+        private void Modificacion_Rol_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Hide();
+
+            using (var abmRol = new ABMRol())
+            {
+                abmRol.ShowDialog();
+            }
+
+            e.Cancel = true;
+        }
+
+        private void nombre_Textbox_TextChanged(object sender, EventArgs e)
+        {
+            this.nombre_filtro = nombre_Textbox.Text;
+        }
+
+        private void Buscar_Button_Click(object sender, EventArgs e)
+        {   
+            
+            
+            SqlDataAdapter data;
+            if (nombre_filtro == null)
+            {
+                 data = App.db.getTablaRol();
+            }
+            else { 
+                 data = App.db.getRolByName(nombre_filtro);
+            }
+
+            DataTable tabla = new DataTable();
+            data.Fill(tabla);
+
+            this.dataGridView1.DataSource = tabla;
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
     }
 }

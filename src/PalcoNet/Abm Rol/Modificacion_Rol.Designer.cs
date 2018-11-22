@@ -64,6 +64,7 @@
             this.nombre_Textbox.Name = "nombre_Textbox";
             this.nombre_Textbox.Size = new System.Drawing.Size(100, 20);
             this.nombre_Textbox.TabIndex = 0;
+            this.nombre_Textbox.TextChanged += new System.EventHandler(this.nombre_Textbox_TextChanged);
             // 
             // Limpiar_Button
             // 
@@ -83,6 +84,7 @@
             this.Buscar_Button.TabIndex = 2;
             this.Buscar_Button.Text = "Buscar";
             this.Buscar_Button.UseVisualStyleBackColor = true;
+            this.Buscar_Button.Click += new System.EventHandler(this.Buscar_Button_Click);
             // 
             // dataGridView1
             // 
@@ -104,6 +106,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "Modificacion_Rol";
             this.Text = "Modificacion_Rol";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Modificacion_Rol_FormClosing);
             this.Load += new System.EventHandler(this.Modificacion_Rol_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

@@ -178,6 +178,17 @@ namespace PalcoNet
 
             return adapter;
         }
+
+        public SqlDataAdapter getRolByName(String nombre)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            SqlCommand query = new SqlCommand("select * from gd_esquema.rol where rol_nombre LIKE '"+nombre+"'", connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
+        }
     }
 
  
