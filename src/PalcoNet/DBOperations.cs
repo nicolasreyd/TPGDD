@@ -30,7 +30,7 @@ namespace PalcoNet
 
         public SqlDataReader command_reader(string query)
         {
-            Console.WriteLine(ConnectionString);
+            
             SqlCommand sqlcommand = new SqlCommand();
             connection = new SqlConnection(ConnectionString);
             connection.Open();
@@ -166,6 +166,17 @@ namespace PalcoNet
             }
 
 
+        }
+
+        public SqlDataAdapter getTablaRol()
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            SqlCommand query = new SqlCommand("select * from gd_esquema.rol", connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
         }
     }
 

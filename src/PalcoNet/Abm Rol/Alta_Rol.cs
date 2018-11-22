@@ -15,11 +15,13 @@ namespace PalcoNet.Abm_Rol
 
         private String nombre_alta;
         List<Datos.Funcionalidad> funcionalidades_seleccionadas = new List<Datos.Funcionalidad>();
+        Herramientas.Funcionalidades_Pantallas funcionalidades;
 
 
         public Alta_Rol()
         {
             InitializeComponent();
+            funcionalidades = new Herramientas.Funcionalidades_Pantallas();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -103,6 +105,19 @@ private void completar_listbox(List<Datos.Funcionalidad> funcionalidades)
             }
                 
             return funcionalidades;
+        }
+
+        private void Limpiar_Button_Click(object sender, EventArgs e)
+        {
+            
+            funcionalidades.Limpiar(this);
+            for (int i = 0; i < funcionalidades_checklist.Items.Count; i++)
+            {
+
+                funcionalidades_checklist.SetItemChecked(i, false);
+
+            }
+           
         }
     }
 }

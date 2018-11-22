@@ -75,6 +75,12 @@
     <Compile Include="Abm Rol\Alta_Rol.Designer.cs">
       <DependentUpon>Alta_Rol.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Rol\Modificacion_Rol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Rol\Modificacion_Rol.Designer.cs">
+      <DependentUpon>Modificacion_Rol.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Rubro\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +110,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Herramientas\Encrypter.cs" />
+    <Compile Include="Herramientas\Funcionalidades_Pantallas.cs" />
     <Compile Include="Login\MenuPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\Alta_Rol.resx">
       <DependentUpon>Alta_Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Rol\Modificacion_Rol.resx">
+      <DependentUpon>Modificacion_Rol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>

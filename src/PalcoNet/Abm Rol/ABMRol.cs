@@ -36,5 +36,12 @@ namespace PalcoNet.Abm_Rol
             Login.MenuPrincipal menu = new Login.MenuPrincipal();
             menu.Show();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Modificacion_Rol modific = new Modificacion_Rol();
+            modific.Show();
+        }
     }
 }
