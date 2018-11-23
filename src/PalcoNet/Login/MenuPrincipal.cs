@@ -20,11 +20,11 @@ namespace PalcoNet.Login
         public void validar_funcionalidades_disp()
         {
 
-            List<String> funcionalidades_permitidas = App.currentRol.getFuncionalidades();
+            List<Datos.Funcionalidad> funcionalidades_permitidas = App.currentRol.getFuncionalidades();
             deshabilitar_todos_botones();
-            foreach (String funcionalidad in funcionalidades_permitidas)
+            foreach (Datos.Funcionalidad funcionalidad in funcionalidades_permitidas)
             {
-                switch(funcionalidad){
+                switch(funcionalidad.nombre){
                     
                     case "ABM de Rol":
                         ABMRol_Button.Enabled = true;

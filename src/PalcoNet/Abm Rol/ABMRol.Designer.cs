@@ -42,9 +42,9 @@
             this.groupBox1.Controls.Add(this.RolBaja_Button);
             this.groupBox1.Controls.Add(this.RolAlta_Button);
             this.groupBox1.Location = new System.Drawing.Point(24, 20);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(198, 177);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
@@ -53,7 +53,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(57, 129);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(84, 25);
             this.button1.TabIndex = 2;
@@ -64,7 +64,7 @@
             // RolBaja_Button
             // 
             this.RolBaja_Button.Location = new System.Drawing.Point(57, 83);
-            this.RolBaja_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RolBaja_Button.Margin = new System.Windows.Forms.Padding(2);
             this.RolBaja_Button.Name = "RolBaja_Button";
             this.RolBaja_Button.Size = new System.Drawing.Size(84, 24);
             this.RolBaja_Button.TabIndex = 1;
@@ -74,7 +74,7 @@
             // RolAlta_Button
             // 
             this.RolAlta_Button.Location = new System.Drawing.Point(57, 36);
-            this.RolAlta_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RolAlta_Button.Margin = new System.Windows.Forms.Padding(2);
             this.RolAlta_Button.Name = "RolAlta_Button";
             this.RolAlta_Button.Size = new System.Drawing.Size(84, 23);
             this.RolAlta_Button.TabIndex = 0;
@@ -101,9 +101,9 @@
             this.ClientSize = new System.Drawing.Size(259, 227);
             this.Controls.Add(this.volver_menuprincipal);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ABMRol";
-            this.Text = "Form1";
+            this.Text = "ABM Rol";
             this.Load += new System.EventHandler(this.ABMRol_Load);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);

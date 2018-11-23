@@ -23,5 +23,6 @@ namespace PalcoNet.Datos
         {
             return App.db.getRoles(this.user_id);
         }
+
     }
 }

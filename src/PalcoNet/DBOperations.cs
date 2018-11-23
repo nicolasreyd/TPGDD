@@ -100,15 +100,15 @@ namespace PalcoNet
             return roles;
         }
 
-        public List<String> getFuncionalidades(Decimal id_rol) {
-            List<String> funcionalidades = new List<String>();
-            SqlDataReader data = command_reader("select func_nombre from gd_esquema.rol_funcionalidad r join gd_esquema.funcionalidad on r.id_funcionalidad = func_id where r.id_rol = " + id_rol);
+        public List<Datos.Funcionalidad> getFuncionalidades(Decimal id_rol) {
+            List<Datos.Funcionalidad> funcionalidades = new List<Datos.Funcionalidad>();
+            SqlDataReader data = command_reader("select func_id,func_nombre from gd_esquema.rol_funcionalidad r join gd_esquema.funcionalidad on r.id_funcionalidad = func_id where r.id_rol = " + id_rol);
 
             if (data.HasRows)
             {
                 while (data.Read())
                 {
-                    String funcionalidad = data.GetString(0);
+                    Datos.Funcionalidad funcionalidad = new Datos.Funcionalidad(data.GetDecimal(0), data.GetString(1));
                     funcionalidades.Add(funcionalidad);
                 }
             }
@@ -188,6 +188,64 @@ namespace PalcoNet
             SqlDataAdapter adapter = new SqlDataAdapter(query);
 
             return adapter;
+        }
+
+        public List<Datos.Funcionalidad> getMissingFuncionalidades(Decimal rol_id)
+        {
+            List<Datos.Funcionalidad> funcionalidades = new List<Datos.Funcionalidad>();
+            SqlDataReader data = command_reader("select distinct func_id,func_nombre from gd_esquema.funcionalidad EXCEPT select distinct func_id,func_nombre from gd_esquema.funcionalidad join gd_esquema.rol_funcionalidad on func_id = id_funcionalidad where id_rol = " + rol_id);
+
+            if (data.HasRows)
+            {
+                while (data.Read())
+                {
+                    Datos.Funcionalidad funcionalidad = new Datos.Funcionalidad(data.GetDecimal(0),data.GetString(1));
+                    funcionalidades.Add(funcionalidad);
+                }
+            }
+
+            data.Close();
+            return funcionalidades;
+        }
+
+        public void quitarFuncionalidad(decimal rol_id, Datos.Funcionalidad funcionalidad_seleccionada)
+        {
+ 
+            connection = new SqlConnection(ConnectionString);
+            connection.Open();
+            SqlCommand sqlcommand = new SqlCommand("delete from gd_esquema.rol_funcionalidad where id_funcionalidad = " + funcionalidad_seleccionada.id + " and id_rol = " + rol_id, connection);
+
+            sqlcommand.ExecuteNonQuery();
+
+        }
+
+        public void agregarFuncionalidad(decimal rol_id, Datos.Funcionalidad funcionalidad_seleccionada)
+        {
+         
+            connection = new SqlConnection(ConnectionString);
+            connection.Open();
+            SqlCommand sqlcommand = new SqlCommand("insert into gd_esquema.rol_funcionalidad values (" + rol_id + "," + funcionalidad_seleccionada.id + ")", connection);
+
+            sqlcommand.ExecuteNonQuery();
+
+        }
+
+
+
+        public Datos.Funcionalidad getFuncionalidadByName(object nombre)
+        {
+            String nombre_func = Convert.ToString(nombre);
+            SqlDataReader data = command_reader("select * from gd_esquema.funcionalidad where func_nombre LIKE '" + nombre_func + "'");
+            data.Read();
+            Datos.Funcionalidad funcionalidad = new Datos.Funcionalidad(data.GetDecimal(0), nombre_func);
+            data.Close();
+            return funcionalidad;
+        }
+
+        public int modificarRol(string nombre, int habilitado, Decimal rol_id)
+        {
+            int resultado = command_update("update gd_esquema.rol set rol_nombre = '"+nombre+"', rol_baja_logica = "+habilitado+" where rol_id = "+rol_id);
+            return resultado;
         }
     }
 

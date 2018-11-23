@@ -87,6 +87,12 @@
     <Compile Include="Abm Rol\Modificacion_Formulario.Designer.cs">
       <DependentUpon>Modificacion_Formulario.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Rol\Funcionalidad_Modif.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Rol\Funcionalidad_Modif.Designer.cs">
+      <DependentUpon>Funcionalidad_Modif.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Rubro\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,6 +191,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\Modificacion_Formulario.resx">
       <DependentUpon>Modificacion_Formulario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Rol\Funcionalidad_Modif.resx">
+      <DependentUpon>Funcionalidad_Modif.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>

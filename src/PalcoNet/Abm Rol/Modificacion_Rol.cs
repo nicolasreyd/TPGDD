@@ -51,9 +51,6 @@ namespace PalcoNet.Abm_Rol
            this.dataGridView1.AllowUserToAddRows = false;
            this.dataGridView1.AutoSize = true;
 
-           //Oculto la columna de pk y baja logica
-           this.dataGridView1.Columns[2].Visible = false;
-
 
         }
 
@@ -89,7 +86,7 @@ namespace PalcoNet.Abm_Rol
             
             
             SqlDataAdapter data;
-            if (nombre_filtro == null)
+            if (nombre_filtro == null || nombre_filtro == "")
             {
                  data = App.db.getTablaRol();
             }
@@ -103,6 +100,14 @@ namespace PalcoNet.Abm_Rol
             this.dataGridView1.DataSource = tabla;
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            ABMRol rol = new ABMRol();
+            rol.Show();
+
         }
     }
 }
