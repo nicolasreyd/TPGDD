@@ -70,6 +70,7 @@
             this.RolBaja_Button.TabIndex = 1;
             this.RolBaja_Button.Text = "Baja";
             this.RolBaja_Button.UseVisualStyleBackColor = true;
+            this.RolBaja_Button.Click += new System.EventHandler(this.RolBaja_Button_Click);
             // 
             // RolAlta_Button
             // 

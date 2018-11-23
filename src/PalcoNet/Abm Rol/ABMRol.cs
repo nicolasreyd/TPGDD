@@ -43,5 +43,12 @@ namespace PalcoNet.Abm_Rol
             Modificacion_Rol modific = new Modificacion_Rol();
             modific.Show();
         }
+
+        private void RolBaja_Button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Baja_Rol baja = new Baja_Rol();
+            baja.Show();
+        }
     }
 }
