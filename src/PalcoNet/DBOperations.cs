@@ -57,6 +57,41 @@ namespace PalcoNet
             return resultado;
         }
 
+        public object Execute_SP(string storedProcedureName, object parameters = null)
+        {
+            var command = new SqlCommand();
+            this.connection = new SqlConnection(ConnectionString);
+            this.connection.Open();
+
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.CommandText = storedProcedureName;
+
+            if (parameters != null)
+            {
+                command.Parameters.AddRange(GetSqlParameters(parameters));
+            }
+
+            command.CommandTimeout = 0;
+            command.Connection = connection;
+            object result = command.ExecuteScalar();
+
+            return result;
+
+        }
+
+        private static SqlParameter[] GetSqlParameters(object parameters)
+        {
+            List<SqlParameter> result = new List<SqlParameter>();
+            foreach (var property in parameters.GetType().GetProperties())
+            {
+                
+                    result.Add(new SqlParameter("@" + property.Name, property.GetValue(parameters, null)));
+                
+            }
+
+            return result.ToArray();
+        }
+
         public Decimal command_insert(string query)
         {
             SqlCommand sqlcommand = new SqlCommand();
@@ -246,6 +281,14 @@ namespace PalcoNet
         {
             int resultado = command_update("update gd_esquema.rol set rol_nombre = '"+nombre+"', rol_baja_logica = "+habilitado+" where rol_id = "+rol_id);
             return resultado;
+        }
+
+        public void eliminar_rol(decimal id)
+        {
+           object result = Execute_SP("gd_esquema.sp_eliminar_rol", new { id_rol = id });
+           if (result == null) {
+               MessageBox.Show("Baja Correcta");
+           }
         }
     }
 
