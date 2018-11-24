@@ -129,14 +129,24 @@ namespace PalcoNet.Login
 
         private void ABMCategoria_Button_Click(object sender, EventArgs e)
         {
+			this.Hide();
+			Abm_Grado.ABMGrado abm = new Abm_Grado.ABMGrado();
+			abm.Show();
 
-        }
+		}
 
         private void CerrarSesion_button_Click(object sender, EventArgs e)
         {
             this.Hide();
             App.admin.cerrar_sesion();
         }
-    }
+
+		private void ABMGradoPubli_Button_Click(object sender, EventArgs e)
+		{
+			this.Hide();
+			Abm_Grado.ABMGrado abm = new Abm_Grado.ABMGrado();
+			abm.Show();
+		}
+	}
 }
 

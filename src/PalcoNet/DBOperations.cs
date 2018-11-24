@@ -249,6 +249,20 @@ namespace PalcoNet
         }
     }
 
+		public int agregar_nuevo_rol_nuevo_grado(String prioridad_alta, Decimal comision_alta)
+		{
+			SqlCommand command;
+			Decimal id_generado = command_insert("insert into gd_esquema.grado values ('" + prioridad_alta + "', '" + comision_alta + "'); select SCOPE_IDENTITY()");
+			if (id_generado < 0)
+			{
+				return -1;
+			}
+			return 1;
+
+
+		}
+	}
+
  
 
 
