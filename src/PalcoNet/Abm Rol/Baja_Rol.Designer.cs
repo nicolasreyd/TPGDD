@@ -60,6 +60,7 @@
             this.nombre_Textbox.Name = "nombre_Textbox";
             this.nombre_Textbox.Size = new System.Drawing.Size(222, 26);
             this.nombre_Textbox.TabIndex = 1;
+            this.nombre_Textbox.TextChanged += new System.EventHandler(this.nombre_Textbox_TextChanged);
             // 
             // label1
             // 
@@ -91,6 +92,7 @@
             this.Buscar_Button.TabIndex = 2;
             this.Buscar_Button.Text = "Buscar";
             this.Buscar_Button.UseVisualStyleBackColor = true;
+            this.Buscar_Button.Click += new System.EventHandler(this.Buscar_Button_Click);
             // 
             // Volver
             // 
@@ -138,6 +140,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Baja_Rol";
             this.Text = "Baja_Rol";
+            this.Load += new System.EventHandler(this.Baja_Rol_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

@@ -290,7 +290,7 @@ namespace PalcoNet
                MessageBox.Show("Baja Correcta");
            }
         }
-    }
+    
 
 		public int agregar_nuevo_rol_nuevo_grado(String prioridad_alta, Decimal comision_alta)
 		{
@@ -302,11 +302,9 @@ namespace PalcoNet
 			}
 			return 1;
 
-
+        }
 		}
 	}
 
- 
 
 
-}

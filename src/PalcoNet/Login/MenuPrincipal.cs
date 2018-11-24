@@ -30,10 +30,6 @@ namespace PalcoNet.Login
                         ABMRol_Button.Enabled = true;
                         ABMRol_Button.Visible = true;
                         break;
-                    case "ABM de Categoria":
-                        ABMCategoria_Button.Enabled = true;
-                        ABMCategoria_Button.Visible = true;
-                        break;
                     case "ABM de Cliente":
                         ABMCliente_Button.Enabled = true;
                         ABMCliente_Button.Visible = true;
@@ -87,8 +83,7 @@ namespace PalcoNet.Login
 
         private void deshabilitar_todos_botones()
         {
-            ABMCategoria_Button.Enabled = false;
-            ABMCategoria_Button.Visible = false;
+
             ABMCliente_Button.Enabled = false;
             ABMCliente_Button.Visible = false;
             ABMEmpresaEspec_Button.Enabled = false;

@@ -15,6 +15,7 @@ namespace PalcoNet.Abm_Rol
     {
 
         Herramientas.Funcionalidades_Pantallas func;
+        
         public Baja_Rol()
         {
             InitializeComponent();
@@ -55,5 +56,37 @@ namespace PalcoNet.Abm_Rol
             ABMRol abm = new ABMRol();
             abm.Show();
         }
+
+        private void Baja_Rol_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Buscar_Button_Click(object sender, EventArgs e)
+        {
+            SqlDataAdapter data;
+            if (nombre_filtro == null || nombre_filtro == "")
+            {
+                data = App.db.getTablaRol();
+            }
+            else
+            {
+                data = App.db.getRolByName(nombre_filtro);
+            }
+
+            DataTable tabla = new DataTable();
+            data.Fill(tabla);
+
+            this.dataGridView1.DataSource = tabla;
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        }
+
+        private void nombre_Textbox_TextChanged(object sender, EventArgs e)
+        {
+            this.nombre_filtro = nombre_Textbox.Text;
+        }
+
+        public string nombre_filtro { get; set; }
     }
 }
