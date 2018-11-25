@@ -59,7 +59,7 @@ namespace PalcoNet.Abm_Grado
 			}
 
 			this.Hide();
-		}
+      		}
 
 		private void prioridad_textBox_TextChanged(object sender, EventArgs e)
 		{

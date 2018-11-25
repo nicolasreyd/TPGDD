@@ -142,6 +142,13 @@ namespace PalcoNet.Login
 			Abm_Grado.ABMGrado abm = new Abm_Grado.ABMGrado();
 			abm.Show();
 		}
+
+        private void GenerarPulica_Button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Generar_Publicacion.Generar_Publicacion publicacion = new Generar_Publicacion.Generar_Publicacion();
+            publicacion.Show();
+        }
 	}
 }
 

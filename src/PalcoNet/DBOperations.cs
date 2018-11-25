@@ -336,7 +336,7 @@ namespace PalcoNet
 
 		public int agregar_nuevo_rol_nuevo_grado(String prioridad_alta, Decimal comision_alta)
 		{
-			SqlCommand command;
+			
 			Decimal id_generado = command_insert("insert into gd_esquema.grado values ('" + prioridad_alta + "', '" + comision_alta + "'); select SCOPE_IDENTITY()");
 			if (id_generado < 0)
 			{
@@ -345,8 +345,55 @@ namespace PalcoNet
 			return 1;
 
         }
-		}
-	}
+
+        public void generar_publicacion(Datos.Publicacion publicacion)
+        {
+            
+        }
+
+        public List<Datos.Rubro> getRubros()
+        {
+            List<Datos.Rubro> rubros = new List<Datos.Rubro>();
+
+            SqlDataReader data = command_reader("select distinct rubro_id,rubro_descripcion from gd_esquema.rubro");
+
+            if (data.HasRows)
+            {
+                while (data.Read())
+                {
+                    Decimal id = data.GetDecimal(0);
+                    String descripcion = data.GetString(1);
+                    rubros.Add(new Datos.Rubro(id, descripcion));
+                }
+            }
+
+            data.Close();
+            return rubros;
+
+
+        }
+
+        public List<string> getTipoUbicacion()
+        {
+            List<String> tipos = new List<String>();
+
+            SqlDataReader data = command_reader("select * from gd_esquema.ubicacion_tipo");
+
+            if (data.HasRows)
+            {
+                while (data.Read())
+                {
+                    
+                    String descripcion = data.GetString(1);
+                    tipos.Add(descripcion);
+                }
+            }
+
+            data.Close();
+            return tipos;
+        }
+    }
+}
 
 
 

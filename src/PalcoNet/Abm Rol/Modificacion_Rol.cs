@@ -28,7 +28,7 @@ namespace PalcoNet.Abm_Rol
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            this.Hide();
+            //this.Hide();
 
             Decimal id = Convert.ToDecimal(dataGridView1.Rows[e.RowIndex].Cells[0].Value);
 

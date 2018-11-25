@@ -143,13 +143,22 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Datos\Funcionalidad.cs" />
+    <Compile Include="Datos\Publicacion.cs" />
     <Compile Include="Datos\Rol.cs" />
+    <Compile Include="Datos\Rubro.cs" />
+    <Compile Include="Datos\Ubicacion.cs" />
     <Compile Include="Datos\Usuario.cs" />
     <Compile Include="Editar Publicacion\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Editar Publicacion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generar Publicacion\Ubicaciones_Agregar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generar Publicacion\Ubicaciones_Agregar.Designer.cs">
+      <DependentUpon>Ubicaciones_Agregar.cs</DependentUpon>
     </Compile>
     <Compile Include="Herramientas\Encrypter.cs" />
     <Compile Include="Herramientas\Funcionalidades_Pantallas.cs" />
@@ -171,11 +180,11 @@
     <Compile Include="App.Designer.cs">
       <DependentUpon>App.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Publicacion\Form1.cs">
+    <Compile Include="Generar Publicacion\Generar_Publicacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generar Publicacion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Generar Publicacion\Generar_Publicacion.Designer.cs">
+      <DependentUpon>Generar_Publicacion.cs</DependentUpon>
     </Compile>
     <Compile Include="Generar Rendicion Comisiones\Form1.cs">
       <SubType>Form</SubType>
@@ -242,6 +251,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\Funcionalidad_Modif.resx">
       <DependentUpon>Funcionalidad_Modif.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Publicacion\Generar_Publicacion.resx">
+      <DependentUpon>Generar_Publicacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Publicacion\Ubicaciones_Agregar.resx">
+      <DependentUpon>Ubicaciones_Agregar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>

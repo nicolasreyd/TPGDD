@@ -98,6 +98,7 @@
             this.GenerarPulica_Button.TabIndex = 6;
             this.GenerarPulica_Button.Text = "Generar Publicacion";
             this.GenerarPulica_Button.UseVisualStyleBackColor = true;
+            this.GenerarPulica_Button.Click += new System.EventHandler(this.GenerarPulica_Button_Click);
             // 
             // EditarPubli_Button
             // 
