@@ -69,6 +69,24 @@
     <Compile Include="Abm Grado\Alta_Grado.Designer.cs">
       <DependentUpon>Alta_Grado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Grado\Baja_Grado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Grado\Baja_Grado.Designer.cs">
+      <DependentUpon>Baja_Grado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Grado\Modificacion_Grado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Grado\Modificacion_Grado.Designer.cs">
+      <DependentUpon>Modificacion_Grado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Grado\Modificacion_Formulario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Grado\Modificacion_Formulario.Designer.cs">
+      <DependentUpon>Modificacion_Formulario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Rol\ABMRol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -197,6 +215,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Grado\Alta_Grado.resx">
       <DependentUpon>Alta_Grado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Grado\Baja_Grado.resx">
+      <DependentUpon>Baja_Grado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Grado\Modificacion_Formulario.resx">
+      <DependentUpon>Modificacion_Formulario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Grado\Modificacion_Grado.resx">
+      <DependentUpon>Modificacion_Grado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\ABMRol.resx">
       <DependentUpon>ABMRol.cs</DependentUpon>

@@ -203,7 +203,18 @@ namespace PalcoNet
 
         }
 
-        public SqlDataAdapter getTablaRol()
+		public SqlDataAdapter getTablaGrado()
+		{
+			SqlCommand sqlcommand = new SqlCommand();
+			connection = new SqlConnection(ConnectionString);
+			SqlCommand query = new SqlCommand("select * from gd_esquema.grado", connection);
+
+			SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+			return adapter;
+		}
+
+		public SqlDataAdapter getTablaRol()
         {
             SqlCommand sqlcommand = new SqlCommand();
             connection = new SqlConnection(ConnectionString);
@@ -225,7 +236,18 @@ namespace PalcoNet
             return adapter;
         }
 
-        public List<Datos.Funcionalidad> getMissingFuncionalidades(Decimal rol_id)
+		public SqlDataAdapter getGradoByName(String nombre)
+		{
+			SqlCommand sqlcommand = new SqlCommand();
+			connection = new SqlConnection(ConnectionString);
+			SqlCommand query = new SqlCommand("select * from gd_esquema.grado where grado_nombre LIKE '" + nombre + "'", connection);
+
+			SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+			return adapter;
+		}
+
+		public List<Datos.Funcionalidad> getMissingFuncionalidades(Decimal rol_id)
         {
             List<Datos.Funcionalidad> funcionalidades = new List<Datos.Funcionalidad>();
             SqlDataReader data = command_reader("select distinct func_id,func_nombre from gd_esquema.funcionalidad EXCEPT select distinct func_id,func_nombre from gd_esquema.funcionalidad join gd_esquema.rol_funcionalidad on func_id = id_funcionalidad where id_rol = " + rol_id);
@@ -283,14 +305,34 @@ namespace PalcoNet
             return resultado;
         }
 
-        public void eliminar_rol(decimal id)
+		public int modificarGrado(string prioridad, Decimal comision, Decimal grado_id)
+		{
+			int resultado = command_update("update gd_esquema.grado set grado_nombre = '" + prioridad + "', grado_comision = " + comision + " where grado_id = " + grado_id);
+			return resultado;
+		}
+
+		public void eliminar_rol(decimal id)
         {
            object result = Execute_SP("gd_esquema.sp_eliminar_rol", new { id_rol = id });
            if (result == null) {
                MessageBox.Show("Baja Correcta");
            }
         }
-    
+
+		public void eliminar_grado(decimal id)
+		{
+			SqlDataReader data = command_reader("select publicacion_id from gd_esquema.publicacion where id_grado = " + id);
+			
+			if (data.HasRows)
+			{
+				MessageBox.Show("El grado no se puede borrar, está asociado a publicaciones");
+				return;
+			}
+			data.Close();
+			SqlCommand sqlcommand = new SqlCommand("delete from gd_esquema.grado where grado_id = " + id, connection);
+			sqlcommand.ExecuteNonQuery();
+		}
+
 
 		public int agregar_nuevo_rol_nuevo_grado(String prioridad_alta, Decimal comision_alta)
 		{

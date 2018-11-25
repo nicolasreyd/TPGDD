@@ -52,5 +52,12 @@ namespace PalcoNet.Abm_Grado
 				MessageBox.Show("Error al cargar el rol, vuelva a intentar.");
 			}
 		}
+
+		private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			this.Hide();
+			ABMGrado vw = new ABMGrado();
+			vw.Show();
+		}
 	}
 }

@@ -31,6 +31,7 @@
 			this.GradoAlta_Button = new System.Windows.Forms.Button();
 			this.GradoBaja_Button = new System.Windows.Forms.Button();
 			this.GradoModificacion_Button = new System.Windows.Forms.Button();
+			this.linkLabel1 = new System.Windows.Forms.LinkLabel();
 			this.SuspendLayout();
 			// 
 			// GradoAlta_Button
@@ -63,17 +64,30 @@
 			this.GradoModificacion_Button.UseVisualStyleBackColor = true;
 			this.GradoModificacion_Button.Click += new System.EventHandler(this.GradoModificacion_Button_Click);
 			// 
+			// linkLabel1
+			// 
+			this.linkLabel1.AutoSize = true;
+			this.linkLabel1.Location = new System.Drawing.Point(12, 209);
+			this.linkLabel1.Name = "linkLabel1";
+			this.linkLabel1.Size = new System.Drawing.Size(36, 13);
+			this.linkLabel1.TabIndex = 3;
+			this.linkLabel1.TabStop = true;
+			this.linkLabel1.Text = "volver";
+			this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+			// 
 			// ABMGrado
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(230, 259);
+			this.Controls.Add(this.linkLabel1);
 			this.Controls.Add(this.GradoModificacion_Button);
 			this.Controls.Add(this.GradoBaja_Button);
 			this.Controls.Add(this.GradoAlta_Button);
 			this.Name = "ABMGrado";
 			this.Text = "Grado Publicacion";
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -82,5 +96,6 @@
 		private System.Windows.Forms.Button GradoAlta_Button;
 		private System.Windows.Forms.Button GradoBaja_Button;
 		private System.Windows.Forms.Button GradoModificacion_Button;
+		private System.Windows.Forms.LinkLabel linkLabel1;
 	}
 }

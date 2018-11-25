@@ -34,6 +34,7 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.Alta = new System.Windows.Forms.Button();
+			this.linkLabel1 = new System.Windows.Forms.LinkLabel();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -89,11 +90,23 @@
 			this.Alta.UseVisualStyleBackColor = true;
 			this.Alta.Click += new System.EventHandler(this.Alta_Click);
 			// 
+			// linkLabel1
+			// 
+			this.linkLabel1.AutoSize = true;
+			this.linkLabel1.Location = new System.Drawing.Point(31, 232);
+			this.linkLabel1.Name = "linkLabel1";
+			this.linkLabel1.Size = new System.Drawing.Size(36, 13);
+			this.linkLabel1.TabIndex = 7;
+			this.linkLabel1.TabStop = true;
+			this.linkLabel1.Text = "volver";
+			this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+			// 
 			// Alta_Grado
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(334, 316);
+			this.Controls.Add(this.linkLabel1);
 			this.Controls.Add(this.Alta);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label2);
@@ -116,5 +129,6 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Button Alta;
+		private System.Windows.Forms.LinkLabel linkLabel1;
 	}
 }

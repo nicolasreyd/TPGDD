@@ -90,5 +90,10 @@ namespace PalcoNet.Abm_Rol
             Modificacion_Rol modif = new Modificacion_Rol();
             modif.Show();
         }
-    }
+
+		private void groupBox1_Enter(object sender, EventArgs e)
+		{
+
+		}
+	}
 }
