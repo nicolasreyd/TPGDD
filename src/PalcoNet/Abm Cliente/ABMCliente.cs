@@ -10,11 +10,18 @@ using System.Windows.Forms;
 
 namespace PalcoNet.Abm_Cliente
 {
-    public partial class Form1 : Form
+    public partial class ABMCliente : Form
     {
-        public Form1()
+        public ABMCliente()
         {
             InitializeComponent();
+        }
+
+        private void ClienteAlta_Button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Alta_Cliente alta = new Alta_Cliente();
+            alta.Show();
         }
     }
 }
