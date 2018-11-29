@@ -14,13 +14,28 @@ namespace PalcoNet.Generar_Publicacion
     {
         Datos.Publicacion publicacion;
 
-
+        
         public Generar_Publicacion()
         {
             InitializeComponent();
             this.publicacion = new Datos.Publicacion();
 
             cargar_rubros();
+            cargar_grados();
+        }
+
+        private void cargar_grados()
+        {
+            List<Datos.Grado> grados = App.db.getGrados();
+
+            grados.ForEach(delegate(Datos.Grado grado)
+            {
+                Grado_comboBox.Items.Add(grado.descripcion + " $ " + grado.comision);
+
+            });
+
+
+            Grado_comboBox.SelectedItem = grados.First().descripcion + " $ " + grados.First().comision;
         }
 
         private void cargar_rubros()
@@ -37,24 +52,17 @@ namespace PalcoNet.Generar_Publicacion
             Rubro_comboBox.SelectedItem = rubros.First().descripcion;
         }
 
-        private void Estado_Textbox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
+ 
         private void Generar_Publicacion_Load(object sender, EventArgs e)
         {
             Fecha_publi_TextBox.Text = DateTime.Today.ToString("dd/MM/yyyy");
             Estado_Textbox.Text = "Borrador";
         }
 
-        private void Completar_Enter(object sender, EventArgs e)
-        {
-
-        }
 
         private void Generar_Button_Click(object sender, EventArgs e)
         {
+
             if (data_validate())
             {
                 publicacion.descripcion = Descripcion_textBox.Text;
@@ -63,7 +71,9 @@ namespace PalcoNet.Generar_Publicacion
                 publicacion.rubro = Convert.ToString(Rubro_comboBox.SelectedItem);
                 publicacion.estado = Estado_Textbox.Text;
                 publicacion.direccion = Direccion_TextBox.Text;
-
+                string[] split_grado = Convert.ToString(Grado_comboBox.SelectedItem).Split(' ');
+                Console.WriteLine(split_grado[0]);
+                publicacion.grado = new Datos.Grado(split_grado[0], 1 , Convert.ToDecimal(split_grado[2])); 
                 App.db.generar_publicacion(publicacion);
 
             }
@@ -74,7 +84,7 @@ namespace PalcoNet.Generar_Publicacion
 
         private bool data_validate()
         {
-            throw new NotImplementedException();
+            return true; //TODO
         }
 
         private void SigEstado_button_Click(object sender, EventArgs e)

@@ -10,15 +10,18 @@ namespace PalcoNet.Datos
     {
         public Decimal id;
         public Decimal id_responsable;
-        public String descripcion;
+        public string descripcion;
         public DateTime fecha_publicacion;
         public DateTime fecha_espectaculo;
-        public String rubro;
-        public String estado;
-        public String direccion;
+        public string rubro;
+        public string estado;
+        public string direccion;
+        public Datos.Grado grado;
+        public List<Ubicacion> ubicaciones;
 
         public Publicacion(){
             id_responsable = App.currentUser.user_id;
+            ubicaciones = new List<Ubicacion>();
         }
 
     }
