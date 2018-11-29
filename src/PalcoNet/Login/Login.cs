@@ -157,5 +157,13 @@ namespace PalcoNet.Login
 
            return password.Equals(passwordDecrypt);
         }
+
+        private void nuevoCliente_button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Abm_Cliente.Alta_Cliente altaCliente = new Abm_Cliente.Alta_Cliente();
+            altaCliente.Show();
+
+        }
     }
 }

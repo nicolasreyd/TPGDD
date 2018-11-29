@@ -18,13 +18,13 @@ namespace PalcoNet.Abm_Cliente
         private String nombre_usuario;
         private string apellido_usuario;
         private string tipo_dni;
-        private string numero_dni;
+        private int numero_dni;
         private string cuil;
         private string fecha_nacimiento;
         private string telefono;
         private string domicilio_calle;
-        private string domicilio_numero;
-        private string domicilio_piso;
+        private int domicilio_numero;
+        private int domicilio_piso;
         private string domicilio_depto;
         private string cod_post;
         private string rol;
@@ -54,7 +54,7 @@ namespace PalcoNet.Abm_Cliente
 
         private void nroDNI_textBox_TextChanged(object sender, EventArgs e)
         {
-            this.numero_dni = nroDNI_textBox.Text;
+            this.numero_dni = Convert.ToInt32(nroDNI_textBox.Text);
         }
 
         private void cuilCliente_textBox_TextChanged(object sender, EventArgs e)
@@ -85,12 +85,12 @@ namespace PalcoNet.Abm_Cliente
 
         private void domNumeroCliente_textBox_TextChanged(object sender, EventArgs e)
         {
-            this.domicilio_numero = domNumeroCliente_textBox.Text;
+            this.domicilio_numero = Convert.ToInt32(domNumeroCliente_textBox.Text);
         }
 
         private void domPisoCliente_textBox_TextChanged(object sender, EventArgs e)
         {
-            this.domicilio_piso = domPisoCliente_textBox.Text;
+            this.domicilio_piso = Convert.ToInt32(domPisoCliente_textBox.Text);
         }
 
         private void domDeptoCliente_textBox_TextChanged(object sender, EventArgs e)

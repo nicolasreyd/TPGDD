@@ -149,6 +149,11 @@ namespace PalcoNet.Login
             Generar_Publicacion.Generar_Publicacion publicacion = new Generar_Publicacion.Generar_Publicacion();
             publicacion.Show();
         }
+
+        private void ABMCliente_Button_Click(object sender, EventArgs e)
+        {
+
+        }
 	}
 }
 

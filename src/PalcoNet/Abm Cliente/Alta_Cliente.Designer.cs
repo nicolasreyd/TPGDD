@@ -51,6 +51,7 @@
             this.nombreCliente_textBox.Name = "nombreCliente_textBox";
             this.nombreCliente_textBox.Size = new System.Drawing.Size(100, 20);
             this.nombreCliente_textBox.TabIndex = 0;
+            this.nombreCliente_textBox.Text = "Apellido";
             this.nombreCliente_textBox.TextChanged += new System.EventHandler(this.nombreCliente_textBox_TextChanged);
             // 
             // apellidoCliente_textBox
@@ -59,6 +60,7 @@
             this.apellidoCliente_textBox.Name = "apellidoCliente_textBox";
             this.apellidoCliente_textBox.Size = new System.Drawing.Size(100, 20);
             this.apellidoCliente_textBox.TabIndex = 1;
+            this.apellidoCliente_textBox.Text = "Nombre";
             this.apellidoCliente_textBox.TextChanged += new System.EventHandler(this.apellidoCliente_textBox_TextChanged);
             // 
             // nroDNI_textBox
@@ -67,6 +69,7 @@
             this.nroDNI_textBox.Name = "nroDNI_textBox";
             this.nroDNI_textBox.Size = new System.Drawing.Size(100, 20);
             this.nroDNI_textBox.TabIndex = 2;
+            this.nroDNI_textBox.Text = "Numero DNI";
             this.nroDNI_textBox.TextChanged += new System.EventHandler(this.nroDNI_textBox_TextChanged);
             // 
             // tipoDNI_comboBox
@@ -87,6 +90,7 @@
             this.cuilCliente_textBox.Name = "cuilCliente_textBox";
             this.cuilCliente_textBox.Size = new System.Drawing.Size(100, 20);
             this.cuilCliente_textBox.TabIndex = 4;
+            this.cuilCliente_textBox.Text = "CUIL";
             this.cuilCliente_textBox.TextChanged += new System.EventHandler(this.cuilCliente_textBox_TextChanged);
             // 
             // fechaNacCliente_textBox
@@ -95,6 +99,7 @@
             this.fechaNacCliente_textBox.Name = "fechaNacCliente_textBox";
             this.fechaNacCliente_textBox.Size = new System.Drawing.Size(100, 20);
             this.fechaNacCliente_textBox.TabIndex = 5;
+            this.fechaNacCliente_textBox.Text = "Fecha";
             this.fechaNacCliente_textBox.TextChanged += new System.EventHandler(this.fechaNacCliente_textBox_TextChanged);
             // 
             // telefonoCliente_textBox
@@ -103,6 +108,7 @@
             this.telefonoCliente_textBox.Name = "telefonoCliente_textBox";
             this.telefonoCliente_textBox.Size = new System.Drawing.Size(100, 20);
             this.telefonoCliente_textBox.TabIndex = 6;
+            this.telefonoCliente_textBox.Text = "Telefono";
             this.telefonoCliente_textBox.TextChanged += new System.EventHandler(this.telefonoCliente_textBox_TextChanged);
             // 
             // domCalleCliente_textBox
@@ -111,6 +117,7 @@
             this.domCalleCliente_textBox.Name = "domCalleCliente_textBox";
             this.domCalleCliente_textBox.Size = new System.Drawing.Size(100, 20);
             this.domCalleCliente_textBox.TabIndex = 7;
+            this.domCalleCliente_textBox.Text = "Calle";
             this.domCalleCliente_textBox.TextChanged += new System.EventHandler(this.domCalleCliente_textBox_TextChanged);
             // 
             // domNumeroCliente_textBox
@@ -119,6 +126,7 @@
             this.domNumeroCliente_textBox.Name = "domNumeroCliente_textBox";
             this.domNumeroCliente_textBox.Size = new System.Drawing.Size(53, 20);
             this.domNumeroCliente_textBox.TabIndex = 8;
+            this.domNumeroCliente_textBox.Text = "Numero";
             this.domNumeroCliente_textBox.TextChanged += new System.EventHandler(this.domNumeroCliente_textBox_TextChanged);
             // 
             // domPisoCliente_textBox
@@ -127,14 +135,16 @@
             this.domPisoCliente_textBox.Name = "domPisoCliente_textBox";
             this.domPisoCliente_textBox.Size = new System.Drawing.Size(26, 20);
             this.domPisoCliente_textBox.TabIndex = 9;
+            this.domPisoCliente_textBox.Text = "Piso";
             this.domPisoCliente_textBox.TextChanged += new System.EventHandler(this.domPisoCliente_textBox_TextChanged);
             // 
             // domDeptoCliente_textBox
             // 
             this.domDeptoCliente_textBox.Location = new System.Drawing.Point(209, 227);
             this.domDeptoCliente_textBox.Name = "domDeptoCliente_textBox";
-            this.domDeptoCliente_textBox.Size = new System.Drawing.Size(26, 20);
+            this.domDeptoCliente_textBox.Size = new System.Drawing.Size(43, 20);
             this.domDeptoCliente_textBox.TabIndex = 10;
+            this.domDeptoCliente_textBox.Text = "Depto";
             this.domDeptoCliente_textBox.TextChanged += new System.EventHandler(this.domDeptoCliente_textBox_TextChanged);
             // 
             // codPostCliente_textBox
@@ -143,6 +153,7 @@
             this.codPostCliente_textBox.Name = "codPostCliente_textBox";
             this.codPostCliente_textBox.Size = new System.Drawing.Size(53, 20);
             this.codPostCliente_textBox.TabIndex = 11;
+            this.codPostCliente_textBox.Text = "Codigo Postal";
             this.codPostCliente_textBox.TextChanged += new System.EventHandler(this.codPostCliente_textBox_TextChanged);
             // 
             // rolCliente_comboBox
@@ -173,6 +184,7 @@
             this.emailCliente_textBox.Name = "emailCliente_textBox";
             this.emailCliente_textBox.Size = new System.Drawing.Size(100, 20);
             this.emailCliente_textBox.TabIndex = 14;
+            this.emailCliente_textBox.Text = "email";
             this.emailCliente_textBox.TextChanged += new System.EventHandler(this.emailCliente_textBox_TextChanged);
             // 
             // Alta_Cliente
