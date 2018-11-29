@@ -119,7 +119,7 @@ namespace PalcoNet
 
         public List<Datos.Rol> getRoles(Decimal user_id) {
             List<Datos.Rol> roles = new List<Datos.Rol>();
-            SqlDataReader data = command_reader("select distinct id_rol,rol_nombre from gd_esquema.usuario_rol join gd_esquema.rol on id_rol = rol_id where id_usuario = "+ user_id);
+            SqlDataReader data = command_reader("select distinct id_rol,rol_nombre from INNERJOIN.usuario_rol join INNERJOIN.rol on id_rol = rol_id where id_usuario = " + user_id);
             
             if (data.HasRows)
             {
@@ -137,7 +137,7 @@ namespace PalcoNet
 
         public List<Datos.Funcionalidad> getFuncionalidades(Decimal id_rol) {
             List<Datos.Funcionalidad> funcionalidades = new List<Datos.Funcionalidad>();
-            SqlDataReader data = command_reader("select func_id,func_nombre from gd_esquema.rol_funcionalidad r join gd_esquema.funcionalidad on r.id_funcionalidad = func_id where r.id_rol = " + id_rol);
+            SqlDataReader data = command_reader("select func_id,func_nombre from INNERJOIN.rol_funcionalidad r join INNERJOIN.funcionalidad on r.id_funcionalidad = func_id where r.id_rol = " + id_rol);
 
             if (data.HasRows)
             {
@@ -155,14 +155,14 @@ namespace PalcoNet
 
         public int inhabilitarUsuario(string usuario_leido, Decimal id_leido)
         {
-            int resultado = command_update("update gd_esquema.usuario set usuario_baja_logica = 0 where usuario_id = " + id_leido);
+            int resultado = command_update("update INNERJOIN.usuario set usuario_baja_logica = 0 where usuario_id = " + id_leido);
             return resultado;
         }
 
         public List<Datos.Funcionalidad> getFuncionalidadesTotales()
         {
             List<Datos.Funcionalidad> funcionalidades = new List<Datos.Funcionalidad>();
-            SqlDataReader data = command_reader("select * from gd_esquema.funcionalidad");
+            SqlDataReader data = command_reader("select * from INNERJOIN.funcionalidad");
 
             if (data.HasRows)
             {
@@ -181,7 +181,7 @@ namespace PalcoNet
         public int agregar_nuevo_rol(String nombre_alta, List<Datos.Funcionalidad> funcionalidades)
         {
             SqlCommand command;
-            Decimal id_generado = command_insert("insert into gd_esquema.rol values ('" + nombre_alta + "', 1); select SCOPE_IDENTITY()");
+            Decimal id_generado = command_insert("insert into INNERJOIN.rol values ('" + nombre_alta + "', 1); select SCOPE_IDENTITY()");
             if (id_generado < 0)
             {
                 return -1;
@@ -189,7 +189,7 @@ namespace PalcoNet
             else {
             foreach(Datos.Funcionalidad funcionalidad in funcionalidades){
 
-                command = new SqlCommand("insert into gd_esquema.rol_funcionalidad values(@id_rol,@funcionalidad_id)", this.connection);
+                command = new SqlCommand("insert into INNERJOIN.rol_funcionalidad values(@id_rol,@funcionalidad_id)", this.connection);
                 command.Parameters.AddWithValue("@id_rol", id_generado);
                 command.Parameters.AddWithValue("@funcionalidad_id", funcionalidad.id);
 
@@ -207,7 +207,7 @@ namespace PalcoNet
 		{
 			SqlCommand sqlcommand = new SqlCommand();
 			connection = new SqlConnection(ConnectionString);
-			SqlCommand query = new SqlCommand("select * from gd_esquema.grado", connection);
+            SqlCommand query = new SqlCommand("select * from INNERJOIN.grado", connection);
 
 			SqlDataAdapter adapter = new SqlDataAdapter(query);
 
@@ -218,7 +218,7 @@ namespace PalcoNet
         {
             SqlCommand sqlcommand = new SqlCommand();
             connection = new SqlConnection(ConnectionString);
-            SqlCommand query = new SqlCommand("select * from gd_esquema.rol", connection);
+            SqlCommand query = new SqlCommand("select * from INNERJOIN.rol", connection);
 
             SqlDataAdapter adapter = new SqlDataAdapter(query);
 
@@ -229,7 +229,7 @@ namespace PalcoNet
         {
             SqlCommand sqlcommand = new SqlCommand();
             connection = new SqlConnection(ConnectionString);
-            SqlCommand query = new SqlCommand("select * from gd_esquema.rol where rol_nombre LIKE '"+nombre+"'", connection);
+            SqlCommand query = new SqlCommand("select * from INNERJOIN.rol where rol_nombre LIKE '" + nombre + "'", connection);
 
             SqlDataAdapter adapter = new SqlDataAdapter(query);
 
@@ -240,7 +240,7 @@ namespace PalcoNet
 		{
 			SqlCommand sqlcommand = new SqlCommand();
 			connection = new SqlConnection(ConnectionString);
-			SqlCommand query = new SqlCommand("select * from gd_esquema.grado where grado_nombre LIKE '" + nombre + "'", connection);
+            SqlCommand query = new SqlCommand("select * from INNERJOIN.grado where grado_nombre LIKE '" + nombre + "'", connection);
 
 			SqlDataAdapter adapter = new SqlDataAdapter(query);
 
@@ -250,7 +250,7 @@ namespace PalcoNet
 		public List<Datos.Funcionalidad> getMissingFuncionalidades(Decimal rol_id)
         {
             List<Datos.Funcionalidad> funcionalidades = new List<Datos.Funcionalidad>();
-            SqlDataReader data = command_reader("select distinct func_id,func_nombre from gd_esquema.funcionalidad EXCEPT select distinct func_id,func_nombre from gd_esquema.funcionalidad join gd_esquema.rol_funcionalidad on func_id = id_funcionalidad where id_rol = " + rol_id);
+            SqlDataReader data = command_reader("select distinct func_id,func_nombre from INNERJOIN.funcionalidad EXCEPT select distinct func_id,func_nombre from INNERJOIN.funcionalidad join INNERJOIN.rol_funcionalidad on func_id = id_funcionalidad where id_rol = " + rol_id);
 
             if (data.HasRows)
             {
@@ -270,7 +270,7 @@ namespace PalcoNet
  
             connection = new SqlConnection(ConnectionString);
             connection.Open();
-            SqlCommand sqlcommand = new SqlCommand("delete from gd_esquema.rol_funcionalidad where id_funcionalidad = " + funcionalidad_seleccionada.id + " and id_rol = " + rol_id, connection);
+            SqlCommand sqlcommand = new SqlCommand("delete from INNERJOIN.rol_funcionalidad where id_funcionalidad = " + funcionalidad_seleccionada.id + " and id_rol = " + rol_id, connection);
 
             sqlcommand.ExecuteNonQuery();
 
@@ -281,7 +281,7 @@ namespace PalcoNet
          
             connection = new SqlConnection(ConnectionString);
             connection.Open();
-            SqlCommand sqlcommand = new SqlCommand("insert into gd_esquema.rol_funcionalidad values (" + rol_id + "," + funcionalidad_seleccionada.id + ")", connection);
+            SqlCommand sqlcommand = new SqlCommand("insert into INNERJOIN.rol_funcionalidad values (" + rol_id + "," + funcionalidad_seleccionada.id + ")", connection);
 
             sqlcommand.ExecuteNonQuery();
 
@@ -292,7 +292,7 @@ namespace PalcoNet
         public Datos.Funcionalidad getFuncionalidadByName(object nombre)
         {
             String nombre_func = Convert.ToString(nombre);
-            SqlDataReader data = command_reader("select * from gd_esquema.funcionalidad where func_nombre LIKE '" + nombre_func + "'");
+            SqlDataReader data = command_reader("select * from INNERJOIN.funcionalidad where func_nombre LIKE '" + nombre_func + "'");
             data.Read();
             Datos.Funcionalidad funcionalidad = new Datos.Funcionalidad(data.GetDecimal(0), nombre_func);
             data.Close();
@@ -301,19 +301,19 @@ namespace PalcoNet
 
         public int modificarRol(string nombre, int habilitado, Decimal rol_id)
         {
-            int resultado = command_update("update gd_esquema.rol set rol_nombre = '"+nombre+"', rol_baja_logica = "+habilitado+" where rol_id = "+rol_id);
+            int resultado = command_update("update INNERJOIN.rol set rol_nombre = '" + nombre + "', rol_baja_logica = " + habilitado + " where rol_id = " + rol_id);
             return resultado;
         }
 
 		public int modificarGrado(string prioridad, Decimal comision, Decimal grado_id)
 		{
-			int resultado = command_update("update gd_esquema.grado set grado_nombre = '" + prioridad + "', grado_comision = " + comision + " where grado_id = " + grado_id);
+            int resultado = command_update("update INNERJOIN.grado set grado_nombre = '" + prioridad + "', grado_comision = " + comision + " where grado_id = " + grado_id);
 			return resultado;
 		}
 
 		public void eliminar_rol(decimal id)
         {
-           object result = Execute_SP("gd_esquema.sp_eliminar_rol", new { id_rol = id });
+            object result = Execute_SP("INNERJOIN.sp_eliminar_rol", new { id_rol = id });
            if (result == null) {
                MessageBox.Show("Baja Correcta");
            }
@@ -321,7 +321,7 @@ namespace PalcoNet
 
 		public void eliminar_grado(decimal id)
 		{
-			SqlDataReader data = command_reader("select publicacion_id from gd_esquema.publicacion where id_grado = " + id);
+            SqlDataReader data = command_reader("select publicacion_id from INNERJOIN.publicacion where id_grado = " + id);
 			
 			if (data.HasRows)
 			{
@@ -329,7 +329,7 @@ namespace PalcoNet
 				return;
 			}
 			data.Close();
-			SqlCommand sqlcommand = new SqlCommand("delete from gd_esquema.grado where grado_id = " + id, connection);
+            SqlCommand sqlcommand = new SqlCommand("delete from INNERJOIN.grado where grado_id = " + id, connection);
 			sqlcommand.ExecuteNonQuery();
 		}
 
@@ -337,7 +337,7 @@ namespace PalcoNet
 		public int agregar_nuevo_rol_nuevo_grado(String prioridad_alta, Decimal comision_alta)
 		{
 			
-			Decimal id_generado = command_insert("insert into gd_esquema.grado values ('" + prioridad_alta + "', '" + comision_alta + "'); select SCOPE_IDENTITY()");
+			Decimal id_generado = command_insert("insert into INNERJOIN.grado values ('" + prioridad_alta + "', '" + comision_alta + "'); select SCOPE_IDENTITY()");
 			if (id_generado < 0)
 			{
 				return -1;
@@ -385,7 +385,7 @@ namespace PalcoNet
         {
             List<Datos.Rubro> rubros = new List<Datos.Rubro>();
 
-            SqlDataReader data = command_reader("select distinct rubro_id,rubro_descripcion from gd_esquema.rubro");
+            SqlDataReader data = command_reader("select distinct rubro_id,rubro_descripcion from INNERJOIN.rubro");
 
             if (data.HasRows)
             {
@@ -407,7 +407,7 @@ namespace PalcoNet
         {
             List<String> tipos = new List<String>();
 
-            SqlDataReader data = command_reader("select * from gd_esquema.ubicacion_tipo");
+            SqlDataReader data = command_reader("select * from INNERJOIN.ubicacion_tipo");
 
             if (data.HasRows)
             {
@@ -422,6 +422,7 @@ namespace PalcoNet
             data.Close();
             return tipos;
         }
+
 
         public List<Datos.Grado> getGrados()
         {
@@ -452,6 +453,30 @@ namespace PalcoNet
             id = data.GetDecimal(0);
             data.Close();
             return id;
+        }
+        public void agregar_nuevo_cliente(string nombre_usuario, string apellido_usuario, string tipo_dni, string numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir,string domicilio_calle, string domicilio_numero, string domicilio_piso, string domicilio_depto, string cod_post)//,rol)
+        {
+            object result = Execute_SP("INNERJOIN.sp_alta_cliente", new
+            {
+                tipodni = tipo_dni,
+                nrodni = numero_dni,
+                cuil = numero_cuil,
+                apellido = apellido_usuario,
+                nombre = nombre_usuario,
+                fechanac = fecha_nacimiento,
+                email = email_dir,
+                telefono = num_telefono,
+                dom_calle = domicilio_calle,
+                dom_numero = domicilio_numero,
+                dom_piso = domicilio_piso,
+                dom_depto = domicilio_depto,
+                codpost = cod_post
+            });
+            if (result == null)
+            {
+                MessageBox.Show("Alta de cliente correcta");
+            }
+
         }
     }
 }

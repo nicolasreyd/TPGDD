@@ -46,7 +46,7 @@ namespace PalcoNet.Login
 
         private void ButtonOKRoles_Click(object sender, EventArgs e)
         {
-            SqlDataReader data = App.db.command_reader("select rol_id,rol_nombre from gd_esquema.Rol where rol_nombre = '" + this.comboRoles.SelectedItem + "'");
+            SqlDataReader data = App.db.command_reader("select rol_id,rol_nombre from INNERJOIN.Rol where rol_nombre = '" + this.comboRoles.SelectedItem + "'");
             if (data.Read())
             {
                 //Datos leidos

@@ -63,7 +63,7 @@ namespace PalcoNet.Login
             }
 
             if(resultado == true){
-            SqlDataReader data = App.db.command_reader("select * from GD2C2018.gd_esquema.usuario where usuario_username LIKE '" + this.username + "'");
+                SqlDataReader data = App.db.command_reader("select * from GD2C2018.INNERJOIN.usuario where usuario_username LIKE '" + this.username + "'");
             if (data.Read())
             {
                 //Datos leidos
