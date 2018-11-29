@@ -41,6 +41,8 @@
             this.domDeptoCliente_textBox = new System.Windows.Forms.TextBox();
             this.codPostCliente_textBox = new System.Windows.Forms.TextBox();
             this.rolCliente_comboBox = new System.Windows.Forms.ComboBox();
+            this.altaUsuario_button = new System.Windows.Forms.Button();
+            this.emailCliente_textBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // nombreCliente_textBox
@@ -155,11 +157,31 @@
             this.rolCliente_comboBox.TabIndex = 12;
             this.rolCliente_comboBox.SelectedIndexChanged += new System.EventHandler(this.rolCliente_comboBox_SelectedIndexChanged);
             // 
+            // altaUsuario_button
+            // 
+            this.altaUsuario_button.Location = new System.Drawing.Point(128, 283);
+            this.altaUsuario_button.Name = "altaUsuario_button";
+            this.altaUsuario_button.Size = new System.Drawing.Size(75, 23);
+            this.altaUsuario_button.TabIndex = 13;
+            this.altaUsuario_button.Text = "Confirmar";
+            this.altaUsuario_button.UseVisualStyleBackColor = true;
+            this.altaUsuario_button.Click += new System.EventHandler(this.altaUsuario_button_Click);
+            // 
+            // emailCliente_textBox
+            // 
+            this.emailCliente_textBox.Location = new System.Drawing.Point(118, 201);
+            this.emailCliente_textBox.Name = "emailCliente_textBox";
+            this.emailCliente_textBox.Size = new System.Drawing.Size(100, 20);
+            this.emailCliente_textBox.TabIndex = 14;
+            this.emailCliente_textBox.TextChanged += new System.EventHandler(this.emailCliente_textBox_TextChanged);
+            // 
             // Alta_Cliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 318);
+            this.Controls.Add(this.emailCliente_textBox);
+            this.Controls.Add(this.altaUsuario_button);
             this.Controls.Add(this.rolCliente_comboBox);
             this.Controls.Add(this.codPostCliente_textBox);
             this.Controls.Add(this.domDeptoCliente_textBox);
@@ -195,5 +217,7 @@
         private System.Windows.Forms.TextBox domDeptoCliente_textBox;
         private System.Windows.Forms.TextBox codPostCliente_textBox;
         private System.Windows.Forms.ComboBox rolCliente_comboBox;
+        private System.Windows.Forms.Button altaUsuario_button;
+        private System.Windows.Forms.TextBox emailCliente_textBox;
     }
 }

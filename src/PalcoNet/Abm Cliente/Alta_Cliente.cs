@@ -28,6 +28,7 @@ namespace PalcoNet.Abm_Cliente
         private string domicilio_depto;
         private string cod_post;
         private string rol;
+        private string email;
 
         public Alta_Cliente()
         {
@@ -71,6 +72,12 @@ namespace PalcoNet.Abm_Cliente
             this.telefono = telefonoCliente_textBox.Text;
         }
 
+
+        private void emailCliente_textBox_TextChanged(object sender, EventArgs e)
+        {
+            this.email = emailCliente_textBox.Text;
+        }
+
         private void domCalleCliente_textBox_TextChanged(object sender, EventArgs e)
         {
             this.domicilio_calle = domCalleCliente_textBox.Text;
@@ -100,5 +107,12 @@ namespace PalcoNet.Abm_Cliente
         {
             this.rol = rolCliente_comboBox.Text;
         }
+
+        private void altaUsuario_button_Click(object sender, EventArgs e)
+        {
+            App.db.agregar_nuevo_cliente(nombre_usuario, apellido_usuario, tipo_dni, numero_dni, cuil, email, fecha_nacimiento, telefono, domicilio_calle, domicilio_numero, domicilio_piso, domicilio_depto, cod_post);//,rol);
+        }
+
+       // object resultado = DBOperations.Execute_SP("INNERJOIN.sp_alta_cliente", new { codpost = this.cod_post });
     }
 }
