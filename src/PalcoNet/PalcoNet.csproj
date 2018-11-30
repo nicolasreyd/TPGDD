@@ -149,6 +149,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Datos\Funcionalidad.cs" />
+    <Compile Include="Datos\Grado.cs" />
     <Compile Include="Datos\Publicacion.cs" />
     <Compile Include="Datos\Rol.cs" />
     <Compile Include="Datos\Rubro.cs" />
@@ -304,7 +305,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Abm Cliente\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

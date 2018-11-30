@@ -348,7 +348,37 @@ namespace PalcoNet
 
         public void generar_publicacion(Datos.Publicacion publicacion)
         {
-            
+            SqlCommand command;
+
+            object result = Execute_SP("gd_esquema.sp_generar_publicacion", 
+                new { descripcion = publicacion.descripcion,
+                      rubro_text = publicacion.rubro,
+                      grado_text = publicacion.grado.descripcion,
+                      grado_comision = publicacion.grado.comision,
+                      id_usuario = App.currentUser.user_id,
+                      estado = publicacion.estado,
+                      fecha_public = publicacion.fecha_publicacion,
+                      fecha_evento = publicacion.fecha_espectaculo,
+                      direccion = publicacion.direccion,
+                      identity = 1
+                     });
+            if (result == null)
+            {
+                MessageBox.Show("Creacion Correcta");
+            }
+
+            Decimal id_publicacion = Convert.ToDecimal(result);
+            foreach (Datos.Ubicacion ubicacion in publicacion.ubicaciones) {
+                command = new SqlCommand("insert into gd_esquema.ubicacion values(@id_publi,@fila,@asiento,@precio,@tipo_id,@numerada)", this.connection);
+                command.Parameters.AddWithValue("@id_publi", id_publicacion);
+                command.Parameters.AddWithValue("@fila", ubicacion.Fila);
+                command.Parameters.AddWithValue("@asiento", ubicacion.Asiento);
+                command.Parameters.AddWithValue("@precio", ubicacion.precio);
+                command.Parameters.AddWithValue("@tipo_id", ubicacion.tipo);
+                command.Parameters.AddWithValue("@numerada", ubicacion.numerada);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public List<Datos.Rubro> getRubros()
@@ -393,7 +423,43 @@ namespace PalcoNet
             return tipos;
         }
 
+<<<<<<< HEAD
         public void agregar_nuevo_cliente(string nombre_usuario, string apellido_usuario, string tipo_dni, int numero_dni, string numero_cuil, string email_dir, string fecha_nacimiento, string num_telefono, string domicilio_calle, int domicilio_numero, int domicilio_piso, string domicilio_depto, string cod_post)//,rol)
+=======
+
+        public List<Datos.Grado> getGrados()
+        {
+            List<Datos.Grado> grados = new List<Datos.Grado>();
+
+            SqlDataReader data = command_reader("select distinct * from gd_esquema.grado");
+
+            if (data.HasRows)
+            {
+                while (data.Read())
+                {
+                    Decimal id = data.GetDecimal(0);
+                    String nombre = data.GetString(1);
+                    Decimal comision = data.GetDecimal(2);
+                    grados.Add(new Datos.Grado(nombre,id,comision));
+                }
+            }
+
+            data.Close();
+            return grados;
+        }
+
+        public decimal getTipoUbicacion(string descripcion)
+        {
+            Decimal id;
+            SqlDataReader data = command_reader("select * from gd_esquema.ubicacion_tipo where descripcion LIKE '" + descripcion + "'");
+            data.Read();
+            id = data.GetDecimal(0);
+            data.Close();
+            return id;
+        }
+
+        public void agregar_nuevo_cliente(string nombre_usuario, string apellido_usuario, string tipo_dni, int numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir,string domicilio_calle, int domicilio_numero, int domicilio_piso, string domicilio_depto, string cod_post)//,rol)
+>>>>>>> b905702c5724f5d9ce86d05264fd16e741c17030
         {
             object result = Execute_SP("INNERJOIN.sp_alta_cliente", new
             {
@@ -415,6 +481,7 @@ namespace PalcoNet
             {
                 MessageBox.Show("Alta de cliente correcta");
             }
+
         }
     }
 }

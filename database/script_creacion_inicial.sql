@@ -203,7 +203,7 @@ ubicacion_fila nvarchar(2),
 ubicacion_asiento numeric(3),
 ubicacion_precio numeric(10,2),
 id_tipo numeric(10), -- Lo normalicé, mandando los datos del tipo de ubicación a otra tabla, pero podría ir mejor sin normalizar
-ubicacion_sin_numerar bit --Lo movimos, estaba en ubicaicon_tipo
+numerada bit --Lo movimos, estaba en ubicaicon_tipo
 )
 
 alter table INNERJOIN.ubicacion add constraint pk_ubicacion primary key (ubicacion_id)
@@ -409,7 +409,7 @@ WHILE EXISTS (SELECT * FROM INNERJOIN.compra_temp where flag_migrado=0)
   SET IDENTITY_INSERT INNERJOIN.compra OFF
 
   SET IDENTITY_INSERT INNERJOIN.ubicacion ON
-  insert into INNERJOIN.ubicacion (ubicacion_id, id_publicacion,ubicacion_fila,ubicacion_asiento,ubicacion_precio,id_tipo,ubicacion_sin_numerar)
+  insert into INNERJOIN.ubicacion (ubicacion_id, id_publicacion,ubicacion_fila,ubicacion_asiento,ubicacion_precio,id_tipo,numerada)
   SELECT top 10000 
   id,Espectaculo_Cod,Ubicacion_Fila,Ubicacion_Asiento,Ubicacion_Precio,Ubicacion_Tipo_Codigo,Ubicacion_Sin_numerar 
   FROM INNERJOIN.compra_temp WHERE flag_migrado = 0 order by id asc;

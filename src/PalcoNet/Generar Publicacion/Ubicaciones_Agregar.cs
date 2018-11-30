@@ -54,5 +54,23 @@ namespace PalcoNet.Generar_Publicacion
             Asiento_textBox.MaxLength = 3;
             Asiento_textBox.Enabled = false;
         }
+
+        private void Agregar_Button_Click(object sender, EventArgs e)
+        {
+            Datos.Ubicacion ubicacion = new Datos.Ubicacion();
+            ubicacion.numerada = Convert.ToInt32(Numerada_checkBox.Checked);
+            if (ubicacion.numerada == 1) {
+                ubicacion.Asiento = Convert.ToInt32(Asiento_textBox.Text);
+                ubicacion.Fila = Fila_textBox.Text;
+            }
+            ubicacion.precio = Convert.ToDecimal(Precio_textBox.Text);
+            ubicacion.tipo = App.db.getTipoUbicacion(Convert.ToString(Tipo_comboBox.SelectedItem));
+
+            this.publicacion.ubicaciones.Add(ubicacion);
+
+            this.Hide();
+        }
+
+    
     }
 }

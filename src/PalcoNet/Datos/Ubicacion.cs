@@ -13,7 +13,7 @@ namespace PalcoNet.Datos
         public String Fila; //2 caracteres validarlo en textbox
         public int Asiento; //3 caracteres validarlo en textbox
         public Decimal precio;
-        public Decimal id_tipo;
+        public Decimal tipo;
 
     }
 }
