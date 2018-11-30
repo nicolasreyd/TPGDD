@@ -43,6 +43,8 @@
             this.rolCliente_comboBox = new System.Windows.Forms.ComboBox();
             this.altaUsuario_button = new System.Windows.Forms.Button();
             this.emailCliente_textBox = new System.Windows.Forms.TextBox();
+            this.numeroTarjeta_textBox = new System.Windows.Forms.TextBox();
+            this.vencimientoTarjeta_textBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // nombreCliente_textBox
@@ -187,11 +189,31 @@
             this.emailCliente_textBox.Text = "email";
             this.emailCliente_textBox.TextChanged += new System.EventHandler(this.emailCliente_textBox_TextChanged);
             // 
+            // numeroTarjeta_textBox
+            // 
+            this.numeroTarjeta_textBox.Location = new System.Drawing.Point(325, 97);
+            this.numeroTarjeta_textBox.Name = "numeroTarjeta_textBox";
+            this.numeroTarjeta_textBox.Size = new System.Drawing.Size(100, 20);
+            this.numeroTarjeta_textBox.TabIndex = 15;
+            this.numeroTarjeta_textBox.Text = "Numero tarjeta";
+            this.numeroTarjeta_textBox.TextChanged += new System.EventHandler(this.numeroTarjeta_textBox_TextChanged);
+            // 
+            // vencimientoTarjeta_textBox
+            // 
+            this.vencimientoTarjeta_textBox.Location = new System.Drawing.Point(431, 97);
+            this.vencimientoTarjeta_textBox.Name = "vencimientoTarjeta_textBox";
+            this.vencimientoTarjeta_textBox.Size = new System.Drawing.Size(100, 20);
+            this.vencimientoTarjeta_textBox.TabIndex = 16;
+            this.vencimientoTarjeta_textBox.Text = "mm/aa";
+            this.vencimientoTarjeta_textBox.TextChanged += new System.EventHandler(this.vencimientoTarjeta_textBox_TextChanged);
+            // 
             // Alta_Cliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 318);
+            this.ClientSize = new System.Drawing.Size(608, 318);
+            this.Controls.Add(this.vencimientoTarjeta_textBox);
+            this.Controls.Add(this.numeroTarjeta_textBox);
             this.Controls.Add(this.emailCliente_textBox);
             this.Controls.Add(this.altaUsuario_button);
             this.Controls.Add(this.rolCliente_comboBox);
@@ -231,5 +253,7 @@
         private System.Windows.Forms.ComboBox rolCliente_comboBox;
         private System.Windows.Forms.Button altaUsuario_button;
         private System.Windows.Forms.TextBox emailCliente_textBox;
+        private System.Windows.Forms.TextBox numeroTarjeta_textBox;
+        private System.Windows.Forms.TextBox vencimientoTarjeta_textBox;
     }
 }

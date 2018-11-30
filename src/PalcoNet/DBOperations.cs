@@ -461,7 +461,7 @@ namespace PalcoNet
             return id;
         }
 
-        public void agregar_nuevo_cliente(string nombre_usuario, string apellido_usuario, string tipo_dni, int numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir,string domicilio_calle, int domicilio_numero, int domicilio_piso, string domicilio_depto, string cod_post)//,rol)
+        public void agregar_nuevo_cliente(string nombre_usuario, string apellido_usuario, string tipo_dni, int numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir,string domicilio_calle, int domicilio_numero, int domicilio_piso, string domicilio_depto, string cod_post, string numero_tarjeta, string vencimiento_tarjeta)//,rol)
         {
             object result = Execute_SP("INNERJOIN.sp_alta_cliente", new
             {
@@ -477,7 +477,9 @@ namespace PalcoNet
                 dom_numero = domicilio_numero,
                 dom_piso = domicilio_piso,
                 dom_depto = domicilio_depto,
-                codpost = cod_post
+                codpost = cod_post,
+                num_tarjeta = numero_tarjeta,
+                venc_tarjeta = vencimiento_tarjeta
             });
             if (result == null)
             {
