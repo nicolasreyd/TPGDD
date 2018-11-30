@@ -59,18 +59,35 @@ namespace PalcoNet.Generar_Publicacion
         {
             Datos.Ubicacion ubicacion = new Datos.Ubicacion();
             ubicacion.numerada = Convert.ToInt32(Numerada_checkBox.Checked);
-            if (ubicacion.numerada == 1) {
-                ubicacion.Asiento = Convert.ToInt32(Asiento_textBox.Text);
-                ubicacion.Fila = Fila_textBox.Text;
+
+            if (data_validate())
+            {
+                if (ubicacion.numerada == 1)
+                {
+                    ubicacion.Asiento = Convert.ToInt32(Asiento_textBox.Text);
+                    ubicacion.Fila = Fila_textBox.Text;
+                }
+                else
+                {
+                    ubicacion.Asiento = 0;
+                    ubicacion.Fila = "";
+                }
+                ubicacion.precio = Convert.ToDecimal(Precio_textBox.Text);
+                ubicacion.tipo = App.db.getTipoUbicacion(Convert.ToString(Tipo_comboBox.SelectedItem));
+
+                this.publicacion.ubicaciones.Add(ubicacion);
+
+                this.Hide();
             }
-            ubicacion.precio = Convert.ToDecimal(Precio_textBox.Text);
-            ubicacion.tipo = App.db.getTipoUbicacion(Convert.ToString(Tipo_comboBox.SelectedItem));
-
-            this.publicacion.ubicaciones.Add(ubicacion);
-
-            this.Hide();
+            else {
+                MessageBox.Show("Valide los datos ingresados.");
+            }
         }
 
-    
-    }
+        private bool data_validate()
+        {
+            throw new NotImplementedException();
+        }
+  }
+
 }

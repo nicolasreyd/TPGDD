@@ -13,12 +13,14 @@ namespace PalcoNet.Generar_Publicacion
     public partial class Generar_Publicacion : Form
     {
         Datos.Publicacion publicacion;
+        Herramientas.Funcionalidades_Pantallas func;
 
         
         public Generar_Publicacion()
         {
             InitializeComponent();
             this.publicacion = new Datos.Publicacion();
+            func = new Herramientas.Funcionalidades_Pantallas();
 
             cargar_rubros();
             cargar_grados();
@@ -76,15 +78,47 @@ namespace PalcoNet.Generar_Publicacion
                 publicacion.grado = new Datos.Grado(split_grado[0], 1 , Convert.ToDecimal(split_grado[2])); 
                 App.db.generar_publicacion(publicacion);
 
+                descartar_publicacion();
+
             }
             else {
                 MessageBox.Show("Debe completar todos los campos correctamente");
             }
         }
 
+        private void descartar_publicacion()
+        {
+            func.Limpiar(this);
+            publicacion.ubicaciones = new List<Datos.Ubicacion>();
+        }
+
         private bool data_validate()
         {
-            return true; //TODO
+            bool resultado = true;
+
+
+            if (String.IsNullOrEmpty(Descripcion_textBox.Text))
+            {
+                errorProvider.SetError(Descripcion_textBox, "El campo Descripcion es requerido");
+                resultado = false;
+            }
+
+
+                //Verifico que la fecha de inicio sea menor o igual a la de vencimiento
+                if (FechaEspec_dateTimePicker.Value < DateTime.Today)
+                {
+                    errorProvider.SetError(FechaEspec_dateTimePicker, "La fecha de espectaculo no puede ser menor a la de publicacion");
+                    resultado = false;
+                }
+            
+
+            if (String.IsNullOrEmpty(Direccion_TextBox.Text))
+            {
+                errorProvider.SetError(Direccion_TextBox, "El campo Direccion es requerido");
+                resultado = false;
+            }
+
+            return resultado;
         }
 
         private void SigEstado_button_Click(object sender, EventArgs e)
@@ -109,6 +143,22 @@ namespace PalcoNet.Generar_Publicacion
             agregar.Show();
         }
 
+        private void Descartar_Button_Click(object sender, EventArgs e)
+        {
+            this.descartar_publicacion();
+        }
+
+        private void Generar_Publicacion_MouseClick(object sender, MouseEventArgs e)
+        {
+            cantidadUbicaciones_textbox.Text = Convert.ToString(publicacion.ubicaciones.Count);
+        }
+
+        private void verubic_button_Click(object sender, EventArgs e)
+        {
+            cantidadUbicaciones_textbox.Text = Convert.ToString(publicacion.ubicaciones.Count);
+        }
+
+     
     
     }
 }

@@ -349,8 +349,8 @@ namespace PalcoNet
         public void generar_publicacion(Datos.Publicacion publicacion)
         {
             SqlCommand command;
-
-            object result = Execute_SP("gd_esquema.sp_generar_publicacion", 
+            
+            object result = Execute_SP("INNERJOIN.sp_generar_publicacion", 
                 new { descripcion = publicacion.descripcion,
                       rubro_text = publicacion.rubro,
                       grado_text = publicacion.grado.descripcion,
@@ -362,14 +362,13 @@ namespace PalcoNet
                       direccion = publicacion.direccion,
                       identity = 1
                      });
-            if (result == null)
-            {
-                MessageBox.Show("Creacion Correcta");
-            }
+
+           
+          
 
             Decimal id_publicacion = Convert.ToDecimal(result);
             foreach (Datos.Ubicacion ubicacion in publicacion.ubicaciones) {
-                command = new SqlCommand("insert into gd_esquema.ubicacion values(@id_publi,@fila,@asiento,@precio,@tipo_id,@numerada)", this.connection);
+                command = new SqlCommand("insert into INNERJOIN.ubicacion values(@id_publi,@fila,@asiento,@precio,@tipo_id,@numerada)", this.connection);
                 command.Parameters.AddWithValue("@id_publi", id_publicacion);
                 command.Parameters.AddWithValue("@fila", ubicacion.Fila);
                 command.Parameters.AddWithValue("@asiento", ubicacion.Asiento);
@@ -378,6 +377,14 @@ namespace PalcoNet
                 command.Parameters.AddWithValue("@numerada", ubicacion.numerada);
 
                 command.ExecuteNonQuery();
+            }
+
+            if (result != null || Convert.ToInt32(result) > 0)
+            {
+                MessageBox.Show("Creacion Correcta");
+            }
+            else {
+                MessageBox.Show("Creacion Incorrecta");
             }
         }
 
@@ -423,15 +430,11 @@ namespace PalcoNet
             return tipos;
         }
 
-<<<<<<< HEAD
-        public void agregar_nuevo_cliente(string nombre_usuario, string apellido_usuario, string tipo_dni, int numero_dni, string numero_cuil, string email_dir, string fecha_nacimiento, string num_telefono, string domicilio_calle, int domicilio_numero, int domicilio_piso, string domicilio_depto, string cod_post)//,rol)
-=======
-
         public List<Datos.Grado> getGrados()
         {
             List<Datos.Grado> grados = new List<Datos.Grado>();
 
-            SqlDataReader data = command_reader("select distinct * from gd_esquema.grado");
+            SqlDataReader data = command_reader("select distinct * from INNERJOIN.grado");
 
             if (data.HasRows)
             {
@@ -451,7 +454,7 @@ namespace PalcoNet
         public decimal getTipoUbicacion(string descripcion)
         {
             Decimal id;
-            SqlDataReader data = command_reader("select * from gd_esquema.ubicacion_tipo where descripcion LIKE '" + descripcion + "'");
+            SqlDataReader data = command_reader("select * from INNERJOIN.ubicacion_tipo where descripcion LIKE '" + descripcion + "'");
             data.Read();
             id = data.GetDecimal(0);
             data.Close();
@@ -459,7 +462,6 @@ namespace PalcoNet
         }
 
         public void agregar_nuevo_cliente(string nombre_usuario, string apellido_usuario, string tipo_dni, int numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir,string domicilio_calle, int domicilio_numero, int domicilio_piso, string domicilio_depto, string cod_post)//,rol)
->>>>>>> b905702c5724f5d9ce86d05264fd16e741c17030
         {
             object result = Execute_SP("INNERJOIN.sp_alta_cliente", new
             {
