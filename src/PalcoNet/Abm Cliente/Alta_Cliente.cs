@@ -111,6 +111,9 @@ namespace PalcoNet.Abm_Cliente
         private void altaUsuario_button_Click(object sender, EventArgs e)
         {
             App.db.agregar_nuevo_cliente(nombre_usuario, apellido_usuario, tipo_dni, numero_dni, cuil, email, fecha_nacimiento, telefono, domicilio_calle, domicilio_numero, domicilio_piso, domicilio_depto, cod_post);//,rol);
+            this.Hide();
+            Login.Login login = new Login.Login();
+            login.Show();
         }
 
        // object resultado = DBOperations.Execute_SP("INNERJOIN.sp_alta_cliente", new { codpost = this.cod_post });

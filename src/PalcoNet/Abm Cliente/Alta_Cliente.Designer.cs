@@ -51,7 +51,7 @@
             this.nombreCliente_textBox.Name = "nombreCliente_textBox";
             this.nombreCliente_textBox.Size = new System.Drawing.Size(100, 20);
             this.nombreCliente_textBox.TabIndex = 0;
-            this.nombreCliente_textBox.Text = "Apellido";
+            this.nombreCliente_textBox.Text = "Nombre";
             this.nombreCliente_textBox.TextChanged += new System.EventHandler(this.nombreCliente_textBox_TextChanged);
             // 
             // apellidoCliente_textBox
@@ -60,7 +60,7 @@
             this.apellidoCliente_textBox.Name = "apellidoCliente_textBox";
             this.apellidoCliente_textBox.Size = new System.Drawing.Size(100, 20);
             this.apellidoCliente_textBox.TabIndex = 1;
-            this.apellidoCliente_textBox.Text = "Nombre";
+            this.apellidoCliente_textBox.Text = "Apellido";
             this.apellidoCliente_textBox.TextChanged += new System.EventHandler(this.apellidoCliente_textBox_TextChanged);
             // 
             // nroDNI_textBox
