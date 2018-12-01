@@ -154,6 +154,13 @@ namespace PalcoNet.Login
         {
 
         }
+
+        private void EditarPubli_Button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Editar_Publicacion.Editar_grilla edit = new Editar_Publicacion.Editar_grilla();
+            edit.Show();
+        }
 	}
 }
 

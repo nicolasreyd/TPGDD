@@ -37,6 +37,7 @@
             this.Descripcion_textBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.Completar = new System.Windows.Forms.GroupBox();
+            this.verubic_button = new System.Windows.Forms.Button();
             this.cantidadUbicaciones_textbox = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.Grado_comboBox = new System.Windows.Forms.ComboBox();
@@ -53,7 +54,6 @@
             this.Generar_Button = new System.Windows.Forms.Button();
             this.Descartar_Button = new System.Windows.Forms.Button();
             this.Volver_linkLabel = new System.Windows.Forms.LinkLabel();
-            this.verubic_button = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.Estado.SuspendLayout();
             this.Completar.SuspendLayout();
@@ -150,6 +150,16 @@
             this.Completar.TabIndex = 7;
             this.Completar.TabStop = false;
             this.Completar.Text = "Completar";
+            // 
+            // verubic_button
+            // 
+            this.verubic_button.Location = new System.Drawing.Point(496, 133);
+            this.verubic_button.Name = "verubic_button";
+            this.verubic_button.Size = new System.Drawing.Size(53, 30);
+            this.verubic_button.TabIndex = 22;
+            this.verubic_button.Text = "Ver";
+            this.verubic_button.UseVisualStyleBackColor = true;
+            this.verubic_button.Click += new System.EventHandler(this.verubic_button_Click);
             // 
             // cantidadUbicaciones_textbox
             // 
@@ -295,16 +305,7 @@
             this.Volver_linkLabel.TabIndex = 10;
             this.Volver_linkLabel.TabStop = true;
             this.Volver_linkLabel.Text = "Volver";
-            // 
-            // verubic_button
-            // 
-            this.verubic_button.Location = new System.Drawing.Point(496, 133);
-            this.verubic_button.Name = "verubic_button";
-            this.verubic_button.Size = new System.Drawing.Size(53, 30);
-            this.verubic_button.TabIndex = 22;
-            this.verubic_button.Text = "Ver";
-            this.verubic_button.UseVisualStyleBackColor = true;
-            this.verubic_button.Click += new System.EventHandler(this.verubic_button_Click);
+            this.Volver_linkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Volver_linkLabel_LinkClicked);
             // 
             // errorProvider
             // 
@@ -321,6 +322,7 @@
             this.Controls.Add(this.Completar);
             this.Controls.Add(this.Estado);
             this.Name = "Generar_Publicacion";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Generar Publicacion";
             this.Load += new System.EventHandler(this.Generar_Publicacion_Load);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Generar_Publicacion_MouseClick);

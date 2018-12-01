@@ -77,7 +77,9 @@ namespace PalcoNet.Generar_Publicacion
 
                 this.publicacion.ubicaciones.Add(ubicacion);
 
+                MessageBox.Show("Ubicacion Agregada.");
                 this.Hide();
+                
             }
             else {
                 MessageBox.Show("Valide los datos ingresados.");
@@ -86,7 +88,37 @@ namespace PalcoNet.Generar_Publicacion
 
         private bool data_validate()
         {
-            throw new NotImplementedException();
+            bool resultado = true;
+
+            if (Numerada_checkBox.Checked) {
+                if (String.IsNullOrEmpty(Asiento_textBox.Text))
+                {
+                    errorProvider.SetError(Asiento_textBox, "El campo Asiento es requerido");
+                    resultado = false;
+                }
+
+                if (String.IsNullOrEmpty(Fila_textBox.Text))
+                {
+                    errorProvider.SetError(Fila_textBox, "El campo Fila es requerido");
+                    resultado = false;
+                }
+
+            }
+
+
+            if (String.IsNullOrEmpty(this.Precio_textBox.Text))
+            {
+                errorProvider.SetError(Precio_textBox, "El campo Precio es requerido");
+                resultado = false;
+            }
+
+            else if (!(Herramientas.Funcionalidades_Pantallas.esNumero(Precio_textBox.Text)))
+            {
+                errorProvider.SetError(Precio_textBox, "Ingrese un valor numerico");
+                resultado = false;
+            }
+
+            return resultado;
         }
   }
 
