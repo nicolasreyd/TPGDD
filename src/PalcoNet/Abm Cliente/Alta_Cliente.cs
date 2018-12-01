@@ -29,6 +29,8 @@ namespace PalcoNet.Abm_Cliente
         private string cod_post;
         private string rol;
         private string email;
+        private string numero_tarjeta;
+        private string vencimiento_tarjeta;
 
         public Alta_Cliente()
         {
@@ -108,13 +110,25 @@ namespace PalcoNet.Abm_Cliente
             this.rol = rolCliente_comboBox.Text;
         }
 
+        private void numeroTarjeta_textBox_TextChanged(object sender, EventArgs e)
+        {
+            this.numero_tarjeta = numeroTarjeta_textBox.Text;
+        }
+
+        private void vencimientoTarjeta_textBox_TextChanged(object sender, EventArgs e)
+        {
+            this.vencimiento_tarjeta = "01/"+vencimientoTarjeta_textBox.Text;
+        }
+
         private void altaUsuario_button_Click(object sender, EventArgs e)
         {
-            App.db.agregar_nuevo_cliente(nombre_usuario, apellido_usuario, tipo_dni, numero_dni, cuil, email, fecha_nacimiento, telefono, domicilio_calle, domicilio_numero, domicilio_piso, domicilio_depto, cod_post);//,rol);
+            App.db.agregar_nuevo_cliente(nombre_usuario, apellido_usuario, tipo_dni, numero_dni, cuil, fecha_nacimiento, telefono, email, domicilio_calle, domicilio_numero, domicilio_piso, domicilio_depto, cod_post, numero_tarjeta, vencimiento_tarjeta);//,rol);
             this.Hide();
             Login.Login login = new Login.Login();
             login.Show();
         }
+
+
 
        // object resultado = DBOperations.Execute_SP("INNERJOIN.sp_alta_cliente", new { codpost = this.cod_post });
     }
