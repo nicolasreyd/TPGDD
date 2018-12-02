@@ -74,7 +74,6 @@ namespace PalcoNet.Generar_Publicacion
                 publicacion.estado = Estado_Textbox.Text;
                 publicacion.direccion = Direccion_TextBox.Text;
                 string[] split_grado = Convert.ToString(Grado_comboBox.SelectedItem).Split(' ');
-                Console.WriteLine(split_grado[0]);
                 publicacion.grado = new Datos.Grado(split_grado[0], 1 , Convert.ToDecimal(split_grado[2])); 
                 App.db.generar_publicacion(publicacion);
 
