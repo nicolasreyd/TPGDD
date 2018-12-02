@@ -1,5 +1,8 @@
 /* Script de creación inicial - TP 2C 2018 */
 
+create schema INNERJOIN
+GO
+
 create table INNERJOIN.usuario (
 usuario_id numeric(10) identity(1,1),
 usuario_username varchar(16) not null,
@@ -62,7 +65,7 @@ cliente_baja_logica bit not null default 1
 alter table INNERJOIN.cliente add constraint pk_cliente primary key (cliente_id)
 --alter table INNERJOIN.cliente add constraint fk_cliente_usuario foreign key (usuario_id) references INNERJOIN.usuario
 alter table INNERJOIN.cliente add constraint unq_dni unique (cliente_tipo_dni,cliente_numero_dni)
---alter table INNERJOIN.cliente add constraint unq_cuil unique (cuil)
+--alter table INNERJOIN.cliente add constraint unq_cuil unique (cliente_cuil)
 
 create table INNERJOIN.tarjeta_credito (
 tarjeta_credito_id numeric(10) identity(1,1),

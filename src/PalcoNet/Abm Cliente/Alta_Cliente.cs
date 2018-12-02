@@ -18,7 +18,7 @@ namespace PalcoNet.Abm_Cliente
         private String nombre_usuario;
         private string apellido_usuario;
         private string tipo_dni;
-        private int numero_dni;
+        private string numero_dni;
         private string cuil;
         private string fecha_nacimiento;
         private string telefono;
@@ -56,7 +56,8 @@ namespace PalcoNet.Abm_Cliente
 
         private void nroDNI_textBox_TextChanged(object sender, EventArgs e)
         {
-            this.numero_dni = Convert.ToInt32(nroDNI_textBox.Text);
+            //this.numero_dni = Convert.ToInt32(nroDNI_textBox.Text);
+            this.numero_dni = nroDNI_textBox.Text;
         }
 
         private void cuilCliente_textBox_TextChanged(object sender, EventArgs e)
@@ -122,6 +123,27 @@ namespace PalcoNet.Abm_Cliente
 
         private void altaUsuario_button_Click(object sender, EventArgs e)
         {
+            /*
+            string msjError = "";
+
+            if (nroDNI_textBox.Text == string.Empty)
+            {
+               // MessageBox.Show("El DNI no puede ser vacio");
+               // return;
+                msjError += "El DNI no puede ser vacio\n";
+            }
+
+            if (numeroTarjeta_textBox.Text == string.Empty)
+            {
+               // MessageBox.Show("La tarjeta no puede ser vacia");
+               // return;
+                msjError += "La tarjeta no puede ser vacia";
+            }
+
+            MessageBox.Show(msjError);
+            return;
+             */
+
             App.db.agregar_nuevo_cliente(nombre_usuario, apellido_usuario, tipo_dni, numero_dni, cuil, fecha_nacimiento, telefono, email, domicilio_calle, domicilio_numero, domicilio_piso, domicilio_depto, cod_post, numero_tarjeta, vencimiento_tarjeta);//,rol);
             this.Hide();
             Login.Login login = new Login.Login();
