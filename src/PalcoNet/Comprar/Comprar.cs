@@ -88,7 +88,7 @@ namespace PalcoNet.Comprar
 
         private void compra_limpiar_Click(object sender, EventArgs e)
         {
-            categorias.Limpiar(this);
+            //categorias.Limpiar(this);
             for (int i = 0; i < categoria_listBox.Items.Count; i++)
             {
 

@@ -290,6 +290,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+	</EmbeddedResource>
     <EmbeddedResource Include="Editar Publicacion\Editar_formulario.resx">
       <DependentUpon>Editar_formulario.cs</DependentUpon>
     </EmbeddedResource>
