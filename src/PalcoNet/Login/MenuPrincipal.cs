@@ -154,6 +154,18 @@ namespace PalcoNet.Login
         {
 
         }
-	}
+
+        private void RegistroUsuario_Button_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Comprar_Button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Comprar.Comprar comprar = new Comprar.Comprar();
+            comprar.Show();
+        }
+    }
 }
 

@@ -46,9 +46,9 @@
             this.groupBox1.Controls.Add(this.nombreRol_Textbox);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(32, 24);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(335, 246);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
@@ -58,10 +58,11 @@
             // 
             this.funcionalidades_checklist.FormattingEnabled = true;
             this.funcionalidades_checklist.Location = new System.Drawing.Point(135, 89);
-            this.funcionalidades_checklist.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.funcionalidades_checklist.Margin = new System.Windows.Forms.Padding(2);
             this.funcionalidades_checklist.Name = "funcionalidades_checklist";
             this.funcionalidades_checklist.Size = new System.Drawing.Size(149, 139);
             this.funcionalidades_checklist.TabIndex = 3;
+            this.funcionalidades_checklist.SelectedIndexChanged += new System.EventHandler(this.funcionalidades_checklist_SelectedIndexChanged);
             // 
             // Funcionalidades_label
             // 
@@ -76,7 +77,7 @@
             // nombreRol_Textbox
             // 
             this.nombreRol_Textbox.Location = new System.Drawing.Point(135, 36);
-            this.nombreRol_Textbox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nombreRol_Textbox.Margin = new System.Windows.Forms.Padding(2);
             this.nombreRol_Textbox.Name = "nombreRol_Textbox";
             this.nombreRol_Textbox.Size = new System.Drawing.Size(149, 20);
             this.nombreRol_Textbox.TabIndex = 1;
@@ -96,7 +97,7 @@
             // Limpiar_Button
             // 
             this.Limpiar_Button.Location = new System.Drawing.Point(167, 281);
-            this.Limpiar_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Limpiar_Button.Margin = new System.Windows.Forms.Padding(2);
             this.Limpiar_Button.Name = "Limpiar_Button";
             this.Limpiar_Button.Size = new System.Drawing.Size(71, 24);
             this.Limpiar_Button.TabIndex = 1;
@@ -107,7 +108,7 @@
             // Alta_Button
             // 
             this.Alta_Button.Location = new System.Drawing.Point(288, 281);
-            this.Alta_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Alta_Button.Margin = new System.Windows.Forms.Padding(2);
             this.Alta_Button.Name = "Alta_Button";
             this.Alta_Button.Size = new System.Drawing.Size(71, 24);
             this.Alta_Button.TabIndex = 2;
@@ -136,7 +137,7 @@
             this.Controls.Add(this.Alta_Button);
             this.Controls.Add(this.Limpiar_Button);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Alta_Rol";
             this.Text = "Alta de Rol";
             this.Load += new System.EventHandler(this.Alta_Rol_Load);

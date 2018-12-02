@@ -50,5 +50,10 @@ namespace PalcoNet.Abm_Rol
             Baja_Rol baja = new Baja_Rol();
             baja.Show();
         }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
