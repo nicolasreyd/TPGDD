@@ -47,7 +47,7 @@ namespace PalcoNet.Abm_Rol
 
         private void Limpiar_Button_Click(object sender, EventArgs e)
         {
-            func.Limpiar(this);
+            Herramientas.Funcionalidades_Pantallas.Limpiar(this);
         }
 
         private void Volver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

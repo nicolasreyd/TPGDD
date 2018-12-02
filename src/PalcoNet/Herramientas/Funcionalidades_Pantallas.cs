@@ -10,12 +10,25 @@ namespace PalcoNet.Herramientas
     public class Funcionalidades_Pantallas
     {
 
-        public void Limpiar(Form form)
+        static public void Limpiar(Form form)
         {
             LimpiarControl(form);
         }
 
-        public void LimpiarControl(Control controlToClean)
+        static public bool esNumero(string cadena)
+        {
+            for (int lIndice = 0; lIndice <= cadena.Length - 1; lIndice++)
+            {
+                if (!char.IsNumber(cadena[lIndice]))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+        static public void LimpiarControl(Control controlToClean)
         { 
          foreach (var control in controlToClean.Controls)
             {

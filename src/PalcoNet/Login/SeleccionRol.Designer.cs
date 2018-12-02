@@ -80,9 +80,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(526, 284);
             this.Controls.Add(this.groupBox1);
             this.Name = "SeleccionRol";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SeleccionRol";
             this.Load += new System.EventHandler(this.SeleccionRol_Load);
             this.groupBox1.ResumeLayout(false);

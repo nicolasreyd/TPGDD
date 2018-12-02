@@ -166,6 +166,7 @@ alter table INNERJOIN.rubro add constraint pk_rubro primary key (rubro_id)
 create table INNERJOIN.grado (
 grado_id numeric(1) identity(1,1),
 grado_nombre nvarchar (20),
+grado_prioridad numeric(10) not null default 1,
 grado_comision numeric(10)
 )
 
@@ -189,6 +190,8 @@ alter table INNERJOIN.publicacion add constraint pk_publicacion primary key (pub
 --alter table INNERJOIN.publicacion add constraint fk_publicacion_rubro foreign key (id_rubro) references INNERJOIN.rubro
 --alter table INNERJOIN.publicacion add constraint fk_publicacion_grado foreign key (id_grado) references INNERJOIN.grado
 --alter table INNERJOIN.publicacion add constraint fk_publicacion_responsable foreign key (id_responsable) references INNERJOIN.usuario
+
+set identity_insert INNERJOIN.publicacion ON
 
 
 create table INNERJOIN.ubicacion_tipo (
@@ -268,7 +271,7 @@ comision numeric(10,2)
 insert into INNERJOIN.usuario (usuario_username,usuario_password,usuario_tipo)
 select DISTINCT concat('',cli_dni),
 LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256','123'), 2)),'cliente'
-from gd_esquema.Maestra 
+from INNERJOIN.Maestra 
 where Cli_Dni is not null;
 
 --Probado OK
@@ -278,7 +281,7 @@ where Cli_Dni is not null;
 insert into INNERJOIN.usuario (usuario_username,usuario_password,usuario_tipo)
 select DISTINCT concat('',REPLACE(espec_empresa_cuit,'-','')), 
 LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256','123'))),'empresa'
-from gd_esquema.Maestra 
+from INNERJOIN.Maestra 
 where espec_empresa_cuit is not null;
 
 --Probado OK
@@ -293,7 +296,7 @@ espec_empresa_razon_social,
 espec_empresa_cuit,espec_empresa_fecha_Creacion,
 espec_empresa_mail,espec_empresa_dom_calle,espec_empresa_nro_calle,
 espec_empresa_piso,espec_empresa_depto,espec_empresa_cod_postal
-from gd_esquema.Maestra
+from INNERJOIN.Maestra
 group by espec_empresa_razon_social,espec_empresa_cuit,espec_empresa_fecha_Creacion,
 espec_empresa_mail,espec_empresa_dom_calle,espec_empresa_nro_calle,
 espec_empresa_piso,espec_empresa_depto,espec_empresa_cod_postal
@@ -306,7 +309,7 @@ order by 3
 insert into INNERJOIN.cliente (usuario_id,cliente_numero_dni,cliente_apellido,cliente_nombre,cliente_fecha_nacimiento,cliente_email,cliente_domicilio_calle,cliente_domicilio_numero,cliente_domicilio_piso,cliente_domicilio_departamento,cliente_codigo_postal)
 select concat('',cli_dni),
 cli_dni, Cli_Apeliido, Cli_Nombre, Cli_Fecha_Nac,Cli_Mail,Cli_Dom_Calle,Cli_Nro_Calle,cli_piso,cli_depto,Cli_Cod_Postal
-from gd_esquema.Maestra
+from INNERJOIN.Maestra
 where cli_dni is not null
 group by cli_dni, Cli_Apeliido, Cli_Nombre, Cli_Fecha_Nac,Cli_Mail,Cli_Dom_Calle,Cli_Nro_Calle,cli_piso,cli_depto,Cli_Cod_Postal
 order by 1 asc
@@ -318,7 +321,7 @@ order by 1 asc
 INSERT INTO INNERJOIN.rubro (rubro_descripcion)
 SELECT case Espectaculo_Rubro_Descripcion 
        when '' THEN 'Sin definir' end
-FROM gd_esquema.Maestra
+FROM INNERJOIN.Maestra
 WHERE Espectaculo_Rubro_Descripcion IS NOT NULL
 group by Espectaculo_Rubro_Descripcion 
 
@@ -357,7 +360,7 @@ VALUES ('Registro de Usuario'),
 
 
 insert into INNERJOIN.ubicacion_tipo (id,descripcion)
-select Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion from gd_esquema.Maestra
+select Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion from INNERJOIN.Maestra
 group by Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion
 order by 1 asc
 
@@ -366,12 +369,12 @@ order by 1 asc
 
 -- Migracion espectaculos/publicaciones
 /*El grado no esta en la tabla maestra por lo tanto se deja en null*/
-insert into INNERJOIN.publicacion (id_responsable,id_espectaculo,publicacion_descripcion,publicacion_fecha_publicacion,publicacion_fecha_evento,id_rubro,publicacion_estado)
-select (select usuario_id from INNERJOIN.usuario
+insert into INNERJOIN.publicacion (publicacion_id,id_responsable,id_espectaculo,publicacion_descripcion,publicacion_fecha_publicacion,publicacion_fecha_evento,id_rubro,publicacion_estado)
+select espectaculo_cod,(select usuario_id from INNERJOIN.usuario
          where usuario_username LIKE concat('',REPLACE(espec_empresa_cuit,'-','')))
 ,espectaculo_cod,espectaculo_descripcion,
 Espectaculo_Fecha,Espectaculo_Fecha_Venc,isnull(rubro_id,1),Espectaculo_Estado
-from gd_esquema.Maestra left join INNERJOIN.rubro on Espectaculo_Rubro_Descripcion=rubro_descripcion
+from INNERJOIN.Maestra left join INNERJOIN.rubro on Espectaculo_Rubro_Descripcion=rubro_descripcion
 group by espec_empresa_cuit,espectaculo_cod,espectaculo_descripcion,Espectaculo_Fecha,
          Espectaculo_Fecha_Venc,rubro_id,Espectaculo_Estado
 order by 1 asc
@@ -398,7 +401,7 @@ insert into INNERJOIN.compra_temp (Forma_Pago_Desc, Cli_Mail,Ubicacion_Fila,Ubic
 Ubicacion_Sin_numerar,Ubicacion_Tipo_Codigo, Espectaculo_Cod,Cli_Dni) 
 select Forma_Pago_Desc, Cli_Mail,Ubicacion_Fila,Ubicacion_Asiento,Ubicacion_Precio,
 Ubicacion_Sin_numerar,Ubicacion_Tipo_Codigo, Espectaculo_Cod,Cli_Dni 
-from gd_esquema.Maestra
+from INNERJOIN.Maestra
 where Cli_Dni is not null
 
 WHILE EXISTS (SELECT * FROM INNERJOIN.compra_temp where flag_migrado=0)

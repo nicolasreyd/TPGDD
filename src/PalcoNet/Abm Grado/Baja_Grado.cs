@@ -79,7 +79,7 @@ namespace PalcoNet.Abm_Grado
 
 		private void limpiar_button_Click(object sender, EventArgs e)
 		{
-			func.Limpiar(this);
+            Herramientas.Funcionalidades_Pantallas.Limpiar(this);
 		}
 
 		private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)

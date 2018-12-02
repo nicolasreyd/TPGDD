@@ -53,7 +53,7 @@ namespace PalcoNet.Abm_Grado
 
 		private void button2_Click(object sender, EventArgs e)
 		{
-			func.Limpiar(this);
+            Herramientas.Funcionalidades_Pantallas.Limpiar(this);
 		}
 
 		private void Modificacion_Grado_Load(object sender, EventArgs e)

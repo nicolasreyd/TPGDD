@@ -88,7 +88,7 @@ namespace PalcoNet.Generar_Publicacion
 
         private void descartar_publicacion()
         {
-            func.Limpiar(this);
+            Herramientas.Funcionalidades_Pantallas.Limpiar(this);
             publicacion.ubicaciones = new List<Datos.Ubicacion>();
         }
 
@@ -156,6 +156,13 @@ namespace PalcoNet.Generar_Publicacion
         private void verubic_button_Click(object sender, EventArgs e)
         {
             cantidadUbicaciones_textbox.Text = Convert.ToString(publicacion.ubicaciones.Count);
+        }
+
+        private void Volver_linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            Login.MenuPrincipal menu = new Login.MenuPrincipal();
+            menu.Show();
         }
 
      
