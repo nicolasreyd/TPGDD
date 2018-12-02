@@ -166,6 +166,12 @@ namespace PalcoNet.Login
             Comprar.Comprar comprar = new Comprar.Comprar();
             comprar.Show();
         }
-    }
+        private void EditarPubli_Button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Editar_Publicacion.Editar_grilla edit = new Editar_Publicacion.Editar_grilla();
+            edit.Show();
+        }
+	}
 }
 

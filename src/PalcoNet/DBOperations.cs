@@ -359,7 +359,20 @@ namespace PalcoNet
             return adapter;
         }
 
-        public List<Datos.Funcionalidad> getMissingFuncionalidades(Decimal rol_id)
+
+        public Datos.Grado getGrado(String nombre)
+        {
+            Datos.Grado grado;
+            SqlDataReader data = command_reader("select * from INNERJOIN.grado where grado_nombre LIKE '" + nombre+"'");
+       
+            data.Read();
+            grado = new Datos.Grado(nombre, data.GetDecimal(0), data.GetDecimal(2));
+
+            data.Close();
+            return grado;
+        }
+
+		public List<Datos.Funcionalidad> getMissingFuncionalidades(Decimal rol_id)
         {
             List<Datos.Funcionalidad> funcionalidades = new List<Datos.Funcionalidad>();
             SqlDataReader data = command_reader("select distinct func_id,func_nombre from INNERJOIN.funcionalidad EXCEPT select distinct func_id,func_nombre from INNERJOIN.funcionalidad join INNERJOIN.rol_funcionalidad on func_id = id_funcionalidad where id_rol = " + rol_id);
@@ -603,6 +616,49 @@ namespace PalcoNet
                 MessageBox.Show("Alta de cliente correcta");
             }
 
+        }
+
+        public SqlDataAdapter getTablaPublicaciones()
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            SqlCommand query = new SqlCommand("select publicacion_id,id_espectaculo,rubro_descripcion,grado_nombre,usuario_username, publicacion_estado,publicacion_fecha_publicacion,publicacion_fecha_evento,publicacion_descripcion, publicacion_direccion from INNERJOIN.publicacion left outer join INNERJOIN.usuario on id_responsable = usuario_id left outer join INNERJOIN.rubro on id_rubro = rubro_id left outer join INNERJOIN.grado on id_grado = grado_id", connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
+        }
+
+        public SqlDataAdapter getTablaPublicacionesFiltros(string query)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            SqlCommand queryCommand = new SqlCommand(query, connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(queryCommand);
+
+            return adapter;
+        }
+
+
+        public SqlDataAdapter getUbicacionByPublicacionID(decimal id_publicacion)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            SqlCommand query = new SqlCommand("select * from INNERJOIN.ubicacion where id_publicacion = " + id_publicacion, connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
+        }
+
+        public void eliminar_ubicacion(decimal id)
+        {
+            connection = new SqlConnection(ConnectionString);
+            connection.Open();
+            SqlCommand sqlcommand = new SqlCommand("delete from INNERJOIN.ubicacion where ubicacion_id = " + id, connection);
+
+            sqlcommand.ExecuteNonQuery();
         }
     }
 }

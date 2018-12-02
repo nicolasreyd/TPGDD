@@ -28,7 +28,6 @@ namespace PalcoNet.Abm_Rol
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            //this.Hide();
 
             Decimal id = Convert.ToDecimal(dataGridView1.Rows[e.RowIndex].Cells[0].Value);
 
@@ -61,7 +60,7 @@ namespace PalcoNet.Abm_Rol
 
         private void Limpiar_Button_Click(object sender, EventArgs e)
         {
-            func.Limpiar(this);
+            Herramientas.Funcionalidades_Pantallas.Limpiar(this);
         }
 
         private void Modificacion_Rol_FormClosing(object sender, FormClosingEventArgs e)

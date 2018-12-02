@@ -163,11 +163,23 @@
     <Compile Include="Datos\Rubro.cs" />
     <Compile Include="Datos\Ubicacion.cs" />
     <Compile Include="Datos\Usuario.cs" />
-    <Compile Include="Editar Publicacion\Form1.cs">
+    <Compile Include="Editar Publicacion\Editar_formulario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editar Publicacion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Editar Publicacion\Editar_formulario.Designer.cs">
+      <DependentUpon>Editar_formulario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editar Publicacion\Editar_grilla.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editar Publicacion\Editar_grilla.Designer.cs">
+      <DependentUpon>Editar_grilla.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editar Publicacion\Ubicaciones_Quitar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editar Publicacion\Ubicaciones_Quitar.Designer.cs">
+      <DependentUpon>Ubicaciones_Quitar.cs</DependentUpon>
     </Compile>
     <Compile Include="Generar Publicacion\Ubicaciones_Agregar.cs">
       <SubType>Form</SubType>
@@ -278,6 +290,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Editar Publicacion\Editar_formulario.resx">
+      <DependentUpon>Editar_formulario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editar Publicacion\Editar_grilla.resx">
+      <DependentUpon>Editar_grilla.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editar Publicacion\Ubicaciones_Quitar.resx">
+      <DependentUpon>Ubicaciones_Quitar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Publicacion\Generar_Publicacion.resx">
       <DependentUpon>Generar_Publicacion.cs</DependentUpon>

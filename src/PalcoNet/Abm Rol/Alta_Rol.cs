@@ -109,8 +109,8 @@ private void completar_listbox(List<Datos.Funcionalidad> funcionalidades)
 
         private void Limpiar_Button_Click(object sender, EventArgs e)
         {
-            
-            funcionalidades.Limpiar(this);
+
+            Herramientas.Funcionalidades_Pantallas.Limpiar(this);
             for (int i = 0; i < funcionalidades_checklist.Items.Count; i++)
             {
 
