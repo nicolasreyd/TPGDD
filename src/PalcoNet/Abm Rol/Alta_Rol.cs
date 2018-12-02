@@ -119,5 +119,10 @@ private void completar_listbox(List<Datos.Funcionalidad> funcionalidades)
             }
            
         }
+
+        private void funcionalidades_checklist_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
