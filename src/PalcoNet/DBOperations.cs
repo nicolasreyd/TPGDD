@@ -359,6 +359,19 @@ namespace PalcoNet
             return adapter;
         }
 
+        public SqlDataAdapter getCompras(Decimal idCliente)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            SqlCommand query = new SqlCommand(
+                "select * from INNERJOIN.compra as c where c.cliente = " + idCliente
+                , connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
+        }
+
 
         public Datos.Grado getGrado(String nombre)
         {
