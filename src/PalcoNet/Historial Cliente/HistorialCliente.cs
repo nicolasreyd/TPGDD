@@ -22,7 +22,8 @@ namespace PalcoNet.Historial_Cliente
 
         public HistorialCliente()
         {
-            this.cliente = App.db.getClienteId();
+            InitializeComponent();
+            this.cliente = App.currentUser.user_id;//App.db.getClienteId();
             SqlDataAdapter adapter = App.db.getCompras(this.cliente);
             DataTable table = new DataTable();
             adapter.Fill(table);
@@ -33,7 +34,6 @@ namespace PalcoNet.Historial_Cliente
             lbl_totalPaginas.Text = this.maximo_paginas.ToString();
             dataGridView1.DataSource = Split(table);
             HabilitarBotones();
-            InitializeComponent();
         }
 
         private DataTable Split(DataTable tablaCompras) {

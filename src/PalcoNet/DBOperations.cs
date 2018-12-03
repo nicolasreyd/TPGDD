@@ -364,8 +364,7 @@ namespace PalcoNet
             SqlCommand sqlcommand = new SqlCommand();
             connection = new SqlConnection(ConnectionString);
             SqlCommand query = new SqlCommand(
-                "select * from INNERJOIN.compra as c where c.cliente = " + idCliente
-                , connection);
+                "select * from INNERJOIN.compra where id_usuario LIKE '" + idCliente + "'", connection); //= " + idCliente, connection);
 
             SqlDataAdapter adapter = new SqlDataAdapter(query);
 
