@@ -172,6 +172,13 @@ namespace PalcoNet.Login
             Editar_Publicacion.Editar_grilla edit = new Editar_Publicacion.Editar_grilla();
             edit.Show();
         }
+
+        private void HistorialCli_Button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Historial_Cliente.HistorialCliente edit = new Historial_Cliente.HistorialCliente();
+            edit.Show();
+        }
 	}
 }
 

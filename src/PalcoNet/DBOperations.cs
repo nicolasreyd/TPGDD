@@ -412,6 +412,18 @@ namespace PalcoNet
             return adapter;
         }
 
+        public SqlDataAdapter getCompras(Decimal idCliente)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            SqlCommand query = new SqlCommand(
+                "select * from INNERJOIN.compra where id_usuario LIKE '" + idCliente + "'", connection); //= " + idCliente, connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
+        }
+
 
         public Datos.Grado getGrado(String nombre)
         {
@@ -529,27 +541,37 @@ namespace PalcoNet
         {
             SqlCommand command;
 
-            object result = Execute_SP("INNERJOIN.sp_generar_publicacion",
-                new
-                {
-                    descripcion = publicacion.descripcion,
-                    rubro_text = publicacion.rubro,
-                    grado_text = publicacion.grado.descripcion,
-                    grado_comision = publicacion.grado.comision,
-                    id_usuario = App.currentUser.user_id,
-                    estado = publicacion.estado,
-                    fecha_public = publicacion.fecha_publicacion,
-                    fecha_evento = publicacion.fecha_espectaculo,
-                    direccion = publicacion.direccion,
-                    identity = 1
-                });
-
-
-
-
+            object result = Execute_SP("INNERJOIN.sp_generar_publicacion", 
+                new { descripcion = publicacion.descripcion,
+                      rubro_text = publicacion.rubro,
+                      grado_text = publicacion.grado.descripcion,
+                      grado_comision = publicacion.grado.comision,
+                      id_usuario = App.currentUser.user_id,
+                      estado = publicacion.estado,
+                      fecha_public = publicacion.fecha_publicacion,
+                      fecha_evento = publicacion.fecha_espectaculo,
+                      direccion = publicacion.direccion,
+                      identity = 1
+                     });
+            
             Decimal id_publicacion = Convert.ToDecimal(result);
-            foreach (Datos.Ubicacion ubicacion in publicacion.ubicaciones)
+            agregar_ubicaciones(publicacion.ubicaciones, id_publicacion);
+
+            if (result != null || Convert.ToInt32(result) > 0)
             {
+                MessageBox.Show("Creacion Correcta");
+            }
+            else {
+                MessageBox.Show("Creacion Incorrecta");
+            }
+        }
+
+        public void agregar_ubicaciones(List<Datos.Ubicacion> ubicaciones, decimal id_publicacion)
+        {
+             SqlCommand command;
+
+            foreach (Datos.Ubicacion ubicacion in ubicaciones) {
+
                 command = new SqlCommand("insert into INNERJOIN.ubicacion values(@id_publi,@fila,@asiento,@precio,@tipo_id,@numerada)", this.connection);
                 command.Parameters.AddWithValue("@id_publi", id_publicacion);
                 command.Parameters.AddWithValue("@fila", ubicacion.Fila);
@@ -561,14 +583,6 @@ namespace PalcoNet
                 command.ExecuteNonQuery();
             }
 
-            if (result != null || Convert.ToInt32(result) > 0)
-            {
-                MessageBox.Show("Creacion Correcta");
-            }
-            else
-            {
-                MessageBox.Show("Creacion Incorrecta");
-            }
         }
 
         public List<Datos.Rubro> getRubros()
@@ -716,6 +730,23 @@ namespace PalcoNet
             SqlCommand sqlcommand = new SqlCommand("delete from INNERJOIN.ubicacion where ubicacion_id = " + id, connection);
 
             sqlcommand.ExecuteNonQuery();
+        }
+
+        internal Datos.Rubro getRubroByName(string descripcion)
+        {
+
+            SqlDataReader data = command_reader("select * from INNERJOIN.rubro where rubro_descripcion LIKE '" + descripcion + "'");
+            data.Read();
+            Datos.Rubro rubro = new Datos.Rubro(data.GetDecimal(0), descripcion);
+            data.Close();
+
+            return rubro;
+        }
+
+        public int modificarPublicacion(string query)
+        {
+            int resultado = command_update(query);
+            return resultado;
         }
     }
 }
