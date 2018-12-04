@@ -748,6 +748,37 @@ namespace PalcoNet
             int resultado = command_update(query);
             return resultado;
         }
+
+        public SqlDataAdapter getCliente(List<string> listaCondiciones)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            string stringQuery = "select cliente_id,cliente_apellido,cliente_nombre,cliente_numero_dni,cliente_email from INNERJOIN.cliente";
+
+            if (listaCondiciones.Any())
+            {
+                stringQuery += " where " + string.Join(" and ", listaCondiciones.ToArray());
+            }
+
+            SqlCommand query = new SqlCommand(stringQuery, connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
+        }
+
+        public void bajaCliente(double idCliente)
+        {
+            object result = Execute_SP("INNERJOIN.sp_baja_cliente", new
+            {
+                id = idCliente
+            });
+
+            if (result == null)
+            {
+                MessageBox.Show("Baja de cliente correcta");
+            }
+        }
     }
 }
 
