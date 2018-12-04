@@ -50,13 +50,27 @@ namespace PalcoNet.Abm_Cliente
         {
             SqlDataAdapter data;
 
-            condiciones.Add("cliente_nombre like \'%" + this.nombre_busqueda + "%\'");
-            condiciones.Add("cliente_apellido like \'%" + this.apellido_busqueda + "%\'");
+            if (this.nombre_busqueda != string.Empty)
+            {
+                condiciones.Add("cliente_nombre like \'%" + this.nombre_busqueda + "%\'");
+            }
+
+            if (this.apellido_busqueda != string.Empty)
+            {
+                condiciones.Add("cliente_apellido like \'%" + this.apellido_busqueda + "%\'");
+            }
+            
             if (this.dni_busqueda != string.Empty)
             {
                 condiciones.Add("cliente_numero_dni = " + this.dni_busqueda + "");
             }
-            condiciones.Add("cliente_email like \'%" + this.email_busqueda + "%\'");
+
+            if (this.email_busqueda != string.Empty)
+            {
+                condiciones.Add("cliente_email like \'%" + this.email_busqueda + "%\'");
+            }
+            
+            condiciones.Add("cliente_baja_logica = 0");
 
             data = App.db.getCliente(condiciones);
             DataTable tabla = new DataTable();

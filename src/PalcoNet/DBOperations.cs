@@ -767,11 +767,11 @@ namespace PalcoNet
             return adapter;
         }
 
-        public void bajaCliente(double idCliente)
+        public void bajaCliente(int idCliente)
         {
             object result = Execute_SP("INNERJOIN.sp_baja_cliente", new
             {
-                id = idCliente
+                idCliente = idCliente
             });
 
             if (result == null)
