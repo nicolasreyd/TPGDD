@@ -29,3 +29,54 @@ select @@IDENTITY
 return
 
 end
+
+
+create procedure [INNERJOIN].[sp_baja_cliente] @idCliente numeric(18,0)
+as
+
+	begin tran
+
+	declare @id_usuario numeric
+
+	select @id_usuario=usuario_id from INNERJOIN.cliente where cliente_id=@idCliente
+
+	update INNERJOIN.usuario set usuario_baja_logica=1 where usuario_id=@id_usuario
+
+	update INNERJOIN.cliente set cliente_baja_logica=1 where cliente_id=@idCliente
+
+	commit 
+	
+	
+	
+
+
+
+
+create procedure [INNERJOIN].[sp_alta_cliente] @tipodni nvarchar(4),@nrodni nvarchar(255),@cuil nvarchar(255),@apellido nvarchar(255),@nombre nvarchar(255),@fechanac nvarchar(255),@email nvarchar(255),@telefono nvarchar(20),@dom_calle nvarchar(255),@dom_numero nvarchar(255),@dom_piso nvarchar(255),@dom_depto nvarchar(255),@codpost nvarchar(255),@num_tarjeta nvarchar(255),@venc_tarjeta nvarchar(255)
+as
+
+	begin tran
+
+	declare @id_usuario numeric
+	declare @id_cliente numeric
+	declare @username nvarchar(255)
+
+	select @username=MAX(CAST(usuario_username as bigint))+1 from innerjoin.usuario
+	
+	insert into INNERJOIN.usuario (usuario_username,usuario_password,usuario_tipo,usuario_baja_logica)
+		values (@username,getdate(),'CLIENTE',0)
+		
+	select @id_usuario=usuario_id from INNERJOIN.usuario where usuario_username=@username
+		
+	insert into INNERJOIN.cliente (usuario_id,cliente_tipo_dni,cliente_numero_dni,cliente_cuil,cliente_apellido,cliente_nombre,cliente_fecha_nacimiento,cliente_email,cliente_telefono,cliente_domicilio_calle,cliente_domicilio_numero,cliente_domicilio_piso,cliente_domicilio_departamento,cliente_codigo_postal,cliente_baja_logica)
+		values (@id_usuario,@tipodni,(CAST(@nrodni as numeric(18,0))),@cuil,@apellido,@nombre,CONVERT(date,@fechanac, 103),@email,@telefono,@dom_calle,(CAST(@dom_numero as numeric(18,0))),(CAST(@dom_piso as numeric(18,0))),@dom_depto,@codpost,0)
+		
+	select @id_cliente=cliente_id from INNERJOIN.cliente where usuario_id=@id_usuario
+
+	insert into INNERJOIN.tarjeta_credito (numero,fec_vencimiento,cliente_id)
+		values ((CAST(@num_tarjeta as numeric(18,0))),CONVERT(date,@venc_tarjeta, 103),@id_cliente)
+	
+	insert into INNERJOIN.usuario_rol (id_usuario,id_rol)
+		values (@id_usuario,3)
+
+	commit 
