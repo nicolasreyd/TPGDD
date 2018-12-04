@@ -5,8 +5,7 @@
  *
 */
 
-drop table INNERJOIN.rendicion_item
-drop table INNERJOIN.rendicion
+
 drop table INNERJOIN.compra_ubicacion
 drop table INNERJOIN.compra
 drop table INNERJOIN.ubicacion
