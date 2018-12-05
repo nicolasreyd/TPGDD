@@ -767,6 +767,29 @@ namespace PalcoNet
             return adapter;
         }
 
+        public SqlDataReader getDatosCliente(int idCliente)
+        {
+
+            SqlDataReader data = command_reader("select cliente_apellido,cliente_nombre,cliente_tipo_dni,cliente_numero_dni,cliente_cuil,convert(nvarchar(30),cliente_fecha_nacimiento,112),cliente_domicilio_calle,cliente_domicilio_numero,cliente_domicilio_piso,cliente_domicilio_departamento,cliente_codigo_postal,cliente_telefono,cliente_email from INNERJOIN.cliente where cliente_id = " + idCliente);
+            /*
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            string stringQuery = "select cliente_id,cliente_apellido,cliente_nombre,cliente_numero_dni,cliente_email from INNERJOIN.cliente";
+
+            if (listaCondiciones.Any())
+            {
+                stringQuery += " where " + string.Join(" and ", listaCondiciones.ToArray());
+            }
+
+            SqlCommand query = new SqlCommand(stringQuery, connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
+             */
+            return data;
+        }
+
         public void bajaCliente(int idCliente)
         {
             object result = Execute_SP("INNERJOIN.sp_baja_cliente", new

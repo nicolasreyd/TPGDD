@@ -11,7 +11,7 @@ using System.Data.SqlClient;
 
 namespace PalcoNet.Abm_Cliente
 {
-    public partial class Baja_Cliente : Form
+    public partial class busquedaModificacion_Cliente : Form
     {
         List<string> condiciones = new List<string>();
         private string nombre_busqueda = "";
@@ -19,12 +19,30 @@ namespace PalcoNet.Abm_Cliente
         private string dni_busqueda = "";
         private string email_busqueda = "";
         string id;
-        int idAEliminar;
-        private int pruebaValor;
         
-        public Baja_Cliente()
+        
+        public busquedaModificacion_Cliente()
         {
             InitializeComponent();
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            id = dataGridView1.Rows[e.RowIndex].Cells[0].FormattedValue.ToString();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            //MessageBox.Show(dataGridView1.Rows[e.RowIndex].Cells[0].FormattedValue.ToString());
+            MessageBox.Show("Aaaaaaaaaaaaaaaaaaaaaaahh");
+            this.Hide();
+            Abm_Cliente.Modificacion_Cliente modifCliente = new Abm_Cliente.Modificacion_Cliente(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[1].Value));
+            modifCliente.Show();
         }
 
         private void busquedaNombre_textBox_TextChanged(object sender, EventArgs e)
@@ -60,7 +78,7 @@ namespace PalcoNet.Abm_Cliente
             {
                 condiciones.Add("cliente_apellido like \'%" + this.apellido_busqueda + "%\'");
             }
-            
+
             if (this.dni_busqueda != string.Empty)
             {
                 condiciones.Add("cliente_numero_dni = " + this.dni_busqueda + "");
@@ -70,51 +88,23 @@ namespace PalcoNet.Abm_Cliente
             {
                 condiciones.Add("cliente_email like \'%" + this.email_busqueda + "%\'");
             }
-            
-            condiciones.Add("cliente_baja_logica = 0");
 
             data = App.db.getCliente(condiciones);
             DataTable tabla = new DataTable();
             data.Fill(tabla);
-                        
-           // this.dataGridView1.Columns[0].Visible = false;
+
             this.dataGridView1.DataSource = tabla;
             this.dataGridView1.AutoGenerateColumns = false;
-            this.dataGridView1.Columns[0].Visible = false;
+            this.dataGridView1.Columns[1].Visible = false;
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             condiciones.Clear();
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            id = dataGridView1.Rows[e.RowIndex].Cells[0].FormattedValue.ToString();
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            pruebaValor = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[6].Value);//.FormattedValue.ToString();
-            idAEliminar = Convert.ToInt32(id);
-            MessageBox.Show("El valor seleccionado es : " + idAEliminar);
-            App.db.bajaCliente(idAEliminar);
-        }
-
-        private void darDeBaja_button_Click(object sender, EventArgs e)
-        {
-            idAEliminar = Convert.ToInt32(id);
-            MessageBox.Show("El valor seleccionado es : " + idAEliminar);
-            App.db.bajaCliente(idAEliminar);
-        }
-
         private void limpiarPantalla_button_Click(object sender, EventArgs e)
         {
             Herramientas.Funcionalidades_Pantallas.Limpiar(this);
-        }
-
-        private void Baja_Cliente_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

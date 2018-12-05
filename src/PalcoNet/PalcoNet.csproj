@@ -63,6 +63,18 @@
     <Compile Include="Abm Cliente\Baja_Cliente.Designer.cs">
       <DependentUpon>Baja_Cliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Cliente\busquedaModificacion_Cliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Cliente\busquedaModificacion_Cliente.Designer.cs">
+      <DependentUpon>busquedaModificacion_Cliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Cliente\Modificacion_Cliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Cliente\Modificacion_Cliente.Designer.cs">
+      <DependentUpon>Modificacion_Cliente.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Empresa Espectaculo\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -260,6 +272,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\Baja_Cliente.resx">
       <DependentUpon>Baja_Cliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Cliente\busquedaModificacion_Cliente.resx">
+      <DependentUpon>busquedaModificacion_Cliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Cliente\Modificacion_Cliente.resx">
+      <DependentUpon>Modificacion_Cliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Grado\ABMGrado.resx">
       <DependentUpon>ABMGrado.cs</DependentUpon>

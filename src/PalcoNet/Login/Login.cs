@@ -161,8 +161,8 @@ namespace PalcoNet.Login
         private void nuevoCliente_button_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Abm_Cliente.Baja_Cliente bajaCliente = new Abm_Cliente.Baja_Cliente();
-            bajaCliente.Show();
+            Abm_Cliente.busquedaModificacion_Cliente modifCliente = new Abm_Cliente.busquedaModificacion_Cliente();
+            modifCliente.Show();
 
         }
     }
