@@ -80,3 +80,57 @@ as
 		values (@id_usuario,3)
 
 	commit 
+
+
+
+procedure [INNERJOIN].[sp_generar_comision] @cantidad_compras int,@id_empresa numeric(10,0)
+as begin
+
+declare @id_compra numeric(10,0)
+declare @importe_total numeric(10,2)
+declare @importe_comision numeric(10,2)
+declare @ubicacion_id numeric(10,0)
+declare @porcentaje_comision numeric(10,0)
+declare @id_factura numeric(10,0)
+declare @count int
+
+declare c_cursor1 cursor for
+select top (@cantidad_compras) compra_id,
+(select grado_comision from INNERJOIN.grado inner join INNERJOIN.publicacion p on p.id_grado = grado_id
+where c.id_publicacion = p.publicacion_id) as Comision
+from INNERJOIN.compra c
+where id_usuario = @id_empresa
+order by compra_fecha asc
+
+open c_cursor1 fetch next from c_cursor1 into @id_compra, @porcentaje_comision
+while(@@FETCH_STATUS = 0)
+begin
+
+insert into INNERJOIN.factura values(@id_empresa, GETDATE())
+set @id_factura = SCOPE_IDENTITY()
+
+
+declare c_cursor2 cursor for 
+select id_ubicacion, ubicacion_precio from INNERJOIN.compra_ubicacion inner join INNERJOIN.ubicacion on ubicacion_id = id_ubicacion where id_compra = @id_compra
+
+open c_cursor2 fetch next from c_cursor2 into @ubicacion_id,@importe_total
+while(@@FETCH_STATUS = 0)
+begin
+
+set @importe_comision = @importe_total * @porcentaje_comision / 100
+insert into INNERJOIN.factura_item values(@ubicacion_id, @id_compra,  @id_factura, @importe_comision, @importe_total)
+fetch next from c_cursor2 into @ubicacion_id,@importe_total
+
+end
+
+close c_cursor2
+deallocate c_cursor2
+
+fetch next from c_cursor1 into @id_compra, @porcentaje_comision
+end
+
+
+close c_cursor1
+deallocate c_cursor1
+
+end

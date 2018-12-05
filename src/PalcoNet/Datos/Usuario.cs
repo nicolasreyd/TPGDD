@@ -24,5 +24,10 @@ namespace PalcoNet.Datos
             return App.db.getRoles(this.user_id);
         }
 
+
+        internal Rol getRol()
+        {
+            return App.db.getRol(this.user_id);
+        }
     }
 }

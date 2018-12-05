@@ -834,6 +834,26 @@ namespace PalcoNet
             int res = command_update("update INNERJOIN.cliente set cliente_apellido = '" + apellido + "', cliente_nombre = '" + nombre + "', cliente_tipo_dni = '" + tipoDoc + "', cliente_numero_dni = " + numDoc + ", cliente_cuil = '" + cuil + "', cliente_fecha_nacimiento = CONVERT(date,'" + fechaNac + "', 103)" + ", cliente_domicilio_calle = '" + domCalle + "', cliente_domicilio_numero = " + domNumero + ", cliente_domicilio_piso = " + domPiso + ", cliente_domicilio_departamento = '" + domDepto + "', cliente_codigo_postal = '" + codPost + "', cliente_telefono = '" + telefono + "', cliente_email = '" + email + "' where cliente_id = " + idCliente);
             return res;
         }
+
+        public Datos.Rol getRol(decimal user_id)
+        {
+
+            Datos.Rol rol = new Datos.Rol(1, "No tiene rol");
+            SqlDataReader data = command_reader("select distinct id_rol,rol_nombre from INNERJOIN.usuario_rol join INNERJOIN.rol on id_rol = rol_id where id_usuario = " + user_id);
+
+            if (data.HasRows)
+            {
+                data.Read();
+                
+                Decimal id_rol = data.GetDecimal(0);
+                String nombre = data.GetString(1);
+                rol = new Datos.Rol(id_rol, nombre);
+                
+            }
+
+            data.Close();
+            return rol;
+        }
     }
 }
 
