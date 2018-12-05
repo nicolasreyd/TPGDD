@@ -181,6 +181,13 @@ namespace PalcoNet.Login
             Historial_Cliente.HistorialCliente edit = new Historial_Cliente.HistorialCliente();
             edit.Show();
         }
+
+        private void ABMEmpresaEspec_Button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Abm_Empresa_Espectaculo.ABMEmpresa abmEmpresa = new Abm_Empresa_Espectaculo.ABMEmpresa();
+            abmEmpresa.Show();
+        }
 	}
 }
 

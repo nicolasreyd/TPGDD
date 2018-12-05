@@ -1,0 +1,141 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace PalcoNet.Abm_Empresa_Espectaculo
+{
+    public partial class Alta_Empresa : Form
+    {
+        public Alta_Empresa()
+        {
+            InitializeComponent();
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            ABMEmpresa abmEmpresa = new ABMEmpresa();
+            abmEmpresa.Show();
+        }
+
+        private void limpiar_button_Click(object sender, EventArgs e)
+        {
+            Herramientas.Funcionalidades_Pantallas.Limpiar(this);
+        }
+
+        private void altaUsuario_button_Click(object sender, EventArgs e)
+        {
+            string msjError = "";
+
+            if (razonSocial_textBox.Text == string.Empty)
+            {
+                msjError += "El campo \"Razón social\" es obligatorio\n";
+            }
+            else
+            {
+                if (App.db.razonSocialDuplicada(razonSocial_textBox.Text)) msjError += "La razón social ya se encuentra registrada\n";
+            }
+
+            if (cuitEmpresa_textBox.Text == string.Empty)
+            {
+                msjError += "El campo \"CUIT\" es obligatorio\n";
+            }
+            else
+            {
+                if (App.db.cuitRepetido(cuitEmpresa_textBox.Text) msjError += "El CUIT ya se encuentra registrado\n";
+            }
+
+            if (domCalleEmpresa_textBox.Text == string.Empty)
+            {
+                msjError += "El campo \"Calle\" es obligatorio\n";
+            }
+
+            if (domNumeroEmpresa_textBox.Text == string.Empty)
+            {
+                msjError += "El campo \"Número\" es obligatorio\n";
+            }
+
+            if (domPisoEmpresa_textBox.Text == string.Empty)
+            {
+                msjError += "El campo \"Piso\" es obligatorio\n";
+            }
+
+            if (domDeptoEmpresa_textBox.Text == string.Empty)
+            {
+                msjError += "El campo \"Departamento\" es obligatorio\n";
+            }
+
+            if (ciudadEmpresa_textBox.Text == string.Empty)
+            {
+                msjError += "El campo \"Ciudad\" es obligatorio\n";
+            }
+
+            if (codPostEmpresa_textBox.Text == string.Empty)
+            {
+                msjError += "El campo \"Código Postal\" es obligatorio\n";
+            }
+
+            if (telefonoEmpresa_textBox.Text == string.Empty)
+            {
+                msjError += "El campo \"Teléfono\" es obligatorio\n";
+            }
+
+            if (emailEmpresa_textBox.Text == string.Empty)
+            {
+                msjError += "El campo \"E-Mail\" es obligatorio\n";
+            }
+
+            if (msjError != string.Empty)
+            {
+                MessageBox.Show(msjError);
+                return;
+            }
+
+            Object resultado = App.db.agregar_nueva_empresa(razonSocial_textBox.Text,cuitEmpresa_textBox.Text,domCalleEmpresa_textBox.Text,domNumeroEmpresa_textBox.Text,domPisoEmpresa_textBox.Text,domDeptoEmpresa_textBox.Text,ciudadEmpresa_textBox.Text,codPostEmpresa_textBox.Text,telefonoEmpresa_textBox.Text,emailEmpresa_textBox.Text);
+
+            if (resultado == null) MessageBox.Show("Alta de empresa correcta");
+        }
+
+        private void cuitEmpresa_textBox_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(cuitEmpresa_textBox.Text, "[^0-9]"))
+            {
+                MessageBox.Show("El número de CUIL sólo puede contener numeros.");
+                cuitEmpresa_textBox.Text = cuitEmpresa_textBox.Text.Remove(cuitEmpresa_textBox.Text.Length - 1);
+            }
+        }
+
+        private void telefonoEmpresa_textBox_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(telefonoEmpresa_textBox.Text, "[^0-9]"))
+            {
+                MessageBox.Show("El número de teléfono sólo puede contener números.");
+                telefonoEmpresa_textBox.Text = telefonoEmpresa_textBox.Text.Remove(telefonoEmpresa_textBox.Text.Length - 1);
+            }
+        }
+
+        private void domPisoEmpresa_textBox_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(domPisoEmpresa_textBox.Text, "[^0-9]"))
+            {
+                MessageBox.Show("El piso sólo puede contener números.");
+                domPisoEmpresa_textBox.Text = domPisoEmpresa_textBox.Text.Remove(domPisoEmpresa_textBox.Text.Length - 1);
+            }
+        }
+
+        private void domNumeroEmpresa_textBox_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(domNumeroEmpresa_textBox.Text, "[^0-9]"))
+            {
+                MessageBox.Show("El número de calle sólo puede contener números.");
+                domNumeroEmpresa_textBox.Text = domNumeroEmpresa_textBox.Text.Remove(domNumeroEmpresa_textBox.Text.Length - 1);
+            }
+        }
+    }
+}

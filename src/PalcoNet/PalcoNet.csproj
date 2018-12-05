@@ -75,11 +75,17 @@
     <Compile Include="Abm Cliente\Modificacion_Cliente.Designer.cs">
       <DependentUpon>Modificacion_Cliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Empresa Espectaculo\Form1.cs">
+    <Compile Include="Abm Empresa Espectaculo\ABMEmpresa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Empresa Espectaculo\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Empresa Espectaculo\ABMEmpresa.Designer.cs">
+      <DependentUpon>ABMEmpresa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Empresa Espectaculo\Alta_Empresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Empresa Espectaculo\Alta_Empresa.Designer.cs">
+      <DependentUpon>Alta_Empresa.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Grado\ABMGrado.cs">
       <SubType>Form</SubType>
@@ -278,6 +284,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\Modificacion_Cliente.resx">
       <DependentUpon>Modificacion_Cliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Empresa Espectaculo\ABMEmpresa.resx">
+      <DependentUpon>ABMEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Empresa Espectaculo\Alta_Empresa.resx">
+      <DependentUpon>Alta_Empresa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Grado\ABMGrado.resx">
       <DependentUpon>ABMGrado.cs</DependentUpon>

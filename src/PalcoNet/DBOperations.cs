@@ -658,11 +658,8 @@ namespace PalcoNet
             return id;
         }
 
-/*<<<<<<< HEAD*/
         public void agregar_nuevo_cliente(string nombre_usuario, string apellido_usuario, string tipo_dni, string numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir, string domicilio_calle, string domicilio_numero, string domicilio_piso, string domicilio_depto, string cod_post, string numero_tarjeta, string vencimiento_tarjeta)//,rol)
-/*=======
-        public void agregar_nuevo_cliente(string nombre_usuario, string apellido_usuario, string tipo_dni, int numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir, string domicilio_calle, int domicilio_numero, int domicilio_piso, string domicilio_depto, string cod_post, string numero_tarjeta, string vencimiento_tarjeta)//,rol)
->>>>>>> 2d6adcf4b9ce0cdd9c90001a1b4b481bc8dd5878*/
+
         {
             object result = Execute_SP("INNERJOIN.sp_alta_cliente", new
             {
@@ -833,6 +830,39 @@ namespace PalcoNet
         {
             int res = command_update("update INNERJOIN.cliente set cliente_apellido = '" + apellido + "', cliente_nombre = '" + nombre + "', cliente_tipo_dni = '" + tipoDoc + "', cliente_numero_dni = " + numDoc + ", cliente_cuil = '" + cuil + "', cliente_fecha_nacimiento = CONVERT(date,'" + fechaNac + "', 103)" + ", cliente_domicilio_calle = '" + domCalle + "', cliente_domicilio_numero = " + domNumero + ", cliente_domicilio_piso = " + domPiso + ", cliente_domicilio_departamento = '" + domDepto + "', cliente_codigo_postal = '" + codPost + "', cliente_telefono = '" + telefono + "', cliente_email = '" + email + "' where cliente_id = " + idCliente);
             return res;
+        }
+
+        public object agregar_nueva_empresa(string razonSocial, string cuit, string domCalle, string domNro, string domPiso, string domDepto, string ciudad, string codpost, string telefono, string email)
+        {
+            object result = Execute_SP("INNERJOIN.sp_alta_empresa", new
+            {
+                razonSocial = razonSocial,
+                cuit = cuit,
+                domCalle = domCalle,
+                domNro = domNro,
+                domPiso = domPiso,
+                domDepto = domDepto,
+                ciudad = ciudad,
+                codpost = codpost,
+                telefono = telefono,
+                email = email
+            });
+
+            return result;
+        }
+
+        public bool razonSocialDuplicada(string razonSocial)
+        {
+            string query = "select count(*) cantidad from INNERJOIN.empresa where empresa_razon_social = \'" + razonSocial + "'";
+            SqlDataReader data = command_reader(query);
+            int cantidad = 0;
+            if (data.Read())
+            {
+                cantidad = data.GetInt32(0);
+            }
+
+            if (data.GetInt32(0) == 0) return false;
+            else return true;
         }
     }
 }
