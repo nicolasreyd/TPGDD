@@ -45,7 +45,11 @@
             // 
             // ABMRol_Button
             // 
+<<<<<<< HEAD
             this.ABMRol_Button.Location = new System.Drawing.Point(16, 14);
+=======
+            this.ABMRol_Button.Location = new System.Drawing.Point(16, 30);
+>>>>>>> f06e369a9d97eebf0198b83812cb1812b51cb1cd
             this.ABMRol_Button.Margin = new System.Windows.Forms.Padding(1);
             this.ABMRol_Button.Name = "ABMRol_Button";
             this.ABMRol_Button.Size = new System.Drawing.Size(159, 23);
@@ -56,7 +60,11 @@
             // 
             // RegistroUsuario_Button
             // 
+<<<<<<< HEAD
             this.RegistroUsuario_Button.Location = new System.Drawing.Point(16, 40);
+=======
+            this.RegistroUsuario_Button.Location = new System.Drawing.Point(16, 71);
+>>>>>>> f06e369a9d97eebf0198b83812cb1812b51cb1cd
             this.RegistroUsuario_Button.Margin = new System.Windows.Forms.Padding(1);
             this.RegistroUsuario_Button.Name = "RegistroUsuario_Button";
             this.RegistroUsuario_Button.Size = new System.Drawing.Size(159, 26);
@@ -67,7 +75,11 @@
             // 
             // ABMCliente_Button
             // 
+<<<<<<< HEAD
             this.ABMCliente_Button.Location = new System.Drawing.Point(16, 71);
+=======
+            this.ABMCliente_Button.Location = new System.Drawing.Point(16, 111);
+>>>>>>> f06e369a9d97eebf0198b83812cb1812b51cb1cd
             this.ABMCliente_Button.Margin = new System.Windows.Forms.Padding(1);
             this.ABMCliente_Button.Name = "ABMCliente_Button";
             this.ABMCliente_Button.Size = new System.Drawing.Size(159, 24);
@@ -78,7 +90,11 @@
             // 
             // ABMEmpresaEspec_Button
             // 
+<<<<<<< HEAD
             this.ABMEmpresaEspec_Button.Location = new System.Drawing.Point(16, 97);
+=======
+            this.ABMEmpresaEspec_Button.Location = new System.Drawing.Point(16, 150);
+>>>>>>> f06e369a9d97eebf0198b83812cb1812b51cb1cd
             this.ABMEmpresaEspec_Button.Margin = new System.Windows.Forms.Padding(1);
             this.ABMEmpresaEspec_Button.Name = "ABMEmpresaEspec_Button";
             this.ABMEmpresaEspec_Button.Size = new System.Drawing.Size(159, 25);
@@ -89,7 +105,11 @@
             // 
             // ABMGradoPubli_Button
             // 
+<<<<<<< HEAD
             this.ABMGradoPubli_Button.Location = new System.Drawing.Point(16, 124);
+=======
+            this.ABMGradoPubli_Button.Location = new System.Drawing.Point(16, 188);
+>>>>>>> f06e369a9d97eebf0198b83812cb1812b51cb1cd
             this.ABMGradoPubli_Button.Margin = new System.Windows.Forms.Padding(1);
             this.ABMGradoPubli_Button.Name = "ABMGradoPubli_Button";
             this.ABMGradoPubli_Button.Size = new System.Drawing.Size(159, 26);
@@ -100,7 +120,11 @@
             // 
             // GenerarPulica_Button
             // 
+<<<<<<< HEAD
             this.GenerarPulica_Button.Location = new System.Drawing.Point(16, 156);
+=======
+            this.GenerarPulica_Button.Location = new System.Drawing.Point(16, 234);
+>>>>>>> f06e369a9d97eebf0198b83812cb1812b51cb1cd
             this.GenerarPulica_Button.Margin = new System.Windows.Forms.Padding(1);
             this.GenerarPulica_Button.Name = "GenerarPulica_Button";
             this.GenerarPulica_Button.Size = new System.Drawing.Size(159, 25);
@@ -111,7 +135,11 @@
             // 
             // EditarPubli_Button
             // 
+<<<<<<< HEAD
             this.EditarPubli_Button.Location = new System.Drawing.Point(149, 14);
+=======
+            this.EditarPubli_Button.Location = new System.Drawing.Point(213, 30);
+>>>>>>> f06e369a9d97eebf0198b83812cb1812b51cb1cd
             this.EditarPubli_Button.Margin = new System.Windows.Forms.Padding(1);
             this.EditarPubli_Button.Name = "EditarPubli_Button";
             this.EditarPubli_Button.Size = new System.Drawing.Size(157, 23);
@@ -122,7 +150,11 @@
             // 
             // Comprar_Button
             // 
+<<<<<<< HEAD
             this.Comprar_Button.Location = new System.Drawing.Point(149, 40);
+=======
+            this.Comprar_Button.Location = new System.Drawing.Point(213, 71);
+>>>>>>> f06e369a9d97eebf0198b83812cb1812b51cb1cd
             this.Comprar_Button.Margin = new System.Windows.Forms.Padding(1);
             this.Comprar_Button.Name = "Comprar_Button";
             this.Comprar_Button.Size = new System.Drawing.Size(157, 26);
@@ -133,7 +165,11 @@
             // 
             // HistorialCli_Button
             // 
+<<<<<<< HEAD
             this.HistorialCli_Button.Location = new System.Drawing.Point(149, 71);
+=======
+            this.HistorialCli_Button.Location = new System.Drawing.Point(213, 111);
+>>>>>>> f06e369a9d97eebf0198b83812cb1812b51cb1cd
             this.HistorialCli_Button.Margin = new System.Windows.Forms.Padding(1);
             this.HistorialCli_Button.Name = "HistorialCli_Button";
             this.HistorialCli_Button.Size = new System.Drawing.Size(157, 24);
@@ -144,7 +180,11 @@
             // 
             // AdminPuntos_Button
             // 
+<<<<<<< HEAD
             this.AdminPuntos_Button.Location = new System.Drawing.Point(149, 97);
+=======
+            this.AdminPuntos_Button.Location = new System.Drawing.Point(213, 150);
+>>>>>>> f06e369a9d97eebf0198b83812cb1812b51cb1cd
             this.AdminPuntos_Button.Margin = new System.Windows.Forms.Padding(1);
             this.AdminPuntos_Button.Name = "AdminPuntos_Button";
             this.AdminPuntos_Button.Size = new System.Drawing.Size(157, 25);
@@ -154,7 +194,11 @@
             // 
             // PagoComisiones_Button
             // 
+<<<<<<< HEAD
             this.PagoComisiones_Button.Location = new System.Drawing.Point(149, 125);
+=======
+            this.PagoComisiones_Button.Location = new System.Drawing.Point(213, 189);
+>>>>>>> f06e369a9d97eebf0198b83812cb1812b51cb1cd
             this.PagoComisiones_Button.Margin = new System.Windows.Forms.Padding(1);
             this.PagoComisiones_Button.Name = "PagoComisiones_Button";
             this.PagoComisiones_Button.Size = new System.Drawing.Size(157, 25);
@@ -164,7 +208,11 @@
             // 
             // ListadoEstadistico_Button
             // 
+<<<<<<< HEAD
             this.ListadoEstadistico_Button.Location = new System.Drawing.Point(149, 155);
+=======
+            this.ListadoEstadistico_Button.Location = new System.Drawing.Point(213, 233);
+>>>>>>> f06e369a9d97eebf0198b83812cb1812b51cb1cd
             this.ListadoEstadistico_Button.Margin = new System.Windows.Forms.Padding(1);
             this.ListadoEstadistico_Button.Name = "ListadoEstadistico_Button";
             this.ListadoEstadistico_Button.Size = new System.Drawing.Size(157, 26);
@@ -174,7 +222,11 @@
             // 
             // CerrarSesion_button
             // 
+<<<<<<< HEAD
             this.CerrarSesion_button.Location = new System.Drawing.Point(189, 196);
+=======
+            this.CerrarSesion_button.Location = new System.Drawing.Point(272, 300);
+>>>>>>> f06e369a9d97eebf0198b83812cb1812b51cb1cd
             this.CerrarSesion_button.Margin = new System.Windows.Forms.Padding(1);
             this.CerrarSesion_button.Name = "CerrarSesion_button";
             this.CerrarSesion_button.Size = new System.Drawing.Size(98, 23);

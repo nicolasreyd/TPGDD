@@ -122,9 +122,10 @@ namespace PalcoNet.Login
                     roles.Show();
                 }
                 //Sino ir al menu principal
-                else
+                else if (App.currentUser.getRoles().Count == 1)
                 {
                     this.Hide();
+                    App.currentRol = App.currentUser.getRol();
                     MenuPrincipal menu = new MenuPrincipal();
                     menu.Show();
                 }
