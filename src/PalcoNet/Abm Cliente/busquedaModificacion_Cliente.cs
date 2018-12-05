@@ -38,8 +38,6 @@ namespace PalcoNet.Abm_Cliente
 
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            //MessageBox.Show(dataGridView1.Rows[e.RowIndex].Cells[0].FormattedValue.ToString());
-            MessageBox.Show("Aaaaaaaaaaaaaaaaaaaaaaahh");
             this.Hide();
             Abm_Cliente.Modificacion_Cliente modifCliente = new Abm_Cliente.Modificacion_Cliente(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[1].Value));
             modifCliente.Show();

@@ -814,6 +814,12 @@ namespace PalcoNet
             if (data.GetInt32(0) == 0) return false;
             else return true;
         }
+
+        public int updateCliente(int idCliente,string apellido, string nombre, string tipoDoc, string numDoc, string cuil, string fechaNac, string domCalle, string domNumero, string domPiso, string domDepto, string codPost, string telefono, string email)
+        {
+            int res = command_update("update INNERJOIN.cliente set cliente_apellido = '" + apellido + "', cliente_nombre = '" + nombre + "', cliente_tipo_dni = '" + tipoDoc + "', cliente_numero_dni = " + numDoc + ", cliente_cuil = '" + cuil + "', cliente_fecha_nacimiento = CONVERT(date,'" + fechaNac + "', 103)" + ", cliente_domicilio_calle = '" + domCalle + "', cliente_domicilio_numero = " + domNumero + ", cliente_domicilio_piso = " + domPiso + ", cliente_domicilio_departamento = '" + domDepto + "', cliente_codigo_postal = '" + codPost + "', cliente_telefono = '" + telefono + "', cliente_email = '" + email + "' where cliente_id = " + idCliente);
+            return res;
+        }
     }
 }
 

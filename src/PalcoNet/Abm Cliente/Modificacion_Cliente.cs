@@ -14,7 +14,7 @@ namespace PalcoNet.Abm_Cliente
     public partial class Modificacion_Cliente : Form
     {
         int idCliente;
-        private string apellido_busqueda = "No se cambio";
+        private string fecha_nacimiento;
 
         public Modificacion_Cliente(int valor)
         {
@@ -46,8 +46,8 @@ namespace PalcoNet.Abm_Cliente
         }
 
         private void apellidoCliente_textBox_TextChanged(object sender, EventArgs e)
-        {            
-            this.apellido_busqueda = apellidoCliente_textBox.Text;
+        {
+
         }
 
         private void nombreCliente_textBox_TextChanged(object sender, EventArgs e)
@@ -122,7 +122,6 @@ namespace PalcoNet.Abm_Cliente
 
         private void altaUsuario_button_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show(this.apellido_busqueda);
 
             string msjError = "";
 
@@ -206,6 +205,17 @@ namespace PalcoNet.Abm_Cliente
                 MessageBox.Show(msjError);
                 return;
             }
+
+            this.fecha_nacimiento = diaNac_comboBox.Text+"/"+mesNac_comboBox.Text+"/"+anioNac_comboBox.Text;
+
+            int resultado = App.db.updateCliente(idCliente, apellidoCliente_textBox.Text, nombreCliente_textBox.Text, tipoDNI_comboBox.Text, nroDNI_textBox.Text, cuilCliente_textBox.Text, this.fecha_nacimiento, domCalleCliente_textBox.Text, domNumeroCliente_textBox.Text, domPisoCliente_textBox.Text, domDeptoCliente_textBox.Text, codPostCliente_textBox.Text, telefonoCliente_textBox.Text, emailCliente_textBox.Text);
+
+            if (resultado == 1) MessageBox.Show("Cliente actualizado correctamente. ");
+
+            this.Hide();
+            Abm_Cliente.busquedaModificacion_Cliente bmodifCliente = new Abm_Cliente.busquedaModificacion_Cliente();
+            bmodifCliente.Show();
+            
         }
 
         private void limpiar_button_Click(object sender, EventArgs e)
