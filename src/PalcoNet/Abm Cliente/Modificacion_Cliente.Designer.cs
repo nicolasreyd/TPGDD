@@ -63,6 +63,7 @@
             this.apellidoCliente_textBox = new System.Windows.Forms.TextBox();
             this.nombreCliente_textBox = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.volver_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // limpiar_button
@@ -520,6 +521,7 @@
             this.apellidoCliente_textBox.Name = "apellidoCliente_textBox";
             this.apellidoCliente_textBox.Size = new System.Drawing.Size(100, 20);
             this.apellidoCliente_textBox.TabIndex = 43;
+            this.apellidoCliente_textBox.Tag = "";
             this.apellidoCliente_textBox.TextChanged += new System.EventHandler(this.apellidoCliente_textBox_TextChanged);
             // 
             // nombreCliente_textBox
@@ -540,11 +542,22 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // volver_button
+            // 
+            this.volver_button.Location = new System.Drawing.Point(296, 433);
+            this.volver_button.Name = "volver_button";
+            this.volver_button.Size = new System.Drawing.Size(75, 23);
+            this.volver_button.TabIndex = 79;
+            this.volver_button.Text = "Volver";
+            this.volver_button.UseVisualStyleBackColor = true;
+            this.volver_button.Click += new System.EventHandler(this.volver_button_Click);
+            // 
             // Modificacion_Cliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(685, 477);
+            this.Controls.Add(this.volver_button);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.limpiar_button);
             this.Controls.Add(this.label21);
@@ -624,5 +637,6 @@
         private System.Windows.Forms.TextBox apellidoCliente_textBox;
         private System.Windows.Forms.TextBox nombreCliente_textBox;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button volver_button;
     }
 }

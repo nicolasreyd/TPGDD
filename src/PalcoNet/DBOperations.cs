@@ -769,24 +769,8 @@ namespace PalcoNet
 
         public SqlDataReader getDatosCliente(int idCliente)
         {
-
-            SqlDataReader data = command_reader("select cliente_apellido,cliente_nombre,cliente_tipo_dni,cliente_numero_dni,cliente_cuil,convert(nvarchar(30),cliente_fecha_nacimiento,112),cliente_domicilio_calle,cliente_domicilio_numero,cliente_domicilio_piso,cliente_domicilio_departamento,cliente_codigo_postal,cliente_telefono,cliente_email from INNERJOIN.cliente where cliente_id = " + idCliente);
-            /*
-            SqlCommand sqlcommand = new SqlCommand();
-            connection = new SqlConnection(ConnectionString);
-            string stringQuery = "select cliente_id,cliente_apellido,cliente_nombre,cliente_numero_dni,cliente_email from INNERJOIN.cliente";
-
-            if (listaCondiciones.Any())
-            {
-                stringQuery += " where " + string.Join(" and ", listaCondiciones.ToArray());
-            }
-
-            SqlCommand query = new SqlCommand(stringQuery, connection);
-
-            SqlDataAdapter adapter = new SqlDataAdapter(query);
-
-            return adapter;
-             */
+            SqlDataReader data = command_reader("select isnull(cliente_apellido,''),isnull(cliente_nombre,''),isnull(cliente_tipo_dni,''),isnull(cliente_numero_dni,''),isnull(cliente_cuil,''),isnull(convert(nvarchar(30),cliente_fecha_nacimiento,112),''),isnull(cliente_domicilio_calle,''),isnull(cliente_domicilio_numero,''),isnull(cliente_domicilio_piso,''),isnull(cliente_domicilio_departamento,''),isnull(cliente_codigo_postal,''),isnull(cliente_telefono,''),isnull(cliente_email,'') from INNERJOIN.cliente where cliente_id = " + idCliente);
+            
             return data;
         }
 
@@ -801,6 +785,34 @@ namespace PalcoNet
             {
                 MessageBox.Show("Baja de cliente correcta");
             }
+        }
+
+        public bool documentoRepetido(int idCliente, string tipoDoc, string numDoc)
+        {
+            string query = "select count(*) cantidad from INNERJOIN.cliente where cliente_id <> " + idCliente + " and cliente_tipo_dni = \'" + tipoDoc + "\' and cliente_numero_dni = " + numDoc;
+            SqlDataReader data = command_reader(query);
+            int cantidad = 0;
+            if (data.Read())
+            {
+                cantidad = data.GetInt32(0);
+            }
+
+            if (data.GetInt32(0) == 0) return false;
+            else return true;
+        }
+
+        public bool cuilRepetido(int idCliente, string nroCuil)
+        {
+            string query = "select count(*) cantidad from INNERJOIN.cliente where cliente_id <> " + idCliente + " and cliente_cuil = \'" + nroCuil+"\'";
+            SqlDataReader data = command_reader(query);
+            int cantidad = 0;
+            if (data.Read())
+            {
+                cantidad = data.GetInt32(0);
+            }
+
+            if (data.GetInt32(0) == 0) return false;
+            else return true;
         }
     }
 }
