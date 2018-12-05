@@ -104,5 +104,12 @@ namespace PalcoNet.Abm_Cliente
         {
             Herramientas.Funcionalidades_Pantallas.Limpiar(this);
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            ABMCliente abmCliente = new ABMCliente();
+            abmCliente.Show();
+        }
     }
 }

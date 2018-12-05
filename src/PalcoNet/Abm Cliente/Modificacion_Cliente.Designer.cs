@@ -546,9 +546,9 @@
             // 
             this.volver_button.Location = new System.Drawing.Point(296, 433);
             this.volver_button.Name = "volver_button";
-            this.volver_button.Size = new System.Drawing.Size(75, 23);
+            this.volver_button.Size = new System.Drawing.Size(115, 23);
             this.volver_button.TabIndex = 79;
-            this.volver_button.Text = "Volver";
+            this.volver_button.Text = "Volver a la búsqueda";
             this.volver_button.UseVisualStyleBackColor = true;
             this.volver_button.Click += new System.EventHandler(this.volver_button_Click);
             // 

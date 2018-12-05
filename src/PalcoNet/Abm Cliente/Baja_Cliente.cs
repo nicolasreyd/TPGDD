@@ -116,5 +116,12 @@ namespace PalcoNet.Abm_Cliente
         {
 
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            ABMCliente abmCliente = new ABMCliente();
+            abmCliente.Show();
+        }
     }
 }

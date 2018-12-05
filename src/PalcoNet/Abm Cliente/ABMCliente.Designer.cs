@@ -31,11 +31,15 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ClienteAlta_Button = new System.Windows.Forms.Button();
+            this.ModificacionCliente_button = new System.Windows.Forms.Button();
+            this.BajaCliente_button = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.BajaCliente_button);
+            this.groupBox1.Controls.Add(this.ModificacionCliente_button);
             this.groupBox1.Controls.Add(this.ClienteAlta_Button);
             this.groupBox1.Location = new System.Drawing.Point(24, 20);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
@@ -56,6 +60,26 @@
             this.ClienteAlta_Button.UseVisualStyleBackColor = true;
             this.ClienteAlta_Button.Click += new System.EventHandler(this.ClienteAlta_Button_Click);
             // 
+            // ModificacionCliente_button
+            // 
+            this.ModificacionCliente_button.Location = new System.Drawing.Point(57, 80);
+            this.ModificacionCliente_button.Name = "ModificacionCliente_button";
+            this.ModificacionCliente_button.Size = new System.Drawing.Size(75, 23);
+            this.ModificacionCliente_button.TabIndex = 1;
+            this.ModificacionCliente_button.Text = "Modificación";
+            this.ModificacionCliente_button.UseVisualStyleBackColor = true;
+            this.ModificacionCliente_button.Click += new System.EventHandler(this.ModificacionCliente_button_Click);
+            // 
+            // BajaCliente_button
+            // 
+            this.BajaCliente_button.Location = new System.Drawing.Point(57, 124);
+            this.BajaCliente_button.Name = "BajaCliente_button";
+            this.BajaCliente_button.Size = new System.Drawing.Size(75, 23);
+            this.BajaCliente_button.TabIndex = 2;
+            this.BajaCliente_button.Text = "Baja";
+            this.BajaCliente_button.UseVisualStyleBackColor = true;
+            this.BajaCliente_button.Click += new System.EventHandler(this.BajaCliente_button_Click);
+            // 
             // ABMCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -73,5 +97,7 @@
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button ClienteAlta_Button;
+        private System.Windows.Forms.Button ModificacionCliente_button;
+        private System.Windows.Forms.Button BajaCliente_button;
     }
 }

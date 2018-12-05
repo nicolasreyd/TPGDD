@@ -185,7 +185,7 @@ namespace PalcoNet.Abm_Cliente
             {
                 msjError += "El apellido es obligatorio\n";
             }
-
+            /*
             if (tipoDNI_comboBox.Text == string.Empty)
             {
                 msjError += "El tipo de documento no puede ser vacio\n";
@@ -194,12 +194,20 @@ namespace PalcoNet.Abm_Cliente
             if (nroDNI_textBox.Text == string.Empty)
             {
                 msjError += "El DNI no puede ser vacio\n";
-            }
+            }*/
+
+            if ((tipoDNI_comboBox.Text == string.Empty) || (nroDNI_textBox.Text == string.Empty))
+                msjError += "El tipo/numero de documento no puede ser vacio\n";
+            else
+                {
+                    if (App.db.documentoRepetido(tipoDNI_comboBox.Text,nroDNI_textBox.Text))
+                        msjError += "La combinacion tipo/numero de documento ya se encuentra registrada\n";
+                }
 
             if (cuilCliente_textBox.Text.Length != 11)
             {
                 msjError += "El numero de CUIL es incorrecto\n";
-            }
+            } // Se puede mejorar para que sea exhaustivo
 
             if ((diaNac_comboBox.Text == string.Empty) ||
                 (mesNac_comboBox.Text == string.Empty) ||
@@ -285,6 +293,13 @@ namespace PalcoNet.Abm_Cliente
         private void limpiar_button_Click(object sender, EventArgs e)
         {
             Herramientas.Funcionalidades_Pantallas.Limpiar(this);
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            ABMCliente abmCliente = new ABMCliente();
+            abmCliente.Show();
         }
 
 

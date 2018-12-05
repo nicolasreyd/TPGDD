@@ -152,7 +152,9 @@ namespace PalcoNet.Login
 
         private void ABMCliente_Button_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            Abm_Cliente.ABMCliente abmCliente = new Abm_Cliente.ABMCliente();
+            abmCliente.Show();
         }
 
         private void RegistroUsuario_Button_Click(object sender, EventArgs e)

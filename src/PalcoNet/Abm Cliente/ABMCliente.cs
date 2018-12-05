@@ -23,5 +23,19 @@ namespace PalcoNet.Abm_Cliente
             Alta_Cliente alta = new Alta_Cliente();
             alta.Show();
         }
+
+        private void ModificacionCliente_button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Abm_Cliente.busquedaModificacion_Cliente modifCliente = new Abm_Cliente.busquedaModificacion_Cliente();
+            modifCliente.Show();
+        }
+
+        private void BajaCliente_button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Abm_Cliente.Baja_Cliente bajaCliente = new Abm_Cliente.Baja_Cliente();
+            bajaCliente.Show();
+        }
     }
 }
