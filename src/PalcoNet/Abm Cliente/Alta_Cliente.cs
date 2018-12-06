@@ -65,7 +65,7 @@ namespace PalcoNet.Abm_Cliente
             this.numero_dni = nroDNI_textBox.Text;
             if (System.Text.RegularExpressions.Regex.IsMatch(nroDNI_textBox.Text, "[^0-9]"))
             {
-                MessageBox.Show("El documento solo puede contener numeros.");
+                MessageBox.Show("El número de documento solo puede contener numeros.");
                 nroDNI_textBox.Text = nroDNI_textBox.Text.Remove(nroDNI_textBox.Text.Length - 1);
             }
         }
@@ -76,7 +76,7 @@ namespace PalcoNet.Abm_Cliente
 
             if (System.Text.RegularExpressions.Regex.IsMatch(cuilCliente_textBox.Text, "[^0-9]"))
             {
-                MessageBox.Show("El CUIL solo puede contener numeros.");
+                MessageBox.Show("El número de CUIL solo puede contener numeros.");
                 cuilCliente_textBox.Text = cuilCliente_textBox.Text.Remove(cuilCliente_textBox.Text.Length - 1);
             }
         }
@@ -276,8 +276,8 @@ namespace PalcoNet.Abm_Cliente
             
             App.db.agregar_nuevo_cliente(nombre_usuario, apellido_usuario, tipo_dni, numero_dni, cuil, fecha_nacimiento, telefono, email, domicilio_calle, domicilio_numero, domicilio_piso, domicilio_depto, cod_post, numero_tarjeta, vencimiento_tarjeta);//,rol);
             this.Hide();
-            Login.Login login = new Login.Login();
-            login.Show();
+            ABMCliente abmCliente = new ABMCliente();
+            abmCliente.Show();
         }
 
         private void label4_Click(object sender, EventArgs e)

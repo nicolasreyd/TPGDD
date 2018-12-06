@@ -244,5 +244,10 @@ namespace PalcoNet.Abm_Cliente
             Abm_Cliente.busquedaModificacion_Cliente bModifCliente = new Abm_Cliente.busquedaModificacion_Cliente();
             bModifCliente.Show();
         }
+
+        private void Modificacion_Cliente_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

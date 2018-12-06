@@ -658,11 +658,8 @@ namespace PalcoNet
             return id;
         }
 
-/*<<<<<<< HEAD*/
         public void agregar_nuevo_cliente(string nombre_usuario, string apellido_usuario, string tipo_dni, string numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir, string domicilio_calle, string domicilio_numero, string domicilio_piso, string domicilio_depto, string cod_post, string numero_tarjeta, string vencimiento_tarjeta)//,rol)
-/*=======
-        public void agregar_nuevo_cliente(string nombre_usuario, string apellido_usuario, string tipo_dni, int numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir, string domicilio_calle, int domicilio_numero, int domicilio_piso, string domicilio_depto, string cod_post, string numero_tarjeta, string vencimiento_tarjeta)//,rol)
->>>>>>> 2d6adcf4b9ce0cdd9c90001a1b4b481bc8dd5878*/
+
         {
             object result = Execute_SP("INNERJOIN.sp_alta_cliente", new
             {
@@ -835,6 +832,40 @@ namespace PalcoNet
             return res;
         }
 
+//<<<<<<< HEAD
+        public object agregar_nueva_empresa(string razonSocial, string cuit, string domCalle, string domNro, string domPiso, string domDepto, string ciudad, string codpost, string telefono, string email)
+        {
+            object result = Execute_SP("INNERJOIN.sp_alta_empresa", new
+            {
+                razonSocial = razonSocial,
+                cuit = cuit,
+                domCalle = domCalle,
+                domNro = domNro,
+                domPiso = domPiso,
+                domDepto = domDepto,
+                ciudad = ciudad,
+                codpost = codpost,
+                telefono = telefono,
+                email = email
+            });
+
+            return result;
+        }
+
+        public bool razonSocialDuplicada(string razonSocial)
+        {
+            string query = "select count(*) cantidad from INNERJOIN.empresa where empresa_razon_social = \'" + razonSocial + "'";
+            SqlDataReader data = command_reader(query);
+            int cantidad = 0;
+            if (data.Read())
+            {
+                cantidad = data.GetInt32(0);
+            }
+
+            if (data.GetInt32(0) == 0) return false;
+            else return true;
+        }
+
         public Datos.Rol getRol(decimal user_id)
         {
 
@@ -853,6 +884,100 @@ namespace PalcoNet
 
             data.Close();
             return rol;
+
+        }
+
+        public bool cuitRepetido(string cuit)
+        {
+            string query = "select count(*) cantidad from INNERJOIN.empresa where empresa_cuit = \'" + cuit + "'";
+            SqlDataReader data = command_reader(query);
+            int cantidad = 0;
+            if (data.Read())
+            {
+                cantidad = data.GetInt32(0);
+            }
+
+            if (data.GetInt32(0) == 0) return false;
+            else return true;
+        }
+
+        public SqlDataAdapter getEmpresa(List<string> listaCondiciones)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            string stringQuery = "select empresa_id,empresa_razon_social,empresa_cuit,empresa_email from INNERJOIN.empresa";
+
+            if (listaCondiciones.Any())
+            {
+                stringQuery += " where " + string.Join(" and ", listaCondiciones.ToArray());
+            }
+
+            SqlCommand query = new SqlCommand(stringQuery, connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
+        }
+
+        public void bajaEmpresa(int idEmpresa)
+        {
+            object result = Execute_SP("INNERJOIN.sp_baja_empresa", new
+            {
+                idEmpresa = idEmpresa
+            });
+
+            if (result == null)
+            {
+                MessageBox.Show("Baja de empresa correcta");
+            }
+        }
+
+        internal SqlDataReader getDatosEmpresa(int idEmpresa)
+        {
+            SqlDataReader data = command_reader("select isnull(empresa_razon_social,''),isnull(empresa_cuit,''),isnull(empresa_domicilio_calle,''),isnull(empresa_domicilio_numero,''),isnull(empresa_domicilio_piso,''),isnull(empresa_domicilio_departamento,''),isnull(empresa_ciudad,''),isnull(empresa_codigo_postal,''),isnull(empresa_telefono,''),isnull(empresa_email,''),isnull(empresa_baja_logica,'') from INNERJOIN.empresa where empresa_id = " + idEmpresa);
+
+            return data;
+        }
+
+        internal int updateEmpresa(int idEmpresa, List<string> camposAModificar)
+        {
+            string stringQuery = "update INNERJOIN.empresa";
+
+            stringQuery += " set " + string.Join(" , ", camposAModificar.ToArray());
+
+            stringQuery += " where empresa_id = " + idEmpresa;
+
+            int res = command_update(stringQuery);
+
+            return res;
+        }
+
+        internal bool cuitRepetido(int idEmpresa, string cuit)
+        {
+            string query = "select count(*) cantidad from INNERJOIN.empresa where empresa_id <> " + idEmpresa + " and empresa_cuit = \'" + cuit + "'";
+            SqlDataReader data = command_reader(query);
+            int cantidad = 0;
+            if (data.Read())
+            {
+                cantidad = data.GetInt32(0);
+            }
+
+            if (data.GetInt32(0) == 0) return false;
+            else return true;
+        }
+
+        internal bool razonSocialDuplicada(int idEmpresa, string razonSocial)
+        {
+            string query = "select count(*) cantidad from INNERJOIN.empresa where empresa_id <> " + idEmpresa + " and empresa_razon_social = \'" + razonSocial + "'";
+            SqlDataReader data = command_reader(query);
+            int cantidad = 0;
+            if (data.Read())
+            {
+                cantidad = data.GetInt32(0);
+            }
+
+            if (data.GetInt32(0) == 0) return false;
+            else return true;
         }
     }
 }
