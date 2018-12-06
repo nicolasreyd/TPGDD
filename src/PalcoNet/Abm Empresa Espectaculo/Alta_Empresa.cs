@@ -48,7 +48,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             }
             else
             {
-                if (App.db.cuitRepetido(cuitEmpresa_textBox.Text) msjError += "El CUIT ya se encuentra registrado\n";
+                if (App.db.cuitRepetido(cuitEmpresa_textBox.Text)) msjError += "El CUIT ya se encuentra registrado\n";
             }
 
             if (domCalleEmpresa_textBox.Text == string.Empty)
@@ -104,11 +104,11 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         private void cuitEmpresa_textBox_TextChanged(object sender, EventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(cuitEmpresa_textBox.Text, "[^0-9]"))
-            {
-                MessageBox.Show("El número de CUIL sólo puede contener numeros.");
-                cuitEmpresa_textBox.Text = cuitEmpresa_textBox.Text.Remove(cuitEmpresa_textBox.Text.Length - 1);
-            }
+            //if (System.Text.RegularExpressions.Regex.IsMatch(cuitEmpresa_textBox.Text, "[^0-9]"))
+            //{
+            //    MessageBox.Show("El número de CUIL sólo puede contener numeros.");
+            //    cuitEmpresa_textBox.Text = cuitEmpresa_textBox.Text.Remove(cuitEmpresa_textBox.Text.Length - 1);
+            //}
         }
 
         private void telefonoEmpresa_textBox_TextChanged(object sender, EventArgs e)

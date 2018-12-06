@@ -832,7 +832,7 @@ namespace PalcoNet
             return res;
         }
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
         public object agregar_nueva_empresa(string razonSocial, string cuit, string domCalle, string domNro, string domPiso, string domDepto, string ciudad, string codpost, string telefono, string email)
         {
             object result = Execute_SP("INNERJOIN.sp_alta_empresa", new
@@ -864,7 +864,8 @@ namespace PalcoNet
 
             if (data.GetInt32(0) == 0) return false;
             else return true;
-=======
+        }
+
         public Datos.Rol getRol(decimal user_id)
         {
 
@@ -883,7 +884,21 @@ namespace PalcoNet
 
             data.Close();
             return rol;
->>>>>>> f06e369a9d97eebf0198b83812cb1812b51cb1cd
+
+        }
+
+        public bool cuitRepetido(string cuit)
+        {
+            string query = "select count(*) cantidad from INNERJOIN.empresa where empresa_cuit = \'" + cuit + "'";
+            SqlDataReader data = command_reader(query);
+            int cantidad = 0;
+            if (data.Read())
+            {
+                cantidad = data.GetInt32(0);
+            }
+
+            if (data.GetInt32(0) == 0) return false;
+            else return true;
         }
     }
 }
