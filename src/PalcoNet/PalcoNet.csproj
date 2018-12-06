@@ -93,6 +93,18 @@
     <Compile Include="Abm Empresa Espectaculo\Baja_Empresa.Designer.cs">
       <DependentUpon>Baja_Empresa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Empresa Espectaculo\busquedaModificacion_Empresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Empresa Espectaculo\busquedaModificacion_Empresa.Designer.cs">
+      <DependentUpon>busquedaModificacion_Empresa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Empresa Espectaculo\Modificacion_Empresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Empresa Espectaculo\Modificacion_Empresa.Designer.cs">
+      <DependentUpon>Modificacion_Empresa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Grado\ABMGrado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -299,6 +311,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Empresa Espectaculo\Baja_Empresa.resx">
       <DependentUpon>Baja_Empresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Empresa Espectaculo\busquedaModificacion_Empresa.resx">
+      <DependentUpon>busquedaModificacion_Empresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Empresa Espectaculo\Modificacion_Empresa.resx">
+      <DependentUpon>Modificacion_Empresa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Grado\ABMGrado.resx">
       <DependentUpon>ABMGrado.cs</DependentUpon>

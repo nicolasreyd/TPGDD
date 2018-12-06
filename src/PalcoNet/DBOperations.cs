@@ -918,6 +918,39 @@ namespace PalcoNet
 
             return adapter;
         }
+
+        public void bajaEmpresa(int idEmpresa)
+        {
+            object result = Execute_SP("INNERJOIN.sp_baja_empresa", new
+            {
+                idEmpresa = idEmpresa
+            });
+
+            if (result == null)
+            {
+                MessageBox.Show("Baja de empresa correcta");
+            }
+        }
+
+        internal SqlDataReader getDatosEmpresa(int idEmpresa)
+        {
+            SqlDataReader data = command_reader("select isnull(empresa_razon_social,''),isnull(empresa_cuit,''),isnull(empresa_domicilio_calle,''),isnull(empresa_domicilio_numero,''),isnull(empresa_domicilio_piso,''),isnull(empresa_domicilio_departamento,''),isnull(empresa_ciudad,''),isnull(empresa_codigo_postal,''),isnull(empresa_telefono,''),isnull(empresa_email,''),isnull(empresa_baja_logica,'') from INNERJOIN.empresa where empresa_id = " + idEmpresa);
+
+            return data;
+        }
+
+        internal int updateEmpresa(int idEmpresa, List<string> camposAModificar)
+        {
+            string stringQuery = "update INNERJOIN.empresa";
+
+            stringQuery += " set " + string.Join(" , ", camposAModificar.ToArray());
+
+            stringQuery += " where empresa_id = " + idEmpresa;
+
+            int res = command_update(stringQuery);
+
+            return res;
+        }
     }
 }
 

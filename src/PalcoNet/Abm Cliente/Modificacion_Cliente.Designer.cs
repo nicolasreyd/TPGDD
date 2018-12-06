@@ -595,6 +595,7 @@
             this.Controls.Add(this.nombreCliente_textBox);
             this.Name = "Modificacion_Cliente";
             this.Text = "Modificacion Cliente";
+            this.Load += new System.EventHandler(this.Modificacion_Cliente_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

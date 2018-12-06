@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PalcoNet.Login;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -36,6 +37,13 @@ namespace PalcoNet.Abm_Cliente
             this.Hide();
             Abm_Cliente.Baja_Cliente bajaCliente = new Abm_Cliente.Baja_Cliente();
             bajaCliente.Show();
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            MenuPrincipal menu = new MenuPrincipal();
+            menu.Show();
         }
     }
 }

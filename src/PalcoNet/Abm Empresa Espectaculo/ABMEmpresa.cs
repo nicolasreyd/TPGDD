@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PalcoNet.Login;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -26,9 +27,9 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         private void ModificacionCliente_button_Click(object sender, EventArgs e)
         {
-        //    this.Hide();
-        //    Alta_Empresa alta = new Alta_Empresa();
-        //    alta.Show();
+            this.Hide();
+            busquedaModificacion_Empresa alta = new busquedaModificacion_Empresa();
+            alta.Show();
         }
 
         private void BajaCliente_button_Click(object sender, EventArgs e)
@@ -36,6 +37,13 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             this.Hide();
             Baja_Empresa baja = new Baja_Empresa();
             baja.Show();
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            MenuPrincipal menu = new MenuPrincipal();
+            menu.Show();
         }
     }
 }
