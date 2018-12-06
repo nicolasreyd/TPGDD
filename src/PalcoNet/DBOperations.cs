@@ -900,6 +900,24 @@ namespace PalcoNet
             if (data.GetInt32(0) == 0) return false;
             else return true;
         }
+
+        public SqlDataAdapter getEmpresa(List<string> listaCondiciones)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            string stringQuery = "select empresa_id,empresa_razon_social,empresa_cuit,empresa_email from INNERJOIN.empresa";
+
+            if (listaCondiciones.Any())
+            {
+                stringQuery += " where " + string.Join(" and ", listaCondiciones.ToArray());
+            }
+
+            SqlCommand query = new SqlCommand(stringQuery, connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
+        }
     }
 }
 

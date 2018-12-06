@@ -57,6 +57,7 @@
             this.BajaCliente_button.TabIndex = 2;
             this.BajaCliente_button.Text = "Baja";
             this.BajaCliente_button.UseVisualStyleBackColor = true;
+            this.BajaCliente_button.Click += new System.EventHandler(this.BajaCliente_button_Click);
             // 
             // ModificacionCliente_button
             // 
@@ -66,6 +67,7 @@
             this.ModificacionCliente_button.TabIndex = 1;
             this.ModificacionCliente_button.Text = "Modificación";
             this.ModificacionCliente_button.UseVisualStyleBackColor = true;
+            this.ModificacionCliente_button.Click += new System.EventHandler(this.ModificacionCliente_button_Click);
             // 
             // ClienteAlta_Button
             // 

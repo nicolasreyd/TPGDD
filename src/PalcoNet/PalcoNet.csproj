@@ -87,6 +87,12 @@
     <Compile Include="Abm Empresa Espectaculo\Alta_Empresa.Designer.cs">
       <DependentUpon>Alta_Empresa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Empresa Espectaculo\Baja_Empresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Empresa Espectaculo\Baja_Empresa.Designer.cs">
+      <DependentUpon>Baja_Empresa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Grado\ABMGrado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -290,6 +296,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Empresa Espectaculo\Alta_Empresa.resx">
       <DependentUpon>Alta_Empresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Empresa Espectaculo\Baja_Empresa.resx">
+      <DependentUpon>Baja_Empresa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Grado\ABMGrado.resx">
       <DependentUpon>ABMGrado.cs</DependentUpon>

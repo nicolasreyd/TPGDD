@@ -23,5 +23,19 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             Alta_Empresa alta = new Alta_Empresa();
             alta.Show();
         }
+
+        private void ModificacionCliente_button_Click(object sender, EventArgs e)
+        {
+        //    this.Hide();
+        //    Alta_Empresa alta = new Alta_Empresa();
+        //    alta.Show();
+        }
+
+        private void BajaCliente_button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Baja_Empresa baja = new Baja_Empresa();
+            baja.Show();
+        }
     }
 }
