@@ -99,7 +99,7 @@ select top (@cantidad_compras) compra_id,
 (select grado_comision from INNERJOIN.grado inner join INNERJOIN.publicacion p on p.id_grado = grado_id
 where c.id_publicacion = p.publicacion_id) as Comision
 from INNERJOIN.compra c
-where id_usuario = @id_empresa
+where id_usuario = @id_empresa and c.compra_id not in (select id_compra from INNERJOIN.factura_item)
 order by compra_fecha asc
 
 open c_cursor1 fetch next from c_cursor1 into @id_compra, @porcentaje_comision
