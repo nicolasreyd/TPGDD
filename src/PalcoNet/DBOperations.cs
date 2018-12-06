@@ -951,6 +951,34 @@ namespace PalcoNet
 
             return res;
         }
+
+        internal bool cuitRepetido(int idEmpresa, string cuit)
+        {
+            string query = "select count(*) cantidad from INNERJOIN.empresa where empresa_id <> " + idEmpresa + " and empresa_cuit = \'" + cuit + "'";
+            SqlDataReader data = command_reader(query);
+            int cantidad = 0;
+            if (data.Read())
+            {
+                cantidad = data.GetInt32(0);
+            }
+
+            if (data.GetInt32(0) == 0) return false;
+            else return true;
+        }
+
+        internal bool razonSocialDuplicada(int idEmpresa, string razonSocial)
+        {
+            string query = "select count(*) cantidad from INNERJOIN.empresa where empresa_id <> " + idEmpresa + " and empresa_razon_social = \'" + razonSocial + "'";
+            SqlDataReader data = command_reader(query);
+            int cantidad = 0;
+            if (data.Read())
+            {
+                cantidad = data.GetInt32(0);
+            }
+
+            if (data.GetInt32(0) == 0) return false;
+            else return true;
+        }
     }
 }
 

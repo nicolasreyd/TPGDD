@@ -78,7 +78,72 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         private void modificarEmpresa_button_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show(this.razonSocial);
+            string msjError = "";
+
+            if (razonSocial_textBox.Text == string.Empty)
+            {
+                msjError += "El campo \"Razón social\" es obligatorio\n";
+            }
+            else
+            {
+                if (App.db.razonSocialDuplicada(idEmpresa,razonSocial_textBox.Text)) msjError += "La razón social ya se encuentra registrada\n";
+            }
+
+            if (cuitEmpresa_textBox.Text == string.Empty)
+            {
+                msjError += "El campo \"CUIT\" es obligatorio\n";
+            }
+            else
+            {
+                if (App.db.cuitRepetido(this.idEmpresa,cuitEmpresa_textBox.Text)) msjError += "El CUIT ya se encuentra registrado\n";
+            }
+
+            if (domCalleEmpresa_textBox.Text == string.Empty)
+            {
+                msjError += "El campo \"Calle\" es obligatorio\n";
+            }
+
+            if (domNumeroEmpresa_textBox.Text == string.Empty)
+            {
+                msjError += "El campo \"Número\" es obligatorio\n";
+            }
+
+            if (domPisoEmpresa_textBox.Text == string.Empty)
+            {
+                msjError += "El campo \"Piso\" es obligatorio\n";
+            }
+
+            if (domDeptoEmpresa_textBox.Text == string.Empty)
+            {
+                msjError += "El campo \"Departamento\" es obligatorio\n";
+            }
+
+            if (ciudadEmpresa_textBox.Text == string.Empty)
+            {
+                msjError += "El campo \"Ciudad\" es obligatorio\n";
+            }
+
+            if (codPostEmpresa_textBox.Text == string.Empty)
+            {
+                msjError += "El campo \"Código Postal\" es obligatorio\n";
+            }
+
+            if (telefonoEmpresa_textBox.Text == string.Empty)
+            {
+                msjError += "El campo \"Teléfono\" es obligatorio\n";
+            }
+
+            if (emailEmpresa_textBox.Text == string.Empty)
+            {
+                msjError += "El campo \"E-Mail\" es obligatorio\n";
+            }
+
+            if (msjError != string.Empty)
+            {
+                MessageBox.Show(msjError);
+                return;
+            }
+
             List<string> camposAModificar = new List<string>();
             if (razonSocial_textBox.Text != this.razonSocial) camposAModificar.Add("empresa_razon_social = '" + razonSocial_textBox.Text + "'");
             if (cuitEmpresa_textBox.Text != this.cuit) camposAModificar.Add("empresa_cuit = '" + cuitEmpresa_textBox.Text + "'");
