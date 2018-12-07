@@ -134,3 +134,89 @@ close c_cursor1
 deallocate c_cursor1
 
 end
+
+
+create procedure [INNERJOIN].[sp_rehabilitar_usuario] @tipoUsuario nvarchar(20),@idUsuario numeric(18,0)
+as
+
+	begin tran
+
+	declare @id_usuario numeric
+
+	if @tipoUsuario = 'cliente'
+	begin
+		select @id_usuario=usuario_id from INNERJOIN.cliente where cliente_id=@idUsuario
+		update INNERJOIN.cliente set cliente_baja_logica = 0 where cliente_id = @idUsuario
+	end
+		
+		
+	if @tipoUsuario = 'empresa'
+	begin
+		select @id_usuario=empresa_id from INNERJOIN.empresa where empresa_id=@idUsuario
+		update INNERJOIN.empresa set empresa_baja_logica = 0 where empresa_id = @idUsuario
+	end			
+
+	if (@tipoUsuario <> 'cliente') and (@tipoUsuario <> 'empresa') RAISERROR('Tipo incorrecto de usuario (debe ser "cliente" o "empresa"',16,1)
+
+	update INNERJOIN.usuario set usuario_baja_logica=0 where usuario_id=@id_usuario
+
+	commit
+	
+
+
+
+
+create procedure [INNERJOIN].[sp_alta_empresa] @razonSocial nvarchar(255),@cuit nvarchar(255),@domCalle nvarchar(255),@domNro nvarchar(255),@domPiso nvarchar(255),@domDepto nvarchar(255),@ciudad nvarchar(255),@codpost nvarchar(255),@telefono nvarchar(255),@email nvarchar(255)
+as
+
+	begin tran
+
+	declare @id_usuario numeric
+	declare @id_empresa numeric
+	declare @username nvarchar(255)
+
+	select @username=MAX(CAST(usuario_username as bigint))+1 from innerjoin.usuario where usuario_username <>'admin'
+	
+	insert into INNERJOIN.usuario (usuario_username,usuario_password,usuario_tipo,usuario_baja_logica)
+		values (@username,getdate(),'empresa',0)
+		
+	select @id_usuario=usuario_id from INNERJOIN.usuario where usuario_username=@username
+		
+	insert into INNERJOIN.empresa (usuario_id,empresa_razon_social,empresa_cuit,empresa_email,empresa_telefono,empresa_domicilio_calle,empresa_domicilio_numero,empresa_domicilio_piso,empresa_domicilio_departamento,empresa_codigo_postal,empresa_ciudad,empresa_baja_logica)
+		values (@id_usuario,@razonSocial,@cuit,@email,@telefono,@domCalle,(CAST(@domNro as numeric(18,0))),(CAST(@domPiso as numeric(18,0))),@domDepto,@codpost,@ciudad,0)
+	
+	insert into INNERJOIN.usuario_rol (id_usuario,id_rol)
+		values (@id_usuario,1)
+
+	insert into INNERJOIN.rol_funcionalidad (id_rol,id_funcionalidad)
+		values (1,6),(1,7)
+
+	commit
+
+
+create procedure [INNERJOIN].[sp_baja_empresa] @idEmpresa numeric(18,0)
+as
+
+	begin tran
+
+	declare @id_usuario numeric
+
+	select @id_usuario=usuario_id from INNERJOIN.empresa where empresa_id=@idEmpresa
+
+	update INNERJOIN.usuario set usuario_baja_logica=1 where usuario_id=@id_usuario
+
+	update INNERJOIN.empresa set empresa_baja_logica=1 where empresa_id=@idEmpresa
+
+
+
+	commit
+
+
+
+create procedure [INNERJOIN].[cambiar_password] @idUsuario numeric(18,0),@password nvarchar(16)
+as
+
+	update INNERJOIN.usuario set usuario_password = LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256',@password), 2)) where usuario_id = @idUsuario
+	
+
+
