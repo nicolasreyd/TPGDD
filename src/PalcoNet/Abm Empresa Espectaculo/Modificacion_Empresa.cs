@@ -61,7 +61,8 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         
         private void Modificacion_Empresa_Load(object sender, EventArgs e)
         {
-            this.habilitarEmpresa_button.Visible = !this.habilitado_checkBox.Checked;
+            this.habilitarEmpresa_button.Enabled = !this.habilitado_checkBox.Checked;
+            habilitado_checkBox.AutoCheck = false;
         }
 
         private void habilitado_checkBox_CheckedChanged(object sender, EventArgs e)
@@ -176,7 +177,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         private void habilitarEmpresa_button_Click(object sender, EventArgs e)
         {
-            //App.db.rehabilitarEmpresa(idEmpresa);
+            App.db.rehabilitarUsuario("empresa",idEmpresa);
         }
     }
 }

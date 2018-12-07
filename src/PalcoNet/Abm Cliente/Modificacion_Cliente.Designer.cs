@@ -64,6 +64,8 @@
             this.nombreCliente_textBox = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.volver_button = new System.Windows.Forms.Button();
+            this.habilitarCliente_button = new System.Windows.Forms.Button();
+            this.habilitado_checkBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // limpiar_button
@@ -79,7 +81,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(152, 394);
+            this.label21.Location = new System.Drawing.Point(152, 307);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(36, 13);
             this.label21.TabIndex = 75;
@@ -88,7 +90,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(48, 394);
+            this.label20.Location = new System.Drawing.Point(48, 307);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(49, 13);
             this.label20.TabIndex = 74;
@@ -97,7 +99,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(339, 336);
+            this.label19.Location = new System.Drawing.Point(338, 244);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(72, 13);
             this.label19.TabIndex = 73;
@@ -106,7 +108,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(244, 336);
+            this.label14.Location = new System.Drawing.Point(243, 244);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(74, 13);
             this.label14.TabIndex = 71;
@@ -115,7 +117,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(211, 336);
+            this.label13.Location = new System.Drawing.Point(210, 244);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(27, 13);
             this.label13.TabIndex = 70;
@@ -124,7 +126,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(152, 336);
+            this.label12.Location = new System.Drawing.Point(151, 244);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(44, 13);
             this.label12.TabIndex = 69;
@@ -133,7 +135,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(46, 336);
+            this.label11.Location = new System.Drawing.Point(45, 244);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(30, 13);
             this.label11.TabIndex = 68;
@@ -142,7 +144,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(46, 302);
+            this.label10.Location = new System.Drawing.Point(45, 210);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(52, 13);
             this.label10.TabIndex = 67;
@@ -151,7 +153,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(189, 219);
+            this.label9.Location = new System.Drawing.Point(186, 156);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(26, 13);
             this.label9.TabIndex = 66;
@@ -160,7 +162,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(122, 219);
+            this.label8.Location = new System.Drawing.Point(119, 156);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(27, 13);
             this.label8.TabIndex = 65;
@@ -169,7 +171,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(48, 222);
+            this.label7.Location = new System.Drawing.Point(45, 159);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(23, 13);
             this.label7.TabIndex = 64;
@@ -178,7 +180,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(46, 193);
+            this.label6.Location = new System.Drawing.Point(43, 130);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(106, 13);
             this.label6.TabIndex = 63;
@@ -187,7 +189,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(46, 124);
+            this.label5.Location = new System.Drawing.Point(289, 69);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(86, 13);
             this.label5.TabIndex = 62;
@@ -352,7 +354,7 @@
             "2016",
             "2017",
             "2018"});
-            this.anioNac_comboBox.Location = new System.Drawing.Point(192, 238);
+            this.anioNac_comboBox.Location = new System.Drawing.Point(189, 175);
             this.anioNac_comboBox.Name = "anioNac_comboBox";
             this.anioNac_comboBox.Size = new System.Drawing.Size(61, 21);
             this.anioNac_comboBox.TabIndex = 57;
@@ -374,7 +376,7 @@
             "10",
             "11",
             "12"});
-            this.mesNac_comboBox.Location = new System.Drawing.Point(125, 238);
+            this.mesNac_comboBox.Location = new System.Drawing.Point(122, 175);
             this.mesNac_comboBox.Name = "mesNac_comboBox";
             this.mesNac_comboBox.Size = new System.Drawing.Size(61, 21);
             this.mesNac_comboBox.TabIndex = 56;
@@ -415,7 +417,7 @@
             "29",
             "30",
             "31"});
-            this.diaNac_comboBox.Location = new System.Drawing.Point(49, 238);
+            this.diaNac_comboBox.Location = new System.Drawing.Point(46, 175);
             this.diaNac_comboBox.Name = "diaNac_comboBox";
             this.diaNac_comboBox.Size = new System.Drawing.Size(61, 21);
             this.diaNac_comboBox.TabIndex = 55;
@@ -423,7 +425,7 @@
             // 
             // emailCliente_textBox
             // 
-            this.emailCliente_textBox.Location = new System.Drawing.Point(155, 410);
+            this.emailCliente_textBox.Location = new System.Drawing.Point(155, 323);
             this.emailCliente_textBox.Name = "emailCliente_textBox";
             this.emailCliente_textBox.Size = new System.Drawing.Size(100, 20);
             this.emailCliente_textBox.TabIndex = 54;
@@ -441,7 +443,7 @@
             // 
             // codPostCliente_textBox
             // 
-            this.codPostCliente_textBox.Location = new System.Drawing.Point(340, 352);
+            this.codPostCliente_textBox.Location = new System.Drawing.Point(339, 260);
             this.codPostCliente_textBox.Name = "codPostCliente_textBox";
             this.codPostCliente_textBox.Size = new System.Drawing.Size(53, 20);
             this.codPostCliente_textBox.TabIndex = 52;
@@ -449,7 +451,7 @@
             // 
             // domDeptoCliente_textBox
             // 
-            this.domDeptoCliente_textBox.Location = new System.Drawing.Point(246, 352);
+            this.domDeptoCliente_textBox.Location = new System.Drawing.Point(245, 260);
             this.domDeptoCliente_textBox.Name = "domDeptoCliente_textBox";
             this.domDeptoCliente_textBox.Size = new System.Drawing.Size(43, 20);
             this.domDeptoCliente_textBox.TabIndex = 51;
@@ -457,7 +459,7 @@
             // 
             // domPisoCliente_textBox
             // 
-            this.domPisoCliente_textBox.Location = new System.Drawing.Point(214, 352);
+            this.domPisoCliente_textBox.Location = new System.Drawing.Point(213, 260);
             this.domPisoCliente_textBox.Name = "domPisoCliente_textBox";
             this.domPisoCliente_textBox.Size = new System.Drawing.Size(26, 20);
             this.domPisoCliente_textBox.TabIndex = 50;
@@ -465,7 +467,7 @@
             // 
             // domNumeroCliente_textBox
             // 
-            this.domNumeroCliente_textBox.Location = new System.Drawing.Point(155, 352);
+            this.domNumeroCliente_textBox.Location = new System.Drawing.Point(154, 260);
             this.domNumeroCliente_textBox.Name = "domNumeroCliente_textBox";
             this.domNumeroCliente_textBox.Size = new System.Drawing.Size(53, 20);
             this.domNumeroCliente_textBox.TabIndex = 49;
@@ -473,7 +475,7 @@
             // 
             // domCalleCliente_textBox
             // 
-            this.domCalleCliente_textBox.Location = new System.Drawing.Point(49, 352);
+            this.domCalleCliente_textBox.Location = new System.Drawing.Point(48, 260);
             this.domCalleCliente_textBox.Name = "domCalleCliente_textBox";
             this.domCalleCliente_textBox.Size = new System.Drawing.Size(100, 20);
             this.domCalleCliente_textBox.TabIndex = 48;
@@ -481,7 +483,7 @@
             // 
             // telefonoCliente_textBox
             // 
-            this.telefonoCliente_textBox.Location = new System.Drawing.Point(49, 410);
+            this.telefonoCliente_textBox.Location = new System.Drawing.Point(49, 323);
             this.telefonoCliente_textBox.Name = "telefonoCliente_textBox";
             this.telefonoCliente_textBox.Size = new System.Drawing.Size(100, 20);
             this.telefonoCliente_textBox.TabIndex = 47;
@@ -489,7 +491,7 @@
             // 
             // cuilCliente_textBox
             // 
-            this.cuilCliente_textBox.Location = new System.Drawing.Point(49, 143);
+            this.cuilCliente_textBox.Location = new System.Drawing.Point(292, 88);
             this.cuilCliente_textBox.Name = "cuilCliente_textBox";
             this.cuilCliente_textBox.Size = new System.Drawing.Size(100, 20);
             this.cuilCliente_textBox.TabIndex = 46;
@@ -534,7 +536,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(378, 119);
+            this.button1.Location = new System.Drawing.Point(573, 79);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 78;
@@ -552,11 +554,33 @@
             this.volver_button.UseVisualStyleBackColor = true;
             this.volver_button.Click += new System.EventHandler(this.volver_button_Click);
             // 
+            // habilitarCliente_button
+            // 
+            this.habilitarCliente_button.Location = new System.Drawing.Point(127, 374);
+            this.habilitarCliente_button.Name = "habilitarCliente_button";
+            this.habilitarCliente_button.Size = new System.Drawing.Size(75, 23);
+            this.habilitarCliente_button.TabIndex = 108;
+            this.habilitarCliente_button.Text = "Habilitar";
+            this.habilitarCliente_button.UseVisualStyleBackColor = true;
+            this.habilitarCliente_button.Click += new System.EventHandler(this.habilitarCliente_button_Click);
+            // 
+            // habilitado_checkBox
+            // 
+            this.habilitado_checkBox.AutoSize = true;
+            this.habilitado_checkBox.Location = new System.Drawing.Point(48, 378);
+            this.habilitado_checkBox.Name = "habilitado_checkBox";
+            this.habilitado_checkBox.Size = new System.Drawing.Size(73, 17);
+            this.habilitado_checkBox.TabIndex = 107;
+            this.habilitado_checkBox.Text = "Habilitado";
+            this.habilitado_checkBox.UseVisualStyleBackColor = true;
+            // 
             // Modificacion_Cliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(685, 477);
+            this.Controls.Add(this.habilitarCliente_button);
+            this.Controls.Add(this.habilitado_checkBox);
             this.Controls.Add(this.volver_button);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.limpiar_button);
@@ -639,5 +663,7 @@
         private System.Windows.Forms.TextBox nombreCliente_textBox;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button volver_button;
+        private System.Windows.Forms.Button habilitarCliente_button;
+        private System.Windows.Forms.CheckBox habilitado_checkBox;
     }
 }

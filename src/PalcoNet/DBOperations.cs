@@ -979,6 +979,30 @@ namespace PalcoNet
             if (data.GetInt32(0) == 0) return false;
             else return true;
         }
+
+        internal int updateCliente(int idCliente, List<string> camposAModificar)
+        {
+            string stringQuery = "update INNERJOIN.cliente";
+
+            stringQuery += " set " + string.Join(" , ", camposAModificar.ToArray());
+
+            stringQuery += " where cliente_id = " + idCliente;
+
+            int res = command_update(stringQuery);
+
+            return res;
+        }
+
+        public void rehabilitarUsuario(string tipoUsuario, int idUsuario)
+        {
+            object result = Execute_SP("INNERJOIN.sp_rehabilitar_usuario", new
+                            {
+                                tipoUsuario = tipoUsuario,
+                                idUsuario = idUsuario
+                            });
+
+            if (result == null) MessageBox.Show("Usuario rehabilitado de manera correcta"); ;
+        }
     }
 }
 
