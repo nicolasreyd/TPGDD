@@ -66,6 +66,7 @@
             this.volver_button = new System.Windows.Forms.Button();
             this.habilitarCliente_button = new System.Windows.Forms.Button();
             this.habilitado_checkBox = new System.Windows.Forms.CheckBox();
+            this.cambiarPass_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // limpiar_button
@@ -574,11 +575,22 @@
             this.habilitado_checkBox.Text = "Habilitado";
             this.habilitado_checkBox.UseVisualStyleBackColor = true;
             // 
+            // cambiarPass_button
+            // 
+            this.cambiarPass_button.Location = new System.Drawing.Point(419, 320);
+            this.cambiarPass_button.Name = "cambiarPass_button";
+            this.cambiarPass_button.Size = new System.Drawing.Size(127, 23);
+            this.cambiarPass_button.TabIndex = 109;
+            this.cambiarPass_button.Text = "Cambiar contraseña";
+            this.cambiarPass_button.UseVisualStyleBackColor = true;
+            this.cambiarPass_button.Click += new System.EventHandler(this.cambiarPass_button_Click);
+            // 
             // Modificacion_Cliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(685, 477);
+            this.Controls.Add(this.cambiarPass_button);
             this.Controls.Add(this.habilitarCliente_button);
             this.Controls.Add(this.habilitado_checkBox);
             this.Controls.Add(this.volver_button);
@@ -665,5 +677,6 @@
         private System.Windows.Forms.Button volver_button;
         private System.Windows.Forms.Button habilitarCliente_button;
         private System.Windows.Forms.CheckBox habilitado_checkBox;
+        private System.Windows.Forms.Button cambiarPass_button;
     }
 }

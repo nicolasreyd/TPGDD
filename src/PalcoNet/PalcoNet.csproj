@@ -69,6 +69,12 @@
     <Compile Include="Abm Cliente\busquedaModificacion_Cliente.Designer.cs">
       <DependentUpon>busquedaModificacion_Cliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Cliente\Cambio_Password.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Cliente\Cambio_Password.Designer.cs">
+      <DependentUpon>Cambio_Password.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Cliente\Modificacion_Cliente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +104,12 @@
     </Compile>
     <Compile Include="Abm Empresa Espectaculo\busquedaModificacion_Empresa.Designer.cs">
       <DependentUpon>busquedaModificacion_Empresa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Empresa Espectaculo\Cambio_Password.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Empresa Espectaculo\Cambio_Password.Designer.cs">
+      <DependentUpon>Cambio_Password.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Empresa Espectaculo\Modificacion_Empresa.cs">
       <SubType>Form</SubType>
@@ -300,6 +312,9 @@
     <EmbeddedResource Include="Abm Cliente\busquedaModificacion_Cliente.resx">
       <DependentUpon>busquedaModificacion_Cliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Cliente\Cambio_Password.resx">
+      <DependentUpon>Cambio_Password.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\Modificacion_Cliente.resx">
       <DependentUpon>Modificacion_Cliente.cs</DependentUpon>
     </EmbeddedResource>
@@ -314,6 +329,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Empresa Espectaculo\busquedaModificacion_Empresa.resx">
       <DependentUpon>busquedaModificacion_Empresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Empresa Espectaculo\Cambio_Password.resx">
+      <DependentUpon>Cambio_Password.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Empresa Espectaculo\Modificacion_Empresa.resx">
       <DependentUpon>Modificacion_Empresa.cs</DependentUpon>

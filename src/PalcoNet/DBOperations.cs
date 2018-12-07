@@ -1001,7 +1001,15 @@ namespace PalcoNet
                                 idUsuario = idUsuario
                             });
 
-            if (result == null) MessageBox.Show("Usuario rehabilitado de manera correcta"); ;
+            if (result == null) MessageBox.Show("Usuario rehabilitado de manera correcta");
+        }
+
+        internal void cambiarPassword(int idUsuario, string password)
+        {
+            object result = Execute_SP("INNERJOIN.cambiar_password", new { idUsuario = idUsuario, password = password });
+
+            if (result == null) MessageBox.Show("Contraseña actualizada correctamente");
+
         }
     }
 }

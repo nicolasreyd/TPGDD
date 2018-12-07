@@ -54,6 +54,7 @@
             this.razonSocial_textBox = new System.Windows.Forms.TextBox();
             this.habilitado_checkBox = new System.Windows.Forms.CheckBox();
             this.habilitarEmpresa_button = new System.Windows.Forms.Button();
+            this.cambiarPass_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -276,11 +277,22 @@
             this.habilitarEmpresa_button.UseVisualStyleBackColor = true;
             this.habilitarEmpresa_button.Click += new System.EventHandler(this.habilitarEmpresa_button_Click);
             // 
+            // cambiarPass_button
+            // 
+            this.cambiarPass_button.Location = new System.Drawing.Point(485, 334);
+            this.cambiarPass_button.Name = "cambiarPass_button";
+            this.cambiarPass_button.Size = new System.Drawing.Size(127, 23);
+            this.cambiarPass_button.TabIndex = 110;
+            this.cambiarPass_button.Text = "Cambiar contraseña";
+            this.cambiarPass_button.UseVisualStyleBackColor = true;
+            this.cambiarPass_button.Click += new System.EventHandler(this.cambiarPass_button_Click);
+            // 
             // Modificacion_Empresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(745, 459);
+            this.Controls.Add(this.cambiarPass_button);
             this.Controls.Add(this.habilitarEmpresa_button);
             this.Controls.Add(this.habilitado_checkBox);
             this.Controls.Add(this.label1);
@@ -343,6 +355,7 @@
         private System.Windows.Forms.TextBox razonSocial_textBox;
         private System.Windows.Forms.CheckBox habilitado_checkBox;
         private System.Windows.Forms.Button habilitarEmpresa_button;
+        private System.Windows.Forms.Button cambiarPass_button;
 
     }
 }

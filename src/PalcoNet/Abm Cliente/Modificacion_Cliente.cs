@@ -334,5 +334,18 @@ namespace PalcoNet.Abm_Cliente
         {
             App.db.rehabilitarUsuario("cliente", idCliente);
         }
+
+        private void cambiarPass_button_Click(object sender, EventArgs e)
+        {
+            SqlDataReader data = App.db.command_reader("select usuario_id from INNERJOIN.cliente where cliente_id=" + idCliente);
+
+            if (data.HasRows)
+            {
+                data.Read();
+                this.Hide();
+                Cambio_Password cambioPass = new Cambio_Password(idCliente,Convert.ToInt32(data.GetDecimal(0)));
+                cambioPass.Show();
+            }
+        }
     }
 }
