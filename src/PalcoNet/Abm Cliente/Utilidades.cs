@@ -13,6 +13,15 @@ namespace PalcoNet.Abm_Cliente
         {
             string cuil = unCuil.Replace("[^\\d]", "");
 
+            switch (cuil.Substring(0,2))
+            {
+                case "30":
+                case "33":
+                case "34":
+                    MessageBox.Show(cuil.Substring(0, 2));
+                    return false;
+            }
+
             if (cuil.Length != 11)
             {
                 return false;
