@@ -81,6 +81,7 @@
     <Compile Include="Abm Cliente\Modificacion_Cliente.Designer.cs">
       <DependentUpon>Modificacion_Cliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Cliente\Utilidades.cs" />
     <Compile Include="Abm Empresa Espectaculo\ABMEmpresa.cs">
       <SubType>Form</SubType>
     </Compile>
