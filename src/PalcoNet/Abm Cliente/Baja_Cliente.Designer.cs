@@ -37,10 +37,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.busquedaCliente_button = new System.Windows.Forms.Button();
-            this.darDeBaja_button = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.limpiarPantalla_button = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -122,29 +122,6 @@
             this.busquedaCliente_button.UseVisualStyleBackColor = true;
             this.busquedaCliente_button.Click += new System.EventHandler(this.busquedaCliente_button_Click);
             // 
-            // darDeBaja_button
-            // 
-            this.darDeBaja_button.Location = new System.Drawing.Point(481, 384);
-            this.darDeBaja_button.Name = "darDeBaja_button";
-            this.darDeBaja_button.Size = new System.Drawing.Size(75, 23);
-            this.darDeBaja_button.TabIndex = 10;
-            this.darDeBaja_button.Text = "Dar de baja";
-            this.darDeBaja_button.UseVisualStyleBackColor = true;
-            this.darDeBaja_button.Click += new System.EventHandler(this.darDeBaja_button_Click);
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(32, 174);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(524, 195);
-            this.dataGridView1.TabIndex = 11;
-            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            // 
             // limpiarPantalla_button
             // 
             this.limpiarPantalla_button.Location = new System.Drawing.Point(375, 384);
@@ -166,15 +143,35 @@
             this.linkLabel1.Text = "Volver";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Eliminar});
+            this.dataGridView1.Location = new System.Drawing.Point(32, 171);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(524, 197);
+            this.dataGridView1.TabIndex = 58;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
+            // 
+            // Eliminar
+            // 
+            this.Eliminar.HeaderText = "Modificar";
+            this.Eliminar.Name = "Eliminar";
+            this.Eliminar.Text = "Modificar";
+            this.Eliminar.ToolTipText = "Modificar";
+            this.Eliminar.UseColumnTextForButtonValue = true;
+            this.Eliminar.Width = 56;
+            // 
             // Baja_Cliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(617, 419);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.limpiarPantalla_button);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.darDeBaja_button);
             this.Controls.Add(this.busquedaCliente_button);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -203,9 +200,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button busquedaCliente_button;
-        private System.Windows.Forms.Button darDeBaja_button;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button limpiarPantalla_button;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewButtonColumn Eliminar;
     }
 }

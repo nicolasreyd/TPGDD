@@ -80,32 +80,20 @@ namespace PalcoNet.Abm_Cliente
            // this.dataGridView1.Columns[0].Visible = false;
             this.dataGridView1.DataSource = tabla;
             this.dataGridView1.AutoGenerateColumns = false;
-            this.dataGridView1.Columns[0].Visible = false;
+            this.dataGridView1.Columns[1].Visible = false;
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             condiciones.Clear();
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            id = dataGridView1.Rows[e.RowIndex].Cells[0].FormattedValue.ToString();
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            pruebaValor = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[6].Value);//.FormattedValue.ToString();
-            idAEliminar = Convert.ToInt32(id);
-            MessageBox.Show("El valor seleccionado es : " + idAEliminar);
-            App.db.bajaCliente(idAEliminar);
-        }
-
-        private void darDeBaja_button_Click(object sender, EventArgs e)
-        {
-            idAEliminar = Convert.ToInt32(id);
-            MessageBox.Show("El valor seleccionado es : " + idAEliminar);
-            App.db.bajaCliente(idAEliminar);
-        }
+        //private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    pruebaValor = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[6].Value);//.FormattedValue.ToString();
+        //    idAEliminar = Convert.ToInt32(id);
+        //    MessageBox.Show("El valor seleccionado es : " + idAEliminar);
+        //    App.db.bajaCliente(idAEliminar);
+        //}
 
         private void limpiarPantalla_button_Click(object sender, EventArgs e)
         {
@@ -122,6 +110,13 @@ namespace PalcoNet.Abm_Cliente
             this.Hide();
             ABMCliente abmCliente = new ABMCliente();
             abmCliente.Show();
+        }
+
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            idAEliminar = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[1].FormattedValue.ToString());
+            //MessageBox.Show("El valor seleccionado es : " + idAEliminar);
+            App.db.bajaCliente(idAEliminar);
         }
     }
 }
