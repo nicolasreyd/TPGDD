@@ -785,30 +785,52 @@ namespace PalcoNet
         public void agregar_nuevo_cliente(string username, string password, string nombre_usuario, string apellido_usuario, string tipo_dni, string numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir, string domicilio_calle, string domicilio_numero, string domicilio_piso, string domicilio_depto, string cod_post, string numero_tarjeta, string vencimiento_tarjeta)//,rol)
 
         {
-            object result = Execute_SP("INNERJOIN.sp_alta_cliente", new
+            var command = new SqlCommand();
+            this.connection = new SqlConnection(ConnectionString);
+            this.connection.Open();
+
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.CommandText = "INNERJOIN.sp_alta_cliente";
+
+            object parameters = new
+                                    {
+                                        username = username,
+                                        password = password,
+                                        tipodni = tipo_dni,
+                                        nrodni = numero_dni,
+                                        cuil = numero_cuil,
+                                        apellido = apellido_usuario,
+                                        nombre = nombre_usuario,
+                                        fechanac = fecha_nacimiento,
+                                        email = email_dir,
+                                        telefono = num_telefono,
+                                        dom_calle = domicilio_calle,
+                                        dom_numero = domicilio_numero,
+                                        dom_piso = domicilio_piso,
+                                        dom_depto = domicilio_depto,
+                                        codpost = cod_post,
+                                        num_tarjeta = numero_tarjeta,
+                                        venc_tarjeta = vencimiento_tarjeta
+                                    };
+
+            if (parameters != null)
             {
-                username = username,
-                password = password,
-                tipodni = tipo_dni,
-                nrodni = numero_dni,
-                cuil = numero_cuil,
-                apellido = apellido_usuario,
-                nombre = nombre_usuario,
-                fechanac = fecha_nacimiento,
-                email = email_dir,
-                telefono = num_telefono,
-                dom_calle = domicilio_calle,
-                dom_numero = domicilio_numero,
-                dom_piso = domicilio_piso,
-                dom_depto = domicilio_depto,
-                codpost = cod_post,
-                num_tarjeta = numero_tarjeta,
-                venc_tarjeta = vencimiento_tarjeta
-            });
-            if (result == null)
-            {
-                MessageBox.Show("Alta de cliente correcta");
+                command.Parameters.AddRange(GetSqlParameters(parameters));
             }
+			
+			command.Parameters.Add(new SqlParameter("@credenciales",SqlDbType.NVarChar,255,ParameterDirection.Output,false,0,50,"credenciales",DataRowVersion.Default,null));
+            command.UpdatedRowSource = UpdateRowSource.OutputParameters;
+            command.CommandTimeout = 0;
+            command.Connection = connection;
+            command.ExecuteScalar();
+            string credenciales = (string)command.Parameters["@credenciales"].Value;
+
+            string msj = "";
+            
+            msj +="Alta de cliente correcta\n\n";
+            if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password)) msj+=credenciales;
+
+            MessageBox.Show(msj);
 
         }
 
@@ -959,10 +981,19 @@ namespace PalcoNet
         }
 
 
-        public object agregar_nueva_empresa(string razonSocial, string cuit, string domCalle, string domNro, string domPiso, string domDepto, string ciudad, string codpost, string telefono, string email)
+        public void agregar_nueva_empresa(string username, string password, string razonSocial, string cuit, string domCalle, string domNro, string domPiso, string domDepto, string ciudad, string codpost, string telefono, string email)
         {
-            object result = Execute_SP("INNERJOIN.sp_alta_empresa", new
+            var command = new SqlCommand();
+            this.connection = new SqlConnection(ConnectionString);
+            this.connection.Open();
+
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.CommandText = "INNERJOIN.sp_alta_empresa";
+
+            object parameters = new
             {
+                username = username,
+                password = password,
                 razonSocial = razonSocial,
                 cuit = cuit,
                 domCalle = domCalle,
@@ -973,9 +1004,27 @@ namespace PalcoNet
                 codpost = codpost,
                 telefono = telefono,
                 email = email
-            });
+            };
 
-            return result;
+            if (parameters != null)
+            {
+                command.Parameters.AddRange(GetSqlParameters(parameters));
+            }
+
+            command.Parameters.Add(new SqlParameter("@credenciales", SqlDbType.NVarChar, 255, ParameterDirection.Output, false, 0, 50, "credenciales", DataRowVersion.Default, null));
+            command.UpdatedRowSource = UpdateRowSource.OutputParameters;
+            command.CommandTimeout = 0;
+            command.Connection = connection;
+            command.ExecuteScalar();
+            string credenciales = (string)command.Parameters["@credenciales"].Value;
+
+            string msj = "";
+
+            msj += "Alta de empresa correcta\n\n";
+            if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password)) msj += credenciales;
+
+            MessageBox.Show(msj);
+
         }
 
         public bool razonSocialDuplicada(string razonSocial)

@@ -135,12 +135,13 @@
             // 
             // Eliminar
             // 
-            this.Eliminar.HeaderText = "Modificar";
+            this.Eliminar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Eliminar.HeaderText = "Baja";
             this.Eliminar.Name = "Eliminar";
-            this.Eliminar.Text = "Modificar";
+            this.Eliminar.Text = "Dar de baja";
             this.Eliminar.ToolTipText = "Modificar";
             this.Eliminar.UseColumnTextForButtonValue = true;
-            this.Eliminar.Width = 56;
+            this.Eliminar.Width = 34;
             // 
             // Baja_Empresa
             // 

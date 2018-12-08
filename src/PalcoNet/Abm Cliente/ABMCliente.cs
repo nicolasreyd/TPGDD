@@ -45,5 +45,10 @@ namespace PalcoNet.Abm_Cliente
             MenuPrincipal menu = new MenuPrincipal();
             menu.Show();
         }
+
+        private void ABMCliente_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -289,6 +289,7 @@
             this.Controls.Add(this.razonSocial_textBox);
             this.Name = "Alta_Empresa";
             this.Text = "Alta de Empresa de Espectáculos";
+            this.Load += new System.EventHandler(this.Alta_Empresa_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

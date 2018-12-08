@@ -30,9 +30,9 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.ClienteAlta_Button = new System.Windows.Forms.Button();
-            this.ModificacionCliente_button = new System.Windows.Forms.Button();
             this.BajaCliente_button = new System.Windows.Forms.Button();
+            this.ModificacionCliente_button = new System.Windows.Forms.Button();
+            this.ClienteAlta_Button = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -51,15 +51,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Operaciones";
             // 
-            // ClienteAlta_Button
+            // BajaCliente_button
             // 
-            this.ClienteAlta_Button.Location = new System.Drawing.Point(57, 36);
-            this.ClienteAlta_Button.Name = "ClienteAlta_Button";
-            this.ClienteAlta_Button.Size = new System.Drawing.Size(75, 23);
-            this.ClienteAlta_Button.TabIndex = 0;
-            this.ClienteAlta_Button.Text = "Alta";
-            this.ClienteAlta_Button.UseVisualStyleBackColor = true;
-            this.ClienteAlta_Button.Click += new System.EventHandler(this.ClienteAlta_Button_Click);
+            this.BajaCliente_button.Location = new System.Drawing.Point(57, 124);
+            this.BajaCliente_button.Name = "BajaCliente_button";
+            this.BajaCliente_button.Size = new System.Drawing.Size(75, 23);
+            this.BajaCliente_button.TabIndex = 2;
+            this.BajaCliente_button.Text = "Baja";
+            this.BajaCliente_button.UseVisualStyleBackColor = true;
+            this.BajaCliente_button.Click += new System.EventHandler(this.BajaCliente_button_Click);
             // 
             // ModificacionCliente_button
             // 
@@ -71,15 +71,15 @@
             this.ModificacionCliente_button.UseVisualStyleBackColor = true;
             this.ModificacionCliente_button.Click += new System.EventHandler(this.ModificacionCliente_button_Click);
             // 
-            // BajaCliente_button
+            // ClienteAlta_Button
             // 
-            this.BajaCliente_button.Location = new System.Drawing.Point(57, 124);
-            this.BajaCliente_button.Name = "BajaCliente_button";
-            this.BajaCliente_button.Size = new System.Drawing.Size(75, 23);
-            this.BajaCliente_button.TabIndex = 2;
-            this.BajaCliente_button.Text = "Baja";
-            this.BajaCliente_button.UseVisualStyleBackColor = true;
-            this.BajaCliente_button.Click += new System.EventHandler(this.BajaCliente_button_Click);
+            this.ClienteAlta_Button.Location = new System.Drawing.Point(57, 36);
+            this.ClienteAlta_Button.Name = "ClienteAlta_Button";
+            this.ClienteAlta_Button.Size = new System.Drawing.Size(75, 23);
+            this.ClienteAlta_Button.TabIndex = 0;
+            this.ClienteAlta_Button.Text = "Alta";
+            this.ClienteAlta_Button.UseVisualStyleBackColor = true;
+            this.ClienteAlta_Button.Click += new System.EventHandler(this.ClienteAlta_Button_Click);
             // 
             // linkLabel1
             // 
@@ -101,6 +101,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "ABMCliente";
             this.Text = "ABM Cliente";
+            this.Load += new System.EventHandler(this.ABMCliente_Load);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

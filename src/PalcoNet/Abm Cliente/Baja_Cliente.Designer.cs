@@ -183,7 +183,7 @@
             this.Controls.Add(this.busquedaApellido_textBox);
             this.Controls.Add(this.busquedaNombre_textBox);
             this.Name = "Baja_Cliente";
-            this.Text = "Baja_Cliente";
+            this.Text = "Baja de Cliente";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

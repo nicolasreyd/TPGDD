@@ -43,7 +43,7 @@ namespace PalcoNet.Registro_de_Usuario
                 case "Empresa":
                     {
                         this.Hide();
-                        Alta_Empresa altaEmpresa = new Alta_Empresa();
+                        Alta_Empresa altaEmpresa = new Alta_Empresa(username_textBox.Text, password_textBox.Text);
                         altaEmpresa.Show();
                     } break;
             }
