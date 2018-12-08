@@ -832,7 +832,7 @@ namespace PalcoNet
             return res;
         }
 
-//<<<<<<< HEAD
+
         public object agregar_nueva_empresa(string razonSocial, string cuit, string domCalle, string domNro, string domPiso, string domDepto, string ciudad, string codpost, string telefono, string email)
         {
             object result = Execute_SP("INNERJOIN.sp_alta_empresa", new
@@ -1010,6 +1010,24 @@ namespace PalcoNet
 
             if (result == null) MessageBox.Show("Contraseña actualizada correctamente");
 
+        }
+
+        public List<string> getEmpresasName()
+        {
+            List<string> empresas = new List<string>();
+
+            SqlDataReader data = command_reader("select distinct empresa_razon_social from INNERJOIN.empresa");
+
+            if (data.HasRows)
+            {
+                while (data.Read())
+                {
+                    empresas.Add(Convert.ToString(data[0]));
+                }
+            }
+
+            data.Close();
+            return empresas;
         }
     }
 }

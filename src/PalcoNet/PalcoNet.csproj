@@ -268,11 +268,11 @@
     <Compile Include="Generar Publicacion\Generar_Publicacion.Designer.cs">
       <DependentUpon>Generar_Publicacion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Rendicion Comisiones\Form1.cs">
+    <Compile Include="Generar Rendicion Comisiones\Generar_Rendiciones.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generar Rendicion Comisiones\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Generar Rendicion Comisiones\Generar_Rendiciones.Designer.cs">
+      <DependentUpon>Generar_Rendiciones.cs</DependentUpon>
     </Compile>
     <Compile Include="Historial Cliente\HistorialCliente.cs">
       <SubType>Form</SubType>
@@ -390,6 +390,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Publicacion\Ubicaciones_Agregar.resx">
       <DependentUpon>Ubicaciones_Agregar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Rendicion Comisiones\Generar_Rendiciones.resx">
+      <DependentUpon>Generar_Rendiciones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Historial Cliente\HistorialCliente.resx">
       <DependentUpon>HistorialCliente.cs</DependentUpon>
