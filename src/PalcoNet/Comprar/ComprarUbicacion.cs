@@ -66,10 +66,19 @@ namespace PalcoNet.Comprar
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewButtonCell cell = dataGridView1.Rows[e.RowIndex].Cells[0] as DataGridViewButtonCell;
-            cell.ReadOnly = true;
+            DataGridViewCheckBoxCell cell = dataGridView1.Rows[e.RowIndex].Cells[0] as DataGridViewCheckBoxCell;
             Decimal nuevoId = Convert.ToDecimal(dataGridView1.Rows[e.RowIndex].Cells[1].Value);
-            ubicacionesAcomprar.Add(nuevoId);
+            if (cell.Value != null && cell.Value.Equals(1))
+            {
+                ubicacionesAcomprar.Remove(nuevoId);
+                cell.Value = 0;
+            } else
+            {
+                ubicacionesAcomprar.Add(nuevoId);
+                cell.Value = 1;
+            }
+            
+
         }
 
         private void ComprarUbicacionSinTarjeta_Load(object sender, EventArgs e)
@@ -81,9 +90,26 @@ namespace PalcoNet.Comprar
         {
             if (numerotarjeta_textBox.Text==null || numerotarjeta_textBox.Text=="") {
                 MessageBox.Show("Completar numero de tarjeta");
+                return;
             }
-            App.db.crearTarjeta(Convert.ToDecimal(numerotarjeta_textBox), vencimiento_dateTimePicker.Value);
-            
+            if (ubicacionesAcomprar.Count()<1)
+            {
+                MessageBox.Show("Seleccione ubicaciones a comprar");
+                return;
+            }
+            App.db.crearTarjeta(Convert.ToDecimal(numerotarjeta_textBox.Text), vencimiento_dateTimePicker.Value);
+            App.db.comprar(ubicacionesAcomprar,idPublicacion);
+
+            var form1 = new ComprarUbicacionTarjeta(idPublicacion);
+            form1.Show();
+            form1.Dispose();
+            this.Close();
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

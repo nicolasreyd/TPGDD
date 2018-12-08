@@ -54,6 +54,7 @@
             this.comboFuncionalidades.Name = "comboFuncionalidades";
             this.comboFuncionalidades.Size = new System.Drawing.Size(152, 21);
             this.comboFuncionalidades.TabIndex = 1;
+            this.comboFuncionalidades.SelectedIndexChanged += new System.EventHandler(this.comboFuncionalidades_SelectedIndexChanged);
             // 
             // label1
             // 
