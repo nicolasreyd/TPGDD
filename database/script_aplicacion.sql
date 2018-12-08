@@ -169,19 +169,22 @@ as
 
 
 
-create procedure [INNERJOIN].[sp_alta_empresa] @razonSocial nvarchar(255),@cuit nvarchar(255),@domCalle nvarchar(255),@domNro nvarchar(255),@domPiso nvarchar(255),@domDepto nvarchar(255),@ciudad nvarchar(255),@codpost nvarchar(255),@telefono nvarchar(255),@email nvarchar(255)
+create procedure [INNERJOIN].[sp_alta_empresa] @username nvarchar(16) output,@password nvarchar(16) output,@razonSocial nvarchar(255),@cuit nvarchar(255),@domCalle nvarchar(255),@domNro nvarchar(255),@domPiso nvarchar(255),@domDepto nvarchar(255),@ciudad nvarchar(255),@codpost nvarchar(255),@telefono nvarchar(255),@email nvarchar(255)
 as
 
 	begin tran
 
 	declare @id_usuario numeric
 	declare @id_empresa numeric
-	declare @username nvarchar(255)
 
-	select @username=MAX(CAST(usuario_username as bigint))+1 from innerjoin.usuario where usuario_username <>'admin'
+	if ((@username = '') and (@password = ''))
+	begin
+		exec INNERJOIN.sp_generar_random_username @username output
+		exec INNERJOIN.sp_generar_random_password @password output
+	end
 	
 	insert into INNERJOIN.usuario (usuario_username,usuario_password,usuario_tipo,usuario_baja_logica)
-		values (@username,getdate(),'empresa',0)
+		values (@username,LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256',@password), 2)),'empresa',0)
 		
 	select @id_usuario=usuario_id from INNERJOIN.usuario where usuario_username=@username
 		
@@ -190,9 +193,6 @@ as
 	
 	insert into INNERJOIN.usuario_rol (id_usuario,id_rol)
 		values (@id_usuario,1)
-
-	insert into INNERJOIN.rol_funcionalidad (id_rol,id_funcionalidad)
-		values (1,6),(1,7)
 
 	commit
 
