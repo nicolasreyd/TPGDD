@@ -159,7 +159,7 @@ as
 		update INNERJOIN.empresa set empresa_baja_logica = 0 where empresa_id = @idUsuario
 	end			
 
-	if (@tipoUsuario <> 'cliente') and (@tipoUsuario <> 'empresa') RAISERROR('Tipo incorrecto de usuario (debe ser "cliente" o "empresa"',16,1)
+	if (@tipoUsuario <> 'cliente') and (@tipoUsuario <> 'empresa') RAISERROR('Tipo incorrecto de usuario (debe ser "cliente" o "empresa")',16,1)
 
 	update INNERJOIN.usuario set usuario_baja_logica=0 where usuario_id=@id_usuario
 
@@ -202,7 +202,13 @@ as
 
 	begin tran
 
-	declare @id_usuario numeric
+	declare @id_usuario numeric	
+	declare @cantidad_compras numeric
+	
+
+	select @cantidad_compras = count(*) from INNERJOIN.compra where id_usuario = @idEmpresa and compra_id not in (select id_compra from INNERJOIN.factura_item)
+
+	exec INNERJOIN.sp_generar_comision @cantidad_compras, @idEmpresa
 
 	select @id_usuario=usuario_id from INNERJOIN.empresa where empresa_id=@idEmpresa
 
