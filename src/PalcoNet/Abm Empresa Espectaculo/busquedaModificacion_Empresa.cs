@@ -74,5 +74,12 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         {
 
         }
+
+        private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            ABMEmpresa abmEmpresa = new ABMEmpresa();
+            abmEmpresa.Show();
+        }
     }
 }

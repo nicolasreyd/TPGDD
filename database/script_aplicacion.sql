@@ -52,19 +52,22 @@ as
 
 
 
-create procedure [INNERJOIN].[sp_alta_cliente] @tipodni nvarchar(4),@nrodni nvarchar(255),@cuil nvarchar(255),@apellido nvarchar(255),@nombre nvarchar(255),@fechanac nvarchar(255),@email nvarchar(255),@telefono nvarchar(20),@dom_calle nvarchar(255),@dom_numero nvarchar(255),@dom_piso nvarchar(255),@dom_depto nvarchar(255),@codpost nvarchar(255),@num_tarjeta nvarchar(255),@venc_tarjeta nvarchar(255)
+create procedure [INNERJOIN].[sp_alta_cliente] @username nvarchar(16) output,@password nvarchar(16) output,@tipodni nvarchar(4),@nrodni nvarchar(255),@cuil nvarchar(255),@apellido nvarchar(255),@nombre nvarchar(255),@fechanac nvarchar(255),@email nvarchar(255),@telefono nvarchar(20),@dom_calle nvarchar(255),@dom_numero nvarchar(255),@dom_piso nvarchar(255),@dom_depto nvarchar(255),@codpost nvarchar(255),@num_tarjeta nvarchar(255),@venc_tarjeta nvarchar(255)
 as
 
 	begin tran
 
 	declare @id_usuario numeric
 	declare @id_cliente numeric
-	declare @username nvarchar(255)
 
-	select @username=MAX(CAST(usuario_username as bigint))+1 from innerjoin.usuario
+	if ((@username = '') and (@password = ''))
+	begin
+		exec INNERJOIN.sp_generar_random_username @username output
+		exec INNERJOIN.sp_generar_random_password @password output
+	end
 	
 	insert into INNERJOIN.usuario (usuario_username,usuario_password,usuario_tipo,usuario_baja_logica)
-		values (@username,getdate(),'CLIENTE',0)
+		values (@username,LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256',@password), 2)),'cliente',0)
 		
 	select @id_usuario=usuario_id from INNERJOIN.usuario where usuario_username=@username
 		
@@ -79,7 +82,7 @@ as
 	insert into INNERJOIN.usuario_rol (id_usuario,id_rol)
 		values (@id_usuario,3)
 
-	commit 
+	commit  
 
 
 
@@ -166,19 +169,22 @@ as
 
 
 
-create procedure [INNERJOIN].[sp_alta_empresa] @razonSocial nvarchar(255),@cuit nvarchar(255),@domCalle nvarchar(255),@domNro nvarchar(255),@domPiso nvarchar(255),@domDepto nvarchar(255),@ciudad nvarchar(255),@codpost nvarchar(255),@telefono nvarchar(255),@email nvarchar(255)
+create procedure [INNERJOIN].[sp_alta_empresa] @username nvarchar(16) output,@password nvarchar(16) output,@razonSocial nvarchar(255),@cuit nvarchar(255),@domCalle nvarchar(255),@domNro nvarchar(255),@domPiso nvarchar(255),@domDepto nvarchar(255),@ciudad nvarchar(255),@codpost nvarchar(255),@telefono nvarchar(255),@email nvarchar(255)
 as
 
 	begin tran
 
 	declare @id_usuario numeric
 	declare @id_empresa numeric
-	declare @username nvarchar(255)
 
-	select @username=MAX(CAST(usuario_username as bigint))+1 from innerjoin.usuario where usuario_username <>'admin'
+	if ((@username = '') and (@password = ''))
+	begin
+		exec INNERJOIN.sp_generar_random_username @username output
+		exec INNERJOIN.sp_generar_random_password @password output
+	end
 	
 	insert into INNERJOIN.usuario (usuario_username,usuario_password,usuario_tipo,usuario_baja_logica)
-		values (@username,getdate(),'empresa',0)
+		values (@username,LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256',@password), 2)),'empresa',0)
 		
 	select @id_usuario=usuario_id from INNERJOIN.usuario where usuario_username=@username
 		
@@ -187,9 +193,6 @@ as
 	
 	insert into INNERJOIN.usuario_rol (id_usuario,id_rol)
 		values (@id_usuario,1)
-
-	insert into INNERJOIN.rol_funcionalidad (id_rol,id_funcionalidad)
-		values (1,6),(1,7)
 
 	commit
 
@@ -217,6 +220,32 @@ create procedure [INNERJOIN].[cambiar_password] @idUsuario numeric(18,0),@passwo
 as
 
 	update INNERJOIN.usuario set usuario_password = LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256',@password), 2)) where usuario_id = @idUsuario
+
+
+
+
+
+create procedure INNERJOIN.sp_generar_random_username @username nvarchar(16) output
+as
+begin
 	
+	SELECT @username = replace((left(CONVERT(nvarchar(255), NEWID()),16)),'-','');
+
+	while ((select count(*) from INNERJOIN.usuario where usuario_username = @username) <> 0)
+		SELECT @username = replace((left(CONVERT(nvarchar(255), NEWID()),16)),'-','');
+	
+end
+
+
+
+
+
+create procedure INNERJOIN.sp_generar_random_password @password nvarchar(16) output
+as
+begin
+	
+	SELECT @password = replace((left(CONVERT(nvarchar(255), NEWID()),16)),'-','');
+	
+end
 
 

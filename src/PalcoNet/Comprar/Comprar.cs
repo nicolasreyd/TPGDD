@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PalcoNet.Datos;
 
 namespace PalcoNet.Comprar
 {
@@ -25,10 +26,20 @@ namespace PalcoNet.Comprar
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             Decimal id = Convert.ToDecimal(dataGridView1.Rows[e.RowIndex].Cells[1].Value);
-
-            using (var form2 = new ComprarUbicacionSinTarjeta(id))
+            List<Tarjeta> tarjetas = App.db.getTarjetas();
+            if (tarjetas.Count()>0)
             {
-                form2.ShowDialog();
+                using (var form1 = new ComprarUbicacionTarjeta(id))
+                {
+                    form1.ShowDialog();
+                }
+            }
+            else
+            {
+                using (var form2 = new ComprarUbicacionSinTarjeta(id))
+                {
+                    form2.ShowDialog();
+                }
             }
             
         }

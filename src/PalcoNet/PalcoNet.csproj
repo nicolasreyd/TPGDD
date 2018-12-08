@@ -203,12 +203,19 @@
     <Compile Include="Comprar\Comprar.Designer.cs">
       <DependentUpon>Comprar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Comprar\Form1.cs">
+    <Compile Include="Comprar\ComprarUbicacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Comprar\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Comprar\ComprarUbicacion.Designer.cs">
+      <DependentUpon>ComprarUbicacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Comprar\ComprarUbicacionTarjeta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Comprar\ComprarUbicacionTarjeta.Designer.cs">
+      <DependentUpon>ComprarUbicacionTarjeta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Datos\Tarjeta.cs" />
     <Compile Include="Datos\Funcionalidad.cs" />
     <Compile Include="Datos\Categoria.cs" />
     <Compile Include="Datos\Grado.cs" />
@@ -307,6 +314,12 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="DBOperations.cs" />
+    <Compile Include="Registro de Usuario\Registro_Usuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro de Usuario\Registro_Usuario.Designer.cs">
+      <DependentUpon>Registro_Usuario.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Abm Cliente\ABMCliente.resx">
       <DependentUpon>ABMCliente.cs</DependentUpon>
     </EmbeddedResource>
@@ -382,8 +395,11 @@
     <EmbeddedResource Include="Comprar\Comprar.resx">
       <DependentUpon>Comprar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Comprar\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Comprar\ComprarUbicacion.resx">
+      <DependentUpon>ComprarUbicacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comprar\ComprarUbicacionTarjeta.resx">
+      <DependentUpon>ComprarUbicacionTarjeta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editar Publicacion\Editar_formulario.resx">
       <DependentUpon>Editar_formulario.cs</DependentUpon>
@@ -430,6 +446,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Registro de Usuario\Registro_Usuario.resx">
+      <DependentUpon>Registro_Usuario.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

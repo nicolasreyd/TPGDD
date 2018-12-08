@@ -98,7 +98,7 @@ namespace PalcoNet
             SqlParameter tipodni1 = new SqlParameter("@tipodni", SqlDbType.NVarChar);
             tipodni1.Value = tipo_dni;
             SqlCommand Totalf = new SqlCommand("SELECT INNERJOIN.fx_validar_cliente(@tipodni,@nrodni,@cuil,@apellido,@nombre,@fechanac,@email,@telefono,@dom_calle,@dom_numero,@dom_piso,@dom_depto,@codpost,@num_tarjeta,@venc_tarjeta)", connection);
-            
+
             SqlParameter nrodni = new SqlParameter("@nrodni", SqlDbType.VarChar);
             SqlParameter cuil = new SqlParameter("@cuil", SqlDbType.VarChar);
             SqlParameter apellido = new SqlParameter("@apellido", SqlDbType.VarChar);
@@ -132,7 +132,7 @@ namespace PalcoNet
 
             // object result = Totalf.ExecuteScalar();
             string result = (string) Totalf.ExecuteScalar();
-            
+
            // command.CommandTimeout = 0;
            // command.Connection = connection;
            // object result = command.ExecuteScalar();
@@ -243,6 +243,25 @@ namespace PalcoNet
             return categorias;
         }
 
+        public List<Datos.Tarjeta> getTarjetas()
+        {
+            List<Datos.Tarjeta> tarjetas = new List<Datos.Tarjeta>();
+            SqlDataReader data = command_reader("select * from INNERJOIN.tarjeta_credito where cliente_id = "+ getClienteId());
+
+            if (data.HasRows)
+            {
+                while (data.Read())
+                {
+                    //Datos leidos
+                    Datos.Tarjeta funcionalidad = new Datos.Tarjeta(data.GetDecimal(0), data.GetDecimal(1), data.GetDateTime(2), data.GetDecimal(3));
+                    tarjetas.Add(funcionalidad);
+                }
+            }
+
+            data.Close();
+            return tarjetas;
+        }
+
         public List<Datos.Funcionalidad> getFuncionalidadesTotales()
         {
             List<Datos.Funcionalidad> funcionalidades = new List<Datos.Funcionalidad>();
@@ -262,10 +281,63 @@ namespace PalcoNet
             return funcionalidades;
         }
 
+        /*[compra_id]
+      ,[id_publicacion]
+      ,[id_usuario]
+      ,[compra_medio_pago]
+      ,[compra_mail]
+      ,[compra_importe_total]*/
+
+        public int comprar(List<Decimal> ubicacionesAcomprar, Decimal idPublicacion)
+        {
+            String querySuma = "select sum(ubicacion_precio) from INNERJOIN.ubicacion where ubicacion_id in (" + String.Join(",", ubicacionesAcomprar.ToArray()) + ")";
+            SqlDataReader data = command_reader(querySuma);
+            Decimal suma = 0;
+
+            if (data.HasRows)
+            {
+                data.Read();
+                suma = data.GetDecimal(0);
+            }
+            data.Close();
+
+            String queryMail = "select cliente_email from INNERJOIN.cliente where usuario_id=" + App.currentUser.user_id;
+            SqlDataReader dataMail = command_reader(queryMail);
+            String mail = "";
+
+            if (dataMail.HasRows)
+            {
+                dataMail.Read();
+                mail = dataMail.GetString(0);
+            }
+            dataMail.Close();
+
+            String query = "insert into INNERJOIN.compra values (" + idPublicacion + ", '" + App.currentUser.user_id + "','Tarjeta','" + mail + "'," + suma + "); select SCOPE_IDENTITY()";
+            Decimal id_generado = command_insert(query);
+            if (id_generado < 0)
+            {
+                return -1;
+            }
+
+            object result;
+
+            foreach (Decimal idUbicacion in ubicacionesAcomprar)
+            {
+                result = Execute_SP("INNERJOIN.sp_generar_compra",
+                new
+                {
+                    id_compra = id_generado,
+                    id_ubicacion = idUbicacion
+                });
+            }
+            return 1;
+        }
+
         public int crearTarjeta(Decimal numero, DateTime vencimiento)
         {
             Decimal clienteId = getClienteId();
-            Decimal id_generado = command_insert("insert into INNERJOIN.tarjeta_credito values ('" + numero + "', '" + vencimiento + "','" + clienteId + "'); select SCOPE_IDENTITY()");
+            String query = "insert into INNERJOIN.tarjeta_credito values (" + numero + ", '" + vencimiento + "'," + clienteId + "); select SCOPE_IDENTITY()";
+            Decimal id_generado = command_insert(query);
             if (id_generado < 0)
             {
                 return -1;
@@ -275,7 +347,7 @@ namespace PalcoNet
 
         public Decimal getClienteId()
         {
-            SqlDataReader data = command_reader("select cliente_id from INNERJOIN.ciente where usuario_id="+ App.currentUser.user_id);
+            SqlDataReader data = command_reader("select cliente_id from INNERJOIN.cliente where usuario_id="+ App.currentUser.user_id);
 
             if (data.HasRows)
             {
@@ -399,7 +471,8 @@ namespace PalcoNet
             SqlCommand sqlcommand = new SqlCommand();
             connection = new SqlConnection(ConnectionString);
             SqlCommand query = new SqlCommand(
-                "select * from INNERJOIN.ubicacion as u where u.id_publicacion = " + idPublicacion
+                "select * from INNERJOIN.ubicacion as u where u.id_publicacion = " + idPublicacion +
+                " and not exists (select 1 from INNERJOIN.compra_ubicacion cu where cu.id_ubicacion=u.ubicacion_id)"
                 , connection);
 
             SqlDataAdapter adapter = new SqlDataAdapter(query);
@@ -480,7 +553,7 @@ namespace PalcoNet
         {
             Datos.Grado grado;
             SqlDataReader data = command_reader("select * from INNERJOIN.grado where grado_nombre LIKE '" + nombre+"'");
-       
+
             data.Read();
             grado = new Datos.Grado(nombre, data.GetDecimal(0), data.GetDecimal(2));
 
@@ -590,9 +663,9 @@ namespace PalcoNet
 
         public void generar_publicacion(Datos.Publicacion publicacion)
         {
-         
 
-            object result = Execute_SP("INNERJOIN.sp_generar_publicacion", 
+
+            object result = Execute_SP("INNERJOIN.sp_generar_publicacion",
                 new { descripcion = publicacion.descripcion,
                       rubro_text = publicacion.rubro,
                       grado_text = publicacion.grado.descripcion,
@@ -604,7 +677,7 @@ namespace PalcoNet
                       direccion = publicacion.direccion,
                       identity = 1
                      });
-            
+
             Decimal id_publicacion = Convert.ToDecimal(result);
             agregar_ubicaciones(publicacion.ubicaciones, id_publicacion);
 
@@ -709,11 +782,13 @@ namespace PalcoNet
             return id;
         }
 
-        public void agregar_nuevo_cliente(string nombre_usuario, string apellido_usuario, string tipo_dni, string numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir, string domicilio_calle, string domicilio_numero, string domicilio_piso, string domicilio_depto, string cod_post, string numero_tarjeta, string vencimiento_tarjeta)//,rol)
+        public void agregar_nuevo_cliente(string username, string password, string nombre_usuario, string apellido_usuario, string tipo_dni, string numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir, string domicilio_calle, string domicilio_numero, string domicilio_piso, string domicilio_depto, string cod_post, string numero_tarjeta, string vencimiento_tarjeta)//,rol)
 
         {
             object result = Execute_SP("INNERJOIN.sp_alta_cliente", new
             {
+                username = username,
+                password = password,
                 tipodni = tipo_dni,
                 nrodni = numero_dni,
                 cuil = numero_cuil,
@@ -818,7 +893,7 @@ namespace PalcoNet
         public SqlDataReader getDatosCliente(int idCliente)
         {
             SqlDataReader data = command_reader("select isnull(cliente_apellido,''),isnull(cliente_nombre,''),isnull(cliente_tipo_dni,''),isnull(cliente_numero_dni,''),isnull(cliente_cuil,''),isnull(convert(nvarchar(30),cliente_fecha_nacimiento,112),''),isnull(cliente_domicilio_calle,''),isnull(cliente_domicilio_numero,''),isnull(cliente_domicilio_piso,''),isnull(cliente_domicilio_departamento,''),isnull(cliente_codigo_postal,''),isnull(cliente_telefono,''),isnull(cliente_email,'') from INNERJOIN.cliente where cliente_id = " + idCliente);
-            
+
             return data;
         }
 
@@ -926,11 +1001,11 @@ namespace PalcoNet
             if (data.HasRows)
             {
                 data.Read();
-                
+
                 Decimal id_rol = data.GetDecimal(0);
                 String nombre = data.GetString(1);
                 rol = new Datos.Rol(id_rol, nombre);
-                
+
             }
 
             data.Close();
@@ -1127,6 +1202,3 @@ namespace PalcoNet
         }
     }
 }
-
-
-

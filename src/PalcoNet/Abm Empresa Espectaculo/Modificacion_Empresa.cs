@@ -54,7 +54,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                     this.telefono = telefonoEmpresa_textBox.Text;
                 emailEmpresa_textBox.Text = resultado.GetString(9);
                     this.email = emailEmpresa_textBox.Text;
-                habilitado_checkBox.Checked = (bool) resultado.GetSqlBoolean(10);
+                habilitado_checkBox.Checked = (bool) !resultado.GetSqlBoolean(10);
                     this.habilitado = habilitado_checkBox.Checked;
             }
         }
@@ -177,12 +177,12 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         private void habilitarEmpresa_button_Click(object sender, EventArgs e)
         {
-            App.db.rehabilitarUsuario("empresa",idEmpresa);
+            App.db.rehabilitarUsuario("empresa", idEmpresa);
         }
 
         private void cambiarPass_button_Click(object sender, EventArgs e)
         {
-            SqlDataReader data = App.db.command_reader("select usuario_id from INNERJOIN.empresa where cliente_id=" + idEmpresa);
+            SqlDataReader data = App.db.command_reader("select usuario_id from INNERJOIN.empresa where empresa_id=" + idEmpresa);
 
             if (data.HasRows)
             {

@@ -35,14 +35,14 @@
             this.vencimiento_dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Seleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Seleccionar = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // Comprar
             // 
-            this.Comprar.Location = new System.Drawing.Point(364, 358);
+            this.Comprar.Location = new System.Drawing.Point(364, 167);
             this.Comprar.Name = "Comprar";
             this.Comprar.Size = new System.Drawing.Size(75, 23);
             this.Comprar.TabIndex = 1;
@@ -97,13 +97,14 @@
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tarjeta credito";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Seleccionar});
-            this.dataGridView1.Location = new System.Drawing.Point(24, 174);
+            this.dataGridView1.Location = new System.Drawing.Point(24, 213);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(415, 162);
             this.dataGridView1.TabIndex = 8;
@@ -111,10 +112,12 @@
             // 
             // Seleccionar
             // 
+            this.Seleccionar.FalseValue = "0";
             this.Seleccionar.HeaderText = "Seleccionar";
+            this.Seleccionar.IndeterminateValue = "0";
             this.Seleccionar.Name = "Seleccionar";
             this.Seleccionar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Seleccionar.UseColumnTextForButtonValue = true;
+            this.Seleccionar.TrueValue = "1";
             // 
             // ComprarUbicacionSinTarjeta
             // 
@@ -143,6 +146,6 @@
         private System.Windows.Forms.DateTimePicker vencimiento_dateTimePicker;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewButtonColumn Seleccionar;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Seleccionar;
     }
 }

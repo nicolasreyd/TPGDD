@@ -80,5 +80,9 @@ namespace PalcoNet.Abm_Rol
             this.Hide();
         }
 
+        private void comboFuncionalidades_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

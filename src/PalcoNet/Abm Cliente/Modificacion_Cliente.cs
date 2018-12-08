@@ -303,11 +303,6 @@ namespace PalcoNet.Abm_Cliente
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("El id de cliente ingresado es : "+idCliente);
-        }
-
         private void popular_formularios(int altoValor)
         {
             SqlDataReader resultado = App.db.getDatosCliente(idCliente);
