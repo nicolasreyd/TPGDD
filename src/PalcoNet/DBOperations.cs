@@ -275,7 +275,7 @@ namespace PalcoNet
 
         public Decimal getClienteId()
         {
-            SqlDataReader data = command_reader("select cliente_id INNERJOIN.ciente where usuario_id="+ App.currentUser.user_id);
+            SqlDataReader data = command_reader("select cliente_id from INNERJOIN.ciente where usuario_id="+ App.currentUser.user_id);
 
             if (data.HasRows)
             {
@@ -284,6 +284,45 @@ namespace PalcoNet
             }
 
             return 0;
+        }
+
+        public Decimal getPuntos(Decimal idCliente)
+        {
+            SqlDataReader data = command_reader("select puntos from INNERJOIN.cliente_puntos where cliente_id = " + idCliente);
+
+            if (data.HasRows)
+            {
+                data.Read();
+                return data.GetDecimal(0);
+            }
+
+            return 0;
+        }
+
+        public DateTime getPuntosVencimiento(Decimal idCliente)
+        {
+            SqlDataReader data = command_reader("select fecha_vencimiento from INNERJOIN.cliente_puntos where cliente_id=" + idCliente);
+
+            if (data.HasRows)
+            {
+                data.Read();
+                return data.GetDateTime(0);
+            }
+
+            return new DateTime(1,1,1);
+        }
+
+        public int actualizarPuntos(Decimal idCliente, Decimal puntos)
+        {
+            int res = command_update("update INNERJOIN.cliente_puntos set puntos = '" + puntos + "' where cliente_id = " + idCliente);
+            return res;
+        }
+
+        public Decimal agregarPremioACliente(Decimal idCliente, Decimal idCanje)
+        {
+            Decimal res = command_insert("insert into INNERJOIN.cliente_premio values ('" + idCanje + "', '" + idCliente + "')");
+            return res;
+
         }
 
         public int agregar_nuevo_rol(String nombre_alta, List<Datos.Funcionalidad> funcionalidades)
@@ -418,6 +457,18 @@ namespace PalcoNet
             connection = new SqlConnection(ConnectionString);
             SqlCommand query = new SqlCommand(
                 "select * from INNERJOIN.compra where id_usuario LIKE '" + idCliente + "'", connection); //= " + idCliente, connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
+        }
+
+        public SqlDataAdapter getPremiosYProductos(Decimal puntos)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            SqlCommand query = new SqlCommand(
+                "select a.premio_id, a.puntos, p.descripcion from INNERJOIN.premio a, INNERJOIN.producto p where a.id_producto = p.producto_id ", connection);
 
             SqlDataAdapter adapter = new SqlDataAdapter(query);
 
