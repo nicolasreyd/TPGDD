@@ -89,6 +89,7 @@ namespace PalcoNet.Abm_Cliente
                 this.telefono = telefonoCliente_textBox.Text;
                 emailCliente_textBox.Text = resultado.GetString(12);
                 this.email = emailCliente_textBox.Text;
+                habilitado_checkBox.Checked = (bool)!resultado.GetSqlBoolean(13);
 
                 this.fecha_nacimiento = diaNac_comboBox.Text + "/" + mesNac_comboBox.Text + "/" + anioNac_comboBox.Text;
 
@@ -322,6 +323,7 @@ namespace PalcoNet.Abm_Cliente
 
         private void Modificacion_Cliente_Load(object sender, EventArgs e)
         {
+            this.habilitarCliente_button.Enabled = !this.habilitado_checkBox.Checked;
             habilitado_checkBox.AutoCheck = false;
         }
 
