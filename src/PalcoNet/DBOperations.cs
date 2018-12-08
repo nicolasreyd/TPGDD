@@ -539,7 +539,7 @@ namespace PalcoNet
 
         public void generar_publicacion(Datos.Publicacion publicacion)
         {
-            SqlCommand command;
+         
 
             object result = Execute_SP("INNERJOIN.sp_generar_publicacion", 
                 new { descripcion = publicacion.descripcion,
@@ -1028,6 +1028,11 @@ namespace PalcoNet
 
             data.Close();
             return empresas;
+        }
+
+        public int generar_rendiciones()
+        {
+            throw new NotImplementedException();
         }
     }
 }
