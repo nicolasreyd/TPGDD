@@ -57,7 +57,8 @@ namespace PalcoNet.Generar_Publicacion
  
         private void Generar_Publicacion_Load(object sender, EventArgs e)
         {
-            Fecha_publi_TextBox.Text = DateTime.Today.ToString("dd/MM/yyyy");
+            //Fecha_publi_TextBox.Text = DateTime.Today.ToString("dd/MM/yyyy");
+            Fecha_publi_TextBox.Text = App.NowDateKey;
             Estado_Textbox.Text = "Borrador";
         }
 
@@ -68,7 +69,8 @@ namespace PalcoNet.Generar_Publicacion
             if (data_validate())
             {
                 publicacion.descripcion = Descripcion_textBox.Text;
-                publicacion.fecha_publicacion = DateTime.Today;
+                //publicacion.fecha_publicacion = DateTime.Today;
+                publicacion.fecha_publicacion = Convert.ToDateTime(App.NowDateKey);
                 publicacion.fecha_espectaculo = FechaEspec_dateTimePicker.Value;
                 publicacion.rubro = Convert.ToString(Rubro_comboBox.SelectedItem);
                 publicacion.estado = Estado_Textbox.Text;
@@ -104,7 +106,7 @@ namespace PalcoNet.Generar_Publicacion
 
 
                 //Verifico que la fecha de inicio sea menor o igual a la de vencimiento
-                if (FechaEspec_dateTimePicker.Value < DateTime.Today)
+                if (FechaEspec_dateTimePicker.Value < Convert.ToDateTime(App.NowDateKey))
                 {
                     errorProvider.SetError(FechaEspec_dateTimePicker, "La fecha de espectaculo no puede ser menor a la de publicacion");
                     resultado = false;

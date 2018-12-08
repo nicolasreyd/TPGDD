@@ -1030,9 +1030,49 @@ namespace PalcoNet
             return empresas;
         }
 
-        public int generar_rendiciones()
+        public void generar_rendiciones(int cantidad, Decimal empresa)
         {
-            throw new NotImplementedException();
+            object result = Execute_SP("INNERJOIN.sp_generar_comision", new
+            {
+                cantidad_compras = cantidad,
+                id_empresa = empresa
+            });
+
+            if (result == null) MessageBox.Show("Rendiciones generadas.");
+
+        }
+
+        public decimal getEmpresaId(string nombre_empresa)
+        {
+            Decimal id;
+            SqlDataReader data = command_reader("select usuario_id from INNERJOIN.empresa where empresa_razon_social LIKE '" + nombre_empresa + "'");
+            data.Read();
+            id = data.GetDecimal(0);
+            data.Close();
+            return id;
+
+        }
+
+        public int getComisionesSinRendir(decimal empresa_id)
+        {
+            int cantidad;
+            SqlDataReader data = command_reader("select count(*) from INNERJOIN.compra c where id_usuario = " + empresa_id + " and c.compra_id not in (select id_compra from INNERJOIN.factura_item)");
+            data.Read();
+            cantidad = data.GetInt32(0);
+            data.Close();
+
+            return cantidad;
+        }
+
+        public SqlDataAdapter getFacturasDelDia(decimal id_empresa)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            SqlCommand query = new SqlCommand("select * from INNERJOIN.factura f inner join INNERJOIN.factura_item fi on f.factura_id = fi.id_factura where id_empresa = " + id_empresa + " and factura_fecha = '" + NowDate+ " '", connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
         }
     }
 }

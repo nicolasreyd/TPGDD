@@ -242,6 +242,12 @@
     <Compile Include="Generar Publicacion\Ubicaciones_Agregar.Designer.cs">
       <DependentUpon>Ubicaciones_Agregar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Generar Rendicion Comisiones\Facturas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generar Rendicion Comisiones\Facturas.Designer.cs">
+      <DependentUpon>Facturas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Herramientas\Encrypter.cs" />
     <Compile Include="Herramientas\Funcionalidades_Pantallas.cs" />
     <Compile Include="Login\MenuPrincipal.cs">
@@ -390,6 +396,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Publicacion\Ubicaciones_Agregar.resx">
       <DependentUpon>Ubicaciones_Agregar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Rendicion Comisiones\Facturas.resx">
+      <DependentUpon>Facturas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Rendicion Comisiones\Generar_Rendiciones.resx">
       <DependentUpon>Generar_Rendiciones.cs</DependentUpon>
