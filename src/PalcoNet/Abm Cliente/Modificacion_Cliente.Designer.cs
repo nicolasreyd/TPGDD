@@ -62,7 +62,6 @@
             this.nroDNI_textBox = new System.Windows.Forms.TextBox();
             this.apellidoCliente_textBox = new System.Windows.Forms.TextBox();
             this.nombreCliente_textBox = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.volver_button = new System.Windows.Forms.Button();
             this.habilitarCliente_button = new System.Windows.Forms.Button();
             this.habilitado_checkBox = new System.Windows.Forms.CheckBox();
@@ -535,16 +534,6 @@
             this.nombreCliente_textBox.TabIndex = 42;
             this.nombreCliente_textBox.TextChanged += new System.EventHandler(this.nombreCliente_textBox_TextChanged);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(573, 79);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 78;
-            this.button1.Text = "Prueba";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // volver_button
             // 
             this.volver_button.Location = new System.Drawing.Point(296, 433);
@@ -594,7 +583,6 @@
             this.Controls.Add(this.habilitarCliente_button);
             this.Controls.Add(this.habilitado_checkBox);
             this.Controls.Add(this.volver_button);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.limpiar_button);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.label20);
@@ -673,7 +661,6 @@
         private System.Windows.Forms.TextBox nroDNI_textBox;
         private System.Windows.Forms.TextBox apellidoCliente_textBox;
         private System.Windows.Forms.TextBox nombreCliente_textBox;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button volver_button;
         private System.Windows.Forms.Button habilitarCliente_button;
         private System.Windows.Forms.CheckBox habilitado_checkBox;

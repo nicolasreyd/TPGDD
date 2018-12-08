@@ -217,6 +217,32 @@ create procedure [INNERJOIN].[cambiar_password] @idUsuario numeric(18,0),@passwo
 as
 
 	update INNERJOIN.usuario set usuario_password = LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256',@password), 2)) where usuario_id = @idUsuario
+
+
+
+
+
+create procedure sp_generar_random_user @username nvarchar(16) output
+as
+begin
 	
+	SELECT @username = replace((left(CONVERT(nvarchar(255), NEWID()),16)),'-','');
+
+	while ((select count(*) from INNERJOIN.usuario where usuario_username = @username) <> 0)
+		SELECT @username = replace((left(CONVERT(nvarchar(255), NEWID()),16)),'-','');
+	
+end
+
+
+
+
+
+create procedure sp_generar_random_password @password nvarchar(16) output
+as
+begin
+	
+	SELECT @password = replace((left(CONVERT(nvarchar(255), NEWID()),16)),'-','');
+	
+end
 
 
