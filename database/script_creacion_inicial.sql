@@ -292,7 +292,7 @@ LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256','w23e'), 2)),'admin'
 from gd_esquema.Maestra  
 where espec_empresa_cuit is not null;
 
-insert into INNERJOIN.usuario_rol values (783,2)
+insert into INNERJOIN.usuario_rol values ((select usuario_id from innerjoin.usuario where usuario_username='admin'),2)
 
 insert into INNERJOIN.rol_funcionalidad values (2,1),(2,2),(2,3),(2,4),(2,5),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(2,12),(2,13)
 
@@ -322,12 +322,13 @@ order by 3
 -- Migracion clientes
 
 insert into INNERJOIN.cliente (usuario_id,cliente_numero_dni,cliente_apellido,cliente_nombre,cliente_fecha_nacimiento,cliente_email,cliente_domicilio_calle,cliente_domicilio_numero,cliente_domicilio_piso,cliente_domicilio_departamento,cliente_codigo_postal)
-select concat('',cli_dni),
+select ((select usuario_id from INNERJOIN.usuario where usuario_username LIKE concat('',cli_dni))),
 cli_dni, Cli_Apeliido, Cli_Nombre, Cli_Fecha_Nac,Cli_Mail,Cli_Dom_Calle,Cli_Nro_Calle,cli_piso,cli_depto,Cli_Cod_Postal
 from gd_esquema.Maestra 
 where cli_dni is not null
 group by cli_dni, Cli_Apeliido, Cli_Nombre, Cli_Fecha_Nac,Cli_Mail,Cli_Dom_Calle,Cli_Nro_Calle,cli_piso,cli_depto,Cli_Cod_Postal
 order by 1 asc
+
 
 --Probado OK
 
