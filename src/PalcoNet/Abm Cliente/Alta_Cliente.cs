@@ -36,10 +36,15 @@ namespace PalcoNet.Abm_Cliente
         private string vencimiento_tarjeta;
         private string mes_tarjeta;
         private string anio_tarjeta;
+        private string username = "";
+        private string password = "";
 
-        public Alta_Cliente()
+        public Alta_Cliente(string v_username, string v_password)
         {
             InitializeComponent();
+            username += v_username;
+            password += v_password;
+
         }
 
         private void nombreCliente_textBox_TextChanged(object sender, EventArgs e)
@@ -209,7 +214,7 @@ namespace PalcoNet.Abm_Cliente
             //    msjError += "El numero de CUIL debe tener 11 caracteres\n";
             //} // Se puede mejorar para que sea exhaustivo
             //else
-                if (!Utilidades.cuilValido(cuilCliente_textBox.Text)) msjError += "El numero de CUIL es incorrecto\n";
+                //if (!Utilidades.cuilValido(cuilCliente_textBox.Text)) msjError += "El numero de CUIL es incorrecto\n";
 
             if ((diaNac_comboBox.Text == string.Empty) ||
                 (mesNac_comboBox.Text == string.Empty) ||
@@ -276,7 +281,7 @@ namespace PalcoNet.Abm_Cliente
             }
              * */
             
-            App.db.agregar_nuevo_cliente(nombre_usuario, apellido_usuario, tipo_dni, numero_dni, cuil, fecha_nacimiento, telefono, email, domicilio_calle, domicilio_numero, domicilio_piso, domicilio_depto, cod_post, numero_tarjeta, vencimiento_tarjeta);//,rol);
+            App.db.agregar_nuevo_cliente(username,password,nombre_usuario, apellido_usuario, tipo_dni, numero_dni, cuil, fecha_nacimiento, telefono, email, domicilio_calle, domicilio_numero, domicilio_piso, domicilio_depto, cod_post, numero_tarjeta, vencimiento_tarjeta);//,rol);
             this.Hide();
             ABMCliente abmCliente = new ABMCliente();
             abmCliente.Show();

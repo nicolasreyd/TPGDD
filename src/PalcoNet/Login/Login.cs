@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using PalcoNet.Registro_de_Usuario;
 
 namespace PalcoNet.Login
 {
@@ -164,6 +165,14 @@ namespace PalcoNet.Login
             this.Hide();
             Abm_Cliente.busquedaModificacion_Cliente modifCliente = new Abm_Cliente.busquedaModificacion_Cliente();
             modifCliente.Show();
+
+        }
+
+        private void registroUsuario_button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Registro_Usuario registroUsuario = new Registro_Usuario();
+            registroUsuario.Show();
 
         }
     }

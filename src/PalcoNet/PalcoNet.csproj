@@ -314,6 +314,12 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="DBOperations.cs" />
+    <Compile Include="Registro de Usuario\Registro_Usuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro de Usuario\Registro_Usuario.Designer.cs">
+      <DependentUpon>Registro_Usuario.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Abm Cliente\ABMCliente.resx">
       <DependentUpon>ABMCliente.cs</DependentUpon>
     </EmbeddedResource>
@@ -437,6 +443,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Registro de Usuario\Registro_Usuario.resx">
+      <DependentUpon>Registro_Usuario.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
