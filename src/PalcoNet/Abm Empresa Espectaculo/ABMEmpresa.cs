@@ -9,11 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Abm_Cliente
+namespace PalcoNet.Abm_Empresa_Espectaculo
 {
-    public partial class ABMCliente : Form
+    public partial class ABMEmpresa : Form
     {
-        public ABMCliente()
+        public ABMEmpresa()
         {
             InitializeComponent();
         }
@@ -21,22 +21,22 @@ namespace PalcoNet.Abm_Cliente
         private void ClienteAlta_Button_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Alta_Cliente alta = new Alta_Cliente();
+            Alta_Empresa alta = new Alta_Empresa();
             alta.Show();
         }
 
         private void ModificacionCliente_button_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Abm_Cliente.busquedaModificacion_Cliente modifCliente = new Abm_Cliente.busquedaModificacion_Cliente();
-            modifCliente.Show();
+            busquedaModificacion_Empresa alta = new busquedaModificacion_Empresa();
+            alta.Show();
         }
 
         private void BajaCliente_button_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Abm_Cliente.Baja_Cliente bajaCliente = new Abm_Cliente.Baja_Cliente();
-            bajaCliente.Show();
+            Baja_Empresa baja = new Baja_Empresa();
+            baja.Show();
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

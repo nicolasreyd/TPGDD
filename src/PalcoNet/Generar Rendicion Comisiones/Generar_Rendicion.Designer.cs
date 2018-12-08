@@ -1,6 +1,6 @@
 ﻿namespace PalcoNet.Generar_Rendicion_Comisiones
 {
-    partial class Form1
+    partial class Generar_Rendicion
     {
         /// <summary>
         /// Required designer variable.

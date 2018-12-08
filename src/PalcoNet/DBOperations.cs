@@ -87,6 +87,59 @@ namespace PalcoNet
             return result;
 
         }
+        /*
+        public string validar_datos_cliente(string nombre_usuario, string apellido_usuario, string tipo_dni, string numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir, string domicilio_calle, string domicilio_numero, string domicilio_piso, string domicilio_depto, string cod_post, string numero_tarjeta, string vencimiento_tarjeta)
+        {
+            var command = new SqlCommand();
+            this.connection = new SqlConnection(ConnectionString);
+            this.connection.Open();
+
+
+            SqlParameter tipodni1 = new SqlParameter("@tipodni", SqlDbType.NVarChar);
+            tipodni1.Value = tipo_dni;
+            SqlCommand Totalf = new SqlCommand("SELECT INNERJOIN.fx_validar_cliente(@tipodni,@nrodni,@cuil,@apellido,@nombre,@fechanac,@email,@telefono,@dom_calle,@dom_numero,@dom_piso,@dom_depto,@codpost,@num_tarjeta,@venc_tarjeta)", connection);
+            
+            SqlParameter nrodni = new SqlParameter("@nrodni", SqlDbType.VarChar);
+            SqlParameter cuil = new SqlParameter("@cuil", SqlDbType.VarChar);
+            SqlParameter apellido = new SqlParameter("@apellido", SqlDbType.VarChar);
+            SqlParameter nombre = new SqlParameter("@nombre", SqlDbType.VarChar);
+            SqlParameter fechanac = new SqlParameter("@fechanac", SqlDbType.VarChar);
+            SqlParameter email = new SqlParameter("@email", SqlDbType.VarChar);
+            SqlParameter telefono = new SqlParameter("@telefono", SqlDbType.VarChar);
+            SqlParameter dom_calle = new SqlParameter("@dom_calle", SqlDbType.VarChar);
+            SqlParameter dom_numero = new SqlParameter("@dom_numero", SqlDbType.VarChar);
+            SqlParameter dom_piso = new SqlParameter("@dom_piso", SqlDbType.VarChar);
+            SqlParameter dom_depto = new SqlParameter("@dom_depto", SqlDbType.VarChar);
+            SqlParameter codpost = new SqlParameter("@codpost", SqlDbType.VarChar);
+            SqlParameter num_tarjeta = new SqlParameter("@num_tarjeta", SqlDbType.VarChar);
+            SqlParameter venc_tarjeta = new SqlParameter("@venc_tarjeta", SqlDbType.VarChar);
+
+           // tipodni1.Value = tipo_dni;
+            nrodni.Value = numero_dni;
+            cuil.Value = numero_cuil;
+            apellido.Value = apellido_usuario;
+            nombre.Value = nombre_usuario;
+            fechanac.Value = fecha_nacimiento;
+            email.Value = email_dir;
+            telefono.Value = num_telefono;
+            dom_calle.Value = domicilio_calle;
+            dom_numero.Value = domicilio_numero;
+            dom_piso.Value = domicilio_piso;
+            dom_depto.Value = domicilio_depto;
+            codpost.Value = cod_post;
+            num_tarjeta.Value = numero_tarjeta;
+            venc_tarjeta.Value = vencimiento_tarjeta;
+
+            // object result = Totalf.ExecuteScalar();
+            string result = (string) Totalf.ExecuteScalar();
+            
+           // command.CommandTimeout = 0;
+           // command.Connection = connection;
+           // object result = command.ExecuteScalar();
+
+            return result;
+
+        }*/
 
         private static SqlParameter[] GetSqlParameters(object parameters)
         {
@@ -432,6 +485,18 @@ namespace PalcoNet
             return adapter;
         }
 
+        public SqlDataAdapter getCompras(Decimal idCliente)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            SqlCommand query = new SqlCommand(
+                "select * from INNERJOIN.compra where id_usuario LIKE '" + idCliente + "'", connection); //= " + idCliente, connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
+        }
+
 
         public Datos.Grado getGrado(String nombre)
         {
@@ -547,29 +612,39 @@ namespace PalcoNet
 
         public void generar_publicacion(Datos.Publicacion publicacion)
         {
-            SqlCommand command;
+         
 
-            object result = Execute_SP("INNERJOIN.sp_generar_publicacion",
-                new
-                {
-                    descripcion = publicacion.descripcion,
-                    rubro_text = publicacion.rubro,
-                    grado_text = publicacion.grado.descripcion,
-                    grado_comision = publicacion.grado.comision,
-                    id_usuario = App.currentUser.user_id,
-                    estado = publicacion.estado,
-                    fecha_public = publicacion.fecha_publicacion,
-                    fecha_evento = publicacion.fecha_espectaculo,
-                    direccion = publicacion.direccion,
-                    identity = 1
-                });
-
-
-
-
+            object result = Execute_SP("INNERJOIN.sp_generar_publicacion", 
+                new { descripcion = publicacion.descripcion,
+                      rubro_text = publicacion.rubro,
+                      grado_text = publicacion.grado.descripcion,
+                      grado_comision = publicacion.grado.comision,
+                      id_usuario = App.currentUser.user_id,
+                      estado = publicacion.estado,
+                      fecha_public = publicacion.fecha_publicacion,
+                      fecha_evento = publicacion.fecha_espectaculo,
+                      direccion = publicacion.direccion,
+                      identity = 1
+                     });
+            
             Decimal id_publicacion = Convert.ToDecimal(result);
-            foreach (Datos.Ubicacion ubicacion in publicacion.ubicaciones)
+            agregar_ubicaciones(publicacion.ubicaciones, id_publicacion);
+
+            if (result != null || Convert.ToInt32(result) > 0)
             {
+                MessageBox.Show("Creacion Correcta");
+            }
+            else {
+                MessageBox.Show("Creacion Incorrecta");
+            }
+        }
+
+        public void agregar_ubicaciones(List<Datos.Ubicacion> ubicaciones, decimal id_publicacion)
+        {
+             SqlCommand command;
+
+            foreach (Datos.Ubicacion ubicacion in ubicaciones) {
+
                 command = new SqlCommand("insert into INNERJOIN.ubicacion values(@id_publi,@fila,@asiento,@precio,@tipo_id,@numerada)", this.connection);
                 command.Parameters.AddWithValue("@id_publi", id_publicacion);
                 command.Parameters.AddWithValue("@fila", ubicacion.Fila);
@@ -581,14 +656,6 @@ namespace PalcoNet
                 command.ExecuteNonQuery();
             }
 
-            if (result != null || Convert.ToInt32(result) > 0)
-            {
-                MessageBox.Show("Creacion Correcta");
-            }
-            else
-            {
-                MessageBox.Show("Creacion Incorrecta");
-            }
         }
 
         public List<Datos.Rubro> getRubros()
@@ -664,7 +731,8 @@ namespace PalcoNet
             return id;
         }
 
-        public void agregar_nuevo_cliente(string nombre_usuario, string apellido_usuario, string tipo_dni, int numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir, string domicilio_calle, int domicilio_numero, int domicilio_piso, string domicilio_depto, string cod_post, string numero_tarjeta, string vencimiento_tarjeta)//,rol)
+        public void agregar_nuevo_cliente(string nombre_usuario, string apellido_usuario, string tipo_dni, string numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir, string domicilio_calle, string domicilio_numero, string domicilio_piso, string domicilio_depto, string cod_post, string numero_tarjeta, string vencimiento_tarjeta)//,rol)
+
         {
             object result = Execute_SP("INNERJOIN.sp_alta_cliente", new
             {
@@ -732,6 +800,352 @@ namespace PalcoNet
             SqlCommand sqlcommand = new SqlCommand("delete from INNERJOIN.ubicacion where ubicacion_id = " + id, connection);
 
             sqlcommand.ExecuteNonQuery();
+        }
+
+        internal Datos.Rubro getRubroByName(string descripcion)
+        {
+
+            SqlDataReader data = command_reader("select * from INNERJOIN.rubro where rubro_descripcion LIKE '" + descripcion + "'");
+            data.Read();
+            Datos.Rubro rubro = new Datos.Rubro(data.GetDecimal(0), descripcion);
+            data.Close();
+
+            return rubro;
+        }
+
+        public int modificarPublicacion(string query)
+        {
+            int resultado = command_update(query);
+            return resultado;
+        }
+
+        public SqlDataAdapter getCliente(List<string> listaCondiciones)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            string stringQuery = "select cliente_id,cliente_apellido,cliente_nombre,cliente_numero_dni,cliente_email from INNERJOIN.cliente";
+
+            if (listaCondiciones.Any())
+            {
+                stringQuery += " where " + string.Join(" and ", listaCondiciones.ToArray());
+            }
+
+            SqlCommand query = new SqlCommand(stringQuery, connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
+        }
+
+        public SqlDataReader getDatosCliente(int idCliente)
+        {
+            SqlDataReader data = command_reader("select isnull(cliente_apellido,''),isnull(cliente_nombre,''),isnull(cliente_tipo_dni,''),isnull(cliente_numero_dni,''),isnull(cliente_cuil,''),isnull(convert(nvarchar(30),cliente_fecha_nacimiento,112),''),isnull(cliente_domicilio_calle,''),isnull(cliente_domicilio_numero,''),isnull(cliente_domicilio_piso,''),isnull(cliente_domicilio_departamento,''),isnull(cliente_codigo_postal,''),isnull(cliente_telefono,''),isnull(cliente_email,'') from INNERJOIN.cliente where cliente_id = " + idCliente);
+            
+            return data;
+        }
+
+        public void bajaCliente(int idCliente)
+        {
+            object result = Execute_SP("INNERJOIN.sp_baja_cliente", new
+            {
+                idCliente = idCliente
+            });
+
+            if (result == null)
+            {
+                MessageBox.Show("Baja de cliente correcta");
+            }
+        }
+
+        public bool documentoRepetido(int idCliente, string tipoDoc, string numDoc)
+        {
+            string query = "select count(*) cantidad from INNERJOIN.cliente where cliente_id <> " + idCliente + " and cliente_tipo_dni = \'" + tipoDoc + "\' and cliente_numero_dni = " + numDoc;
+            SqlDataReader data = command_reader(query);
+            int cantidad = 0;
+            if (data.Read())
+            {
+                cantidad = data.GetInt32(0);
+            }
+
+            if (data.GetInt32(0) == 0) return false;
+            else return true;
+        }
+
+        public bool documentoRepetido(string tipoDoc, string numDoc)
+        {
+            string query = "select count(*) cantidad from INNERJOIN.cliente where cliente_tipo_dni = \'" + tipoDoc + "\' and cliente_numero_dni = " + numDoc;
+            SqlDataReader data = command_reader(query);
+            int cantidad = 0;
+            if (data.Read())
+            {
+                cantidad = data.GetInt32(0);
+            }
+
+            if (data.GetInt32(0) == 0) return false;
+            else return true;
+        }
+
+        public bool cuilRepetido(int idCliente, string nroCuil)
+        {
+            string query = "select count(*) cantidad from INNERJOIN.cliente where cliente_id <> " + idCliente + " and cliente_cuil = \'" + nroCuil+"\'";
+            SqlDataReader data = command_reader(query);
+            int cantidad = 0;
+            if (data.Read())
+            {
+                cantidad = data.GetInt32(0);
+            }
+
+            if (data.GetInt32(0) == 0) return false;
+            else return true;
+        }
+
+        public int updateCliente(int idCliente,string apellido, string nombre, string tipoDoc, string numDoc, string cuil, string fechaNac, string domCalle, string domNumero, string domPiso, string domDepto, string codPost, string telefono, string email)
+        {
+            int res = command_update("update INNERJOIN.cliente set cliente_apellido = '" + apellido + "', cliente_nombre = '" + nombre + "', cliente_tipo_dni = '" + tipoDoc + "', cliente_numero_dni = " + numDoc + ", cliente_cuil = '" + cuil + "', cliente_fecha_nacimiento = CONVERT(date,'" + fechaNac + "', 103)" + ", cliente_domicilio_calle = '" + domCalle + "', cliente_domicilio_numero = " + domNumero + ", cliente_domicilio_piso = " + domPiso + ", cliente_domicilio_departamento = '" + domDepto + "', cliente_codigo_postal = '" + codPost + "', cliente_telefono = '" + telefono + "', cliente_email = '" + email + "' where cliente_id = " + idCliente);
+            return res;
+        }
+
+
+        public object agregar_nueva_empresa(string razonSocial, string cuit, string domCalle, string domNro, string domPiso, string domDepto, string ciudad, string codpost, string telefono, string email)
+        {
+            object result = Execute_SP("INNERJOIN.sp_alta_empresa", new
+            {
+                razonSocial = razonSocial,
+                cuit = cuit,
+                domCalle = domCalle,
+                domNro = domNro,
+                domPiso = domPiso,
+                domDepto = domDepto,
+                ciudad = ciudad,
+                codpost = codpost,
+                telefono = telefono,
+                email = email
+            });
+
+            return result;
+        }
+
+        public bool razonSocialDuplicada(string razonSocial)
+        {
+            string query = "select count(*) cantidad from INNERJOIN.empresa where empresa_razon_social = \'" + razonSocial + "'";
+            SqlDataReader data = command_reader(query);
+            int cantidad = 0;
+            if (data.Read())
+            {
+                cantidad = data.GetInt32(0);
+            }
+
+            if (data.GetInt32(0) == 0) return false;
+            else return true;
+        }
+
+        public Datos.Rol getRol(decimal user_id)
+        {
+
+            Datos.Rol rol = new Datos.Rol(1, "No tiene rol");
+            SqlDataReader data = command_reader("select distinct id_rol,rol_nombre from INNERJOIN.usuario_rol join INNERJOIN.rol on id_rol = rol_id where id_usuario = " + user_id);
+
+            if (data.HasRows)
+            {
+                data.Read();
+                
+                Decimal id_rol = data.GetDecimal(0);
+                String nombre = data.GetString(1);
+                rol = new Datos.Rol(id_rol, nombre);
+                
+            }
+
+            data.Close();
+            return rol;
+
+        }
+
+        public bool cuitRepetido(string cuit)
+        {
+            string query = "select count(*) cantidad from INNERJOIN.empresa where empresa_cuit = \'" + cuit + "'";
+            SqlDataReader data = command_reader(query);
+            int cantidad = 0;
+            if (data.Read())
+            {
+                cantidad = data.GetInt32(0);
+            }
+
+            if (data.GetInt32(0) == 0) return false;
+            else return true;
+        }
+
+        public SqlDataAdapter getEmpresa(List<string> listaCondiciones)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            string stringQuery = "select empresa_id,empresa_razon_social,empresa_cuit,empresa_email from INNERJOIN.empresa";
+
+            if (listaCondiciones.Any())
+            {
+                stringQuery += " where " + string.Join(" and ", listaCondiciones.ToArray());
+            }
+
+            SqlCommand query = new SqlCommand(stringQuery, connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
+        }
+
+        public void bajaEmpresa(int idEmpresa)
+        {
+            object result = Execute_SP("INNERJOIN.sp_baja_empresa", new
+            {
+                idEmpresa = idEmpresa
+            });
+
+            if (result == null)
+            {
+                MessageBox.Show("Baja de empresa correcta");
+            }
+        }
+
+        internal SqlDataReader getDatosEmpresa(int idEmpresa)
+        {
+            SqlDataReader data = command_reader("select isnull(empresa_razon_social,''),isnull(empresa_cuit,''),isnull(empresa_domicilio_calle,''),isnull(empresa_domicilio_numero,''),isnull(empresa_domicilio_piso,''),isnull(empresa_domicilio_departamento,''),isnull(empresa_ciudad,''),isnull(empresa_codigo_postal,''),isnull(empresa_telefono,''),isnull(empresa_email,''),isnull(empresa_baja_logica,'') from INNERJOIN.empresa where empresa_id = " + idEmpresa);
+
+            return data;
+        }
+
+        internal int updateEmpresa(int idEmpresa, List<string> camposAModificar)
+        {
+            string stringQuery = "update INNERJOIN.empresa";
+
+            stringQuery += " set " + string.Join(" , ", camposAModificar.ToArray());
+
+            stringQuery += " where empresa_id = " + idEmpresa;
+
+            int res = command_update(stringQuery);
+
+            return res;
+        }
+
+        internal bool cuitRepetido(int idEmpresa, string cuit)
+        {
+            string query = "select count(*) cantidad from INNERJOIN.empresa where empresa_id <> " + idEmpresa + " and empresa_cuit = \'" + cuit + "'";
+            SqlDataReader data = command_reader(query);
+            int cantidad = 0;
+            if (data.Read())
+            {
+                cantidad = data.GetInt32(0);
+            }
+
+            if (data.GetInt32(0) == 0) return false;
+            else return true;
+        }
+
+        internal bool razonSocialDuplicada(int idEmpresa, string razonSocial)
+        {
+            string query = "select count(*) cantidad from INNERJOIN.empresa where empresa_id <> " + idEmpresa + " and empresa_razon_social = \'" + razonSocial + "'";
+            SqlDataReader data = command_reader(query);
+            int cantidad = 0;
+            if (data.Read())
+            {
+                cantidad = data.GetInt32(0);
+            }
+
+            if (data.GetInt32(0) == 0) return false;
+            else return true;
+        }
+
+        internal int updateCliente(int idCliente, List<string> camposAModificar)
+        {
+            string stringQuery = "update INNERJOIN.cliente";
+
+            stringQuery += " set " + string.Join(" , ", camposAModificar.ToArray());
+
+            stringQuery += " where cliente_id = " + idCliente;
+
+            int res = command_update(stringQuery);
+
+            return res;
+        }
+
+        public void rehabilitarUsuario(string tipoUsuario, int idUsuario)
+        {
+            object result = Execute_SP("INNERJOIN.sp_rehabilitar_usuario", new
+                            {
+                                tipoUsuario = tipoUsuario,
+                                idUsuario = idUsuario
+                            });
+
+            if (result == null) MessageBox.Show("Usuario rehabilitado de manera correcta");
+        }
+
+        internal void cambiarPassword(int idUsuario, string password)
+        {
+            object result = Execute_SP("INNERJOIN.cambiar_password", new { idUsuario = idUsuario, password = password });
+
+            if (result == null) MessageBox.Show("Contraseña actualizada correctamente");
+
+        }
+
+        public List<string> getEmpresasName()
+        {
+            List<string> empresas = new List<string>();
+
+            SqlDataReader data = command_reader("select distinct empresa_razon_social from INNERJOIN.empresa");
+
+            if (data.HasRows)
+            {
+                while (data.Read())
+                {
+                    empresas.Add(Convert.ToString(data[0]));
+                }
+            }
+
+            data.Close();
+            return empresas;
+        }
+
+        public void generar_rendiciones(int cantidad, Decimal empresa)
+        {
+            object result = Execute_SP("INNERJOIN.sp_generar_comision", new
+            {
+                cantidad_compras = cantidad,
+                id_empresa = empresa
+            });
+
+            if (result == null) MessageBox.Show("Rendiciones generadas.");
+
+        }
+
+        public decimal getEmpresaId(string nombre_empresa)
+        {
+            Decimal id;
+            SqlDataReader data = command_reader("select usuario_id from INNERJOIN.empresa where empresa_razon_social LIKE '" + nombre_empresa + "'");
+            data.Read();
+            id = data.GetDecimal(0);
+            data.Close();
+            return id;
+
+        }
+
+        public int getComisionesSinRendir(decimal empresa_id)
+        {
+            int cantidad;
+            SqlDataReader data = command_reader("select count(*) from INNERJOIN.compra c where id_usuario = " + empresa_id + " and c.compra_id not in (select id_compra from INNERJOIN.factura_item)");
+            data.Read();
+            cantidad = data.GetInt32(0);
+            data.Close();
+
+            return cantidad;
+        }
+
+        public SqlDataAdapter getFacturasDelDia(decimal id_empresa)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            SqlCommand query = new SqlCommand("select * from INNERJOIN.factura f inner join INNERJOIN.factura_item fi on f.factura_id = fi.id_factura where id_empresa = " + id_empresa + " and factura_fecha = '" + NowDate+ " '", connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
         }
     }
 }

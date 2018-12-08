@@ -57,11 +57,66 @@
     <Compile Include="Abm Cliente\Alta_Cliente.Designer.cs">
       <DependentUpon>Alta_Cliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Empresa Espectaculo\Form1.cs">
+    <Compile Include="Abm Cliente\Baja_Cliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Empresa Espectaculo\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Cliente\Baja_Cliente.Designer.cs">
+      <DependentUpon>Baja_Cliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Cliente\busquedaModificacion_Cliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Cliente\busquedaModificacion_Cliente.Designer.cs">
+      <DependentUpon>busquedaModificacion_Cliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Cliente\Cambio_Password.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Cliente\Cambio_Password.Designer.cs">
+      <DependentUpon>Cambio_Password.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Cliente\Modificacion_Cliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Cliente\Modificacion_Cliente.Designer.cs">
+      <DependentUpon>Modificacion_Cliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Cliente\Utilidades.cs" />
+    <Compile Include="Abm Empresa Espectaculo\ABMEmpresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Empresa Espectaculo\ABMEmpresa.Designer.cs">
+      <DependentUpon>ABMEmpresa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Empresa Espectaculo\Alta_Empresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Empresa Espectaculo\Alta_Empresa.Designer.cs">
+      <DependentUpon>Alta_Empresa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Empresa Espectaculo\Baja_Empresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Empresa Espectaculo\Baja_Empresa.Designer.cs">
+      <DependentUpon>Baja_Empresa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Empresa Espectaculo\busquedaModificacion_Empresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Empresa Espectaculo\busquedaModificacion_Empresa.Designer.cs">
+      <DependentUpon>busquedaModificacion_Empresa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Empresa Espectaculo\Cambio_Password.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Empresa Espectaculo\Cambio_Password.Designer.cs">
+      <DependentUpon>Cambio_Password.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Empresa Espectaculo\Modificacion_Empresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Empresa Espectaculo\Modificacion_Empresa.Designer.cs">
+      <DependentUpon>Modificacion_Empresa.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Grado\ABMGrado.cs">
       <SubType>Form</SubType>
@@ -194,6 +249,12 @@
     <Compile Include="Generar Publicacion\Ubicaciones_Agregar.Designer.cs">
       <DependentUpon>Ubicaciones_Agregar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Generar Rendicion Comisiones\Facturas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generar Rendicion Comisiones\Facturas.Designer.cs">
+      <DependentUpon>Facturas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Herramientas\Encrypter.cs" />
     <Compile Include="Herramientas\Funcionalidades_Pantallas.cs" />
     <Compile Include="Login\MenuPrincipal.cs">
@@ -220,17 +281,17 @@
     <Compile Include="Generar Publicacion\Generar_Publicacion.Designer.cs">
       <DependentUpon>Generar_Publicacion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Rendicion Comisiones\Form1.cs">
+    <Compile Include="Generar Rendicion Comisiones\Generar_Rendiciones.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generar Rendicion Comisiones\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Generar Rendicion Comisiones\Generar_Rendiciones.Designer.cs">
+      <DependentUpon>Generar_Rendiciones.cs</DependentUpon>
     </Compile>
-    <Compile Include="Historial Cliente\Form1.cs">
+    <Compile Include="Historial Cliente\HistorialCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Historial Cliente\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Historial Cliente\HistorialCliente.Designer.cs">
+      <DependentUpon>HistorialCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="Listado Estadistico\Form1.cs">
       <SubType>Form</SubType>
@@ -258,6 +319,36 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\Alta_Cliente.resx">
       <DependentUpon>Alta_Cliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Cliente\Baja_Cliente.resx">
+      <DependentUpon>Baja_Cliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Cliente\busquedaModificacion_Cliente.resx">
+      <DependentUpon>busquedaModificacion_Cliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Cliente\Cambio_Password.resx">
+      <DependentUpon>Cambio_Password.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Cliente\Modificacion_Cliente.resx">
+      <DependentUpon>Modificacion_Cliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Empresa Espectaculo\ABMEmpresa.resx">
+      <DependentUpon>ABMEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Empresa Espectaculo\Alta_Empresa.resx">
+      <DependentUpon>Alta_Empresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Empresa Espectaculo\Baja_Empresa.resx">
+      <DependentUpon>Baja_Empresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Empresa Espectaculo\busquedaModificacion_Empresa.resx">
+      <DependentUpon>busquedaModificacion_Empresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Empresa Espectaculo\Cambio_Password.resx">
+      <DependentUpon>Cambio_Password.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Empresa Espectaculo\Modificacion_Empresa.resx">
+      <DependentUpon>Modificacion_Empresa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Grado\ABMGrado.resx">
       <DependentUpon>ABMGrado.cs</DependentUpon>
@@ -315,6 +406,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Publicacion\Ubicaciones_Agregar.resx">
       <DependentUpon>Ubicaciones_Agregar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Rendicion Comisiones\Facturas.resx">
+      <DependentUpon>Facturas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Rendicion Comisiones\Generar_Rendiciones.resx">
+      <DependentUpon>Generar_Rendiciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Historial Cliente\HistorialCliente.resx">
+      <DependentUpon>HistorialCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>

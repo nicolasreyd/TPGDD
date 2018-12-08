@@ -122,9 +122,10 @@ namespace PalcoNet.Login
                     roles.Show();
                 }
                 //Sino ir al menu principal
-                else
+                else if (App.currentUser.getRoles().Count == 1)
                 {
                     this.Hide();
+                    App.currentRol = App.currentUser.getRol();
                     MenuPrincipal menu = new MenuPrincipal();
                     menu.Show();
                 }
@@ -161,8 +162,8 @@ namespace PalcoNet.Login
         private void nuevoCliente_button_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Abm_Cliente.Alta_Cliente altaCliente = new Abm_Cliente.Alta_Cliente();
-            altaCliente.Show();
+            Abm_Cliente.busquedaModificacion_Cliente modifCliente = new Abm_Cliente.busquedaModificacion_Cliente();
+            modifCliente.Show();
 
         }
     }

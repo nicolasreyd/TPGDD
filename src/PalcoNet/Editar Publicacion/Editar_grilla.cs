@@ -167,7 +167,7 @@ namespace PalcoNet.Editar_Publicacion
             publicacion.id = Convert.ToDecimal(dataGridView.Rows[e.RowIndex].Cells[1].Value);
             publicacion.rubro = Convert.ToString(dataGridView.Rows[e.RowIndex].Cells[3].Value);
             publicacion.grado = App.db.getGrado(Convert.ToString(dataGridView.Rows[e.RowIndex].Cells[4].Value));
-            publicacion.id_responsable = 1;
+            publicacion.id_responsable = 1; //ojo, si es necesario buscarlo en la base
             publicacion.estado = Convert.ToString(dataGridView.Rows[e.RowIndex].Cells[6].Value);
             publicacion.fecha_espectaculo = Convert.ToDateTime(dataGridView.Rows[e.RowIndex].Cells[7].Value);
             publicacion.fecha_publicacion = Convert.ToDateTime(dataGridView.Rows[e.RowIndex].Cells[8].Value);

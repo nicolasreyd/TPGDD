@@ -51,6 +51,7 @@ namespace PalcoNet.Editar_Publicacion
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             App.db.eliminar_ubicacion(Convert.ToDecimal(dataGridView.Rows[e.RowIndex].Cells[1].Value));
+            llenar_tabla();
         }
     }
 }

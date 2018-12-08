@@ -1,5 +1,8 @@
 /* Script de creación inicial - TP 2C 2018 */
 
+create schema INNERJOIN
+GO
+
 create table INNERJOIN.usuario (
 usuario_id numeric(10) identity(1,1),
 usuario_username varchar(16) not null,
@@ -62,7 +65,7 @@ cliente_baja_logica bit not null default 1
 alter table INNERJOIN.cliente add constraint pk_cliente primary key (cliente_id)
 --alter table INNERJOIN.cliente add constraint fk_cliente_usuario foreign key (usuario_id) references INNERJOIN.usuario
 alter table INNERJOIN.cliente add constraint unq_dni unique (cliente_tipo_dni,cliente_numero_dni)
---alter table INNERJOIN.cliente add constraint unq_cuil unique (cuil)
+--alter table INNERJOIN.cliente add constraint unq_cuil unique (cliente_cuil)
 
 create table INNERJOIN.tarjeta_credito (
 tarjeta_credito_id numeric(10) identity(1,1),
@@ -220,7 +223,8 @@ id_publicacion numeric(10),
 id_usuario numeric(10), -- El DER dice cliente, pero entiendo que el que compra en definitiva es el usuario
 compra_medio_pago nvarchar(255),
 compra_mail nvarchar(255),
-compra_importe_total numeric(10,2)
+compra_importe_total numeric(10,2),
+compra_fecha date
 )
 
 alter table INNERJOIN.compra add constraint pk_compra primary key (compra_id)
@@ -268,7 +272,7 @@ comision numeric(10,2)
 insert into INNERJOIN.usuario (usuario_username,usuario_password,usuario_tipo)
 select DISTINCT concat('',cli_dni),
 LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256','123'), 2)),'cliente'
-from INNERJOIN.Maestra 
+from gd_esquema.Maestra  
 where Cli_Dni is not null;
 
 --Probado OK
@@ -277,9 +281,23 @@ where Cli_Dni is not null;
 
 insert into INNERJOIN.usuario (usuario_username,usuario_password,usuario_tipo)
 select DISTINCT concat('',REPLACE(espec_empresa_cuit,'-','')), 
-LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256','123'))),'empresa'
-from INNERJOIN.Maestra 
+LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256','123'), 2)),'empresa'
+from gd_esquema.Maestra  
 where espec_empresa_cuit is not null;
+
+--Creacion de usuario admin
+insert into INNERJOIN.usuario (usuario_username,usuario_password,usuario_tipo)
+select DISTINCT 'admin', 
+LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256','w23e'), 2)),'admin'
+from gd_esquema.Maestra  
+where espec_empresa_cuit is not null;
+
+insert into INNERJOIN.usuario_rol values (783,2)
+
+insert into INNERJOIN.rol_funcionalidad values (2,1),(2,2),(2,3),(2,4),(2,5),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(2,12),(2,13)
+
+
+
 
 --Probado OK
 
@@ -293,7 +311,7 @@ espec_empresa_razon_social,
 espec_empresa_cuit,espec_empresa_fecha_Creacion,
 espec_empresa_mail,espec_empresa_dom_calle,espec_empresa_nro_calle,
 espec_empresa_piso,espec_empresa_depto,espec_empresa_cod_postal
-from INNERJOIN.Maestra
+from gd_esquema.Maestra 
 group by espec_empresa_razon_social,espec_empresa_cuit,espec_empresa_fecha_Creacion,
 espec_empresa_mail,espec_empresa_dom_calle,espec_empresa_nro_calle,
 espec_empresa_piso,espec_empresa_depto,espec_empresa_cod_postal
@@ -306,7 +324,7 @@ order by 3
 insert into INNERJOIN.cliente (usuario_id,cliente_numero_dni,cliente_apellido,cliente_nombre,cliente_fecha_nacimiento,cliente_email,cliente_domicilio_calle,cliente_domicilio_numero,cliente_domicilio_piso,cliente_domicilio_departamento,cliente_codigo_postal)
 select concat('',cli_dni),
 cli_dni, Cli_Apeliido, Cli_Nombre, Cli_Fecha_Nac,Cli_Mail,Cli_Dom_Calle,Cli_Nro_Calle,cli_piso,cli_depto,Cli_Cod_Postal
-from INNERJOIN.Maestra
+from gd_esquema.Maestra 
 where cli_dni is not null
 group by cli_dni, Cli_Apeliido, Cli_Nombre, Cli_Fecha_Nac,Cli_Mail,Cli_Dom_Calle,Cli_Nro_Calle,cli_piso,cli_depto,Cli_Cod_Postal
 order by 1 asc
@@ -318,7 +336,7 @@ order by 1 asc
 INSERT INTO INNERJOIN.rubro (rubro_descripcion)
 SELECT case Espectaculo_Rubro_Descripcion 
        when '' THEN 'Sin definir' end
-FROM INNERJOIN.Maestra
+FROM gd_esquema.Maestra 
 WHERE Espectaculo_Rubro_Descripcion IS NOT NULL
 group by Espectaculo_Rubro_Descripcion 
 
@@ -329,8 +347,9 @@ group by Espectaculo_Rubro_Descripcion
 
 insert into INNERJOIN.rol (rol_nombre, rol_baja_logica)
 values ('Empresa', 1), 
-	   ('Administrativo', 1), 
-	   ('Cliente', 1)
+	     ('Administrativo', 1), 
+	     ('Cliente', 1),
+       ('Administrador General', 1)
 
 --Probado OK
 
@@ -357,7 +376,7 @@ VALUES ('Registro de Usuario'),
 
 
 insert into INNERJOIN.ubicacion_tipo (id,descripcion)
-select Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion from INNERJOIN.Maestra
+select Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion from gd_esquema.Maestra 
 group by Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion
 order by 1 asc
 
@@ -371,10 +390,11 @@ select espectaculo_cod,(select usuario_id from INNERJOIN.usuario
          where usuario_username LIKE concat('',REPLACE(espec_empresa_cuit,'-','')))
 ,espectaculo_cod,espectaculo_descripcion,
 Espectaculo_Fecha,Espectaculo_Fecha_Venc,isnull(rubro_id,1),Espectaculo_Estado
-from INNERJOIN.Maestra left join INNERJOIN.rubro on Espectaculo_Rubro_Descripcion=rubro_descripcion
+from gd_esquema.Maestra  left join INNERJOIN.rubro on Espectaculo_Rubro_Descripcion=rubro_descripcion
 group by espec_empresa_cuit,espectaculo_cod,espectaculo_descripcion,Espectaculo_Fecha,
          Espectaculo_Fecha_Venc,rubro_id,Espectaculo_Estado
 order by 1 asc
+set identity_insert INNERJOIN.publicacion OFF
 
 --Probado OK
 
@@ -389,25 +409,26 @@ Ubicacion_Sin_numerar bit not null default 1,
 Ubicacion_Tipo_Codigo numeric(10),
 Espectaculo_Cod numeric(18,0),
 Cli_Dni numeric(18,0),
-flag_migrado bit not null default 0
+compra_fecha date,
+flag_migrado bit not null default 0,
 )
 
  --Migracion Compra, Ubicacion y compra_ubicacion (para probar se seleccionan las primeras 1000 filas. Falta el campo compra_importe_total en Comrpa)
 
 insert into INNERJOIN.compra_temp (Forma_Pago_Desc, Cli_Mail,Ubicacion_Fila,Ubicacion_Asiento,Ubicacion_Precio,
-Ubicacion_Sin_numerar,Ubicacion_Tipo_Codigo, Espectaculo_Cod,Cli_Dni) 
+Ubicacion_Sin_numerar,Ubicacion_Tipo_Codigo, Espectaculo_Cod,Cli_Dni,compra_fecha) 
 select Forma_Pago_Desc, Cli_Mail,Ubicacion_Fila,Ubicacion_Asiento,Ubicacion_Precio,
-Ubicacion_Sin_numerar,Ubicacion_Tipo_Codigo, Espectaculo_Cod,Cli_Dni 
-from INNERJOIN.Maestra
+Ubicacion_Sin_numerar,Ubicacion_Tipo_Codigo, Espectaculo_Cod,Cli_Dni,Compra_fecha
+from gd_esquema.Maestra 
 where Cli_Dni is not null
 
 WHILE EXISTS (SELECT * FROM INNERJOIN.compra_temp where flag_migrado=0)
   BEGIN
 
   SET IDENTITY_INSERT INNERJOIN.compra ON
-  insert into INNERJOIN.compra (compra_id, id_publicacion, id_usuario, compra_medio_pago, compra_mail, compra_importe_total)
+  insert into INNERJOIN.compra (compra_id, id_publicacion, id_usuario, compra_medio_pago, compra_mail, compra_importe_total,compra_fecha)
   SELECT top 10000
-  id,Espectaculo_Cod,1,Forma_Pago_Desc,Cli_Mail,100
+  id,Espectaculo_Cod,1,Forma_Pago_Desc,Cli_Mail,100,compra_fecha
   FROM INNERJOIN.compra_temp WHERE flag_migrado = 0 order by id asc;
   SET IDENTITY_INSERT INNERJOIN.compra OFF
 

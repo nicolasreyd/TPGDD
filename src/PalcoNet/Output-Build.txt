@@ -1,0 +1,8 @@
+﻿1>------ Build started: Project: PalcoNet, Configuration: Debug Any CPU ------
+1>C:\TPGDD\src\PalcoNet\DBOperations.cs(363,24,363,31): warning CS0168: The variable 'command' is declared but never used
+1>C:\TPGDD\src\PalcoNet\Abm Cliente\Alta_Cliente.cs(16,48,16,63): warning CS0169: The field 'PalcoNet.Abm_Cliente.Alta_Cliente.funcionalidades' is never used
+1>C:\TPGDD\src\PalcoNet\Abm Grado\Modificacion_Formulario.cs(18,19,18,21): warning CS0169: The field 'PalcoNet.Abm_Grado.Modificacion_Formulario.id' is never used
+1>C:\TPGDD\src\PalcoNet\Abm Rol\Funcionalidad_Modif.cs(17,16,17,42): warning CS0169: The field 'PalcoNet.Abm_Rol.Funcionalidad_Modif.funcionalidad_seleccionada' is never used
+1>C:\TPGDD\src\PalcoNet\Login\Login.cs(18,30,18,40): warning CS0169: The field 'PalcoNet.Login.Login.connection' is never used
+1>  PalcoNet -> C:\TPGDD\src\PalcoNet\bin\Debug\PalcoNet.exe
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========

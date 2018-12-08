@@ -18,6 +18,15 @@ namespace PalcoNet
         public static Datos.Usuario currentUser;
         public static Datos.Rol currentRol;
         public static AdminApp admin;
+        public static string NowDateKey = "nowdate";
+
+        private static string NowDate
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings[NowDateKey];
+            }
+        }
 
 
         public App()
