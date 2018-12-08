@@ -327,7 +327,7 @@ namespace PalcoNet.Abm_Cliente
 
         private void Modificacion_Cliente_Load(object sender, EventArgs e)
         {
-
+            habilitado_checkBox.AutoCheck = false;
         }
 
         private void habilitarCliente_button_Click(object sender, EventArgs e)
