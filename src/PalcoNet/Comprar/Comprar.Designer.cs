@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Comprar_Entrada = new System.Windows.Forms.DataGridViewButtonColumn();
             this.filtrar = new System.Windows.Forms.GroupBox();
             this.fechaDesde_textBox = new System.Windows.Forms.DateTimePicker();
             this.fechaHasta_textBox = new System.Windows.Forms.DateTimePicker();
@@ -40,7 +41,12 @@
             this.descripcion_textBox = new System.Windows.Forms.TextBox();
             this.compra_limpiar = new System.Windows.Forms.Button();
             this.compra_buscar = new System.Windows.Forms.Button();
-            this.Comprar_Entrada = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btn_Previo = new System.Windows.Forms.Button();
+            this.btn_Sig = new System.Windows.Forms.Button();
+            this.lbl_Pagina = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lbl_totalPaginas = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.filtrar.SuspendLayout();
             this.SuspendLayout();
@@ -55,6 +61,12 @@
             this.dataGridView1.Size = new System.Drawing.Size(656, 259);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // Comprar_Entrada
+            // 
+            this.Comprar_Entrada.HeaderText = "Comprar";
+            this.Comprar_Entrada.Name = "Comprar_Entrada";
+            this.Comprar_Entrada.UseColumnTextForButtonValue = true;
             // 
             // filtrar
             // 
@@ -162,17 +174,76 @@
             this.compra_buscar.UseVisualStyleBackColor = true;
             this.compra_buscar.Click += new System.EventHandler(this.compra_buscar_Click);
             // 
-            // Comprar_Entrada
+            // btn_Previo
             // 
-            this.Comprar_Entrada.HeaderText = "Comprar";
-            this.Comprar_Entrada.Name = "Comprar_Entrada";
-            this.Comprar_Entrada.UseColumnTextForButtonValue = true;
+            this.btn_Previo.Location = new System.Drawing.Point(202, 514);
+            this.btn_Previo.Name = "btn_Previo";
+            this.btn_Previo.Size = new System.Drawing.Size(75, 23);
+            this.btn_Previo.TabIndex = 4;
+            this.btn_Previo.Text = "Atras";
+            this.btn_Previo.UseVisualStyleBackColor = true;
+            this.btn_Previo.Click += new System.EventHandler(this.atras_button_Click);
+            // 
+            // btn_Sig
+            // 
+            this.btn_Sig.Location = new System.Drawing.Point(431, 514);
+            this.btn_Sig.Name = "btn_Sig";
+            this.btn_Sig.Size = new System.Drawing.Size(75, 23);
+            this.btn_Sig.TabIndex = 5;
+            this.btn_Sig.Text = "Siguiente";
+            this.btn_Sig.UseVisualStyleBackColor = true;
+            this.btn_Sig.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // lbl_Pagina
+            // 
+            this.lbl_Pagina.AutoSize = true;
+            this.lbl_Pagina.Location = new System.Drawing.Point(320, 519);
+            this.lbl_Pagina.Name = "lbl_Pagina";
+            this.lbl_Pagina.Size = new System.Drawing.Size(13, 13);
+            this.lbl_Pagina.TabIndex = 6;
+            this.lbl_Pagina.Text = "0";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(354, 519);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(12, 13);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "/";
+            // 
+            // lbl_totalPaginas
+            // 
+            this.lbl_totalPaginas.AutoSize = true;
+            this.lbl_totalPaginas.Location = new System.Drawing.Point(380, 519);
+            this.lbl_totalPaginas.Name = "lbl_totalPaginas";
+            this.lbl_totalPaginas.Size = new System.Drawing.Size(13, 13);
+            this.lbl_totalPaginas.TabIndex = 8;
+            this.lbl_totalPaginas.Text = "0";
+            this.lbl_totalPaginas.Click += new System.EventHandler(this.label7_Click);
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(12, 524);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(37, 13);
+            this.linkLabel1.TabIndex = 9;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Volver";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // Comprar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(773, 561);
+            this.Controls.Add(this.linkLabel1);
+            this.Controls.Add(this.lbl_totalPaginas);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.lbl_Pagina);
+            this.Controls.Add(this.btn_Sig);
+            this.Controls.Add(this.btn_Previo);
             this.Controls.Add(this.compra_buscar);
             this.Controls.Add(this.compra_limpiar);
             this.Controls.Add(this.filtrar);
@@ -184,6 +255,7 @@
             this.filtrar.ResumeLayout(false);
             this.filtrar.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -202,5 +274,11 @@
         private System.Windows.Forms.DateTimePicker fechaDesde_textBox;
         private System.Windows.Forms.DateTimePicker fechaHasta_textBox;
         private System.Windows.Forms.DataGridViewButtonColumn Comprar_Entrada;
+        private System.Windows.Forms.Button btn_Previo;
+        private System.Windows.Forms.Button btn_Sig;
+        private System.Windows.Forms.Label lbl_Pagina;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lbl_totalPaginas;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }

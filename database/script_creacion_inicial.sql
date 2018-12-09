@@ -1,7 +1,5 @@
 /* Script de creación inicial - TP 2C 2018 */
 
-create schema INNERJOIN
-GO
 
 create table INNERJOIN.usuario (
 usuario_id numeric(10) identity(1,1),
@@ -10,8 +8,8 @@ usuario_password varchar(64) not null,
 usuario_tipo varchar(7) not null,
 usuario_logins_fallidos numeric(1) not null default 0,
 usuario_debe_cambiar_clave bit default 1,
-usuario_clave expirada bit default 0,
-usuario_baja_logica bit not null default 1
+usuario_clave_expirada bit default 0,
+usuario_baja_logica bit not null default 0
 )
 
 alter table INNERJOIN.usuario add constraint pk_usuario primary key (usuario_id)

@@ -77,5 +77,10 @@ namespace PalcoNet.Historial_Cliente
         {
 
         }
+
+        private void HistorialCliente_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
