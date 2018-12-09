@@ -22,19 +22,22 @@ namespace PalcoNet.Abm_Cliente
                     return false;
             }
 
+            MessageBox.Show(cuil.ToString());
+
             if (cuil.Length != 11)
             {
                 return false;
             }
 
-            char[] arrayCuil = cuil.ToCharArray();
+            int[] arrayCuil = new int[11];
+            for (int i = 0; i < cuil.Length; i++)
+                arrayCuil[i] = cuil[i] - '0';
             int[] multiplicadores = { 5, 4, 3, 2, 7, 6, 5, 4, 3, 2 };
-            int aux = 0;
+            decimal aux = 0;
 
             for (int i = 0; i < 10; i++)
             {
-                aux += Convert.ToInt32(arrayCuil[i]) * multiplicadores[i];
-            }
+                aux += Convert.ToInt16(arrayCuil[i]) * multiplicadores[i];
 
             aux = 11 - (aux % 11);
 

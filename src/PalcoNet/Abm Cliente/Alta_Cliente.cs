@@ -30,7 +30,6 @@ namespace PalcoNet.Abm_Cliente
         private string domicilio_piso;
         private string domicilio_depto;
         private string cod_post;
-        private string rol;
         private string email;
         private string numero_tarjeta;
         private string vencimiento_tarjeta;
@@ -66,7 +65,6 @@ namespace PalcoNet.Abm_Cliente
 
         private void nroDNI_textBox_TextChanged(object sender, EventArgs e)
         {
-            //this.numero_dni = Convert.ToInt32(nroDNI_textBox.Text);
             this.numero_dni = nroDNI_textBox.Text;
             if (System.Text.RegularExpressions.Regex.IsMatch(nroDNI_textBox.Text, "[^0-9]"))
             {
@@ -125,13 +123,11 @@ namespace PalcoNet.Abm_Cliente
 
         private void domNumeroCliente_textBox_TextChanged(object sender, EventArgs e)
         {
-           // this.domicilio_numero = Convert.ToInt32(domNumeroCliente_textBox.Text);
             this.domicilio_numero = domNumeroCliente_textBox.Text;
         }
 
         private void domPisoCliente_textBox_TextChanged(object sender, EventArgs e)
         {
-           // this.domicilio_piso = Convert.ToInt32(domPisoCliente_textBox.Text);
             this.domicilio_piso = domPisoCliente_textBox.Text;
         }
 
@@ -144,11 +140,6 @@ namespace PalcoNet.Abm_Cliente
         {
             this.cod_post = codPostCliente_textBox.Text;
         }
-        /*
-        private void rolCliente_comboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.rol = rolCliente_comboBox.Text;
-        }*/
 
         private void numeroTarjeta_textBox_TextChanged(object sender, EventArgs e)
         {
@@ -160,11 +151,6 @@ namespace PalcoNet.Abm_Cliente
                 numeroTarjeta_textBox.Text = numeroTarjeta_textBox.Text.Remove(numeroTarjeta_textBox.Text.Length - 1);
             }
         }
-        /*
-        private void vencimientoTarjeta_textBox_TextChanged(object sender, EventArgs e)
-        {
-            this.vencimiento_tarjeta = "01/"+vencimientoTarjeta_textBox.Text;
-        }*/
 
         private void mesTarjeta_comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -190,16 +176,6 @@ namespace PalcoNet.Abm_Cliente
             {
                 msjError += "El apellido es obligatorio\n";
             }
-            /*
-            if (tipoDNI_comboBox.Text == string.Empty)
-            {
-                msjError += "El tipo de documento no puede ser vacio\n";
-            }
-
-            if (nroDNI_textBox.Text == string.Empty)
-            {
-                msjError += "El DNI no puede ser vacio\n";
-            }*/
 
             if ((tipoDNI_comboBox.Text == string.Empty) || (nroDNI_textBox.Text == string.Empty))
                 msjError += "El tipo/numero de documento no puede ser vacio\n";
@@ -214,7 +190,7 @@ namespace PalcoNet.Abm_Cliente
             //    msjError += "El numero de CUIL debe tener 11 caracteres\n";
             //} // Se puede mejorar para que sea exhaustivo
             //else
-                //if (!Utilidades.cuilValido(cuilCliente_textBox.Text)) msjError += "El numero de CUIL es incorrecto\n";
+                if (!Utilidades.cuilValido(cuilCliente_textBox.Text)) msjError += "El numero de CUIL es incorrecto\n";
 
             if ((diaNac_comboBox.Text == string.Empty) ||
                 (mesNac_comboBox.Text == string.Empty) ||
@@ -268,19 +244,7 @@ namespace PalcoNet.Abm_Cliente
 
             this.fecha_nacimiento=this.dia_nacimiento+"/"+this.mes_nacimiento+"/"+this.anio_nacimiento;
             this.vencimiento_tarjeta = "01/"+this.mes_tarjeta+"/"+this.anio_tarjeta;
-            
-            /*
-            string errores;
-
-            errores = App.db.validar_datos_cliente(nombre_usuario, apellido_usuario, tipo_dni, numero_dni, cuil, fecha_nacimiento, telefono, email, domicilio_calle, domicilio_numero, domicilio_piso, domicilio_depto, cod_post, numero_tarjeta, vencimiento_tarjeta);
-
-            if (errores != string.Empty)
-            {
-                MessageBox.Show(errores);
-                return;
-            }
-             * */
-            
+                        
             App.db.agregar_nuevo_cliente(username,password,nombre_usuario, apellido_usuario, tipo_dni, numero_dni, cuil, fecha_nacimiento, telefono, email, domicilio_calle, domicilio_numero, domicilio_piso, domicilio_depto, cod_post, numero_tarjeta, vencimiento_tarjeta);//,rol);
             this.Hide();
             ABMCliente abmCliente = new ABMCliente();
@@ -307,6 +271,11 @@ namespace PalcoNet.Abm_Cliente
             this.Hide();
             ABMCliente abmCliente = new ABMCliente();
             abmCliente.Show();
+        }
+
+        private void Alta_Cliente_Load(object sender, EventArgs e)
+        {
+
         }
 
 

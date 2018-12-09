@@ -52,5 +52,12 @@ namespace PalcoNet.Registro_de_Usuario
 
             
         }
+
+        private void volver_button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Login.Login login = new Login.Login();
+            login.Show();
+        }
     }
 }

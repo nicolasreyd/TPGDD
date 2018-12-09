@@ -8,6 +8,32 @@ delete from INNERJOIN.rol where rol_id = @id_rol
 
 end
 
+
+create procedure INNERJOIN.sp_generar_random_username @username nvarchar(16) output
+as
+begin
+	
+	SELECT @username = replace((left(CONVERT(nvarchar(255), NEWID()),16)),'-','');
+
+	while ((select count(*) from INNERJOIN.usuario where usuario_username = @username) <> 0)
+		SELECT @username = replace((left(CONVERT(nvarchar(255), NEWID()),16)),'-','');
+	
+end
+
+
+
+
+
+create procedure INNERJOIN.sp_generar_random_password @password nvarchar(16) output
+as
+begin
+	
+	SELECT @password = replace((left(CONVERT(nvarchar(255), NEWID()),16)),'-','');
+	
+end
+
+
+
 CREATE procedure [INNERJOIN].[sp_generar_publicacion] 
 @descripcion nvarchar(255), @rubro_text nvarchar(50), @grado_text nvarchar(20), @grado_comision numeric(10,0),
 @id_usuario numeric(10,0), @estado nvarchar(15), @fecha_public date, @fecha_evento date, @direccion nvarchar(255),
@@ -171,7 +197,7 @@ as
 
 
 
-create procedure [INNERJOIN].[sp_alta_empresa] @username nvarchar(16) output,@password nvarchar(16) output,@razonSocial nvarchar(255),@cuit nvarchar(255),@domCalle nvarchar(255),@domNro nvarchar(255),@domPiso nvarchar(255),@domDepto nvarchar(255),@ciudad nvarchar(255),@codpost nvarchar(255),@telefono nvarchar(255),@email nvarchar(255)
+create ALTER procedure [INNERJOIN].[sp_alta_empresa] @username nvarchar(16) output,@password nvarchar(16) output,@razonSocial nvarchar(255),@cuit nvarchar(255),@domCalle nvarchar(255),@domNro nvarchar(255),@domPiso nvarchar(255),@domDepto nvarchar(255),@ciudad nvarchar(255),@codpost nvarchar(255),@telefono nvarchar(255),@email nvarchar(255),@credenciales nvarchar(255) output
 as
 
 	begin tran
@@ -195,6 +221,8 @@ as
 	
 	insert into INNERJOIN.usuario_rol (id_usuario,id_rol)
 		values (@id_usuario,1)
+
+	set @credenciales = 'Nombre de usuario: '+@username + CHAR(13) +  'Contraseña: '+@password
 
 	commit
 

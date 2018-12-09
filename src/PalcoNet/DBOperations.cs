@@ -87,59 +87,6 @@ namespace PalcoNet
             return result;
 
         }
-        /*
-        public string validar_datos_cliente(string nombre_usuario, string apellido_usuario, string tipo_dni, string numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir, string domicilio_calle, string domicilio_numero, string domicilio_piso, string domicilio_depto, string cod_post, string numero_tarjeta, string vencimiento_tarjeta)
-        {
-            var command = new SqlCommand();
-            this.connection = new SqlConnection(ConnectionString);
-            this.connection.Open();
-
-
-            SqlParameter tipodni1 = new SqlParameter("@tipodni", SqlDbType.NVarChar);
-            tipodni1.Value = tipo_dni;
-            SqlCommand Totalf = new SqlCommand("SELECT INNERJOIN.fx_validar_cliente(@tipodni,@nrodni,@cuil,@apellido,@nombre,@fechanac,@email,@telefono,@dom_calle,@dom_numero,@dom_piso,@dom_depto,@codpost,@num_tarjeta,@venc_tarjeta)", connection);
-
-            SqlParameter nrodni = new SqlParameter("@nrodni", SqlDbType.VarChar);
-            SqlParameter cuil = new SqlParameter("@cuil", SqlDbType.VarChar);
-            SqlParameter apellido = new SqlParameter("@apellido", SqlDbType.VarChar);
-            SqlParameter nombre = new SqlParameter("@nombre", SqlDbType.VarChar);
-            SqlParameter fechanac = new SqlParameter("@fechanac", SqlDbType.VarChar);
-            SqlParameter email = new SqlParameter("@email", SqlDbType.VarChar);
-            SqlParameter telefono = new SqlParameter("@telefono", SqlDbType.VarChar);
-            SqlParameter dom_calle = new SqlParameter("@dom_calle", SqlDbType.VarChar);
-            SqlParameter dom_numero = new SqlParameter("@dom_numero", SqlDbType.VarChar);
-            SqlParameter dom_piso = new SqlParameter("@dom_piso", SqlDbType.VarChar);
-            SqlParameter dom_depto = new SqlParameter("@dom_depto", SqlDbType.VarChar);
-            SqlParameter codpost = new SqlParameter("@codpost", SqlDbType.VarChar);
-            SqlParameter num_tarjeta = new SqlParameter("@num_tarjeta", SqlDbType.VarChar);
-            SqlParameter venc_tarjeta = new SqlParameter("@venc_tarjeta", SqlDbType.VarChar);
-
-           // tipodni1.Value = tipo_dni;
-            nrodni.Value = numero_dni;
-            cuil.Value = numero_cuil;
-            apellido.Value = apellido_usuario;
-            nombre.Value = nombre_usuario;
-            fechanac.Value = fecha_nacimiento;
-            email.Value = email_dir;
-            telefono.Value = num_telefono;
-            dom_calle.Value = domicilio_calle;
-            dom_numero.Value = domicilio_numero;
-            dom_piso.Value = domicilio_piso;
-            dom_depto.Value = domicilio_depto;
-            codpost.Value = cod_post;
-            num_tarjeta.Value = numero_tarjeta;
-            venc_tarjeta.Value = vencimiento_tarjeta;
-
-            // object result = Totalf.ExecuteScalar();
-            string result = (string) Totalf.ExecuteScalar();
-
-           // command.CommandTimeout = 0;
-           // command.Connection = connection;
-           // object result = command.ExecuteScalar();
-
-            return result;
-
-        }*/
 
         private static SqlParameter[] GetSqlParameters(object parameters)
         {
