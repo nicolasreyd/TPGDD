@@ -252,7 +252,7 @@ as
 
 
 
-create procedure [INNERJOIN].[cambiar_password] @idUsuario numeric(18,0),@password nvarchar(16)
+create procedure [INNERJOIN].[cambiar_password] @idUsuario numeric(18,0),@password varchar(64)
 as
 
 	update INNERJOIN.usuario set usuario_password = LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256',@password), 2)) where usuario_id = @idUsuario
