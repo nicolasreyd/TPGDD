@@ -45,5 +45,10 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
         {
             this.Hide();
         }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

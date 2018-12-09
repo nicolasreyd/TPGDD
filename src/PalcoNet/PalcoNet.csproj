@@ -216,6 +216,10 @@
     <Compile Include="Comprar\ComprarUbicacionTarjeta.Designer.cs">
       <DependentUpon>ComprarUbicacionTarjeta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Datos\CantidadCompras.cs" />
+    <Compile Include="Datos\Listado.cs" />
+    <Compile Include="Datos\LocalidadesNoVendidas.cs" />
+    <Compile Include="Datos\PuntosVencidos.cs" />
     <Compile Include="Datos\Tarjeta.cs" />
     <Compile Include="Datos\Funcionalidad.cs" />
     <Compile Include="Datos\Categoria.cs" />
@@ -258,6 +262,12 @@
     </Compile>
     <Compile Include="Herramientas\Encrypter.cs" />
     <Compile Include="Herramientas\Funcionalidades_Pantallas.cs" />
+    <Compile Include="Listado Estadistico\Listado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listado Estadistico\Listado.Designer.cs">
+      <DependentUpon>Listado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login\MenuPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -431,6 +441,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Historial Cliente\HistorialCliente.resx">
       <DependentUpon>HistorialCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listado Estadistico\Listado.resx">
+      <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>

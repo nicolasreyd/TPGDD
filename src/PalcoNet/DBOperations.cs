@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Configuration;
+using PalcoNet.Datos;
 
 namespace PalcoNet
 {
@@ -162,6 +163,65 @@ namespace PalcoNet
 
             data.Close();
             return funcionalidades;
+        }
+
+        public SqlDataAdapter getLocalidadesNoVendidas(DateTime desde, DateTime hasta,Decimal gradoId)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            List<Datos.LocalidadesNoVendidas> lista = new List<Datos.LocalidadesNoVendidas>();
+            String queryStr = "select TOP 5 count(*) as 'Cantidad de localidades no vendidas',e.empresa_razon_social as 'Empresa Razón Social' from INNERJOIN.publicacion p left join INNERJOIN.ubicacion as u on p.publicacion_id = u.id_publicacion" +
+                " left join INNERJOIN.usuario us on us.usuario_id = p.id_responsable"+
+                " left join INNERJOIN.empresa e on e.usuario_id = us.usuario_id"+
+                " where not exists (select 1 from INNERJOIN.compra_ubicacion cu where cu.id_ubicacion=u.ubicacion_id)" +
+                " and p.publicacion_fecha_evento >= '" + desde + "' and p.publicacion_fecha_evento < '" + hasta + "'"+
+                " group by e.empresa_razon_social, p.id_grado having p.id_grado=" + gradoId +
+                " order by 2 desc";
+
+            SqlCommand query = new SqlCommand(queryStr, connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
+        }
+        public SqlDataAdapter getPuntosVencidos(DateTime desde, DateTime hasta)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            List<Datos.PuntosVencidos> lista = new List<Datos.PuntosVencidos>();
+            String queryStr = "select TOP 5 sum(cp.puntos) as 'Puntos vencidos',c.cliente_numero_dni,c.cliente_nombre,c.cliente_apellido" +
+                " from INNERJOIN.cliente_puntos cp left" +
+                " join INNERJOIN.cliente c on c.cliente_id = cp.cliente_id" +
+                " where cp.fecha_vencimiento < '" + NowDate + "'" +
+                " and cp.fecha_vencimiento >= '" + desde + "' and cp.fecha_vencimiento < '" + hasta + "'" +
+                " group by c.cliente_numero_dni, c.cliente_nombre, c.cliente_apellido" +
+                " order by 4 desc";
+            SqlCommand query = new SqlCommand(queryStr, connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
+        }
+        public SqlDataAdapter getCantidadCompras(DateTime desde, DateTime hasta)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            List<Datos.CantidadCompras> lista = new List<Datos.CantidadCompras>();
+            String queryStr = "select TOP 5 count(*) as 'Cantidad compras realizadas',cl.cliente_numero_dni,cl.cliente_nombre,cl.cliente_apellido,e.empresa_razon_social"+
+                            " from INNERJOIN.compra c"+
+                            " left join INNERJOIN.publicacion p on p.publicacion_id = c.id_publicacion"+
+                            " left join INNERJOIN.usuario eu on eu.usuario_id = p.id_responsable"+
+                            " left join INNERJOIN.usuario cu on cu.usuario_id = c.id_usuario"+
+                            " left join INNERJOIN.cliente cl on cl.usuario_id = cu.usuario_id"+
+                            " left join INNERJOIN.empresa e on e.usuario_id = eu.usuario_id"+
+                           /* " where c.compra_fecha >= '" + desde + "' and c.compra_fecha < '" + hasta + "'" +*/
+                            " group by cl.cliente_numero_dni, cl.cliente_nombre, cl.cliente_apellido, e.empresa_razon_social" +
+                            " order by 1 desc";
+            SqlCommand query = new SqlCommand(queryStr, connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
         }
 
 
@@ -599,7 +659,7 @@ namespace PalcoNet
         public int agregar_nuevo_rol_nuevo_grado(String prioridad_alta, Decimal comision_alta)
         {
 
-            Decimal id_generado = command_insert("insert into INNERJOIN.grado values ('" + prioridad_alta + "', '" + comision_alta + "'); select SCOPE_IDENTITY()");
+            Decimal id_generado = command_insert("insert into INNERJOIN.grado values ('" + prioridad_alta + "', 1, '"+ comision_alta + "'); select SCOPE_IDENTITY()");
             if (id_generado < 0)
             {
                 return -1;

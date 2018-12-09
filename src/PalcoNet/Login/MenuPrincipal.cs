@@ -189,6 +189,18 @@ namespace PalcoNet.Login
             abmEmpresa.Show();
         }
 
+        private void ListadoEstadistico_Button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Listado_Estadistico.Listado listado = new Listado_Estadistico.Listado();
+            listado.Show();
+        }
+
+        private void MenuPrincipal_Load_1(object sender, EventArgs e)
+        {
+
+        }
+    
         private void AdminPuntos_Button_Click(object sender, EventArgs e)
         {
             this.Hide();
