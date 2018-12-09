@@ -209,7 +209,17 @@ namespace PalcoNet.Editar_Publicacion
 
         private bool data_validate()
         {
-            return true; //TODO
+            bool resultado = true;
+
+            if(String.IsNullOrEmpty(Descripcion_textBox1.Text)){
+                resultado = false;
+            }
+
+            if (String.IsNullOrEmpty(Direccion_textBox1.Text))
+            {
+                resultado = false;
+            }
+            return resultado; //TODO
         }
 
         private void Limpiar_button1_Click(object sender, EventArgs e)

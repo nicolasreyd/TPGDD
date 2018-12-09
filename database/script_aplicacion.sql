@@ -114,7 +114,7 @@ as
 
 
 
-procedure [INNERJOIN].[sp_generar_comision] @cantidad_compras int,@id_empresa numeric(10,0)
+create procedure [INNERJOIN].[sp_generar_comision] @cantidad_compras int,@id_empresa numeric(10,0)
 as begin
 
 declare @id_compra numeric(10,0)
@@ -197,7 +197,7 @@ as
 
 
 
-create ALTER procedure [INNERJOIN].[sp_alta_empresa] @username nvarchar(16) output,@password nvarchar(16) output,@razonSocial nvarchar(255),@cuit nvarchar(255),@domCalle nvarchar(255),@domNro nvarchar(255),@domPiso nvarchar(255),@domDepto nvarchar(255),@ciudad nvarchar(255),@codpost nvarchar(255),@telefono nvarchar(255),@email nvarchar(255),@credenciales nvarchar(255) output
+create procedure [INNERJOIN].[sp_alta_empresa] @username nvarchar(16) output,@password nvarchar(16) output,@razonSocial nvarchar(255),@cuit nvarchar(255),@domCalle nvarchar(255),@domNro nvarchar(255),@domPiso nvarchar(255),@domDepto nvarchar(255),@ciudad nvarchar(255),@codpost nvarchar(255),@telefono nvarchar(255),@email nvarchar(255),@credenciales nvarchar(255) output
 as
 
 	begin tran
@@ -286,7 +286,7 @@ end
 
 
 
-procedure [INNERJOIN].[sp_sumar_login_fallido] @idUsuario numeric(18,0)
+create procedure [INNERJOIN].[sp_sumar_login_fallido] @idUsuario numeric(18,0)
 as
 begin
 	

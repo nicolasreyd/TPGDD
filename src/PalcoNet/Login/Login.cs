@@ -164,6 +164,9 @@ namespace PalcoNet.Login
                     MenuPrincipal menu = new MenuPrincipal();
                     menu.Show();
                 }
+                else {
+                    MessageBox.Show("El usuario no tiene roles.");
+                }
                 
 
             }

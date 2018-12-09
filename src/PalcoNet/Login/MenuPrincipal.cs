@@ -201,11 +201,13 @@ namespace PalcoNet.Login
 
         }
     
-        private void AdminPuntos_Button_Click(object sender, EventArgs e)
+   
+        private void AdminPuntos_Button_Click_1(object sender, EventArgs e)
         {
             this.Hide();
             Canje_Puntos.CanjePuntos canje = new Canje_Puntos.CanjePuntos();
             canje.Show();
+
         }
 	}
 }

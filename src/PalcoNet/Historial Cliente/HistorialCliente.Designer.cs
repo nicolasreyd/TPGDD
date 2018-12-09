@@ -34,6 +34,7 @@
             this.lbl_Pagina = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lbl_totalPaginas = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -42,18 +43,20 @@
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 12);
+            this.dataGridView1.Location = new System.Drawing.Point(18, 18);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(751, 288);
+            this.dataGridView1.Size = new System.Drawing.Size(1126, 443);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // btn_Sig
             // 
             this.btn_Sig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Sig.Location = new System.Drawing.Point(632, 319);
+            this.btn_Sig.Location = new System.Drawing.Point(948, 483);
+            this.btn_Sig.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btn_Sig.Name = "btn_Sig";
-            this.btn_Sig.Size = new System.Drawing.Size(131, 37);
+            this.btn_Sig.Size = new System.Drawing.Size(196, 57);
             this.btn_Sig.TabIndex = 1;
             this.btn_Sig.Text = "Siguiente";
             this.btn_Sig.UseVisualStyleBackColor = true;
@@ -62,9 +65,10 @@
             // btn_Previo
             // 
             this.btn_Previo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_Previo.Location = new System.Drawing.Point(12, 316);
+            this.btn_Previo.Location = new System.Drawing.Point(18, 478);
+            this.btn_Previo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btn_Previo.Name = "btn_Previo";
-            this.btn_Previo.Size = new System.Drawing.Size(137, 42);
+            this.btn_Previo.Size = new System.Drawing.Size(206, 65);
             this.btn_Previo.TabIndex = 2;
             this.btn_Previo.Text = "Atras";
             this.btn_Previo.UseVisualStyleBackColor = true;
@@ -75,9 +79,10 @@
             this.lbl_Pagina.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_Pagina.AutoSize = true;
-            this.lbl_Pagina.Location = new System.Drawing.Point(340, 331);
+            this.lbl_Pagina.Location = new System.Drawing.Point(510, 501);
+            this.lbl_Pagina.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_Pagina.Name = "lbl_Pagina";
-            this.lbl_Pagina.Size = new System.Drawing.Size(13, 13);
+            this.lbl_Pagina.Size = new System.Drawing.Size(18, 20);
             this.lbl_Pagina.TabIndex = 3;
             this.lbl_Pagina.Tag = "";
             this.lbl_Pagina.Text = "0";
@@ -87,9 +92,10 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(381, 331);
+            this.label2.Location = new System.Drawing.Point(572, 501);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(12, 13);
+            this.label2.Size = new System.Drawing.Size(13, 20);
             this.label2.TabIndex = 4;
             this.label2.Text = "/";
             // 
@@ -98,23 +104,37 @@
             this.lbl_totalPaginas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_totalPaginas.AutoSize = true;
-            this.lbl_totalPaginas.Location = new System.Drawing.Point(422, 331);
+            this.lbl_totalPaginas.Location = new System.Drawing.Point(633, 501);
+            this.lbl_totalPaginas.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_totalPaginas.Name = "lbl_totalPaginas";
-            this.lbl_totalPaginas.Size = new System.Drawing.Size(13, 13);
+            this.lbl_totalPaginas.Size = new System.Drawing.Size(18, 20);
             this.lbl_totalPaginas.TabIndex = 5;
             this.lbl_totalPaginas.Text = "0";
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(298, 539);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(53, 20);
+            this.linkLabel1.TabIndex = 6;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Volver";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
             // HistorialCliente
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(775, 370);
+            this.ClientSize = new System.Drawing.Size(1162, 577);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.lbl_totalPaginas);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lbl_Pagina);
             this.Controls.Add(this.btn_Previo);
             this.Controls.Add(this.btn_Sig);
             this.Controls.Add(this.dataGridView1);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "HistorialCliente";
             this.Text = "Historial de Cliente";
             this.Load += new System.EventHandler(this.HistorialCliente_Load);
@@ -132,5 +152,6 @@
         private System.Windows.Forms.Label lbl_Pagina;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lbl_totalPaginas;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }

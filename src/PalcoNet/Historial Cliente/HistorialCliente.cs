@@ -32,14 +32,28 @@ namespace PalcoNet.Historial_Cliente
             this.total = this.todos_los_datos.Rows.Count;
             this.maximo_paginas = Math.Ceiling(this.total / this.items_por_pagina);
             lbl_totalPaginas.Text = this.maximo_paginas.ToString();
-            dataGridView1.DataSource = Split(table);
+            if (table.Rows.Count > 0)
+            {
+                dataGridView1.DataSource = Split(table);
+            }
+            else {
+                MessageBox.Show("No se encontraron compras para el usuario.");
+            }
             HabilitarBotones();
         }
 
         private DataTable Split(DataTable tablaCompras) {
             lbl_Pagina.Text = (this.pagina + 1).ToString();
             HabilitarBotones();
-            return tablaCompras.Select().Skip(Convert.ToInt32(this.items_por_pagina * this.pagina)).Take(this.items_por_pagina).CopyToDataTable();
+            if (tablaCompras.Rows.Count > 0)
+            {
+                return tablaCompras.Select().Skip(Convert.ToInt32(this.items_por_pagina * this.pagina)).Take(this.items_por_pagina).CopyToDataTable();
+            }
+            else { 
+            MessageBox.Show("No se encontraron compras para el usuario.");
+            DataTable datable = new DataTable();
+            return datable;
+            }
         }
 
         private void btn_Sig_Click(object sender, EventArgs e)
@@ -81,6 +95,13 @@ namespace PalcoNet.Historial_Cliente
         private void HistorialCliente_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            Login.MenuPrincipal menu = new Login.MenuPrincipal();
+            menu.Show();
         }
     }
 }

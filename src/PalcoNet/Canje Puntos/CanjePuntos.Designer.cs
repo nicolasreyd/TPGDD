@@ -35,15 +35,17 @@
             this.lblFechaVencimiento = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.lblMensaje = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPremios)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(164, 18);
+            this.label1.Location = new System.Drawing.Point(246, 28);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 13);
+            this.label1.Size = new System.Drawing.Size(93, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Tus Puntos:";
             // 
@@ -51,9 +53,10 @@
             // 
             this.lblPuntos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPuntos.AutoSize = true;
-            this.lblPuntos.Location = new System.Drawing.Point(284, 18);
+            this.lblPuntos.Location = new System.Drawing.Point(426, 28);
+            this.lblPuntos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPuntos.Name = "lblPuntos";
-            this.lblPuntos.Size = new System.Drawing.Size(35, 13);
+            this.lblPuntos.Size = new System.Drawing.Size(51, 20);
             this.lblPuntos.TabIndex = 1;
             this.lblPuntos.Text = "label2";
             // 
@@ -62,18 +65,20 @@
             this.dataGridViewPremios.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewPremios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewPremios.Location = new System.Drawing.Point(12, 98);
+            this.dataGridViewPremios.Location = new System.Drawing.Point(18, 151);
+            this.dataGridViewPremios.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridViewPremios.Name = "dataGridViewPremios";
-            this.dataGridViewPremios.Size = new System.Drawing.Size(470, 150);
+            this.dataGridViewPremios.Size = new System.Drawing.Size(705, 231);
             this.dataGridViewPremios.TabIndex = 2;
             this.dataGridViewPremios.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPremios_CellClick);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(153, 46);
+            this.label3.Location = new System.Drawing.Point(230, 71);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(86, 13);
+            this.label3.Size = new System.Drawing.Size(125, 20);
             this.label3.TabIndex = 3;
             this.label3.Text = "Fecha de Venc.:";
             // 
@@ -81,9 +86,10 @@
             // 
             this.lblFechaVencimiento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFechaVencimiento.AutoSize = true;
-            this.lblFechaVencimiento.Location = new System.Drawing.Point(284, 46);
+            this.lblFechaVencimiento.Location = new System.Drawing.Point(426, 71);
+            this.lblFechaVencimiento.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFechaVencimiento.Name = "lblFechaVencimiento";
-            this.lblFechaVencimiento.Size = new System.Drawing.Size(35, 13);
+            this.lblFechaVencimiento.Size = new System.Drawing.Size(51, 20);
             this.lblFechaVencimiento.TabIndex = 4;
             this.lblFechaVencimiento.Text = "label4";
             // 
@@ -92,9 +98,10 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 72);
+            this.label5.Location = new System.Drawing.Point(20, 111);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(47, 13);
+            this.label5.Size = new System.Drawing.Size(70, 20);
             this.label5.TabIndex = 5;
             this.label5.Text = "Premios:";
             // 
@@ -104,16 +111,29 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblMensaje.AutoSize = true;
-            this.lblMensaje.Location = new System.Drawing.Point(195, 266);
+            this.lblMensaje.Location = new System.Drawing.Point(292, 409);
+            this.lblMensaje.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMensaje.Name = "lblMensaje";
-            this.lblMensaje.Size = new System.Drawing.Size(0, 13);
+            this.lblMensaje.Size = new System.Drawing.Size(0, 20);
             this.lblMensaje.TabIndex = 6;
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(40, 408);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(53, 20);
+            this.linkLabel1.TabIndex = 7;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Volver";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // CanjePuntos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(494, 288);
+            this.ClientSize = new System.Drawing.Size(741, 443);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.lblMensaje);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.lblFechaVencimiento);
@@ -121,6 +141,7 @@
             this.Controls.Add(this.dataGridViewPremios);
             this.Controls.Add(this.lblPuntos);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "CanjePuntos";
             this.Text = "Canje de puntos";
             this.Load += new System.EventHandler(this.CanjePuntos_Load);
@@ -139,5 +160,6 @@
         private System.Windows.Forms.Label lblFechaVencimiento;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblMensaje;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }

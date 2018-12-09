@@ -45,10 +45,10 @@
             // 
             // ABMRol_Button
             // 
-            this.ABMRol_Button.Location = new System.Drawing.Point(16, 30);
-            this.ABMRol_Button.Margin = new System.Windows.Forms.Padding(1);
+            this.ABMRol_Button.Location = new System.Drawing.Point(24, 46);
+            this.ABMRol_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ABMRol_Button.Name = "ABMRol_Button";
-            this.ABMRol_Button.Size = new System.Drawing.Size(159, 23);
+            this.ABMRol_Button.Size = new System.Drawing.Size(238, 35);
             this.ABMRol_Button.TabIndex = 0;
             this.ABMRol_Button.Text = "ABM Rol";
             this.ABMRol_Button.UseVisualStyleBackColor = true;
@@ -56,10 +56,10 @@
             // 
             // RegistroUsuario_Button
             // 
-            this.RegistroUsuario_Button.Location = new System.Drawing.Point(16, 71);
-            this.RegistroUsuario_Button.Margin = new System.Windows.Forms.Padding(1);
+            this.RegistroUsuario_Button.Location = new System.Drawing.Point(24, 109);
+            this.RegistroUsuario_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.RegistroUsuario_Button.Name = "RegistroUsuario_Button";
-            this.RegistroUsuario_Button.Size = new System.Drawing.Size(159, 26);
+            this.RegistroUsuario_Button.Size = new System.Drawing.Size(238, 40);
             this.RegistroUsuario_Button.TabIndex = 1;
             this.RegistroUsuario_Button.Text = "Registro Usuario";
             this.RegistroUsuario_Button.UseVisualStyleBackColor = true;
@@ -67,10 +67,10 @@
             // 
             // ABMCliente_Button
             // 
-            this.ABMCliente_Button.Location = new System.Drawing.Point(16, 111);
-            this.ABMCliente_Button.Margin = new System.Windows.Forms.Padding(1);
+            this.ABMCliente_Button.Location = new System.Drawing.Point(24, 171);
+            this.ABMCliente_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ABMCliente_Button.Name = "ABMCliente_Button";
-            this.ABMCliente_Button.Size = new System.Drawing.Size(159, 24);
+            this.ABMCliente_Button.Size = new System.Drawing.Size(238, 37);
             this.ABMCliente_Button.TabIndex = 2;
             this.ABMCliente_Button.Text = "ABM Cliente";
             this.ABMCliente_Button.UseVisualStyleBackColor = true;
@@ -78,10 +78,10 @@
             // 
             // ABMEmpresaEspec_Button
             // 
-            this.ABMEmpresaEspec_Button.Location = new System.Drawing.Point(16, 150);
-            this.ABMEmpresaEspec_Button.Margin = new System.Windows.Forms.Padding(1);
+            this.ABMEmpresaEspec_Button.Location = new System.Drawing.Point(24, 231);
+            this.ABMEmpresaEspec_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ABMEmpresaEspec_Button.Name = "ABMEmpresaEspec_Button";
-            this.ABMEmpresaEspec_Button.Size = new System.Drawing.Size(159, 25);
+            this.ABMEmpresaEspec_Button.Size = new System.Drawing.Size(238, 38);
             this.ABMEmpresaEspec_Button.TabIndex = 3;
             this.ABMEmpresaEspec_Button.Text = "ABM Empresa Espectaculos";
             this.ABMEmpresaEspec_Button.UseVisualStyleBackColor = true;
@@ -89,10 +89,10 @@
             // 
             // ABMGradoPubli_Button
             // 
-            this.ABMGradoPubli_Button.Location = new System.Drawing.Point(16, 188);
-            this.ABMGradoPubli_Button.Margin = new System.Windows.Forms.Padding(1);
+            this.ABMGradoPubli_Button.Location = new System.Drawing.Point(24, 289);
+            this.ABMGradoPubli_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ABMGradoPubli_Button.Name = "ABMGradoPubli_Button";
-            this.ABMGradoPubli_Button.Size = new System.Drawing.Size(159, 26);
+            this.ABMGradoPubli_Button.Size = new System.Drawing.Size(238, 40);
             this.ABMGradoPubli_Button.TabIndex = 5;
             this.ABMGradoPubli_Button.Text = "ABM Grado Publicacion";
             this.ABMGradoPubli_Button.UseVisualStyleBackColor = true;
@@ -100,10 +100,10 @@
             // 
             // GenerarPulica_Button
             // 
-            this.GenerarPulica_Button.Location = new System.Drawing.Point(16, 234);
-            this.GenerarPulica_Button.Margin = new System.Windows.Forms.Padding(1);
+            this.GenerarPulica_Button.Location = new System.Drawing.Point(24, 360);
+            this.GenerarPulica_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.GenerarPulica_Button.Name = "GenerarPulica_Button";
-            this.GenerarPulica_Button.Size = new System.Drawing.Size(159, 25);
+            this.GenerarPulica_Button.Size = new System.Drawing.Size(238, 38);
             this.GenerarPulica_Button.TabIndex = 6;
             this.GenerarPulica_Button.Text = "Generar Publicacion";
             this.GenerarPulica_Button.UseVisualStyleBackColor = true;
@@ -111,10 +111,10 @@
             // 
             // EditarPubli_Button
             // 
-            this.EditarPubli_Button.Location = new System.Drawing.Point(213, 30);
-            this.EditarPubli_Button.Margin = new System.Windows.Forms.Padding(1);
+            this.EditarPubli_Button.Location = new System.Drawing.Point(320, 46);
+            this.EditarPubli_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.EditarPubli_Button.Name = "EditarPubli_Button";
-            this.EditarPubli_Button.Size = new System.Drawing.Size(157, 23);
+            this.EditarPubli_Button.Size = new System.Drawing.Size(236, 35);
             this.EditarPubli_Button.TabIndex = 7;
             this.EditarPubli_Button.Text = "Editar Publicacion";
             this.EditarPubli_Button.UseVisualStyleBackColor = true;
@@ -122,10 +122,10 @@
             // 
             // Comprar_Button
             // 
-            this.Comprar_Button.Location = new System.Drawing.Point(213, 71);
-            this.Comprar_Button.Margin = new System.Windows.Forms.Padding(1);
+            this.Comprar_Button.Location = new System.Drawing.Point(320, 109);
+            this.Comprar_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Comprar_Button.Name = "Comprar_Button";
-            this.Comprar_Button.Size = new System.Drawing.Size(157, 26);
+            this.Comprar_Button.Size = new System.Drawing.Size(236, 40);
             this.Comprar_Button.TabIndex = 8;
             this.Comprar_Button.Text = "Comprar";
             this.Comprar_Button.UseVisualStyleBackColor = true;
@@ -133,10 +133,10 @@
             // 
             // HistorialCli_Button
             // 
-            this.HistorialCli_Button.Location = new System.Drawing.Point(213, 111);
-            this.HistorialCli_Button.Margin = new System.Windows.Forms.Padding(1);
+            this.HistorialCli_Button.Location = new System.Drawing.Point(320, 171);
+            this.HistorialCli_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.HistorialCli_Button.Name = "HistorialCli_Button";
-            this.HistorialCli_Button.Size = new System.Drawing.Size(157, 24);
+            this.HistorialCli_Button.Size = new System.Drawing.Size(236, 37);
             this.HistorialCli_Button.TabIndex = 9;
             this.HistorialCli_Button.Text = "Historial Cliente";
             this.HistorialCli_Button.UseVisualStyleBackColor = true;
@@ -144,30 +144,31 @@
             // 
             // AdminPuntos_Button
             // 
-            this.AdminPuntos_Button.Location = new System.Drawing.Point(213, 150);
-            this.AdminPuntos_Button.Margin = new System.Windows.Forms.Padding(1);
+            this.AdminPuntos_Button.Location = new System.Drawing.Point(320, 231);
+            this.AdminPuntos_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.AdminPuntos_Button.Name = "AdminPuntos_Button";
-            this.AdminPuntos_Button.Size = new System.Drawing.Size(157, 25);
+            this.AdminPuntos_Button.Size = new System.Drawing.Size(236, 38);
             this.AdminPuntos_Button.TabIndex = 10;
             this.AdminPuntos_Button.Text = "Canje y Admin de Puntos";
             this.AdminPuntos_Button.UseVisualStyleBackColor = true;
+            this.AdminPuntos_Button.Click += new System.EventHandler(this.AdminPuntos_Button_Click_1);
             // 
             // PagoComisiones_Button
             // 
-            this.PagoComisiones_Button.Location = new System.Drawing.Point(213, 189);
-            this.PagoComisiones_Button.Margin = new System.Windows.Forms.Padding(1);
+            this.PagoComisiones_Button.Location = new System.Drawing.Point(320, 291);
+            this.PagoComisiones_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.PagoComisiones_Button.Name = "PagoComisiones_Button";
-            this.PagoComisiones_Button.Size = new System.Drawing.Size(157, 25);
+            this.PagoComisiones_Button.Size = new System.Drawing.Size(236, 38);
             this.PagoComisiones_Button.TabIndex = 11;
             this.PagoComisiones_Button.Text = "Generar Pago Comisiones";
             this.PagoComisiones_Button.UseVisualStyleBackColor = true;
             // 
             // ListadoEstadistico_Button
             // 
-            this.ListadoEstadistico_Button.Location = new System.Drawing.Point(213, 233);
-            this.ListadoEstadistico_Button.Margin = new System.Windows.Forms.Padding(1);
+            this.ListadoEstadistico_Button.Location = new System.Drawing.Point(320, 358);
+            this.ListadoEstadistico_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ListadoEstadistico_Button.Name = "ListadoEstadistico_Button";
-            this.ListadoEstadistico_Button.Size = new System.Drawing.Size(157, 26);
+            this.ListadoEstadistico_Button.Size = new System.Drawing.Size(236, 40);
             this.ListadoEstadistico_Button.TabIndex = 12;
             this.ListadoEstadistico_Button.Text = "Listado Estadistico";
             this.ListadoEstadistico_Button.UseVisualStyleBackColor = true;
@@ -175,10 +176,10 @@
             // 
             // CerrarSesion_button
             // 
-            this.CerrarSesion_button.Location = new System.Drawing.Point(272, 300);
-            this.CerrarSesion_button.Margin = new System.Windows.Forms.Padding(1);
+            this.CerrarSesion_button.Location = new System.Drawing.Point(408, 462);
+            this.CerrarSesion_button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.CerrarSesion_button.Name = "CerrarSesion_button";
-            this.CerrarSesion_button.Size = new System.Drawing.Size(98, 23);
+            this.CerrarSesion_button.Size = new System.Drawing.Size(147, 35);
             this.CerrarSesion_button.TabIndex = 13;
             this.CerrarSesion_button.Text = "Cerrar Sesion";
             this.CerrarSesion_button.UseVisualStyleBackColor = true;
@@ -186,10 +187,10 @@
             // 
             // MenuPrincipal
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(411, 333);
+            this.ClientSize = new System.Drawing.Size(643, 514);
             this.Controls.Add(this.CerrarSesion_button);
             this.Controls.Add(this.ListadoEstadistico_Button);
             this.Controls.Add(this.PagoComisiones_Button);
@@ -203,14 +204,13 @@
             this.Controls.Add(this.ABMCliente_Button);
             this.Controls.Add(this.RegistroUsuario_Button);
             this.Controls.Add(this.ABMRol_Button);
-            this.Margin = new System.Windows.Forms.Padding(1);
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "MenuPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MenuPrincipal";
-            this.Load += new System.EventHandler(this.MenuPrincipal_Load);
             this.Load += new System.EventHandler(this.MenuPrincipal_Load_1);
             this.ResumeLayout(false);
+
         }
 
         #endregion
