@@ -967,6 +967,20 @@ namespace PalcoNet
             else return true;
         }
 
+        public bool cuilRepetido(string nroCuil)
+        {
+            string query = "select count(*) cantidad from INNERJOIN.cliente where cliente_cuil = \'" + nroCuil + "\'";
+            SqlDataReader data = command_reader(query);
+            int cantidad = 0;
+            if (data.Read())
+            {
+                cantidad = data.GetInt32(0);
+            }
+
+            if (data.GetInt32(0) == 0) return false;
+            else return true;
+        }
+
         public bool cuilRepetido(int idCliente, string nroCuil)
         {
             string query = "select count(*) cantidad from INNERJOIN.cliente where cliente_id <> " + idCliente + " and cliente_cuil = \'" + nroCuil+"\'";

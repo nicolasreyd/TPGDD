@@ -169,19 +169,30 @@ namespace PalcoNet.Abm_Cliente
                 msjError += "El apellido es obligatorio\n";
             }
 
-            if (tipoDNI_comboBox.Text == string.Empty)
+            if ((nroDNI_textBox.Text == string.Empty) ||(tipoDNI_comboBox.Text == string.Empty))
             {
-                msjError += "El tipo de documento no puede ser vacio\n";
+                msjError += "El tipo/número no puede ser vacio\n";
+            }
+            else
+            {
+                if (System.Text.RegularExpressions.Regex.IsMatch(nroDNI_textBox.Text, "[^0-9]"))
+                {
+                    MessageBox.Show("El número de documento solo puede contener numeros.");
+                    nroDNI_textBox.Text = nroDNI_textBox.Text.Remove(nroDNI_textBox.Text.Length - 1);
+                }
+                else
+                {
+                    if (App.db.documentoRepetido(idCliente, this.tipoDNI_comboBox.Text, this.nroDNI_textBox.Text))
+                    {
+                        msjError += "La combinacion tipo/numero de documento ya se encuentra registrada\n";
+                    }
+                }
             }
 
-            if (nroDNI_textBox.Text == string.Empty)
+            if (!Utilidades.cuilValido(cuilCliente_textBox.Text)) msjError += "El numero de CUIL es incorrecto\n";
+            else
             {
-                msjError += "El DNI no puede ser vacio\n";
-            }
-
-            if (cuilCliente_textBox.Text.Length != 11)
-            {
-                msjError += "El numero de CUIL es incorrecto\n";
+                if (App.db.cuilRepetido(idCliente, this.cuilCliente_textBox.Text)) msjError += "El CUIL ya se encuentra registrado\n";
             }
 
             if ((diaNac_comboBox.Text == string.Empty) ||
@@ -222,16 +233,6 @@ namespace PalcoNet.Abm_Cliente
                         break;
                 }
 
-            }
-
-            if (App.db.documentoRepetido(idCliente,this.tipoDNI_comboBox.Text,this.nroDNI_textBox.Text))
-            {
-                msjError += "La combinacion tipo/numero de documento ya se encuentra registrada\n";
-            }
-
-            if (App.db.cuilRepetido(idCliente,this.cuilCliente_textBox.Text))
-            {
-                msjError += "El numero de CUIL ya se encuentra registrado\n";
             }
 
             if (msjError != string.Empty)

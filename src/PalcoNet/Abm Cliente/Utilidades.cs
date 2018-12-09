@@ -12,20 +12,18 @@ namespace PalcoNet.Abm_Cliente
         public static bool cuilValido(string unCuil)
         {
             string cuil = unCuil.Replace("[^\\d]", "");
-
+            
+            if (cuil.Length != 11)
+            {
+                return false;
+            }
+            
             switch (cuil.Substring(0,2))
             {
                 case "30":
                 case "33":
                 case "34":
                     return false;
-            }
-
-            MessageBox.Show(cuil.ToString());
-
-            if (cuil.Length != 11)
-            {
-                return false;
             }
 
             int[] arrayCuil = new int[11];

@@ -66,22 +66,11 @@ namespace PalcoNet.Abm_Cliente
         private void nroDNI_textBox_TextChanged(object sender, EventArgs e)
         {
             this.numero_dni = nroDNI_textBox.Text;
-            if (System.Text.RegularExpressions.Regex.IsMatch(nroDNI_textBox.Text, "[^0-9]"))
-            {
-                MessageBox.Show("El número de documento solo puede contener numeros.");
-                nroDNI_textBox.Text = nroDNI_textBox.Text.Remove(nroDNI_textBox.Text.Length - 1);
-            }
         }
 
         private void cuilCliente_textBox_TextChanged(object sender, EventArgs e)
         {
             this.cuil = cuilCliente_textBox.Text;
-
-            if (System.Text.RegularExpressions.Regex.IsMatch(cuilCliente_textBox.Text, "[^0-9]"))
-            {
-                MessageBox.Show("El número de CUIL solo puede contener numeros.");
-                cuilCliente_textBox.Text = cuilCliente_textBox.Text.Remove(cuilCliente_textBox.Text.Length - 1);
-            }
         }
 
         private void diaNac_comboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -103,11 +92,7 @@ namespace PalcoNet.Abm_Cliente
         {
             this.telefono = telefonoCliente_textBox.Text;
 
-            if (System.Text.RegularExpressions.Regex.IsMatch(telefonoCliente_textBox.Text, "[^0-9]"))
-            {
-                MessageBox.Show("El numero de telefono solo puede contener numeros.");
-                telefonoCliente_textBox.Text = telefonoCliente_textBox.Text.Remove(telefonoCliente_textBox.Text.Length - 1);
-            }
+            
         }
 
 
@@ -144,12 +129,6 @@ namespace PalcoNet.Abm_Cliente
         private void numeroTarjeta_textBox_TextChanged(object sender, EventArgs e)
         {
             this.numero_tarjeta = numeroTarjeta_textBox.Text;
-
-            if (System.Text.RegularExpressions.Regex.IsMatch(numeroTarjeta_textBox.Text, "[^0-9]"))
-            {
-                MessageBox.Show("El numero de tarjeta solo puede contener numeros.");
-                numeroTarjeta_textBox.Text = numeroTarjeta_textBox.Text.Remove(numeroTarjeta_textBox.Text.Length - 1);
-            }
         }
 
         private void mesTarjeta_comboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -177,15 +156,19 @@ namespace PalcoNet.Abm_Cliente
                 msjError += "El apellido es obligatorio\n";
             }
 
-            if ((tipoDNI_comboBox.Text == string.Empty) || (nroDNI_textBox.Text == string.Empty))
-                msjError += "El tipo/numero de documento no puede ser vacio\n";
+            if ((tipoDNI_comboBox.Text == string.Empty) || (nroDNI_textBox.Text == string.Empty)) msjError += "El tipo/numero de documento no puede ser vacio\n";
             else
-                {
-                    if (App.db.documentoRepetido(tipoDNI_comboBox.Text,nroDNI_textBox.Text))
-                        msjError += "La combinacion tipo/numero de documento ya se encuentra registrada\n";
-                }
+            {
+                if (System.Text.RegularExpressions.Regex.IsMatch(nroDNI_textBox.Text, "[^0-9]")) msjError += "El número de documento solo puede contener numeros.";
+                else
+                   if (App.db.documentoRepetido(tipoDNI_comboBox.Text, nroDNI_textBox.Text)) msjError += "La combinacion tipo/numero de documento ya se encuentra registrada\n";
+            }
 
-            if (!Utilidades.cuilValido(cuilCliente_textBox.Text)) msjError += "El numero de CUIL es incorrecto\n";
+            if (System.Text.RegularExpressions.Regex.IsMatch(cuilCliente_textBox.Text, "[^0-9]")) msjError += "El número de CUIL solo puede contener numeros.";
+            else
+                if (!Utilidades.cuilValido(cuilCliente_textBox.Text)) msjError += "El número de CUIL es incorrecto\n";
+                else
+                    if (App.db.cuilRepetido(cuilCliente_textBox.Text)) msjError += "El número de CUIL ya se encuentra registrado\n";
 
             if ((diaNac_comboBox.Text == string.Empty) ||
                 (mesNac_comboBox.Text == string.Empty) ||
@@ -225,12 +208,31 @@ namespace PalcoNet.Abm_Cliente
 
             }
 
+            if (domCalleCliente_textBox.Text == string.Empty) msjError += "El campo \"Calle\" no puede estar vacío.\n";
 
-            if (numeroTarjeta_textBox.Text.Length != 16)
-            {
-                msjError += "El numero de tarjeta es incorrecto";
-            }
+            if (domNumeroCliente_textBox.Text == string.Empty) msjError += "El campo \"Número\" no puede estar vacío.\n";
+            else
+                if (System.Text.RegularExpressions.Regex.IsMatch(domNumeroCliente_textBox.Text, "[^0-9]")) msjError += "El número de domicilio sólo puede contener numeros.\n";
+            if (domPisoCliente_textBox.Text == string.Empty) msjError += "El campo \"Piso\" no puede estar vacío.\n";
+            else
+                if (System.Text.RegularExpressions.Regex.IsMatch(domPisoCliente_textBox.Text, "[^0-9]")) msjError += "El número de piso sólo puede contener numeros.\n";
 
+            if (domDeptoCliente_textBox.Text == string.Empty) msjError += "El campo \"Departamento\" no puede estar vacío.\n";
+
+            if (codPostCliente_textBox.Text == string.Empty) msjError += "El campo \"Código Postal\" no puede estar vacío.\n";
+
+            if (telefonoCliente_textBox.Text == string.Empty) msjError += "El campo \"Teléfono\" no puede estar vacío.\n";
+            else
+                if (System.Text.RegularExpressions.Regex.IsMatch(telefonoCliente_textBox.Text, "[^0-9]")) msjError += "El teléfono sólo puede contener numeros.\n";
+
+            if (emailCliente_textBox.Text == string.Empty) msjError += "El campo \"E-Mail\" no puede estar vacío.\n";
+
+            if (numeroTarjeta_textBox.Text.Length != 16) msjError += "El número de tarjeta es incorrecto\n";
+            else
+                if (System.Text.RegularExpressions.Regex.IsMatch(numeroTarjeta_textBox.Text, "[^0-9]")) msjError += "El número de tarjeta solo puede contener números.\n";
+
+            if ((mesTarjeta_comboBox.Text == string.Empty) || (anioTarjeta_comboBox.Text == string.Empty)) msjError += "El vencimiento de la tarjeta no puede estar vacío.\n";
+            
             if (msjError != string.Empty)
             {
                 MessageBox.Show(msjError);
