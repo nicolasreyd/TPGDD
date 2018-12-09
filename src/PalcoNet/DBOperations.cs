@@ -1238,7 +1238,8 @@ namespace PalcoNet
             object result = Execute_SP("INNERJOIN.sp_generar_comision", new
             {
                 cantidad_compras = cantidad,
-                id_empresa = empresa
+                id_empresa = empresa,
+                fecha = NowDate
             });
 
             if (result == null) MessageBox.Show("Rendiciones generadas.");
@@ -1248,7 +1249,7 @@ namespace PalcoNet
         public decimal getEmpresaId(string nombre_empresa)
         {
             Decimal id;
-            SqlDataReader data = command_reader("select usuario_id from INNERJOIN.empresa where empresa_razon_social LIKE '" + nombre_empresa + "'");
+            SqlDataReader data = command_reader("select empresa_id from INNERJOIN.empresa where empresa_razon_social LIKE '" + nombre_empresa + "'");
             data.Read();
             id = data.GetDecimal(0);
             data.Close();

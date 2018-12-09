@@ -46,7 +46,7 @@
             // ABMRol_Button
             // 
             this.ABMRol_Button.Location = new System.Drawing.Point(24, 46);
-            this.ABMRol_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ABMRol_Button.Margin = new System.Windows.Forms.Padding(2);
             this.ABMRol_Button.Name = "ABMRol_Button";
             this.ABMRol_Button.Size = new System.Drawing.Size(238, 35);
             this.ABMRol_Button.TabIndex = 0;
@@ -57,7 +57,7 @@
             // RegistroUsuario_Button
             // 
             this.RegistroUsuario_Button.Location = new System.Drawing.Point(24, 109);
-            this.RegistroUsuario_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RegistroUsuario_Button.Margin = new System.Windows.Forms.Padding(2);
             this.RegistroUsuario_Button.Name = "RegistroUsuario_Button";
             this.RegistroUsuario_Button.Size = new System.Drawing.Size(238, 40);
             this.RegistroUsuario_Button.TabIndex = 1;
@@ -68,7 +68,7 @@
             // ABMCliente_Button
             // 
             this.ABMCliente_Button.Location = new System.Drawing.Point(24, 171);
-            this.ABMCliente_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ABMCliente_Button.Margin = new System.Windows.Forms.Padding(2);
             this.ABMCliente_Button.Name = "ABMCliente_Button";
             this.ABMCliente_Button.Size = new System.Drawing.Size(238, 37);
             this.ABMCliente_Button.TabIndex = 2;
@@ -79,7 +79,7 @@
             // ABMEmpresaEspec_Button
             // 
             this.ABMEmpresaEspec_Button.Location = new System.Drawing.Point(24, 231);
-            this.ABMEmpresaEspec_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ABMEmpresaEspec_Button.Margin = new System.Windows.Forms.Padding(2);
             this.ABMEmpresaEspec_Button.Name = "ABMEmpresaEspec_Button";
             this.ABMEmpresaEspec_Button.Size = new System.Drawing.Size(238, 38);
             this.ABMEmpresaEspec_Button.TabIndex = 3;
@@ -90,7 +90,7 @@
             // ABMGradoPubli_Button
             // 
             this.ABMGradoPubli_Button.Location = new System.Drawing.Point(24, 289);
-            this.ABMGradoPubli_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ABMGradoPubli_Button.Margin = new System.Windows.Forms.Padding(2);
             this.ABMGradoPubli_Button.Name = "ABMGradoPubli_Button";
             this.ABMGradoPubli_Button.Size = new System.Drawing.Size(238, 40);
             this.ABMGradoPubli_Button.TabIndex = 5;
@@ -101,7 +101,7 @@
             // GenerarPulica_Button
             // 
             this.GenerarPulica_Button.Location = new System.Drawing.Point(24, 360);
-            this.GenerarPulica_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GenerarPulica_Button.Margin = new System.Windows.Forms.Padding(2);
             this.GenerarPulica_Button.Name = "GenerarPulica_Button";
             this.GenerarPulica_Button.Size = new System.Drawing.Size(238, 38);
             this.GenerarPulica_Button.TabIndex = 6;
@@ -112,7 +112,7 @@
             // EditarPubli_Button
             // 
             this.EditarPubli_Button.Location = new System.Drawing.Point(320, 46);
-            this.EditarPubli_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.EditarPubli_Button.Margin = new System.Windows.Forms.Padding(2);
             this.EditarPubli_Button.Name = "EditarPubli_Button";
             this.EditarPubli_Button.Size = new System.Drawing.Size(236, 35);
             this.EditarPubli_Button.TabIndex = 7;
@@ -123,7 +123,7 @@
             // Comprar_Button
             // 
             this.Comprar_Button.Location = new System.Drawing.Point(320, 109);
-            this.Comprar_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Comprar_Button.Margin = new System.Windows.Forms.Padding(2);
             this.Comprar_Button.Name = "Comprar_Button";
             this.Comprar_Button.Size = new System.Drawing.Size(236, 40);
             this.Comprar_Button.TabIndex = 8;
@@ -134,7 +134,7 @@
             // HistorialCli_Button
             // 
             this.HistorialCli_Button.Location = new System.Drawing.Point(320, 171);
-            this.HistorialCli_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.HistorialCli_Button.Margin = new System.Windows.Forms.Padding(2);
             this.HistorialCli_Button.Name = "HistorialCli_Button";
             this.HistorialCli_Button.Size = new System.Drawing.Size(236, 37);
             this.HistorialCli_Button.TabIndex = 9;
@@ -145,7 +145,7 @@
             // AdminPuntos_Button
             // 
             this.AdminPuntos_Button.Location = new System.Drawing.Point(320, 231);
-            this.AdminPuntos_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AdminPuntos_Button.Margin = new System.Windows.Forms.Padding(2);
             this.AdminPuntos_Button.Name = "AdminPuntos_Button";
             this.AdminPuntos_Button.Size = new System.Drawing.Size(236, 38);
             this.AdminPuntos_Button.TabIndex = 10;
@@ -156,17 +156,18 @@
             // PagoComisiones_Button
             // 
             this.PagoComisiones_Button.Location = new System.Drawing.Point(320, 291);
-            this.PagoComisiones_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PagoComisiones_Button.Margin = new System.Windows.Forms.Padding(2);
             this.PagoComisiones_Button.Name = "PagoComisiones_Button";
             this.PagoComisiones_Button.Size = new System.Drawing.Size(236, 38);
             this.PagoComisiones_Button.TabIndex = 11;
             this.PagoComisiones_Button.Text = "Generar Pago Comisiones";
             this.PagoComisiones_Button.UseVisualStyleBackColor = true;
+            this.PagoComisiones_Button.Click += new System.EventHandler(this.PagoComisiones_Button_Click);
             // 
             // ListadoEstadistico_Button
             // 
             this.ListadoEstadistico_Button.Location = new System.Drawing.Point(320, 358);
-            this.ListadoEstadistico_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ListadoEstadistico_Button.Margin = new System.Windows.Forms.Padding(2);
             this.ListadoEstadistico_Button.Name = "ListadoEstadistico_Button";
             this.ListadoEstadistico_Button.Size = new System.Drawing.Size(236, 40);
             this.ListadoEstadistico_Button.TabIndex = 12;
@@ -177,7 +178,7 @@
             // CerrarSesion_button
             // 
             this.CerrarSesion_button.Location = new System.Drawing.Point(408, 462);
-            this.CerrarSesion_button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CerrarSesion_button.Margin = new System.Windows.Forms.Padding(2);
             this.CerrarSesion_button.Name = "CerrarSesion_button";
             this.CerrarSesion_button.Size = new System.Drawing.Size(147, 35);
             this.CerrarSesion_button.TabIndex = 13;
@@ -204,7 +205,7 @@
             this.Controls.Add(this.ABMCliente_Button);
             this.Controls.Add(this.RegistroUsuario_Button);
             this.Controls.Add(this.ABMRol_Button);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MenuPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MenuPrincipal";

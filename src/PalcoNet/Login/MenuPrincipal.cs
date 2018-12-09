@@ -209,6 +209,13 @@ namespace PalcoNet.Login
             canje.Show();
 
         }
+
+        private void PagoComisiones_Button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Generar_Rendicion_Comisiones.Generar_Rendiciones rendiciones = new Generar_Rendicion_Comisiones.Generar_Rendiciones();
+            rendiciones.Show();
+        }
 	}
 }
 
