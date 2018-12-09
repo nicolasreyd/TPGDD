@@ -213,6 +213,7 @@ namespace PalcoNet.Abm_Cliente
             if (domNumeroCliente_textBox.Text == string.Empty) msjError += "El campo \"Número\" no puede estar vacío.\n";
             else
                 if (System.Text.RegularExpressions.Regex.IsMatch(domNumeroCliente_textBox.Text, "[^0-9]")) msjError += "El número de domicilio sólo puede contener numeros.\n";
+
             if (domPisoCliente_textBox.Text == string.Empty) msjError += "El campo \"Piso\" no puede estar vacío.\n";
             else
                 if (System.Text.RegularExpressions.Regex.IsMatch(domPisoCliente_textBox.Text, "[^0-9]")) msjError += "El número de piso sólo puede contener numeros.\n";
