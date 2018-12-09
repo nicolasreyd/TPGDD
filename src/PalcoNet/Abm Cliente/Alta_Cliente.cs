@@ -185,12 +185,7 @@ namespace PalcoNet.Abm_Cliente
                         msjError += "La combinacion tipo/numero de documento ya se encuentra registrada\n";
                 }
 
-            //if (cuilCliente_textBox.Text.Length != 11)
-            //{
-            //    msjError += "El numero de CUIL debe tener 11 caracteres\n";
-            //} // Se puede mejorar para que sea exhaustivo
-            //else
-                if (!Utilidades.cuilValido(cuilCliente_textBox.Text)) msjError += "El numero de CUIL es incorrecto\n";
+            if (!Utilidades.cuilValido(cuilCliente_textBox.Text)) msjError += "El numero de CUIL es incorrecto\n";
 
             if ((diaNac_comboBox.Text == string.Empty) ||
                 (mesNac_comboBox.Text == string.Empty) ||

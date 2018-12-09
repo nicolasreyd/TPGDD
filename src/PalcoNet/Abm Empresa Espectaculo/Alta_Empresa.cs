@@ -48,10 +48,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 if (App.db.razonSocialDuplicada(razonSocial_textBox.Text)) msjError += "La razón social ya se encuentra registrada\n";
             }
 
-            if (cuitEmpresa_textBox.Text == string.Empty)
-            {
-                msjError += "El campo \"CUIT\" es obligatorio\n";
-            }
+            if (!Utilidades.cuitValido(cuitEmpresa_textBox.Text)) msjError += "El numero de CUIT es incorrecto\n";
             else
             {
                 if (App.db.cuitRepetido(cuitEmpresa_textBox.Text)) msjError += "El CUIT ya se encuentra registrado\n";

@@ -5,32 +5,33 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Abm_Cliente
+namespace PalcoNet.Abm_Empresa_Espectaculo
 {
     class Utilidades
-    {        
-        public static bool cuilValido(string unCuil)
+    {
+        public static bool cuitValido(string unCuit)
         {
-            string cuil = unCuil.Replace("[^\\d]", "");
+            string cuit = unCuit.Replace("[^\\d]", "");
 
-            switch (cuil.Substring(0,2))
+            switch (cuit.Substring(0,2))
             {
-                case "30":
-                case "33":
-                case "34":
+                case "20":
+                case "23":
+                case "24":
+                case "27":
                     return false;
             }
 
-            MessageBox.Show(cuil.ToString());
+            MessageBox.Show(cuit.ToString());
 
-            if (cuil.Length != 11)
+            if (cuit.Length != 11)
             {
                 return false;
             }
 
             int[] arrayCuil = new int[11];
-            for (int i = 0; i < cuil.Length; i++)
-                arrayCuil[i] = cuil[i] - '0';
+            for (int i = 0; i < cuit.Length; i++)
+                arrayCuil[i] = cuit[i] - '0';
             int[] multiplicadores = { 5, 4, 3, 2, 7, 6, 5, 4, 3, 2 };
             decimal aux = 0;
 
@@ -47,7 +48,5 @@ namespace PalcoNet.Abm_Cliente
             }
 
             return (Convert.ToInt32(arrayCuil[10]) == aux);
-        }
-
     }
 }
