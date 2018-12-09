@@ -188,6 +188,13 @@ namespace PalcoNet.Login
             Abm_Empresa_Espectaculo.ABMEmpresa abmEmpresa = new Abm_Empresa_Espectaculo.ABMEmpresa();
             abmEmpresa.Show();
         }
-	}
+
+        private void ListadoEstadistico_Button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Listado_Estadistico.Listado listado = new Listado_Estadistico.Listado();
+            listado.Show();
+        }
+    }
 }
 

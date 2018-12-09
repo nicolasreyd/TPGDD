@@ -166,7 +166,9 @@ namespace PalcoNet.Generar_Publicacion
             menu.Show();
         }
 
-     
-    
+        private void Grado_comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

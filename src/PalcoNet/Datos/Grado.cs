@@ -8,9 +8,9 @@ namespace PalcoNet.Datos
 {
     public class Grado
     {
-        public string descripcion;
-        public Decimal id;
-        public Decimal comision;
+        public string descripcion { get; set; }
+        public Decimal id { get; set; }
+        public Decimal comision { get; set; }
 
         public Grado(string _descricpcion, Decimal _id, Decimal _comision) {
             this.descripcion = _descricpcion;

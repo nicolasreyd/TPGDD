@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Configuration;
+using PalcoNet.Datos;
 
 namespace PalcoNet
 {
@@ -87,59 +88,60 @@ namespace PalcoNet
             return result;
 
         }
+
         /*
-        public string validar_datos_cliente(string nombre_usuario, string apellido_usuario, string tipo_dni, string numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir, string domicilio_calle, string domicilio_numero, string domicilio_piso, string domicilio_depto, string cod_post, string numero_tarjeta, string vencimiento_tarjeta)
-        {
-            var command = new SqlCommand();
-            this.connection = new SqlConnection(ConnectionString);
-            this.connection.Open();
+public string validar_datos_cliente(string nombre_usuario, string apellido_usuario, string tipo_dni, string numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir, string domicilio_calle, string domicilio_numero, string domicilio_piso, string domicilio_depto, string cod_post, string numero_tarjeta, string vencimiento_tarjeta)
+{
+   var command = new SqlCommand();
+   this.connection = new SqlConnection(ConnectionString);
+   this.connection.Open();
 
 
-            SqlParameter tipodni1 = new SqlParameter("@tipodni", SqlDbType.NVarChar);
-            tipodni1.Value = tipo_dni;
-            SqlCommand Totalf = new SqlCommand("SELECT INNERJOIN.fx_validar_cliente(@tipodni,@nrodni,@cuil,@apellido,@nombre,@fechanac,@email,@telefono,@dom_calle,@dom_numero,@dom_piso,@dom_depto,@codpost,@num_tarjeta,@venc_tarjeta)", connection);
-            
-            SqlParameter nrodni = new SqlParameter("@nrodni", SqlDbType.VarChar);
-            SqlParameter cuil = new SqlParameter("@cuil", SqlDbType.VarChar);
-            SqlParameter apellido = new SqlParameter("@apellido", SqlDbType.VarChar);
-            SqlParameter nombre = new SqlParameter("@nombre", SqlDbType.VarChar);
-            SqlParameter fechanac = new SqlParameter("@fechanac", SqlDbType.VarChar);
-            SqlParameter email = new SqlParameter("@email", SqlDbType.VarChar);
-            SqlParameter telefono = new SqlParameter("@telefono", SqlDbType.VarChar);
-            SqlParameter dom_calle = new SqlParameter("@dom_calle", SqlDbType.VarChar);
-            SqlParameter dom_numero = new SqlParameter("@dom_numero", SqlDbType.VarChar);
-            SqlParameter dom_piso = new SqlParameter("@dom_piso", SqlDbType.VarChar);
-            SqlParameter dom_depto = new SqlParameter("@dom_depto", SqlDbType.VarChar);
-            SqlParameter codpost = new SqlParameter("@codpost", SqlDbType.VarChar);
-            SqlParameter num_tarjeta = new SqlParameter("@num_tarjeta", SqlDbType.VarChar);
-            SqlParameter venc_tarjeta = new SqlParameter("@venc_tarjeta", SqlDbType.VarChar);
+   SqlParameter tipodni1 = new SqlParameter("@tipodni", SqlDbType.NVarChar);
+   tipodni1.Value = tipo_dni;
+   SqlCommand Totalf = new SqlCommand("SELECT INNERJOIN.fx_validar_cliente(@tipodni,@nrodni,@cuil,@apellido,@nombre,@fechanac,@email,@telefono,@dom_calle,@dom_numero,@dom_piso,@dom_depto,@codpost,@num_tarjeta,@venc_tarjeta)", connection);
 
-           // tipodni1.Value = tipo_dni;
-            nrodni.Value = numero_dni;
-            cuil.Value = numero_cuil;
-            apellido.Value = apellido_usuario;
-            nombre.Value = nombre_usuario;
-            fechanac.Value = fecha_nacimiento;
-            email.Value = email_dir;
-            telefono.Value = num_telefono;
-            dom_calle.Value = domicilio_calle;
-            dom_numero.Value = domicilio_numero;
-            dom_piso.Value = domicilio_piso;
-            dom_depto.Value = domicilio_depto;
-            codpost.Value = cod_post;
-            num_tarjeta.Value = numero_tarjeta;
-            venc_tarjeta.Value = vencimiento_tarjeta;
+   SqlParameter nrodni = new SqlParameter("@nrodni", SqlDbType.VarChar);
+   SqlParameter cuil = new SqlParameter("@cuil", SqlDbType.VarChar);
+   SqlParameter apellido = new SqlParameter("@apellido", SqlDbType.VarChar);
+   SqlParameter nombre = new SqlParameter("@nombre", SqlDbType.VarChar);
+   SqlParameter fechanac = new SqlParameter("@fechanac", SqlDbType.VarChar);
+   SqlParameter email = new SqlParameter("@email", SqlDbType.VarChar);
+   SqlParameter telefono = new SqlParameter("@telefono", SqlDbType.VarChar);
+   SqlParameter dom_calle = new SqlParameter("@dom_calle", SqlDbType.VarChar);
+   SqlParameter dom_numero = new SqlParameter("@dom_numero", SqlDbType.VarChar);
+   SqlParameter dom_piso = new SqlParameter("@dom_piso", SqlDbType.VarChar);
+   SqlParameter dom_depto = new SqlParameter("@dom_depto", SqlDbType.VarChar);
+   SqlParameter codpost = new SqlParameter("@codpost", SqlDbType.VarChar);
+   SqlParameter num_tarjeta = new SqlParameter("@num_tarjeta", SqlDbType.VarChar);
+   SqlParameter venc_tarjeta = new SqlParameter("@venc_tarjeta", SqlDbType.VarChar);
 
-            // object result = Totalf.ExecuteScalar();
-            string result = (string) Totalf.ExecuteScalar();
-            
-           // command.CommandTimeout = 0;
-           // command.Connection = connection;
-           // object result = command.ExecuteScalar();
+  // tipodni1.Value = tipo_dni;
+   nrodni.Value = numero_dni;
+   cuil.Value = numero_cuil;
+   apellido.Value = apellido_usuario;
+   nombre.Value = nombre_usuario;
+   fechanac.Value = fecha_nacimiento;
+   email.Value = email_dir;
+   telefono.Value = num_telefono;
+   dom_calle.Value = domicilio_calle;
+   dom_numero.Value = domicilio_numero;
+   dom_piso.Value = domicilio_piso;
+   dom_depto.Value = domicilio_depto;
+   codpost.Value = cod_post;
+   num_tarjeta.Value = numero_tarjeta;
+   venc_tarjeta.Value = vencimiento_tarjeta;
 
-            return result;
+   // object result = Totalf.ExecuteScalar();
+   string result = (string) Totalf.ExecuteScalar();
 
-        }*/
+  // command.CommandTimeout = 0;
+  // command.Connection = connection;
+  // object result = command.ExecuteScalar();
+
+   return result;
+
+}*/
 
         private static SqlParameter[] GetSqlParameters(object parameters)
         {
@@ -215,6 +217,65 @@ namespace PalcoNet
 
             data.Close();
             return funcionalidades;
+        }
+
+        public SqlDataAdapter getLocalidadesNoVendidas(DateTime desde, DateTime hasta,Decimal gradoId)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            List<Datos.LocalidadesNoVendidas> lista = new List<Datos.LocalidadesNoVendidas>();
+            String queryStr = "select TOP 5 count(*) as 'Cantidad de localidades no vendidas',e.empresa_razon_social as 'Empresa Razón Social' from INNERJOIN.publicacion p left join INNERJOIN.ubicacion as u on p.publicacion_id = u.id_publicacion" +
+                " left join INNERJOIN.usuario us on us.usuario_id = p.id_responsable"+
+                " left join INNERJOIN.empresa e on e.usuario_id = us.usuario_id"+
+                " where not exists (select 1 from INNERJOIN.compra_ubicacion cu where cu.id_ubicacion=u.ubicacion_id)" +
+                " and p.publicacion_fecha_evento >= '" + desde + "' and p.publicacion_fecha_evento < '" + hasta + "'"+
+                " group by e.empresa_razon_social, p.id_grado having p.id_grado=" + gradoId +
+                " order by 2 desc";
+
+            SqlCommand query = new SqlCommand(queryStr, connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
+        }
+        public SqlDataAdapter getPuntosVencidos(DateTime desde, DateTime hasta)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            List<Datos.PuntosVencidos> lista = new List<Datos.PuntosVencidos>();
+            String queryStr = "select TOP 5 sum(cp.puntos) as 'Puntos vencidos',c.cliente_numero_dni,c.cliente_nombre,c.cliente_apellido" +
+                " from INNERJOIN.cliente_puntos cp left" +
+                " join INNERJOIN.cliente c on c.cliente_id = cp.cliente_id" +
+                " where cp.fecha_vencimiento < '" + NowDate + "'" +
+                " and cp.fecha_vencimiento >= '" + desde + "' and cp.fecha_vencimiento < '" + hasta + "'" +
+                " group by c.cliente_numero_dni, c.cliente_nombre, c.cliente_apellido" +
+                " order by 4 desc";
+            SqlCommand query = new SqlCommand(queryStr, connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
+        }
+        public SqlDataAdapter getCantidadCompras(DateTime desde, DateTime hasta)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            List<Datos.CantidadCompras> lista = new List<Datos.CantidadCompras>();
+            String queryStr = "select TOP 5 count(*) as 'Cantidad compras realizadas',cl.cliente_numero_dni,cl.cliente_nombre,cl.cliente_apellido,e.empresa_razon_social"+
+                            " from INNERJOIN.compra c"+
+                            " left join INNERJOIN.publicacion p on p.publicacion_id = c.id_publicacion"+
+                            " left join INNERJOIN.usuario eu on eu.usuario_id = p.id_responsable"+
+                            " left join INNERJOIN.usuario cu on cu.usuario_id = c.id_usuario"+
+                            " left join INNERJOIN.cliente cl on cl.usuario_id = cu.usuario_id"+
+                            " left join INNERJOIN.empresa e on e.usuario_id = eu.usuario_id"+
+                           /* " where c.compra_fecha >= '" + desde + "' and c.compra_fecha < '" + hasta + "'" +*/
+                            " group by cl.cliente_numero_dni, cl.cliente_nombre, cl.cliente_apellido, e.empresa_razon_social" +
+                            " order by 1 desc";
+            SqlCommand query = new SqlCommand(queryStr, connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
         }
 
 
@@ -601,7 +662,7 @@ namespace PalcoNet
         public int agregar_nuevo_rol_nuevo_grado(String prioridad_alta, Decimal comision_alta)
         {
 
-            Decimal id_generado = command_insert("insert into INNERJOIN.grado values ('" + prioridad_alta + "', '" + comision_alta + "'); select SCOPE_IDENTITY()");
+            Decimal id_generado = command_insert("insert into INNERJOIN.grado values ('" + prioridad_alta + "', 1, '"+ comision_alta + "'); select SCOPE_IDENTITY()");
             if (id_generado < 0)
             {
                 return -1;
