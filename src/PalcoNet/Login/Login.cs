@@ -131,7 +131,7 @@ namespace PalcoNet.Login
                     if (!clave_expirada)
                     {
                         MessageBox.Show("Debe cambiar su contraseña");
-                        App.db.expirarClave(id_leido);
+                        App.db.command_update("update INNERJOIN.usuario set usuario_clave_expirada = 1 where usuario_id = " + id_leido);
                         this.Hide();
                         Reset_Password resetPass = new Reset_Password(id_leido);
                         resetPass.Show();

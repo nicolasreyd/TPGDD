@@ -1210,10 +1210,5 @@ namespace PalcoNet
         {
             command_update("update INNERJOIN.usuario set usuario_logins_fallidos = 0 where usuario_id = " + id_leido);
         }
-
-        internal void expirarClave(decimal id_leido)
-        {
-            command_update("update INNERJOIN.usuario set usuario_clave_expirada = 1 where usuario_id = " + id_leido);
-        }
     }
 }
