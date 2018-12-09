@@ -274,9 +274,7 @@
     <Compile Include="Login\MenuPrincipal.Designer.cs">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Login\Reset_Password.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Login\Reset_Password.cs" />
     <Compile Include="Login\Reset_Password.Designer.cs">
       <DependentUpon>Reset_Password.cs</DependentUpon>
     </Compile>
