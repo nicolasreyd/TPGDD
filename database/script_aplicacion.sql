@@ -114,7 +114,7 @@ as
 
 
 
-create procedure [INNERJOIN].[sp_generar_comision] @cantidad_compras int,@id_empresa numeric(10,0)
+create procedure [INNERJOIN].[sp_generar_comision] @cantidad_compras int,@id_empresa numeric(10,0), @fecha datetime
 as begin
 
 declare @id_compra numeric(10,0)
@@ -137,7 +137,7 @@ open c_cursor1 fetch next from c_cursor1 into @id_compra, @porcentaje_comision
 while(@@FETCH_STATUS = 0)
 begin
 
-insert into INNERJOIN.factura values(@id_empresa, GETDATE())
+insert into INNERJOIN.factura values(@id_empresa, @fecha)
 set @id_factura = SCOPE_IDENTITY()
 
 
