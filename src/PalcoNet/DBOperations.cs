@@ -1292,5 +1292,19 @@ namespace PalcoNet
         {
             command_update("update INNERJOIN.usuario set usuario_logins_fallidos = 0 where usuario_id = " + id_leido);
         }
+
+        internal bool usernameDuplicado(string username)
+        {
+            string query = "select count(*) cantidad from INNERJOIN.usuario where usuario_username = \'" + username + "\'";
+            SqlDataReader data = command_reader(query);
+            int cantidad = 0;
+            if (data.Read())
+            {
+                cantidad = data.GetInt32(0);
+            }
+
+            if (data.GetInt32(0) == 0) return false;
+            else return true;
+        }
     }
 }

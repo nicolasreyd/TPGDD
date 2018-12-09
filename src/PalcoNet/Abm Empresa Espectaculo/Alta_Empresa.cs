@@ -105,43 +105,34 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             }
 
             App.db.agregar_nueva_empresa(username,password,razonSocial_textBox.Text,cuitEmpresa_textBox.Text,domCalleEmpresa_textBox.Text,domNumeroEmpresa_textBox.Text,domPisoEmpresa_textBox.Text,domDeptoEmpresa_textBox.Text,ciudadEmpresa_textBox.Text,codPostEmpresa_textBox.Text,telefonoEmpresa_textBox.Text,emailEmpresa_textBox.Text);
+            
+            if (!string.IsNullOrEmpty(username))
+            {
+                this.Hide();
+                Login.Login login = new Login.Login();
+                login.Show();
+                return;
+            }
 
+            this.Hide();
+            ABMEmpresa abmEmpresa = new ABMEmpresa();
+            abmEmpresa.Show();
         }
 
         private void cuitEmpresa_textBox_TextChanged(object sender, EventArgs e)
         {
-            //if (System.Text.RegularExpressions.Regex.IsMatch(cuitEmpresa_textBox.Text, "[^0-9]"))
-            //{
-            //    MessageBox.Show("El número de CUIL sólo puede contener numeros.");
-            //    cuitEmpresa_textBox.Text = cuitEmpresa_textBox.Text.Remove(cuitEmpresa_textBox.Text.Length - 1);
-            //}
         }
 
         private void telefonoEmpresa_textBox_TextChanged(object sender, EventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(telefonoEmpresa_textBox.Text, "[^0-9]"))
-            {
-                MessageBox.Show("El número de teléfono sólo puede contener números.");
-                telefonoEmpresa_textBox.Text = telefonoEmpresa_textBox.Text.Remove(telefonoEmpresa_textBox.Text.Length - 1);
-            }
         }
 
         private void domPisoEmpresa_textBox_TextChanged(object sender, EventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(domPisoEmpresa_textBox.Text, "[^0-9]"))
-            {
-                MessageBox.Show("El piso sólo puede contener números.");
-                domPisoEmpresa_textBox.Text = domPisoEmpresa_textBox.Text.Remove(domPisoEmpresa_textBox.Text.Length - 1);
-            }
         }
 
         private void domNumeroEmpresa_textBox_TextChanged(object sender, EventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(domNumeroEmpresa_textBox.Text, "[^0-9]"))
-            {
-                MessageBox.Show("El número de calle sólo puede contener números.");
-                domNumeroEmpresa_textBox.Text = domNumeroEmpresa_textBox.Text.Remove(domNumeroEmpresa_textBox.Text.Length - 1);
-            }
         }
 
         private void Alta_Empresa_Load(object sender, EventArgs e)

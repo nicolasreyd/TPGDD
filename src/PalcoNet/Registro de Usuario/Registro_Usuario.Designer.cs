@@ -36,6 +36,8 @@
             this.username_label = new System.Windows.Forms.Label();
             this.pass_label = new System.Windows.Forms.Label();
             this.rol_label = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.repetirPassword_textBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // username_textBox
@@ -47,7 +49,7 @@
             // 
             // password_textBox
             // 
-            this.password_textBox.Location = new System.Drawing.Point(145, 122);
+            this.password_textBox.Location = new System.Drawing.Point(145, 107);
             this.password_textBox.Name = "password_textBox";
             this.password_textBox.PasswordChar = '*';
             this.password_textBox.Size = new System.Drawing.Size(100, 20);
@@ -96,7 +98,7 @@
             // pass_label
             // 
             this.pass_label.AutoSize = true;
-            this.pass_label.Location = new System.Drawing.Point(78, 129);
+            this.pass_label.Location = new System.Drawing.Point(78, 114);
             this.pass_label.Name = "pass_label";
             this.pass_label.Size = new System.Drawing.Size(61, 13);
             this.pass_label.TabIndex = 6;
@@ -111,11 +113,30 @@
             this.rol_label.TabIndex = 7;
             this.rol_label.Text = "Rol";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(42, 140);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(97, 13);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Repetir contraseña";
+            // 
+            // repetirPassword_textBox
+            // 
+            this.repetirPassword_textBox.Location = new System.Drawing.Point(145, 133);
+            this.repetirPassword_textBox.Name = "repetirPassword_textBox";
+            this.repetirPassword_textBox.PasswordChar = '*';
+            this.repetirPassword_textBox.Size = new System.Drawing.Size(100, 20);
+            this.repetirPassword_textBox.TabIndex = 8;
+            // 
             // Registro_Usuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.repetirPassword_textBox);
             this.Controls.Add(this.rol_label);
             this.Controls.Add(this.pass_label);
             this.Controls.Add(this.username_label);
@@ -126,6 +147,7 @@
             this.Controls.Add(this.username_textBox);
             this.Name = "Registro_Usuario";
             this.Text = "Registro de nuevo usuario";
+            this.Load += new System.EventHandler(this.Registro_Usuario_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -141,5 +163,7 @@
         private System.Windows.Forms.Label username_label;
         private System.Windows.Forms.Label pass_label;
         private System.Windows.Forms.Label rol_label;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox repetirPassword_textBox;
     }
 }

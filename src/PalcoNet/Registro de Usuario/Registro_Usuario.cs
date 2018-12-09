@@ -23,6 +23,9 @@ namespace PalcoNet.Registro_de_Usuario
         {
             string msjError = "";
 
+            if (App.db.usernameDuplicado(username_textBox.Text)) msjError += "El nombre de usuario ya está registrado.\n";
+            if (password_textBox.Text.Length < 8) msjError += "La contraseña debe tener al menos 8 caracteres.\n";
+            if (password_textBox.Text != repetirPassword_textBox.Text) msjError += "Las contraseñas no coinciden.\n";
             if (!System.Text.RegularExpressions.Regex.IsMatch(username_textBox.Text, "[a-zA-Z0-9]+")) msjError += "El nombre de usuario sólo puede contener números y letras.\n";
             if (!System.Text.RegularExpressions.Regex.IsMatch(password_textBox.Text, "[a-zA-Z0-9]+")) msjError += "La contraseña sólo puede contener números y letras.\n";
             if (rol_comboBox.Text == string.Empty) msjError += "Debe elegir un rol para el usuario.\n";
@@ -30,6 +33,7 @@ namespace PalcoNet.Registro_de_Usuario
             if (msjError != string.Empty)
             {
                 MessageBox.Show(msjError);
+                return;
             }
 
             switch (rol_comboBox.Text)
@@ -58,6 +62,11 @@ namespace PalcoNet.Registro_de_Usuario
             this.Hide();
             Login.Login login = new Login.Login();
             login.Show();
+        }
+
+        private void Registro_Usuario_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

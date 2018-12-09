@@ -78,22 +78,24 @@ as
 
 
 
-create procedure [INNERJOIN].[sp_alta_cliente] @username nvarchar(16),@password nvarchar(16),@tipodni nvarchar(4),@nrodni nvarchar(255),@cuil nvarchar(255),@apellido nvarchar(255),@nombre nvarchar(255),@fechanac nvarchar(255),@email nvarchar(255),@telefono nvarchar(20),@dom_calle nvarchar(255),@dom_numero nvarchar(255),@dom_piso nvarchar(255),@dom_depto nvarchar(255),@codpost nvarchar(255),@num_tarjeta nvarchar(255),@venc_tarjeta nvarchar(255),@credenciales nvarchar(255) output
+create procedure [INNERJOIN].[sp_alta_cliente] @username nvarchar(16),@password varchar(64),@tipodni nvarchar(4),@nrodni nvarchar(255),@cuil nvarchar(255),@apellido nvarchar(255),@nombre nvarchar(255),@fechanac nvarchar(255),@email nvarchar(255),@telefono nvarchar(20),@dom_calle nvarchar(255),@dom_numero nvarchar(255),@dom_piso nvarchar(255),@dom_depto nvarchar(255),@codpost nvarchar(255),@num_tarjeta nvarchar(255),@venc_tarjeta nvarchar(255),@credenciales nvarchar(255) output
 as
 
 	begin tran
 
 	declare @id_usuario numeric
 	declare @id_cliente numeric
+	declare @debe_cambiar_password bit = 0;
 
 	if ((@username = '') and (@password = ''))
 	begin
 		exec INNERJOIN.sp_generar_random_username @username output
 		exec INNERJOIN.sp_generar_random_password @password output
+		set @debe_cambiar_password = 1
 	end
 	
-	insert into INNERJOIN.usuario (usuario_username,usuario_password,usuario_tipo,usuario_baja_logica)
-		values (@username,LOWER(CONVERT(VARCHAR(16), HASHBYTES('SHA2_256',@password), 2)),'cliente',0)
+	insert into INNERJOIN.usuario (usuario_username,usuario_password,usuario_tipo,usuario_baja_logica,usuario_debe_cambiar_clave)
+		values (@username,LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256',@password), 2)),'cliente',0,@debe_cambiar_password)
 		
 	select @id_usuario=usuario_id from INNERJOIN.usuario where usuario_username=@username
 		
@@ -197,22 +199,24 @@ as
 
 
 
-create procedure [INNERJOIN].[sp_alta_empresa] @username nvarchar(16) output,@password nvarchar(16) output,@razonSocial nvarchar(255),@cuit nvarchar(255),@domCalle nvarchar(255),@domNro nvarchar(255),@domPiso nvarchar(255),@domDepto nvarchar(255),@ciudad nvarchar(255),@codpost nvarchar(255),@telefono nvarchar(255),@email nvarchar(255),@credenciales nvarchar(255) output
+create procedure [INNERJOIN].[sp_alta_empresa] @username nvarchar(16) output,@password varchar(64) output,@razonSocial nvarchar(255),@cuit nvarchar(255),@domCalle nvarchar(255),@domNro nvarchar(255),@domPiso nvarchar(255),@domDepto nvarchar(255),@ciudad nvarchar(255),@codpost nvarchar(255),@telefono nvarchar(255),@email nvarchar(255),@credenciales nvarchar(255) output
 as
 
 	begin tran
 
 	declare @id_usuario numeric
 	declare @id_empresa numeric
+	declare @debe_cambiar_password bit = 0;
 
 	if ((@username = '') and (@password = ''))
 	begin
 		exec INNERJOIN.sp_generar_random_username @username output
 		exec INNERJOIN.sp_generar_random_password @password output
+		set @debe_cambiar_password = 1
 	end
 	
-	insert into INNERJOIN.usuario (usuario_username,usuario_password,usuario_tipo,usuario_baja_logica)
-		values (@username,LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256',@password), 2)),'empresa',0)
+	insert into INNERJOIN.usuario (usuario_username,usuario_password,usuario_tipo,usuario_baja_logica,usuario_debe_cambiar_clave)
+		values (@username,LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256',@password), 2)),'empresa',0,@debe_cambiar_password)
 		
 	select @id_usuario=usuario_id from INNERJOIN.usuario where usuario_username=@username
 		

@@ -112,6 +112,13 @@ namespace PalcoNet.Login
                 return;
             }
 
+
+            if (intentos_fallidos_login >= 3)
+            {
+                MessageBox.Show("El usuario fue bloqueado debido a demasiados intentos fallidos. Contacte al administrador.");
+                return;
+            }
+
             if (!user_exists(usuario_leido))
             { 
                 MessageBox.Show("Usuario incorrecto, vuelva a intentar.");
@@ -120,12 +127,6 @@ namespace PalcoNet.Login
 
             if (password_match(password_leida))
             {
-                if (intentos_fallidos_login >= 3)
-                {
-                    MessageBox.Show("El usuario fue bloqueado debido a demasiados intentos fallidos. Contacte al administrador.");
-                    return;
-                }
-
                 if (debe_cambiar_clave)
                 {
                     if (!clave_expirada)

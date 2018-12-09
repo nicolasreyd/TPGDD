@@ -244,6 +244,15 @@ namespace PalcoNet.Abm_Cliente
             this.vencimiento_tarjeta = "01/"+this.mes_tarjeta+"/"+this.anio_tarjeta;
                         
             App.db.agregar_nuevo_cliente(username,password,nombre_usuario, apellido_usuario, tipo_dni, numero_dni, cuil, fecha_nacimiento, telefono, email, domicilio_calle, domicilio_numero, domicilio_piso, domicilio_depto, cod_post, numero_tarjeta, vencimiento_tarjeta);//,rol);
+
+            if (!string.IsNullOrEmpty(username))
+            {
+                this.Hide();
+                Login.Login login = new Login.Login();
+                login.Show();
+                return;
+            }
+
             this.Hide();
             ABMCliente abmCliente = new ABMCliente();
             abmCliente.Show();
