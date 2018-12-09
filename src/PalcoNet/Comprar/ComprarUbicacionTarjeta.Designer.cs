@@ -33,6 +33,7 @@
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tarjetas_checkedListBox = new System.Windows.Forms.CheckedListBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,7 +73,6 @@
             this.tarjetas_checkedListBox.Name = "tarjetas_checkedListBox";
             this.tarjetas_checkedListBox.Size = new System.Drawing.Size(270, 94);
             this.tarjetas_checkedListBox.TabIndex = 0;
-            this.tarjetas_checkedListBox.ItemCheck += this.checkedListBox1_ItemCheck;
             this.tarjetas_checkedListBox.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
             // 
             // label1
@@ -85,11 +85,23 @@
             this.label1.Text = "Tarjeta";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(12, 456);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(36, 13);
+            this.linkLabel1.TabIndex = 3;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "volver";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
             // ComprarUbicacionTarjeta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(921, 478);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tarjetas_checkedListBox);
             this.Controls.Add(this.dataGridView1);
@@ -110,5 +122,6 @@
         private System.Windows.Forms.CheckedListBox tarjetas_checkedListBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }

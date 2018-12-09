@@ -171,12 +171,19 @@ namespace PalcoNet
             connection = new SqlConnection(ConnectionString);
             List<Datos.LocalidadesNoVendidas> lista = new List<Datos.LocalidadesNoVendidas>();
             String queryStr = "select TOP 5 count(*) as 'Cantidad de localidades no vendidas',e.empresa_razon_social as 'Empresa Razón Social' from INNERJOIN.publicacion p left join INNERJOIN.ubicacion as u on p.publicacion_id = u.id_publicacion" +
-                " left join INNERJOIN.usuario us on us.usuario_id = p.id_responsable"+
-                " left join INNERJOIN.empresa e on e.usuario_id = us.usuario_id"+
+                " left join INNERJOIN.usuario us on us.usuario_id = p.id_responsable" +
+                " left join INNERJOIN.empresa e on e.usuario_id = us.usuario_id" +
                 " where not exists (select 1 from INNERJOIN.compra_ubicacion cu where cu.id_ubicacion=u.ubicacion_id)" +
-                " and p.publicacion_fecha_evento >= '" + desde + "' and p.publicacion_fecha_evento < '" + hasta + "'"+
-                " group by e.empresa_razon_social, p.id_grado having p.id_grado=" + gradoId +
-                " order by 2 desc";
+                " and p.publicacion_fecha_evento >= '" + desde + "' and p.publicacion_fecha_evento < '" + hasta + "'";
+            if (gradoId>0)
+            {
+                queryStr += " group by e.empresa_razon_social, p.id_grado having p.id_grado=" + gradoId;
+            }
+            else
+            {
+                queryStr += " group by e.empresa_razon_social";
+            }
+            queryStr += " order by 2 desc";
 
             SqlCommand query = new SqlCommand(queryStr, connection);
 
@@ -214,7 +221,7 @@ namespace PalcoNet
                             " left join INNERJOIN.usuario cu on cu.usuario_id = c.id_usuario"+
                             " left join INNERJOIN.cliente cl on cl.usuario_id = cu.usuario_id"+
                             " left join INNERJOIN.empresa e on e.usuario_id = eu.usuario_id"+
-                           /* " where c.compra_fecha >= '" + desde + "' and c.compra_fecha < '" + hasta + "'" +*/
+                            " where c.compra_fecha >= '" + desde + "' and c.compra_fecha < '" + hasta + "'" +
                             " group by cl.cliente_numero_dni, cl.cliente_nombre, cl.cliente_apellido, e.empresa_razon_social" +
                             " order by 1 desc";
             SqlCommand query = new SqlCommand(queryStr, connection);
@@ -436,7 +443,7 @@ namespace PalcoNet
             SqlCommand sqlcommand = new SqlCommand();
             connection = new SqlConnection(ConnectionString);
 
-            String queryStr = "select top 10 * from INNERJOIN.publicacion p left join INNERJOIN.grado g on g.grado_id =p.id_grado" +
+            String queryStr = "select * from INNERJOIN.publicacion p left join INNERJOIN.grado g on g.grado_id =p.id_grado" +
                 " where publicacion_estado='Publicada'";
             queryStr += " and publicacion_fecha_publicacion > " + "'"+NowDate+"'";
             queryStr += " and publicacion_fecha_evento < " + "'" + NowDate + "'";

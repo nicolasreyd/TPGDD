@@ -14,6 +14,12 @@ namespace PalcoNet.Comprar
 {
     public partial class Comprar : Form
     {
+        private decimal cliente;
+        private DataTable todos_los_datos;
+        private decimal total = 0;
+        private decimal pagina = 0;
+        private decimal maximo_paginas = 0;
+        private int items_por_pagina = 10;
         List<Datos.Categoria> categorias_seleccionadas = new List<Datos.Categoria>();
         String descripcion;
         Herramientas.Funcionalidades_Pantallas categorias;
@@ -121,9 +127,44 @@ namespace PalcoNet.Comprar
             DataTable tabla = new DataTable();
             data.Fill(tabla);
 
-            this.dataGridView1.DataSource = tabla;
+            this.todos_los_datos = tabla;
+            this.total = this.todos_los_datos.Rows.Count;
+            this.maximo_paginas = Math.Ceiling(this.total / this.items_por_pagina);
+            lbl_totalPaginas.Text = this.maximo_paginas.ToString();
+            this.dataGridView1.DataSource = Split(tabla);
+            HabilitarBotones();
+
+            //this.dataGridView1.DataSource = tabla;
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        }
+
+        private DataTable Split(DataTable tablaCompras)
+        {
+            lbl_Pagina.Text = (this.pagina + 1).ToString();
+            HabilitarBotones();
+            return tablaCompras.Select().Skip(Convert.ToInt32(this.items_por_pagina * this.pagina)).Take(this.items_por_pagina).CopyToDataTable();
+        }
+
+        private void HabilitarBotones()
+        {
+            if (this.pagina == 0)
+            {
+                btn_Previo.Enabled = false;
+            }
+            else
+            {
+                btn_Previo.Enabled = true;
+            }
+
+            if (this.pagina == (this.maximo_paginas - 1))
+            {
+                btn_Sig.Enabled = false;
+            }
+            else
+            {
+                btn_Sig.Enabled = true;
+            }
         }
 
         private void bindingNavigatorMoveFirstItem_Click(object sender, EventArgs e)
@@ -139,6 +180,30 @@ namespace PalcoNet.Comprar
         private void bindingNavigatorPositionItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.pagina = this.pagina + 1;
+            dataGridView1.DataSource = Split(this.todos_los_datos);
+        }
+
+        private void atras_button_Click(object sender, EventArgs e)
+        {
+            this.pagina = this.pagina - 1;
+            dataGridView1.DataSource = Split(this.todos_los_datos);
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            Login.MenuPrincipal menu = new Login.MenuPrincipal();
+            menu.Show();
         }
     }
 }
