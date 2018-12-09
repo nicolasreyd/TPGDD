@@ -13,7 +13,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         {
             string cuit = unCuit.Replace("[^\\d]", "");
 
-            switch (cuit.Substring(0,2))
+            switch (cuit.Substring(0, 2))
             {
                 case "20":
                 case "23":
@@ -48,5 +48,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             }
 
             return (Convert.ToInt32(arrayCuil[10]) == aux);
+
+        }
     }
 }

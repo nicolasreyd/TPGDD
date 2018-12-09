@@ -118,6 +118,7 @@
     <Compile Include="Abm Empresa Espectaculo\Modificacion_Empresa.Designer.cs">
       <DependentUpon>Modificacion_Empresa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Empresa Espectaculo\Utilidades.cs" />
     <Compile Include="Abm Grado\ABMGrado.cs">
       <SubType>Form</SubType>
     </Compile>
