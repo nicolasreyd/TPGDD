@@ -265,31 +265,6 @@ as
 
 
 
-create procedure INNERJOIN.sp_generar_random_username @username nvarchar(16) output
-as
-begin
-	
-	SELECT @username = replace((left(CONVERT(nvarchar(255), NEWID()),16)),'-','');
-
-	while ((select count(*) from INNERJOIN.usuario where usuario_username = @username) <> 0)
-		SELECT @username = replace((left(CONVERT(nvarchar(255), NEWID()),16)),'-','');
-	
-end
-
-
-
-
-
-create procedure INNERJOIN.sp_generar_random_password @password nvarchar(16) output
-as
-begin
-	
-	SELECT @password = replace((left(CONVERT(nvarchar(255), NEWID()),16)),'-','');
-	
-end
-
-
-
 create procedure [INNERJOIN].[sp_sumar_login_fallido] @idUsuario numeric(18,0)
 as
 begin
