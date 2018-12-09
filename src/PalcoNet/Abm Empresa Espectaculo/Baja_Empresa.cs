@@ -64,7 +64,6 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             idAEliminar = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[1].FormattedValue.ToString());
-            //MessageBox.Show("El valor seleccionado es : " + idAEliminar);
             App.db.bajaEmpresa(idAEliminar);
         }
 

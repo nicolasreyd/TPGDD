@@ -41,24 +41,6 @@ namespace PalcoNet.Abm_Cliente
 
             if (resultado.Read())
             {
-                /*
-                apellidoCliente_textBox.Text = resultado.GetString(0);
-                nombreCliente_textBox.Text = resultado.GetString(1);
-                tipoDNI_comboBox.Text = resultado.GetString(2);
-                nroDNI_textBox.Text = resultado.GetDecimal(3).ToString();
-                cuilCliente_textBox.Text = resultado.GetString(4);
-                diaNac_comboBox.Text = resultado.GetString(5).Substring(6,2);
-                mesNac_comboBox.Text = resultado.GetString(5).Substring(4, 2);
-                anioNac_comboBox.Text = resultado.GetString(5).Substring(0, 4);
-                domCalleCliente_textBox.Text = resultado.GetString(6);
-                domNumeroCliente_textBox.Text = resultado.GetDecimal(7).ToString();
-                domPisoCliente_textBox.Text = resultado.GetDecimal(8).ToString();
-                domDeptoCliente_textBox.Text = resultado.GetString(9);
-                codPostCliente_textBox.Text = resultado.GetString(10);
-                telefonoCliente_textBox.Text = resultado.GetString(11);
-                emailCliente_textBox.Text = resultado.GetString(12);
-                */
-
                 apellidoCliente_textBox.Text = resultado.GetString(0);
                 this.apellido = apellidoCliente_textBox.Text;
                 nombreCliente_textBox.Text = resultado.GetString(1);
@@ -89,6 +71,7 @@ namespace PalcoNet.Abm_Cliente
                 this.telefono = telefonoCliente_textBox.Text;
                 emailCliente_textBox.Text = resultado.GetString(12);
                 this.email = emailCliente_textBox.Text;
+                habilitado_checkBox.Checked = (bool)!resultado.GetSqlBoolean(13);
 
                 this.fecha_nacimiento = diaNac_comboBox.Text + "/" + mesNac_comboBox.Text + "/" + anioNac_comboBox.Text;
 
@@ -262,12 +245,12 @@ namespace PalcoNet.Abm_Cliente
             if (apellidoCliente_textBox.Text != this.apellido) camposAModificar.Add("cliente_apellido = '" + apellidoCliente_textBox.Text + "'");
             if (nombreCliente_textBox.Text != this.nombre) camposAModificar.Add("cliente_nombre = '" + nombreCliente_textBox.Text + "'");
             if (tipoDNI_comboBox.Text != this.tipoDni) camposAModificar.Add("cliente_tipo_dni = '" + tipoDNI_comboBox.Text + "'");
-            if (nroDNI_textBox.Text != this.nroDni) camposAModificar.Add("cliente_numero_dni = " + nroDNI_textBox.Text); //REVISAR TIPO DE DATOS EN LA TABLA
+            if (nroDNI_textBox.Text != this.nroDni) camposAModificar.Add("cliente_numero_dni = " + nroDNI_textBox.Text);
             if (cuilCliente_textBox.Text != this.cuil) camposAModificar.Add("cliente_cuil = '" + cuilCliente_textBox.Text + "'");
             if (diaNac_comboBox.Text + "/" + mesNac_comboBox.Text + "/" + anioNac_comboBox.Text != this.fecha_nacimiento)
             {
                 this.fecha_nacimiento = diaNac_comboBox.Text + "/" + mesNac_comboBox.Text + "/" + anioNac_comboBox.Text;
-                camposAModificar.Add("cliente_fecha_nacimiento = '" + this.fecha_nacimiento + "'"); //REVISAR EL TEMA DEL CONVERT
+                camposAModificar.Add("cliente_fecha_nacimiento = '" + this.fecha_nacimiento + "'");
             }
             if (domCalleCliente_textBox.Text != this.domCalle) camposAModificar.Add("cliente_domicilio_calle = '" + domCalleCliente_textBox.Text + "'");
             if (domNumeroCliente_textBox.Text != this.domNro) camposAModificar.Add("cliente_domicilio_numero = " + domNumeroCliente_textBox.Text);
@@ -276,10 +259,6 @@ namespace PalcoNet.Abm_Cliente
             if (codPostCliente_textBox.Text != this.codPost) camposAModificar.Add("cliente_codigo_postal = '" + codPostCliente_textBox.Text + "'");
             if (telefonoCliente_textBox.Text != this.telefono) camposAModificar.Add("cliente_telefono = '" + telefonoCliente_textBox.Text + "'");
             if (emailCliente_textBox.Text != this.email) camposAModificar.Add("cliente_email = '" + emailCliente_textBox.Text + "'");
-
-            //this.fecha_nacimiento = diaNac_comboBox.Text+"/"+mesNac_comboBox.Text+"/"+anioNac_comboBox.Text;
-
-            //int resultado = App.db.updateCliente(idCliente, apellidoCliente_textBox.Text, nombreCliente_textBox.Text, tipoDNI_comboBox.Text, nroDNI_textBox.Text, cuilCliente_textBox.Text, this.fecha_nacimiento, domCalleCliente_textBox.Text, domNumeroCliente_textBox.Text, domPisoCliente_textBox.Text, domDeptoCliente_textBox.Text, codPostCliente_textBox.Text, telefonoCliente_textBox.Text, emailCliente_textBox.Text);
 
             if (!camposAModificar.Any())
             {
@@ -303,11 +282,6 @@ namespace PalcoNet.Abm_Cliente
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("El id de cliente ingresado es : "+idCliente);
-        }
-
         private void popular_formularios(int altoValor)
         {
             SqlDataReader resultado = App.db.getDatosCliente(idCliente);
@@ -327,6 +301,7 @@ namespace PalcoNet.Abm_Cliente
 
         private void Modificacion_Cliente_Load(object sender, EventArgs e)
         {
+            this.habilitarCliente_button.Enabled = !this.habilitado_checkBox.Checked;
             habilitado_checkBox.AutoCheck = false;
         }
 

@@ -12,9 +12,15 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 {
     public partial class Alta_Empresa : Form
     {
-        public Alta_Empresa()
+
+        private string username = "";
+        private string password = "";
+
+        public Alta_Empresa(string v_username, string v_password)
         {
             InitializeComponent();
+            username += v_username;
+            password += v_password;
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -42,10 +48,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 if (App.db.razonSocialDuplicada(razonSocial_textBox.Text)) msjError += "La razón social ya se encuentra registrada\n";
             }
 
-            if (cuitEmpresa_textBox.Text == string.Empty)
-            {
-                msjError += "El campo \"CUIT\" es obligatorio\n";
-            }
+            if (!Utilidades.cuitValido(cuitEmpresa_textBox.Text)) msjError += "El numero de CUIT es incorrecto\n";
             else
             {
                 if (App.db.cuitRepetido(cuitEmpresa_textBox.Text)) msjError += "El CUIT ya se encuentra registrado\n";
@@ -97,9 +100,8 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 return;
             }
 
-            Object resultado = App.db.agregar_nueva_empresa(razonSocial_textBox.Text,cuitEmpresa_textBox.Text,domCalleEmpresa_textBox.Text,domNumeroEmpresa_textBox.Text,domPisoEmpresa_textBox.Text,domDeptoEmpresa_textBox.Text,ciudadEmpresa_textBox.Text,codPostEmpresa_textBox.Text,telefonoEmpresa_textBox.Text,emailEmpresa_textBox.Text);
+            App.db.agregar_nueva_empresa(username,password,razonSocial_textBox.Text,cuitEmpresa_textBox.Text,domCalleEmpresa_textBox.Text,domNumeroEmpresa_textBox.Text,domPisoEmpresa_textBox.Text,domDeptoEmpresa_textBox.Text,ciudadEmpresa_textBox.Text,codPostEmpresa_textBox.Text,telefonoEmpresa_textBox.Text,emailEmpresa_textBox.Text);
 
-            if (resultado == null) MessageBox.Show("Alta de empresa correcta");
         }
 
         private void cuitEmpresa_textBox_TextChanged(object sender, EventArgs e)
@@ -136,6 +138,11 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 MessageBox.Show("El número de calle sólo puede contener números.");
                 domNumeroEmpresa_textBox.Text = domNumeroEmpresa_textBox.Text.Remove(domNumeroEmpresa_textBox.Text.Length - 1);
             }
+        }
+
+        private void Alta_Empresa_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

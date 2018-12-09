@@ -178,8 +178,8 @@ namespace PalcoNet.Login
         private void HistorialCli_Button_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Historial_Cliente.HistorialCliente edit = new Historial_Cliente.HistorialCliente();
-            edit.Show();
+            Historial_Cliente.HistorialCliente historial = new Historial_Cliente.HistorialCliente();
+            historial.Show();
         }
 
         private void ABMEmpresaEspec_Button_Click(object sender, EventArgs e)
@@ -195,6 +195,18 @@ namespace PalcoNet.Login
             Listado_Estadistico.Listado listado = new Listado_Estadistico.Listado();
             listado.Show();
         }
-    }
+
+        private void MenuPrincipal_Load_1(object sender, EventArgs e)
+        {
+
+        }
+    
+        private void AdminPuntos_Button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Canje_Puntos.CanjePuntos canje = new Canje_Puntos.CanjePuntos();
+            canje.Show();
+        }
+	}
 }
 

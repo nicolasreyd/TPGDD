@@ -709,6 +709,7 @@
             this.Controls.Add(this.nombreCliente_textBox);
             this.Name = "Alta_Cliente";
             this.Text = "Alta de Cliente";
+            this.Load += new System.EventHandler(this.Alta_Cliente_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

@@ -118,6 +118,7 @@
     <Compile Include="Abm Empresa Espectaculo\Modificacion_Empresa.Designer.cs">
       <DependentUpon>Modificacion_Empresa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Empresa Espectaculo\Utilidades.cs" />
     <Compile Include="Abm Grado\ABMGrado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -191,11 +192,11 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="AdminApp.cs" />
-    <Compile Include="Canje Puntos\Form1.cs">
+    <Compile Include="Canje Puntos\CanjePuntos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Canje Puntos\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Canje Puntos\CanjePuntos.Designer.cs">
+      <DependentUpon>CanjePuntos.cs</DependentUpon>
     </Compile>
     <Compile Include="Comprar\Comprar.cs">
       <SubType>Form</SubType>
@@ -273,6 +274,12 @@
     <Compile Include="Login\MenuPrincipal.Designer.cs">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Login\Reset_Password.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\Reset_Password.Designer.cs">
+      <DependentUpon>Reset_Password.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login\SeleccionRol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -324,6 +331,12 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="DBOperations.cs" />
+    <Compile Include="Registro de Usuario\Registro_Usuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro de Usuario\Registro_Usuario.Designer.cs">
+      <DependentUpon>Registro_Usuario.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Abm Cliente\ABMCliente.resx">
       <DependentUpon>ABMCliente.cs</DependentUpon>
     </EmbeddedResource>
@@ -393,6 +406,9 @@
     <EmbeddedResource Include="Abm Rol\Funcionalidad_Modif.resx">
       <DependentUpon>Funcionalidad_Modif.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Canje Puntos\CanjePuntos.resx">
+      <DependentUpon>CanjePuntos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Comprar\Comprar.resx">
       <DependentUpon>Comprar.cs</DependentUpon>
     </EmbeddedResource>
@@ -432,6 +448,9 @@
     <EmbeddedResource Include="Login\MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Login\Reset_Password.resx">
+      <DependentUpon>Reset_Password.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login\SeleccionRol.resx">
       <DependentUpon>SeleccionRol.cs</DependentUpon>
     </EmbeddedResource>
@@ -450,6 +469,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Registro de Usuario\Registro_Usuario.resx">
+      <DependentUpon>Registro_Usuario.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

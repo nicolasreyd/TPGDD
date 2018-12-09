@@ -89,60 +89,6 @@ namespace PalcoNet
 
         }
 
-        /*
-public string validar_datos_cliente(string nombre_usuario, string apellido_usuario, string tipo_dni, string numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir, string domicilio_calle, string domicilio_numero, string domicilio_piso, string domicilio_depto, string cod_post, string numero_tarjeta, string vencimiento_tarjeta)
-{
-   var command = new SqlCommand();
-   this.connection = new SqlConnection(ConnectionString);
-   this.connection.Open();
-
-
-   SqlParameter tipodni1 = new SqlParameter("@tipodni", SqlDbType.NVarChar);
-   tipodni1.Value = tipo_dni;
-   SqlCommand Totalf = new SqlCommand("SELECT INNERJOIN.fx_validar_cliente(@tipodni,@nrodni,@cuil,@apellido,@nombre,@fechanac,@email,@telefono,@dom_calle,@dom_numero,@dom_piso,@dom_depto,@codpost,@num_tarjeta,@venc_tarjeta)", connection);
-
-   SqlParameter nrodni = new SqlParameter("@nrodni", SqlDbType.VarChar);
-   SqlParameter cuil = new SqlParameter("@cuil", SqlDbType.VarChar);
-   SqlParameter apellido = new SqlParameter("@apellido", SqlDbType.VarChar);
-   SqlParameter nombre = new SqlParameter("@nombre", SqlDbType.VarChar);
-   SqlParameter fechanac = new SqlParameter("@fechanac", SqlDbType.VarChar);
-   SqlParameter email = new SqlParameter("@email", SqlDbType.VarChar);
-   SqlParameter telefono = new SqlParameter("@telefono", SqlDbType.VarChar);
-   SqlParameter dom_calle = new SqlParameter("@dom_calle", SqlDbType.VarChar);
-   SqlParameter dom_numero = new SqlParameter("@dom_numero", SqlDbType.VarChar);
-   SqlParameter dom_piso = new SqlParameter("@dom_piso", SqlDbType.VarChar);
-   SqlParameter dom_depto = new SqlParameter("@dom_depto", SqlDbType.VarChar);
-   SqlParameter codpost = new SqlParameter("@codpost", SqlDbType.VarChar);
-   SqlParameter num_tarjeta = new SqlParameter("@num_tarjeta", SqlDbType.VarChar);
-   SqlParameter venc_tarjeta = new SqlParameter("@venc_tarjeta", SqlDbType.VarChar);
-
-  // tipodni1.Value = tipo_dni;
-   nrodni.Value = numero_dni;
-   cuil.Value = numero_cuil;
-   apellido.Value = apellido_usuario;
-   nombre.Value = nombre_usuario;
-   fechanac.Value = fecha_nacimiento;
-   email.Value = email_dir;
-   telefono.Value = num_telefono;
-   dom_calle.Value = domicilio_calle;
-   dom_numero.Value = domicilio_numero;
-   dom_piso.Value = domicilio_piso;
-   dom_depto.Value = domicilio_depto;
-   codpost.Value = cod_post;
-   num_tarjeta.Value = numero_tarjeta;
-   venc_tarjeta.Value = vencimiento_tarjeta;
-
-   // object result = Totalf.ExecuteScalar();
-   string result = (string) Totalf.ExecuteScalar();
-
-  // command.CommandTimeout = 0;
-  // command.Connection = connection;
-  // object result = command.ExecuteScalar();
-
-   return result;
-
-}*/
-
         private static SqlParameter[] GetSqlParameters(object parameters)
         {
             List<SqlParameter> result = new List<SqlParameter>();
@@ -419,6 +365,45 @@ public string validar_datos_cliente(string nombre_usuario, string apellido_usuar
             return 0;
         }
 
+        public Decimal getPuntos(Decimal idCliente)
+        {
+            SqlDataReader data = command_reader("select puntos from INNERJOIN.cliente_puntos where cliente_id = " + idCliente);
+
+            if (data.HasRows)
+            {
+                data.Read();
+                return data.GetDecimal(0);
+            }
+
+            return 0;
+        }
+
+        public DateTime getPuntosVencimiento(Decimal idCliente)
+        {
+            SqlDataReader data = command_reader("select fecha_vencimiento from INNERJOIN.cliente_puntos where cliente_id=" + idCliente);
+
+            if (data.HasRows)
+            {
+                data.Read();
+                return data.GetDateTime(0);
+            }
+
+            return new DateTime(1,1,1);
+        }
+
+        public int actualizarPuntos(Decimal idCliente, Decimal puntos)
+        {
+            int res = command_update("update INNERJOIN.cliente_puntos set puntos = '" + puntos + "' where cliente_id = " + idCliente);
+            return res;
+        }
+
+        public Decimal agregarPremioACliente(Decimal idCliente, Decimal idCanje)
+        {
+            Decimal res = command_insert("insert into INNERJOIN.cliente_premio values ('" + idCanje + "', '" + idCliente + "')");
+            return res;
+
+        }
+
         public int agregar_nuevo_rol(String nombre_alta, List<Datos.Funcionalidad> funcionalidades)
         {
             SqlCommand command;
@@ -493,7 +478,7 @@ public string validar_datos_cliente(string nombre_usuario, string apellido_usuar
             SqlCommand sqlcommand = new SqlCommand();
             connection = new SqlConnection(ConnectionString);
             SqlCommand query = new SqlCommand(
-                "select * from INNERJOIN.ubicacion as u where u.id_publicacion = " + idPublicacion + 
+                "select * from INNERJOIN.ubicacion as u where u.id_publicacion = " + idPublicacion +
                 " and not exists (select 1 from INNERJOIN.compra_ubicacion cu where cu.id_ubicacion=u.ubicacion_id)"
                 , connection);
 
@@ -558,12 +543,24 @@ public string validar_datos_cliente(string nombre_usuario, string apellido_usuar
             return adapter;
         }
 
+        public SqlDataAdapter getPremiosYProductos(Decimal puntos)
+        {
+            SqlCommand sqlcommand = new SqlCommand();
+            connection = new SqlConnection(ConnectionString);
+            SqlCommand query = new SqlCommand(
+                "select a.premio_id, a.puntos, p.descripcion from INNERJOIN.premio a, INNERJOIN.producto p where a.id_producto = p.producto_id ", connection);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query);
+
+            return adapter;
+        }
+
 
         public Datos.Grado getGrado(String nombre)
         {
             Datos.Grado grado;
             SqlDataReader data = command_reader("select * from INNERJOIN.grado where grado_nombre LIKE '" + nombre+"'");
-       
+
             data.Read();
             grado = new Datos.Grado(nombre, data.GetDecimal(0), data.GetDecimal(2));
 
@@ -673,9 +670,9 @@ public string validar_datos_cliente(string nombre_usuario, string apellido_usuar
 
         public void generar_publicacion(Datos.Publicacion publicacion)
         {
-         
 
-            object result = Execute_SP("INNERJOIN.sp_generar_publicacion", 
+
+            object result = Execute_SP("INNERJOIN.sp_generar_publicacion",
                 new { descripcion = publicacion.descripcion,
                       rubro_text = publicacion.rubro,
                       grado_text = publicacion.grado.descripcion,
@@ -687,7 +684,7 @@ public string validar_datos_cliente(string nombre_usuario, string apellido_usuar
                       direccion = publicacion.direccion,
                       identity = 1
                      });
-            
+
             Decimal id_publicacion = Convert.ToDecimal(result);
             agregar_ubicaciones(publicacion.ubicaciones, id_publicacion);
 
@@ -792,31 +789,55 @@ public string validar_datos_cliente(string nombre_usuario, string apellido_usuar
             return id;
         }
 
-        public void agregar_nuevo_cliente(string nombre_usuario, string apellido_usuario, string tipo_dni, string numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir, string domicilio_calle, string domicilio_numero, string domicilio_piso, string domicilio_depto, string cod_post, string numero_tarjeta, string vencimiento_tarjeta)//,rol)
+        public void agregar_nuevo_cliente(string username, string password, string nombre_usuario, string apellido_usuario, string tipo_dni, string numero_dni, string numero_cuil, string fecha_nacimiento, string num_telefono, string email_dir, string domicilio_calle, string domicilio_numero, string domicilio_piso, string domicilio_depto, string cod_post, string numero_tarjeta, string vencimiento_tarjeta)//,rol)
 
         {
-            object result = Execute_SP("INNERJOIN.sp_alta_cliente", new
+            var command = new SqlCommand();
+            this.connection = new SqlConnection(ConnectionString);
+            this.connection.Open();
+
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.CommandText = "INNERJOIN.sp_alta_cliente";
+
+            object parameters = new
+                                    {
+                                        username = username,
+                                        password = password,
+                                        tipodni = tipo_dni,
+                                        nrodni = numero_dni,
+                                        cuil = numero_cuil,
+                                        apellido = apellido_usuario,
+                                        nombre = nombre_usuario,
+                                        fechanac = fecha_nacimiento,
+                                        email = email_dir,
+                                        telefono = num_telefono,
+                                        dom_calle = domicilio_calle,
+                                        dom_numero = domicilio_numero,
+                                        dom_piso = domicilio_piso,
+                                        dom_depto = domicilio_depto,
+                                        codpost = cod_post,
+                                        num_tarjeta = numero_tarjeta,
+                                        venc_tarjeta = vencimiento_tarjeta
+                                    };
+
+            if (parameters != null)
             {
-                tipodni = tipo_dni,
-                nrodni = numero_dni,
-                cuil = numero_cuil,
-                apellido = apellido_usuario,
-                nombre = nombre_usuario,
-                fechanac = fecha_nacimiento,
-                email = email_dir,
-                telefono = num_telefono,
-                dom_calle = domicilio_calle,
-                dom_numero = domicilio_numero,
-                dom_piso = domicilio_piso,
-                dom_depto = domicilio_depto,
-                codpost = cod_post,
-                num_tarjeta = numero_tarjeta,
-                venc_tarjeta = vencimiento_tarjeta
-            });
-            if (result == null)
-            {
-                MessageBox.Show("Alta de cliente correcta");
+                command.Parameters.AddRange(GetSqlParameters(parameters));
             }
+			
+			command.Parameters.Add(new SqlParameter("@credenciales",SqlDbType.NVarChar,255,ParameterDirection.Output,false,0,50,"credenciales",DataRowVersion.Default,null));
+            command.UpdatedRowSource = UpdateRowSource.OutputParameters;
+            command.CommandTimeout = 0;
+            command.Connection = connection;
+            command.ExecuteScalar();
+            string credenciales = (string)command.Parameters["@credenciales"].Value;
+
+            string msj = "";
+            
+            msj +="Alta de cliente correcta\n\n";
+            if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password)) msj+=credenciales;
+
+            MessageBox.Show(msj);
 
         }
 
@@ -900,8 +921,8 @@ public string validar_datos_cliente(string nombre_usuario, string apellido_usuar
 
         public SqlDataReader getDatosCliente(int idCliente)
         {
-            SqlDataReader data = command_reader("select isnull(cliente_apellido,''),isnull(cliente_nombre,''),isnull(cliente_tipo_dni,''),isnull(cliente_numero_dni,''),isnull(cliente_cuil,''),isnull(convert(nvarchar(30),cliente_fecha_nacimiento,112),''),isnull(cliente_domicilio_calle,''),isnull(cliente_domicilio_numero,''),isnull(cliente_domicilio_piso,''),isnull(cliente_domicilio_departamento,''),isnull(cliente_codigo_postal,''),isnull(cliente_telefono,''),isnull(cliente_email,'') from INNERJOIN.cliente where cliente_id = " + idCliente);
-            
+            SqlDataReader data = command_reader("select isnull(cliente_apellido,''),isnull(cliente_nombre,''),isnull(cliente_tipo_dni,''),isnull(cliente_numero_dni,''),isnull(cliente_cuil,''),isnull(convert(nvarchar(30),cliente_fecha_nacimiento,112),''),isnull(cliente_domicilio_calle,''),isnull(cliente_domicilio_numero,''),isnull(cliente_domicilio_piso,''),isnull(cliente_domicilio_departamento,''),isnull(cliente_codigo_postal,''),isnull(cliente_telefono,''),isnull(cliente_email,''),cliente_baja_logica from INNERJOIN.cliente where cliente_id = " + idCliente);
+
             return data;
         }
 
@@ -967,10 +988,19 @@ public string validar_datos_cliente(string nombre_usuario, string apellido_usuar
         }
 
 
-        public object agregar_nueva_empresa(string razonSocial, string cuit, string domCalle, string domNro, string domPiso, string domDepto, string ciudad, string codpost, string telefono, string email)
+        public void agregar_nueva_empresa(string username, string password, string razonSocial, string cuit, string domCalle, string domNro, string domPiso, string domDepto, string ciudad, string codpost, string telefono, string email)
         {
-            object result = Execute_SP("INNERJOIN.sp_alta_empresa", new
+            var command = new SqlCommand();
+            this.connection = new SqlConnection(ConnectionString);
+            this.connection.Open();
+
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.CommandText = "INNERJOIN.sp_alta_empresa";
+
+            object parameters = new
             {
+                username = username,
+                password = password,
                 razonSocial = razonSocial,
                 cuit = cuit,
                 domCalle = domCalle,
@@ -981,9 +1011,27 @@ public string validar_datos_cliente(string nombre_usuario, string apellido_usuar
                 codpost = codpost,
                 telefono = telefono,
                 email = email
-            });
+            };
 
-            return result;
+            if (parameters != null)
+            {
+                command.Parameters.AddRange(GetSqlParameters(parameters));
+            }
+
+            command.Parameters.Add(new SqlParameter("@credenciales", SqlDbType.NVarChar, 255, ParameterDirection.Output, false, 0, 50, "credenciales", DataRowVersion.Default, null));
+            command.UpdatedRowSource = UpdateRowSource.OutputParameters;
+            command.CommandTimeout = 0;
+            command.Connection = connection;
+            command.ExecuteScalar();
+            string credenciales = (string)command.Parameters["@credenciales"].Value;
+
+            string msj = "";
+
+            msj += "Alta de empresa correcta\n\n";
+            if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password)) msj += credenciales;
+
+            MessageBox.Show(msj);
+
         }
 
         public bool razonSocialDuplicada(string razonSocial)
@@ -1009,11 +1057,11 @@ public string validar_datos_cliente(string nombre_usuario, string apellido_usuar
             if (data.HasRows)
             {
                 data.Read();
-                
+
                 Decimal id_rol = data.GetDecimal(0);
                 String nombre = data.GetString(1);
                 rol = new Datos.Rol(id_rol, nombre);
-                
+
             }
 
             data.Close();
@@ -1208,8 +1256,24 @@ public string validar_datos_cliente(string nombre_usuario, string apellido_usuar
 
             return adapter;
         }
+
+        internal void sumarLoginFallido(decimal id_leido)
+        {
+            
+            object result = Execute_SP("INNERJOIN.sp_sumar_login_fallido", new
+            {
+                idUsuario = id_leido
+            });
+        }
+
+        internal void limpiarLoginsFallidos(decimal id_leido)
+        {
+            command_update("update INNERJOIN.usuario set usuario_logins_fallidos = 0 where usuario_id = " + id_leido);
+        }
+
+        internal void expirarClave(decimal id_leido)
+        {
+            command_update("update INNERJOIN.usuario set usuario_clave_expirada = 1 where usuario_id = " + id_leido);
+        }
     }
 }
-
-
-

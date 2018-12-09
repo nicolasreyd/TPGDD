@@ -36,6 +36,7 @@
             this.login_button = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.registroUsuario_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -79,7 +80,7 @@
             // 
             // login_button
             // 
-            this.login_button.Location = new System.Drawing.Point(124, 92);
+            this.login_button.Location = new System.Drawing.Point(165, 92);
             this.login_button.Name = "login_button";
             this.login_button.Size = new System.Drawing.Size(77, 21);
             this.login_button.TabIndex = 4;
@@ -93,19 +94,30 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.registroUsuario_button);
             this.groupBox1.Controls.Add(this.user_label);
             this.groupBox1.Controls.Add(this.login_button);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.password_textbox);
             this.groupBox1.Controls.Add(this.username_textbox);
             this.groupBox1.Location = new System.Drawing.Point(49, 24);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(260, 134);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Login";
+            // 
+            // registroUsuario_button
+            // 
+            this.registroUsuario_button.Location = new System.Drawing.Point(18, 92);
+            this.registroUsuario_button.Name = "registroUsuario_button";
+            this.registroUsuario_button.Size = new System.Drawing.Size(100, 21);
+            this.registroUsuario_button.TabIndex = 5;
+            this.registroUsuario_button.Text = "Nuevo usuario";
+            this.registroUsuario_button.UseVisualStyleBackColor = true;
+            this.registroUsuario_button.Click += new System.EventHandler(this.registroUsuario_button_Click);
             // 
             // Login
             // 
@@ -134,5 +146,6 @@
         private System.Windows.Forms.Button login_button;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button registroUsuario_button;
     }
 }

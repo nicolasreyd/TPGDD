@@ -21,7 +21,7 @@ namespace PalcoNet.Abm_Cliente
         private void ClienteAlta_Button_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Alta_Cliente alta = new Alta_Cliente();
+            Alta_Cliente alta = new Alta_Cliente("","");
             alta.Show();
         }
 
@@ -44,6 +44,11 @@ namespace PalcoNet.Abm_Cliente
             this.Hide();
             MenuPrincipal menu = new MenuPrincipal();
             menu.Show();
+        }
+
+        private void ABMCliente_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

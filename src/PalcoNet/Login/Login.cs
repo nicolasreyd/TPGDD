@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using PalcoNet.Registro_de_Usuario;
 
 namespace PalcoNet.Login
 {
@@ -67,13 +68,16 @@ namespace PalcoNet.Login
             if (data.Read())
             {
                 //Datos leidos
-                String usuario_leido = data.GetString(1);
                 Decimal id_leido = data.GetDecimal(0);
+                String usuario_leido = data.GetString(1);
                 String password_leida = data.GetString(2);
+                Decimal intentos_fallidos_login = data.GetDecimal(4);
                 Boolean baja_leida = data.GetBoolean(5);
+                Boolean debe_cambiar_clave = data.GetBoolean(7);
+                Boolean clave_expirada = data.GetBoolean(6);
 
                 data.Close();
-                user_validate(usuario_leido, id_leido, password_leida, baja_leida);
+                user_validate(usuario_leido, id_leido, password_leida, baja_leida, intentos_fallidos_login, debe_cambiar_clave, clave_expirada);
 
             }
             else {
@@ -91,24 +95,55 @@ namespace PalcoNet.Login
 
         }
 
-        private void user_validate(String usuario_leido, Decimal id_leido, String password_leida, Boolean baja_leida) 
+        private void user_validate(String usuario_leido, Decimal id_leido, String password_leida, Boolean baja_leida, Decimal intentos_fallidos_login, Boolean debe_cambiar_clave, Boolean clave_expirada) 
         {
-
-            if(baja_leida == false){
-                MessageBox.Show("Usuario inhabilitado, intente con otro");
+            //if (intentos_fallidos_login >= 3)
+            //{
+            //    MessageBox.Show("El usuario fue bloqueado debido a demasiados intentos fallidos. Contacte al administrador.");
+            //    return;
+            //}
+            
+            
+            if(baja_leida){
+                MessageBox.Show("El usuario fue dado de baja, intente con otro.");
                 this.Hide();
                 Login nuevo_login = new Login();
                 nuevo_login.Show();
+                return;
             }
 
             if (!user_exists(usuario_leido))
             { 
-                MessageBox.Show("Usuario incorrecto, vuelva a intentar");
+                MessageBox.Show("Usuario incorrecto, vuelva a intentar.");
             }
             else { 
 
             if (password_match(password_leida))
             {
+                if (intentos_fallidos_login >= 3)
+                {
+                    MessageBox.Show("El usuario fue bloqueado debido a demasiados intentos fallidos. Contacte al administrador.");
+                    return;
+                }
+
+                if (debe_cambiar_clave)
+                {
+                    if (!clave_expirada)
+                    {
+                        MessageBox.Show("Debe cambiar su contraseña");
+                        App.db.expirarClave(id_leido);
+                        this.Hide();
+                        Reset_Password resetPass = new Reset_Password(id_leido);
+                        resetPass.Show();
+                        return;
+                    }
+                    else MessageBox.Show("Su clave expiró. Contacte al administrador.");
+                    return;
+                }
+
+
+                App.db.limpiarLoginsFallidos(id_leido);
+
                 this.password = "";
                 Console.WriteLine("Cantidad de roles");
                 App.currentUser = new Datos.Usuario(id_leido,this.username);
@@ -133,13 +168,18 @@ namespace PalcoNet.Login
 
             }
             else {
-                MessageBox.Show("contraseña incorrecta");
+                MessageBox.Show("Contraseña incorrecta");
                 intentos_login++;
                 this.password = "";
+                // Por practicidad, el usuario admin no se bloquea por intentos fallidos
+                if (!(usuario_leido == "admin")) App.db.sumarLoginFallido(id_leido);
+                /*
                 if (intentos_login >= 3)
                 {
                     App.db.inhabilitarUsuario(usuario_leido, id_leido);
                 }
+                */
+
 
              }
 
@@ -164,6 +204,14 @@ namespace PalcoNet.Login
             this.Hide();
             Abm_Cliente.busquedaModificacion_Cliente modifCliente = new Abm_Cliente.busquedaModificacion_Cliente();
             modifCliente.Show();
+
+        }
+
+        private void registroUsuario_button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Registro_Usuario registroUsuario = new Registro_Usuario();
+            registroUsuario.Show();
 
         }
     }

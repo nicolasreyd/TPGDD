@@ -21,7 +21,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         private void ClienteAlta_Button_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Alta_Empresa alta = new Alta_Empresa();
+            Alta_Empresa alta = new Alta_Empresa("","");
             alta.Show();
         }
 

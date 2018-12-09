@@ -157,12 +157,13 @@
             // 
             // Eliminar
             // 
-            this.Eliminar.HeaderText = "Modificar";
+            this.Eliminar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Eliminar.HeaderText = "Baja";
             this.Eliminar.Name = "Eliminar";
-            this.Eliminar.Text = "Modificar";
+            this.Eliminar.Text = "Dar de baja";
             this.Eliminar.ToolTipText = "Modificar";
             this.Eliminar.UseColumnTextForButtonValue = true;
-            this.Eliminar.Width = 56;
+            this.Eliminar.Width = 34;
             // 
             // Baja_Cliente
             // 
@@ -182,7 +183,7 @@
             this.Controls.Add(this.busquedaApellido_textBox);
             this.Controls.Add(this.busquedaNombre_textBox);
             this.Name = "Baja_Cliente";
-            this.Text = "Baja_Cliente";
+            this.Text = "Baja de Cliente";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

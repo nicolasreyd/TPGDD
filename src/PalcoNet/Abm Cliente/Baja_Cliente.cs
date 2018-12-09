@@ -18,9 +18,7 @@ namespace PalcoNet.Abm_Cliente
         private string apellido_busqueda = "";
         private string dni_busqueda = "";
         private string email_busqueda = "";
-        string id;
         int idAEliminar;
-        private int pruebaValor;
         
         public Baja_Cliente()
         {
@@ -76,8 +74,7 @@ namespace PalcoNet.Abm_Cliente
             data = App.db.getCliente(condiciones);
             DataTable tabla = new DataTable();
             data.Fill(tabla);
-                        
-           // this.dataGridView1.Columns[0].Visible = false;
+
             this.dataGridView1.DataSource = tabla;
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.Columns[1].Visible = false;
@@ -86,14 +83,6 @@ namespace PalcoNet.Abm_Cliente
 
             condiciones.Clear();
         }
-
-        //private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        //{
-        //    pruebaValor = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[6].Value);//.FormattedValue.ToString();
-        //    idAEliminar = Convert.ToInt32(id);
-        //    MessageBox.Show("El valor seleccionado es : " + idAEliminar);
-        //    App.db.bajaCliente(idAEliminar);
-        //}
 
         private void limpiarPantalla_button_Click(object sender, EventArgs e)
         {
@@ -115,7 +104,6 @@ namespace PalcoNet.Abm_Cliente
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
             idAEliminar = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[1].FormattedValue.ToString());
-            //MessageBox.Show("El valor seleccionado es : " + idAEliminar);
             App.db.bajaCliente(idAEliminar);
         }
     }
