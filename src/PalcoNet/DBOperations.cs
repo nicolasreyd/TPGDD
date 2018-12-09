@@ -861,7 +861,7 @@ namespace PalcoNet
 
         public SqlDataReader getDatosCliente(int idCliente)
         {
-            SqlDataReader data = command_reader("select isnull(cliente_apellido,''),isnull(cliente_nombre,''),isnull(cliente_tipo_dni,''),isnull(cliente_numero_dni,''),isnull(cliente_cuil,''),isnull(convert(nvarchar(30),cliente_fecha_nacimiento,112),''),isnull(cliente_domicilio_calle,''),isnull(cliente_domicilio_numero,''),isnull(cliente_domicilio_piso,''),isnull(cliente_domicilio_departamento,''),isnull(cliente_codigo_postal,''),isnull(cliente_telefono,''),isnull(cliente_email,'') from INNERJOIN.cliente where cliente_id = " + idCliente);
+            SqlDataReader data = command_reader("select isnull(cliente_apellido,''),isnull(cliente_nombre,''),isnull(cliente_tipo_dni,''),isnull(cliente_numero_dni,''),isnull(cliente_cuil,''),isnull(convert(nvarchar(30),cliente_fecha_nacimiento,112),''),isnull(cliente_domicilio_calle,''),isnull(cliente_domicilio_numero,''),isnull(cliente_domicilio_piso,''),isnull(cliente_domicilio_departamento,''),isnull(cliente_codigo_postal,''),isnull(cliente_telefono,''),isnull(cliente_email,''),cliente_baja_logica from INNERJOIN.cliente where cliente_id = " + idCliente);
 
             return data;
         }
@@ -1195,6 +1195,25 @@ namespace PalcoNet
             SqlDataAdapter adapter = new SqlDataAdapter(query);
 
             return adapter;
+        }
+
+        internal void sumarLoginFallido(decimal id_leido)
+        {
+            
+            object result = Execute_SP("INNERJOIN.sp_sumar_login_fallido", new
+            {
+                idUsuario = id_leido
+            });
+        }
+
+        internal void limpiarLoginsFallidos(decimal id_leido)
+        {
+            command_update("update INNERJOIN.usuario set usuario_logins_fallidos = 0 where usuario_id = " + id_leido);
+        }
+
+        internal void expirarClave(decimal id_leido)
+        {
+            command_update("update INNERJOIN.usuario set usuario_clave_expirada = 1 where usuario_id = " + id_leido);
         }
     }
 }

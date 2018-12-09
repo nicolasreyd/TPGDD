@@ -108,6 +108,7 @@
             this.Controls.Add(this.ingresarPass_textBox);
             this.Name = "Cambio_Password";
             this.Text = "Cambio_Password";
+            this.Load += new System.EventHandler(this.Cambio_Password_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -264,6 +264,12 @@
     <Compile Include="Login\MenuPrincipal.Designer.cs">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Login\Reset_Password.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\Reset_Password.Designer.cs">
+      <DependentUpon>Reset_Password.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login\SeleccionRol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -428,6 +434,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Login\MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\Reset_Password.resx">
+      <DependentUpon>Reset_Password.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\SeleccionRol.resx">
       <DependentUpon>SeleccionRol.cs</DependentUpon>
