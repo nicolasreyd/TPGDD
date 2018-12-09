@@ -79,6 +79,7 @@ namespace PalcoNet.Listado_Estadistico
 
         private void listar_Click(object sender, EventArgs e)
         {
+            this.dataGridView1.DataSource = null;
             if (anio_textBox.Text=="")
             {
                 MessageBox.Show("El anio no puede ser vacío");
