@@ -9,8 +9,8 @@ usuario_username varchar(16) not null,
 usuario_password varchar(64) not null,
 usuario_tipo varchar(7) not null,
 usuario_logins_fallidos numeric(1) not null default 0,
-usuario_debe_cambiar_clave bit default 1;
-usuario_clave expirada bit default 0;
+usuario_debe_cambiar_clave bit default 1,
+usuario_clave expirada bit default 0,
 usuario_baja_logica bit not null default 1
 )
 

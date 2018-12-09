@@ -285,3 +285,19 @@ begin
 end
 
 
+
+procedure [INNERJOIN].[sp_sumar_login_fallido] @idUsuario numeric(18,0)
+as
+begin
+	
+	declare @intentos_fallidos numeric;
+
+	SELECT @intentos_fallidos = usuario_logins_fallidos from INNERJOIN.usuario where usuario_id = @idUsuario
+
+	set @intentos_fallidos = @intentos_fallidos + 1;
+
+	update INNERJOIN.usuario set usuario_logins_fallidos = @intentos_fallidos where usuario_id = @idUsuario;
+	
+end
+
+
