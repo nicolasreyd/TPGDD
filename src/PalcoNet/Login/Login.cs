@@ -73,8 +73,8 @@ namespace PalcoNet.Login
                 String password_leida = data.GetString(2);
                 Decimal intentos_fallidos_login = data.GetDecimal(4);
                 Boolean baja_leida = data.GetBoolean(5);
-                Boolean debe_cambiar_clave = data.GetBoolean(7);
-                Boolean clave_expirada = data.GetBoolean(6);
+                Boolean debe_cambiar_clave = data.GetBoolean(6);
+                Boolean clave_expirada = data.GetBoolean(7);
 
                 data.Close();
                 user_validate(usuario_leido, id_leido, password_leida, baja_leida, intentos_fallidos_login, debe_cambiar_clave, clave_expirada);

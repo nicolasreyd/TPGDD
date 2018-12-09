@@ -90,10 +90,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 if (App.db.razonSocialDuplicada(idEmpresa,razonSocial_textBox.Text)) msjError += "La razón social ya se encuentra registrada\n";
             }
 
-            if (cuitEmpresa_textBox.Text == string.Empty)
-            {
-                msjError += "El campo \"CUIT\" es obligatorio\n";
-            }
+            if (!Utilidades.cuitValido(cuitEmpresa_textBox.Text)) msjError += "El numero de CUIT es incorrecto\n";
             else
             {
                 if (App.db.cuitRepetido(this.idEmpresa,cuitEmpresa_textBox.Text)) msjError += "El CUIT ya se encuentra registrado\n";
@@ -108,11 +105,13 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             {
                 msjError += "El campo \"Número\" es obligatorio\n";
             }
+            else if (System.Text.RegularExpressions.Regex.IsMatch(domNumeroEmpresa_textBox.Text, "[^0-9]")) msjError += "El número de domicilio sólo puede contener numeros.\n";
 
             if (domPisoEmpresa_textBox.Text == string.Empty)
             {
                 msjError += "El campo \"Piso\" es obligatorio\n";
             }
+            else if (System.Text.RegularExpressions.Regex.IsMatch(domPisoEmpresa_textBox.Text, "[^0-9]")) msjError += "El número de piso sólo puede contener numeros.\n";
 
             if (domDeptoEmpresa_textBox.Text == string.Empty)
             {
@@ -133,6 +132,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             {
                 msjError += "El campo \"Teléfono\" es obligatorio\n";
             }
+            else if (System.Text.RegularExpressions.Regex.IsMatch(telefonoEmpresa_textBox.Text, "[^0-9]")) msjError += "El teléfono sólo puede contener numeros.\n";
 
             if (emailEmpresa_textBox.Text == string.Empty)
             {

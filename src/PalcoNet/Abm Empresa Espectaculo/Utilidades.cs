@@ -13,6 +13,11 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         {
             string cuit = unCuit.Replace("[^\\d]", "");
 
+            if (cuit.Length != 11)
+            {
+                return false;
+            }
+            
             switch (cuit.Substring(0, 2))
             {
                 case "20":
@@ -20,13 +25,6 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 case "24":
                 case "27":
                     return false;
-            }
-
-            MessageBox.Show(cuit.ToString());
-
-            if (cuit.Length != 11)
-            {
-                return false;
             }
 
             int[] arrayCuil = new int[11];

@@ -189,10 +189,14 @@ namespace PalcoNet.Abm_Cliente
                 }
             }
 
-            if (!Utilidades.cuilValido(cuilCliente_textBox.Text)) msjError += "El numero de CUIL es incorrecto\n";
+            if (System.Text.RegularExpressions.Regex.IsMatch(cuilCliente_textBox.Text, "[^0-9]")) msjError += "El número de CUIL solo puede contener numeros.";
             else
             {
-                if (App.db.cuilRepetido(idCliente, this.cuilCliente_textBox.Text)) msjError += "El CUIL ya se encuentra registrado\n";
+                if (!Utilidades.cuilValido(cuilCliente_textBox.Text)) msjError += "El numero de CUIL es incorrecto\n";
+                else
+                {
+                    if (App.db.cuilRepetido(idCliente, this.cuilCliente_textBox.Text)) msjError += "El CUIL ya se encuentra registrado\n";
+                }
             }
 
             if ((diaNac_comboBox.Text == string.Empty) ||
@@ -234,6 +238,27 @@ namespace PalcoNet.Abm_Cliente
                 }
 
             }
+
+
+
+            if (domCalleCliente_textBox.Text == string.Empty) msjError += "El campo \"Calle\" no puede estar vacío.\n";
+
+            if (domNumeroCliente_textBox.Text == string.Empty) msjError += "El campo \"Número\" no puede estar vacío.\n";
+            else
+                if (System.Text.RegularExpressions.Regex.IsMatch(domNumeroCliente_textBox.Text, "[^0-9]")) msjError += "El número de domicilio sólo puede contener numeros.\n";
+            if (domPisoCliente_textBox.Text == string.Empty) msjError += "El campo \"Piso\" no puede estar vacío.\n";
+            else
+                if (System.Text.RegularExpressions.Regex.IsMatch(domPisoCliente_textBox.Text, "[^0-9]")) msjError += "El número de piso sólo puede contener numeros.\n";
+
+            if (domDeptoCliente_textBox.Text == string.Empty) msjError += "El campo \"Departamento\" no puede estar vacío.\n";
+
+            if (codPostCliente_textBox.Text == string.Empty) msjError += "El campo \"Código Postal\" no puede estar vacío.\n";
+
+            if (telefonoCliente_textBox.Text == string.Empty) msjError += "El campo \"Teléfono\" no puede estar vacío.\n";
+            else
+                if (System.Text.RegularExpressions.Regex.IsMatch(telefonoCliente_textBox.Text, "[^0-9]")) msjError += "El teléfono sólo puede contener numeros.\n";
+
+            if (emailCliente_textBox.Text == string.Empty) msjError += "El campo \"E-Mail\" no puede estar vacío.\n";
 
             if (msjError != string.Empty)
             {
