@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.ABMRol_Button = new System.Windows.Forms.Button();
-            this.RegistroUsuario_Button = new System.Windows.Forms.Button();
             this.ABMCliente_Button = new System.Windows.Forms.Button();
             this.ABMEmpresaEspec_Button = new System.Windows.Forms.Button();
             this.ABMGradoPubli_Button = new System.Windows.Forms.Button();
@@ -54,20 +53,9 @@
             this.ABMRol_Button.UseVisualStyleBackColor = true;
             this.ABMRol_Button.Click += new System.EventHandler(this.ABMRol_Button_Click);
             // 
-            // RegistroUsuario_Button
-            // 
-            this.RegistroUsuario_Button.Location = new System.Drawing.Point(24, 109);
-            this.RegistroUsuario_Button.Margin = new System.Windows.Forms.Padding(2);
-            this.RegistroUsuario_Button.Name = "RegistroUsuario_Button";
-            this.RegistroUsuario_Button.Size = new System.Drawing.Size(238, 40);
-            this.RegistroUsuario_Button.TabIndex = 1;
-            this.RegistroUsuario_Button.Text = "Registro Usuario";
-            this.RegistroUsuario_Button.UseVisualStyleBackColor = true;
-            this.RegistroUsuario_Button.Click += new System.EventHandler(this.RegistroUsuario_Button_Click);
-            // 
             // ABMCliente_Button
             // 
-            this.ABMCliente_Button.Location = new System.Drawing.Point(24, 171);
+            this.ABMCliente_Button.Location = new System.Drawing.Point(24, 112);
             this.ABMCliente_Button.Margin = new System.Windows.Forms.Padding(2);
             this.ABMCliente_Button.Name = "ABMCliente_Button";
             this.ABMCliente_Button.Size = new System.Drawing.Size(238, 37);
@@ -78,7 +66,7 @@
             // 
             // ABMEmpresaEspec_Button
             // 
-            this.ABMEmpresaEspec_Button.Location = new System.Drawing.Point(24, 231);
+            this.ABMEmpresaEspec_Button.Location = new System.Drawing.Point(24, 171);
             this.ABMEmpresaEspec_Button.Margin = new System.Windows.Forms.Padding(2);
             this.ABMEmpresaEspec_Button.Name = "ABMEmpresaEspec_Button";
             this.ABMEmpresaEspec_Button.Size = new System.Drawing.Size(238, 38);
@@ -89,7 +77,7 @@
             // 
             // ABMGradoPubli_Button
             // 
-            this.ABMGradoPubli_Button.Location = new System.Drawing.Point(24, 289);
+            this.ABMGradoPubli_Button.Location = new System.Drawing.Point(24, 231);
             this.ABMGradoPubli_Button.Margin = new System.Windows.Forms.Padding(2);
             this.ABMGradoPubli_Button.Name = "ABMGradoPubli_Button";
             this.ABMGradoPubli_Button.Size = new System.Drawing.Size(238, 40);
@@ -100,7 +88,7 @@
             // 
             // GenerarPulica_Button
             // 
-            this.GenerarPulica_Button.Location = new System.Drawing.Point(24, 360);
+            this.GenerarPulica_Button.Location = new System.Drawing.Point(24, 291);
             this.GenerarPulica_Button.Margin = new System.Windows.Forms.Padding(2);
             this.GenerarPulica_Button.Name = "GenerarPulica_Button";
             this.GenerarPulica_Button.Size = new System.Drawing.Size(238, 38);
@@ -203,7 +191,6 @@
             this.Controls.Add(this.ABMGradoPubli_Button);
             this.Controls.Add(this.ABMEmpresaEspec_Button);
             this.Controls.Add(this.ABMCliente_Button);
-            this.Controls.Add(this.RegistroUsuario_Button);
             this.Controls.Add(this.ABMRol_Button);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MenuPrincipal";
@@ -217,7 +204,6 @@
         #endregion
 
         private System.Windows.Forms.Button ABMRol_Button;
-        private System.Windows.Forms.Button RegistroUsuario_Button;
         private System.Windows.Forms.Button ABMCliente_Button;
         private System.Windows.Forms.Button ABMEmpresaEspec_Button;
         private System.Windows.Forms.Button ABMGradoPubli_Button;
