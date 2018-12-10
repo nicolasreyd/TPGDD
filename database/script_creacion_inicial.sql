@@ -280,6 +280,8 @@ where Cli_Dni is not null;
 
 --Probado OK
 
+insert into INNERJOIN.grado values ('Alto',1,50),('Medio',2,30),('Bajo',3,10)
+
 -- Migracion empresas a usuarios
 
 insert into INNERJOIN.usuario (usuario_username,usuario_password,usuario_tipo)
@@ -344,8 +346,8 @@ FROM gd_esquema.Maestra
 WHERE Espectaculo_Rubro_Descripcion IS NOT NULL
 group by Espectaculo_Rubro_Descripcion 
 
+	
 --Probado OK
-
 
 -- Migracion Roles
 
@@ -389,9 +391,9 @@ order by 1 asc
 
 -- Migracion espectaculos/publicaciones
 /*El grado no esta en la tabla maestra por lo tanto se deja en null*/
-insert into INNERJOIN.publicacion (publicacion_id,id_responsable,id_espectaculo,publicacion_descripcion,publicacion_fecha_publicacion,publicacion_fecha_evento,id_rubro,publicacion_estado)
+insert into INNERJOIN.publicacion (publicacion_id,id_responsable,id_grado,id_espectaculo,publicacion_descripcion,publicacion_fecha_publicacion,publicacion_fecha_evento,id_rubro,publicacion_estado)
 select espectaculo_cod,(select usuario_id from INNERJOIN.usuario
-         where usuario_username LIKE concat('',REPLACE(espec_empresa_cuit,'-','')))
+         where usuario_username LIKE concat('',REPLACE(espec_empresa_cuit,'-',''))),2
 ,espectaculo_cod,espectaculo_descripcion,
 Espectaculo_Fecha,Espectaculo_Fecha_Venc,isnull(rubro_id,1),Espectaculo_Estado
 from gd_esquema.Maestra  left join INNERJOIN.rubro on Espectaculo_Rubro_Descripcion=rubro_descripcion
