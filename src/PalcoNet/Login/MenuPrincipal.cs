@@ -15,6 +15,7 @@ namespace PalcoNet.Login
         public MenuPrincipal()
         {
             InitializeComponent();
+            validar_funcionalidades_disp();
         }
 
         public void validar_funcionalidades_disp()
@@ -112,7 +113,7 @@ namespace PalcoNet.Login
 
         private void MenuPrincipal_Load(object sender, EventArgs e)
         {
-            validar_funcionalidades_disp();
+            
         }
 
         private void ABMRol_Button_Click(object sender, EventArgs e)
