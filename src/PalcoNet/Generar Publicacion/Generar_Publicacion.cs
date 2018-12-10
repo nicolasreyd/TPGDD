@@ -32,12 +32,12 @@ namespace PalcoNet.Generar_Publicacion
 
             grados.ForEach(delegate(Datos.Grado grado)
             {
-                Grado_comboBox.Items.Add(grado.descripcion + " $ " + grado.comision);
+                Grado_comboBox.Items.Add(grado.descripcion + " % " + grado.comision);
 
             });
 
 
-            Grado_comboBox.SelectedItem = grados.First().descripcion + " $ " + grados.First().comision;
+            Grado_comboBox.SelectedItem = grados.First().descripcion + " % " + grados.First().comision;
         }
 
         private void cargar_rubros()
@@ -58,7 +58,7 @@ namespace PalcoNet.Generar_Publicacion
         private void Generar_Publicacion_Load(object sender, EventArgs e)
         {
             //Fecha_publi_TextBox.Text = DateTime.Today.ToString("dd/MM/yyyy");
-            Fecha_publi_TextBox.Text = App.NowDateKey;
+            Fecha_publi_TextBox.Text = Convert.ToString(App.NowDate);
             Estado_Textbox.Text = "Borrador";
         }
 
@@ -69,8 +69,7 @@ namespace PalcoNet.Generar_Publicacion
             if (data_validate())
             {
                 publicacion.descripcion = Descripcion_textBox.Text;
-                //publicacion.fecha_publicacion = DateTime.Today;
-                publicacion.fecha_publicacion = Convert.ToDateTime(App.NowDateKey);
+                publicacion.fecha_publicacion = Convert.ToDateTime(App.NowDate);
                 publicacion.fecha_espectaculo = FechaEspec_dateTimePicker.Value;
                 publicacion.rubro = Convert.ToString(Rubro_comboBox.SelectedItem);
                 publicacion.estado = Estado_Textbox.Text;
@@ -80,11 +79,17 @@ namespace PalcoNet.Generar_Publicacion
                 App.db.generar_publicacion(publicacion);
 
                 descartar_publicacion();
+                this.Hide();
+                Generar_Publicacion nueva = new Generar_Publicacion();
+                nueva.Show();
+
 
             }
             else {
                 MessageBox.Show("Debe completar todos los campos correctamente");
             }
+
+           
         }
 
         private void descartar_publicacion()
@@ -106,7 +111,8 @@ namespace PalcoNet.Generar_Publicacion
 
 
                 //Verifico que la fecha de inicio sea menor o igual a la de vencimiento
-                if (FechaEspec_dateTimePicker.Value < Convert.ToDateTime(App.NowDateKey))
+            int result = DateTime.Compare(FechaEspec_dateTimePicker.Value, Convert.ToDateTime(App.NowDate));
+                if (result < 0)
                 {
                     errorProvider.SetError(FechaEspec_dateTimePicker, "La fecha de espectaculo no puede ser menor a la de publicacion");
                     resultado = false;

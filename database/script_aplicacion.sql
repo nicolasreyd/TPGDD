@@ -7,7 +7,7 @@ delete from INNERJOIN.usuario_rol where id_rol = @id_rol
 delete from INNERJOIN.rol where rol_id = @id_rol
 
 end
-
+go
 
 create procedure INNERJOIN.sp_generar_random_username @username nvarchar(16) output
 as
@@ -19,7 +19,7 @@ begin
 		SELECT @username = replace((left(CONVERT(nvarchar(255), NEWID()),16)),'-','');
 	
 end
-
+go
 
 
 
@@ -31,7 +31,7 @@ begin
 	SELECT @password = replace((left(CONVERT(nvarchar(255), NEWID()),16)),'-','');
 	
 end
-
+go
 
 
 CREATE procedure [INNERJOIN].[sp_generar_publicacion] 
@@ -55,6 +55,7 @@ select @@IDENTITY
 return
 
 end
+go
 
 
 create procedure [INNERJOIN].[sp_baja_cliente] @idCliente numeric(18,0)
@@ -71,7 +72,7 @@ as
 	update INNERJOIN.cliente set cliente_baja_logica=1 where cliente_id=@idCliente
 
 	commit 
-	
+go
 	
 	
 
@@ -113,7 +114,7 @@ as
 	set @credenciales = 'Nombre de usuario: '+@username + CHAR(13) +  CHAR(13) +  'Contraseña: '+@password
 
 	commit 
-
+go
 
 
 create procedure [INNERJOIN].[sp_generar_comision] @cantidad_compras int,@id_empresa numeric(10,0), @fecha datetime
@@ -139,7 +140,7 @@ open c_cursor1 fetch next from c_cursor1 into @id_compra, @porcentaje_comision
 while(@@FETCH_STATUS = 0)
 begin
 
-insert into INNERJOIN.factura values(@id_empresa, @fecha)
+insert into INNERJOIN.factura values(@id_empresa, @fecha, 0)
 set @id_factura = SCOPE_IDENTITY()
 
 
@@ -159,6 +160,8 @@ end
 close c_cursor2
 deallocate c_cursor2
 
+update INNERJOIN.factura set factura_total = (select SUM(comision) from INNERJOIN.factura_item where id_factura = @id_factura) where factura_id = @id_factura
+
 fetch next from c_cursor1 into @id_compra, @porcentaje_comision
 end
 
@@ -167,6 +170,7 @@ close c_cursor1
 deallocate c_cursor1
 
 end
+go
 
 
 create procedure [INNERJOIN].[sp_rehabilitar_usuario] @tipoUsuario nvarchar(20),@idUsuario numeric(18,0)
@@ -194,7 +198,7 @@ as
 	update INNERJOIN.usuario set usuario_baja_logica=0 where usuario_id=@id_usuario
 
 	commit
-	
+go	
 
 
 
@@ -229,7 +233,7 @@ as
 	set @credenciales = 'Nombre de usuario: '+@username + CHAR(13) +  'Contraseña: '+@password
 
 	commit
-
+go
 
 create procedure [INNERJOIN].[sp_baja_empresa] @idEmpresa numeric(18,0)
 as
@@ -253,14 +257,14 @@ as
 
 
 	commit
-
+go
 
 
 create procedure [INNERJOIN].[cambiar_password] @idUsuario numeric(18,0),@password varchar(64)
 as
 
 	update INNERJOIN.usuario set usuario_password = LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256',@password), 2)) where usuario_id = @idUsuario
-
+go
 
 
 
@@ -279,4 +283,4 @@ begin
 	
 end
 
-
+go

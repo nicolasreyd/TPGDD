@@ -42,6 +42,11 @@
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.lblpag = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lbltotalpag = new System.Windows.Forms.Label();
+            this.btn_Previo = new System.Windows.Forms.Button();
+            this.btn_Sig = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -181,12 +186,64 @@
             this.linkLabel1.Text = "Volver";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
+            // lblpag
+            // 
+            this.lblpag.AutoSize = true;
+            this.lblpag.Location = new System.Drawing.Point(433, 615);
+            this.lblpag.Name = "lblpag";
+            this.lblpag.Size = new System.Drawing.Size(18, 20);
+            this.lblpag.TabIndex = 5;
+            this.lblpag.Text = "0";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(471, 616);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(13, 20);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "/";
+            // 
+            // lbltotalpag
+            // 
+            this.lbltotalpag.AutoSize = true;
+            this.lbltotalpag.Location = new System.Drawing.Point(501, 616);
+            this.lbltotalpag.Name = "lbltotalpag";
+            this.lbltotalpag.Size = new System.Drawing.Size(18, 20);
+            this.lbltotalpag.TabIndex = 7;
+            this.lbltotalpag.Text = "0";
+            // 
+            // btn_Previo
+            // 
+            this.btn_Previo.Location = new System.Drawing.Point(325, 615);
+            this.btn_Previo.Name = "btn_Previo";
+            this.btn_Previo.Size = new System.Drawing.Size(85, 33);
+            this.btn_Previo.TabIndex = 8;
+            this.btn_Previo.Text = "Ant";
+            this.btn_Previo.UseVisualStyleBackColor = true;
+            this.btn_Previo.Click += new System.EventHandler(this.btn_Previo_Click);
+            // 
+            // btn_Sig
+            // 
+            this.btn_Sig.Location = new System.Drawing.Point(546, 611);
+            this.btn_Sig.Name = "btn_Sig";
+            this.btn_Sig.Size = new System.Drawing.Size(79, 37);
+            this.btn_Sig.TabIndex = 9;
+            this.btn_Sig.Text = "Sig";
+            this.btn_Sig.UseVisualStyleBackColor = true;
+            this.btn_Sig.Click += new System.EventHandler(this.btn_Sig_Click);
+            // 
             // Editar_grilla
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1066, 597);
+            this.ClientSize = new System.Drawing.Size(1079, 673);
+            this.Controls.Add(this.btn_Sig);
+            this.Controls.Add(this.btn_Previo);
+            this.Controls.Add(this.lbltotalpag);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.lblpag);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.Buscar_button);
@@ -220,5 +277,10 @@
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.DataGridViewButtonColumn Modificar;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label lblpag;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lbltotalpag;
+        private System.Windows.Forms.Button btn_Previo;
+        private System.Windows.Forms.Button btn_Sig;
     }
 }

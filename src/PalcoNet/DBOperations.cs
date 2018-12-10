@@ -777,7 +777,7 @@ namespace PalcoNet
                 {
                     Decimal id = data.GetDecimal(0);
                     String nombre = data.GetString(1);
-                    Decimal comision = data.GetDecimal(2);
+                    Decimal comision = data.GetDecimal(3);
                     grados.Add(new Datos.Grado(nombre, id, comision));
                 }
             }

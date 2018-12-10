@@ -20,7 +20,7 @@ namespace PalcoNet
         public static AdminApp admin;
         public static string NowDateKey = "nowdate";
 
-        private static string NowDate
+        public static string NowDate
         {
             get
             {

@@ -13,6 +13,13 @@ namespace PalcoNet.Editar_Publicacion
 {
     public partial class Editar_grilla : Form
     {
+
+        private DataTable todos_los_datos;
+        private decimal total = 0;
+        private decimal pagina = 0;
+        private decimal maximo_paginas = 0;
+        private int items_por_pagina = 10;
+
         public Editar_grilla()
         {
             InitializeComponent();
@@ -34,14 +41,58 @@ namespace PalcoNet.Editar_Publicacion
             DataTable tabla = new DataTable();
             adapter.Fill(tabla);
 
-            this.dataGridView.DataSource = tabla;
-            this.dataGridView.ReadOnly = true;
-            this.dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView.MultiSelect = false;
-            this.dataGridView.AllowUserToAddRows = false;
-            this.dataGridView.AutoSize = true;
+            this.todos_los_datos = tabla;
+            this.total = this.todos_los_datos.Rows.Count;
+            this.maximo_paginas = Math.Ceiling(this.total / this.items_por_pagina);
+            lbltotalpag.Text = this.maximo_paginas.ToString();
+            if (tabla.Rows.Count > 0)
+            {
+                dataGridView.DataSource = Split(tabla);
+
+            }
+            else
+            {
+                MessageBox.Show("No se encontraron facturas para la empresa.");
+            }
 
 
+        }
+
+        private DataTable Split(DataTable tabla)
+        {
+            lblpag.Text = (this.pagina + 1).ToString();
+            HabilitarBotones();
+            if (tabla.Rows.Count > 0)
+            {
+                return tabla.Select().Skip(Convert.ToInt32(this.items_por_pagina * this.pagina)).Take(this.items_por_pagina).CopyToDataTable();
+            }
+            else
+            {
+                MessageBox.Show("No se encontraron Publicaciones.");
+                DataTable datable = new DataTable();
+                return datable;
+            }
+        }
+
+        private void HabilitarBotones()
+        {
+            if (this.pagina == 0)
+            {
+                btn_Previo.Enabled = false;
+            }
+            else
+            {
+                btn_Previo.Enabled = true;
+            }
+
+            if (this.pagina == (this.maximo_paginas - 1))
+            {
+                btn_Sig.Enabled = false;
+            }
+            else
+            {
+                btn_Sig.Enabled = true;
+            }
         }
 
         private void Editar_grilla_Load(object sender, EventArgs e)
@@ -58,12 +109,12 @@ namespace PalcoNet.Editar_Publicacion
             DataTable tabla = new DataTable();
             adapter.Fill(tabla);
 
-            this.dataGridView.DataSource = tabla;
-            this.dataGridView.ReadOnly = true;
-            this.dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView.MultiSelect = false;
-            this.dataGridView.AllowUserToAddRows = false;
-            this.dataGridView.AutoSize = true;
+            this.todos_los_datos = tabla;
+            this.total = this.todos_los_datos.Rows.Count;
+            this.maximo_paginas = Math.Ceiling(this.total / this.items_por_pagina);
+            lbltotalpag.Text = this.maximo_paginas.ToString();
+                dataGridView.DataSource = Split(tabla);
+
 
         }
 
@@ -180,6 +231,18 @@ namespace PalcoNet.Editar_Publicacion
         private void Limpiar_button_Click(object sender, EventArgs e)
         {
             Herramientas.Funcionalidades_Pantallas.Limpiar(this);
+        }
+
+        private void btn_Sig_Click(object sender, EventArgs e)
+        {
+            this.pagina = this.pagina + 1;
+            dataGridView.DataSource = Split(this.todos_los_datos);
+        }
+
+        private void btn_Previo_Click(object sender, EventArgs e)
+        {
+            this.pagina = this.pagina - 1;
+            dataGridView.DataSource = Split(this.todos_los_datos);
         }
 
        
