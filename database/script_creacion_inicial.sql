@@ -244,7 +244,8 @@ id_ubicacion numeric(10)
 create table INNERJOIN.factura (
 factura_id numeric(10) identity(1,1),
 id_empresa numeric(10),
-factura_fecha smalldatetime
+factura_fecha smalldatetime,
+factura_total numeric(10,2),
 )
 
 alter table INNERJOIN.factura add constraint pk_factura primary key (factura_id)
@@ -252,11 +253,12 @@ alter table INNERJOIN.factura add constraint pk_factura primary key (factura_id)
 
 
 create table INNERJOIN.factura_item (
-id numeric(10),
+id numeric(10) identity(1,1),
 id_compra numeric(10),
 id_factura numeric(10),
 comision numeric(10,2),
-importe_total numeric(10,2)
+importe_total numeric(10,2),
+descripcion varchar(255) default 'Comision por compra'
 )
 
 --alter table INNERJOIN.factura_item add constraint fk_facturaitem_compra foreign key (id_compra) references INNERJOIN.compra
@@ -289,7 +291,7 @@ where espec_empresa_cuit is not null;
 --Creacion de usuario admin
 insert into INNERJOIN.usuario (usuario_username,usuario_password,usuario_tipo)
 select DISTINCT 'admin', 
-LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256','w23e'), 2)),'admin',0,0,0,0
+LOWER(CONVERT(VARCHAR(64), HASHBYTES('SHA2_256','w23e'), 2)),'admin'
 from gd_esquema.Maestra  
 where espec_empresa_cuit is not null;
 
@@ -414,14 +416,17 @@ Espectaculo_Cod numeric(18,0),
 Cli_Dni numeric(18,0),
 compra_fecha date,
 flag_migrado bit not null default 0,
+Item_Factura_Monto numeric(18,0),
+Item_Factura_Descripcion varchar(255),
+Factura_Nro numeric(10)
 )
 
  --Migracion Compra, Ubicacion y compra_ubicacion (para probar se seleccionan las primeras 1000 filas. Falta el campo compra_importe_total en Comrpa)
 
 insert into INNERJOIN.compra_temp (Forma_Pago_Desc, Cli_Mail, Espec_Empresa_Razon_Social, Ubicacion_Fila,Ubicacion_Asiento,Ubicacion_Precio,
-Ubicacion_Sin_numerar,Ubicacion_Tipo_Codigo, Espectaculo_Cod,Cli_Dni,compra_fecha) 
+Ubicacion_Sin_numerar,Ubicacion_Tipo_Codigo, Espectaculo_Cod,Cli_Dni,compra_fecha,Item_Factura_Monto,Item_Factura_Descripcion,Factura_Nro) 
 select Forma_Pago_Desc, Cli_Mail,Espec_Empresa_Razon_Social,Ubicacion_Fila,Ubicacion_Asiento,Ubicacion_Precio,
-Ubicacion_Sin_numerar,Ubicacion_Tipo_Codigo, Espectaculo_Cod,Cli_Dni,Compra_fecha
+Ubicacion_Sin_numerar,Ubicacion_Tipo_Codigo, Espectaculo_Cod,Cli_Dni,Compra_fecha,Item_Factura_Monto,Item_Factura_Descripcion,Factura_Nro
 from gd_esquema.Maestra 
 where Cli_Dni is not null
 
@@ -432,7 +437,7 @@ WHILE EXISTS (SELECT * FROM INNERJOIN.compra_temp where flag_migrado=0)
   insert into INNERJOIN.compra (compra_id, id_publicacion, id_usuario, compra_medio_pago, compra_mail, compra_importe_total,compra_fecha)
   SELECT top 10000
   id,Espectaculo_Cod,(select empresa_id from INNERJOIN.empresa where empresa_razon_social = Espec_Empresa_Razon_Social),
-  Forma_Pago_Desc,Cli_Mail,100,compra_fecha
+  Forma_Pago_Desc,Cli_Mail,Ubicacion_Precio,compra_fecha
   FROM INNERJOIN.compra_temp c
    WHERE flag_migrado = 0 order by id asc;
   SET IDENTITY_INSERT INNERJOIN.compra OFF
@@ -457,3 +462,19 @@ WHILE EXISTS (SELECT * FROM INNERJOIN.compra_temp where flag_migrado=0)
   select compra_id as id_compra,compra_id as id_ubicacion from INNERJOIN.compra
 
 -- Probado OK
+SET IDENTITY_INSERT INNERJOIN.factura on
+insert into INNERJOIN.factura (factura_id,id_empresa,factura_fecha,factura_total)
+SELECT Factura_Nro,
+(select empresa_id from INNERJOIN.empresa where empresa_razon_social = Espec_Empresa_Razon_Social),
+Factura_Fecha,
+Factura_Total 
+FROM gd_esquema.Maestra
+WHERE Factura_Nro is not null
+group by Factura_Nro,Factura_Fecha,Factura_Total,Espec_Empresa_Razon_Social
+SET IDENTITY_INSERT INNERJOIN.factura OFF
+
+
+insert into INNERJOIN.factura_item (id_compra,id_factura,comision,importe_total,descripcion)
+select id,Factura_Nro,Item_Factura_Monto,(select compra_importe_total from INNERJOIN.compra where compra_id=id),Item_Factura_Descripcion
+FROM INNERJOIN.compra_temp
+where Factura_Nro is not null
