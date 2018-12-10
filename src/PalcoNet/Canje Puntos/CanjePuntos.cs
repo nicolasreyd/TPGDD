@@ -24,7 +24,7 @@ namespace PalcoNet.Canje_Puntos
         public CanjePuntos()
         {
             InitializeComponent();
-            this.cliente = 1;//App.db.getClienteId();
+            this.cliente = App.db.getClienteId();
             this.puntos = App.db.getPuntos(this.cliente);
             this.fecha_venc_puntos = App.db.getPuntosVencimiento(this.cliente);
             Console.WriteLine(this.puntos.ToString());
