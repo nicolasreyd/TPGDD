@@ -45,11 +45,9 @@
             this.groupBox1.Controls.Add(this.Funcionalidades_label);
             this.groupBox1.Controls.Add(this.nombreRol_Textbox);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(32, 24);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Location = new System.Drawing.Point(48, 37);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(335, 246);
+            this.groupBox1.Size = new System.Drawing.Size(502, 378);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Completar";
@@ -57,49 +55,44 @@
             // funcionalidades_checklist
             // 
             this.funcionalidades_checklist.FormattingEnabled = true;
-            this.funcionalidades_checklist.Location = new System.Drawing.Point(135, 89);
-            this.funcionalidades_checklist.Margin = new System.Windows.Forms.Padding(2);
+            this.funcionalidades_checklist.Location = new System.Drawing.Point(202, 137);
             this.funcionalidades_checklist.Name = "funcionalidades_checklist";
-            this.funcionalidades_checklist.Size = new System.Drawing.Size(149, 139);
+            this.funcionalidades_checklist.Size = new System.Drawing.Size(222, 193);
             this.funcionalidades_checklist.TabIndex = 3;
             this.funcionalidades_checklist.SelectedIndexChanged += new System.EventHandler(this.funcionalidades_checklist_SelectedIndexChanged);
             // 
             // Funcionalidades_label
             // 
             this.Funcionalidades_label.AutoSize = true;
-            this.Funcionalidades_label.Location = new System.Drawing.Point(23, 89);
-            this.Funcionalidades_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Funcionalidades_label.Location = new System.Drawing.Point(34, 137);
             this.Funcionalidades_label.Name = "Funcionalidades_label";
-            this.Funcionalidades_label.Size = new System.Drawing.Size(84, 13);
+            this.Funcionalidades_label.Size = new System.Drawing.Size(125, 20);
             this.Funcionalidades_label.TabIndex = 2;
             this.Funcionalidades_label.Text = "Funcionalidades";
             // 
             // nombreRol_Textbox
             // 
-            this.nombreRol_Textbox.Location = new System.Drawing.Point(135, 36);
-            this.nombreRol_Textbox.Margin = new System.Windows.Forms.Padding(2);
+            this.nombreRol_Textbox.Location = new System.Drawing.Point(202, 55);
             this.nombreRol_Textbox.Name = "nombreRol_Textbox";
-            this.nombreRol_Textbox.Size = new System.Drawing.Size(149, 20);
+            this.nombreRol_Textbox.Size = new System.Drawing.Size(222, 26);
             this.nombreRol_Textbox.TabIndex = 1;
             this.nombreRol_Textbox.TextChanged += new System.EventHandler(this.nomreRol_Textbox_TextChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 40);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(30, 62);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.Size = new System.Drawing.Size(93, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Nombre Rol";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // Limpiar_Button
             // 
-            this.Limpiar_Button.Location = new System.Drawing.Point(167, 281);
-            this.Limpiar_Button.Margin = new System.Windows.Forms.Padding(2);
+            this.Limpiar_Button.Location = new System.Drawing.Point(250, 432);
             this.Limpiar_Button.Name = "Limpiar_Button";
-            this.Limpiar_Button.Size = new System.Drawing.Size(71, 24);
+            this.Limpiar_Button.Size = new System.Drawing.Size(106, 37);
             this.Limpiar_Button.TabIndex = 1;
             this.Limpiar_Button.Text = "Limpiar";
             this.Limpiar_Button.UseVisualStyleBackColor = true;
@@ -107,10 +100,9 @@
             // 
             // Alta_Button
             // 
-            this.Alta_Button.Location = new System.Drawing.Point(288, 281);
-            this.Alta_Button.Margin = new System.Windows.Forms.Padding(2);
+            this.Alta_Button.Location = new System.Drawing.Point(432, 432);
             this.Alta_Button.Name = "Alta_Button";
-            this.Alta_Button.Size = new System.Drawing.Size(71, 24);
+            this.Alta_Button.Size = new System.Drawing.Size(106, 37);
             this.Alta_Button.TabIndex = 2;
             this.Alta_Button.Text = "Alta";
             this.Alta_Button.UseVisualStyleBackColor = true;
@@ -119,10 +111,9 @@
             // volver_ambRol
             // 
             this.volver_ambRol.AutoSize = true;
-            this.volver_ambRol.Location = new System.Drawing.Point(32, 291);
-            this.volver_ambRol.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.volver_ambRol.Location = new System.Drawing.Point(48, 448);
             this.volver_ambRol.Name = "volver_ambRol";
-            this.volver_ambRol.Size = new System.Drawing.Size(37, 13);
+            this.volver_ambRol.Size = new System.Drawing.Size(53, 20);
             this.volver_ambRol.TabIndex = 3;
             this.volver_ambRol.TabStop = true;
             this.volver_ambRol.Text = "Volver";
@@ -130,15 +121,15 @@
             // 
             // Alta_Rol
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 320);
+            this.ClientSize = new System.Drawing.Size(606, 492);
             this.Controls.Add(this.volver_ambRol);
             this.Controls.Add(this.Alta_Button);
             this.Controls.Add(this.Limpiar_Button);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Alta_Rol";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Alta de Rol";
             this.Load += new System.EventHandler(this.Alta_Rol_Load);
             this.groupBox1.ResumeLayout(false);

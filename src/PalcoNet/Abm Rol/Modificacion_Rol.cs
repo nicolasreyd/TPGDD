@@ -29,8 +29,8 @@ namespace PalcoNet.Abm_Rol
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
-            Decimal id = Convert.ToDecimal(dataGridView1.Rows[e.RowIndex].Cells[0].Value);
-
+            Decimal id = Convert.ToDecimal(dataGridView1.Rows[e.RowIndex].Cells[1].Value);
+            this.Hide();
             using (var form2 = new Modificacion_Formulario(id))
             {
                 form2.ShowDialog();

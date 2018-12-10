@@ -71,10 +71,6 @@ namespace PalcoNet.Login
                         ListadoEstadistico_Button.Enabled = true;
                         ListadoEstadistico_Button.Visible = true;
                         break;
-                    case "Registro de Usuario":
-                        RegistroUsuario_Button.Enabled = true;
-                        RegistroUsuario_Button.Visible = true;
-                        break;
                 }
             }
 
@@ -105,8 +101,6 @@ namespace PalcoNet.Login
             ListadoEstadistico_Button.Visible = false;
             PagoComisiones_Button.Enabled = false;
             PagoComisiones_Button.Visible = false;
-            RegistroUsuario_Button.Enabled = false;
-            RegistroUsuario_Button.Visible = false;
             EditarPubli_Button.Enabled = false;
             EditarPubli_Button.Visible = false;
         }
