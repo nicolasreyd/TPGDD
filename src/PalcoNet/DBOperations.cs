@@ -450,6 +450,9 @@ namespace PalcoNet
 
             String queryStr = "select * from INNERJOIN.publicacion p left join INNERJOIN.grado g on g.grado_id =p.id_grado" +
                 " where publicacion_estado='Publicada'";
+            queryStr += " and (select count(1) from INNERJOIN.ubicacion u " +
+                "left join INNERJOIN.compra_ubicacion cu on u.ubicacion_id=cu.id_ubicacion " +
+                "where id_publicacion=publicacion_id and id_compra is null )>0";
             queryStr += " and publicacion_fecha_publicacion > " + "'"+NowDate+"'";
             queryStr += " and publicacion_fecha_evento < " + "'" + NowDate + "'";
             if (categorias.Count > 0)

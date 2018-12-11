@@ -33,6 +33,19 @@ begin
 end
 go
 
+CREATE procedure [INNERJOIN].[sp_generar_compra] 
+@id_compra numeric(10,0), @id_ubicacion numeric(10,0)
+as begin
+
+insert into GD2C2018.INNERJOIN.compra_ubicacion values (@id_compra,@id_ubicacion)
+
+select @@IDENTITY
+
+return
+
+end
+go
+
 
 CREATE procedure [INNERJOIN].[sp_generar_publicacion] 
 @descripcion nvarchar(255), @rubro_text nvarchar(50), @grado_text nvarchar(20), @grado_comision numeric(10,0),
