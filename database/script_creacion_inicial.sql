@@ -1,7 +1,11 @@
 /* Script de creación inicial - TP 2C 2018 */
+
+/*Creación de esquema*/
+
 create schema INNERJOIN
 go
 
+/*Creación de tablas*/
 create table INNERJOIN.usuario (
 usuario_id numeric(10) identity(1,1),
 usuario_username varchar(16) not null,
@@ -241,11 +245,6 @@ descripcion varchar(255) default 'Comision por compra'
 
 
 
-
-
-
-
-
 -- Migracion clientes a usuarios
 
 insert into INNERJOIN.usuario (usuario_username,usuario_password,usuario_tipo)
@@ -379,7 +378,7 @@ order by 1 asc
 set identity_insert INNERJOIN.publicacion OFF
 
 --Probado OK
-
+--Se crea tabla temporal para la migracion de compra y ubicaciones
 create table INNERJOIN.compra_temp (
 id numeric(10) identity(1,1),
 Forma_Pago_Desc nvarchar(255),
@@ -435,15 +434,22 @@ WHILE EXISTS (SELECT * FROM INNERJOIN.compra_temp where flag_migrado=0)
 
   END
 
+  insert into INNERJOIN.compra_ubicacion(id_compra,id_ubicacion)
+  select compra_id as id_compra,compra_id as id_ubicacion from INNERJOIN.compra
+--FIN migracion compra, ubicacion y compra_ubicacion
+
+
+-- Migracion de ubicaciones sin compras
   insert into INNERJOIN.ubicacion (id_publicacion,ubicacion_fila,ubicacion_asiento,ubicacion_precio,id_tipo,numerada)
   SELECT Espectaculo_Cod,Ubicacion_Fila,Ubicacion_Asiento,Ubicacion_Precio,Ubicacion_Tipo_Codigo,Ubicacion_Sin_numerar 
   FROM gd_esquema.Maestra WHERE Cli_Dni is null;
 
 
-  insert into INNERJOIN.compra_ubicacion(id_compra,id_ubicacion)
-  select compra_id as id_compra,compra_id as id_ubicacion from INNERJOIN.compra
+  
 
 -- Probado OK
+
+--Migracion factura
 SET IDENTITY_INSERT INNERJOIN.factura on
 insert into INNERJOIN.factura (factura_id,id_empresa,factura_fecha,factura_total)
 SELECT Factura_Nro,
@@ -455,12 +461,13 @@ WHERE Factura_Nro is not null
 group by Factura_Nro,Factura_Fecha,Factura_Total,Espec_Empresa_Razon_Social
 SET IDENTITY_INSERT INNERJOIN.factura OFF
 
-
+--Migracion factura_item
 insert into INNERJOIN.factura_item (id_compra,id_factura,comision,importe_total,descripcion)
 select id,Factura_Nro,Item_Factura_Monto,(select compra_importe_total from INNERJOIN.compra where compra_id=id),Item_Factura_Descripcion
 FROM INNERJOIN.compra_temp
 where Factura_Nro is not null
 
+--Inicializacion de funcionalidas y rol
 insert into INNERJOIN.rol_funcionalidad values
 (1, 1),
 (1, 6),
@@ -493,18 +500,23 @@ insert into INNERJOIN.rol_funcionalidad values
 (4, 12),
 (4, 13)
 
+-- Asignacion de rol a clientes
 insert into INNERJOIN.usuario_rol (id_usuario,id_rol)
 select usuario_id,(select rol_id from INNERJOIN.rol where rol_nombre='Cliente') from INNERJOIN.cliente
 
+-- Asignacion de rol a empresas
 insert into INNERJOIN.usuario_rol (id_usuario,id_rol)
 select usuario_id,(select rol_id from INNERJOIN.rol where rol_nombre='Empresa') from INNERJOIN.empresa
 
+-- Creacion de productos para premios
 insert into INNERJOIN.producto (descripcion) values
 ('Aire Acondicionado'),('TV'),('Licuadora'),('Cafetera'),('Heladera'),('Bicicleta')
 
+--Creacion de premios con sus respectivos puntos
 insert into INNERJOIN.premio (puntos,id_producto) values
 (5000,1),(11000,2),(2000,3),(50000,4),(20000,5),(10000,6)
 
+--Se agregan las fk constraint de tablas
 alter table INNERJOIN.factura_item add constraint fk_facturaitem_compra foreign key (id_compra) references INNERJOIN.compra
 alter table INNERJOIN.factura_item add constraint fk_facturaitem_factura foreign key (id_factura) references INNERJOIN.factura
 alter table INNERJOIN.factura add constraint fk_factura_empresa foreign key (id_empresa) references INNERJOIN.empresa
@@ -534,6 +546,7 @@ WHERE cliente_cuil IS NOT NULL;
 
 GO
 
+--Store procedures
 create procedure INNERJOIN.sp_eliminar_rol 
 @id_rol numeric(10,0)
 as begin
