@@ -29,7 +29,7 @@ namespace PalcoNet.Comprar
 
         private void comprar_Click(object sender, EventArgs e)
         {
-            if (tarjetas_checkedListBox.SelectedValue == null)
+            if (tarjetas_checkedListBox.SelectedItem == null)
             {
                 MessageBox.Show("Seleccionar tarjeta");
                 return;

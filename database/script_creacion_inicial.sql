@@ -63,9 +63,7 @@ cliente_baja_logica bit not null default 1
 )
 
 alter table INNERJOIN.cliente add constraint pk_cliente primary key (cliente_id)
---alter table INNERJOIN.cliente add constraint fk_cliente_usuario foreign key (usuario_id) references INNERJOIN.usuario
 alter table INNERJOIN.cliente add constraint unq_dni unique (cliente_tipo_dni,cliente_numero_dni)
---alter table INNERJOIN.cliente add constraint unq_cuil unique (cliente_cuil)
 
 create table INNERJOIN.tarjeta_credito (
 tarjeta_credito_id numeric(10) identity(1,1),
@@ -75,7 +73,6 @@ cliente_id numeric(10)
 )
 
 alter table INNERJOIN.tarjeta_credito add constraint pk_tarjeta_credito primary key (tarjeta_credito_id)
---alter table INNERJOIN.tarjeta_credito add constraint fk_cliente foreign key (cliente_id) references INNERJOIN.cliente
 
 create table INNERJOIN.producto (
 producto_id numeric(10) identity(1,1),
@@ -91,16 +88,11 @@ id_producto numeric(10)
 )
 
 alter table INNERJOIN.premio add constraint pk_premio primary key (premio_id)
---alter table INNERJOIN.premio add constraint fk_productopremio foreign key (id_producto) references INNERJOIN.producto
 
 create table INNERJOIN.cliente_premio (
 id_premio numeric(10),
 id_cliente numeric(10)
 )
-
---alter table INNERJOIN.cliente_premio add constraint fk_clientecliente_premio foreign key (id_cliente) references INNERJOIN.cliente
---alter table INNERJOIN.cliente_premio add constraint fk_premiocliente_premio foreign key (id_premio) references INNERJOIN.premio
-
 
 
 create table INNERJOIN.cliente_puntos (
@@ -111,7 +103,6 @@ fecha_vencimiento date -- Por poner algo, resta definir la logica de negocio det
 )
 
 alter table INNERJOIN.cliente_puntos add constraint pk_cliente_puntos primary key (id)
---alter table INNERJOIN.cliente_puntos add constraint fk_cliente_puntos foreign key (cliente_id) references INNERJOIN.cliente
 
 
 
@@ -141,8 +132,6 @@ id_rol numeric(10) not null,
 id_funcionalidad numeric(10) not null
 )
 
---alter table INNERJOIN.rol_funcionalidad add constraint fk_rol_rol foreign key (id_rol) references INNERJOIN.rol
---alter table INNERJOIN.rol_funcionalidad add constraint fk_rol_funcionalidad foreign key (id_funcionalidad) references INNERJOIN.funcionalidad
 
 
 
@@ -151,8 +140,6 @@ id_usuario numeric(10) not null,
 id_rol numeric(10) not null
 )
 
---alter table INNERJOIN.usuario_rol add constraint fk_usuario_usuario foreign key (id_usuario) references INNERJOIN.usuario
---alter table INNERJOIN.usuario_rol add constraint fk_usuario_rol foreign key (id_rol) references INNERJOIN.rol
 
 
 create table INNERJOIN.rubro (
@@ -187,9 +174,6 @@ publicacion_direccion nvarchar(255)
 )
 
 alter table INNERJOIN.publicacion add constraint pk_publicacion primary key (publicacion_id)
---alter table INNERJOIN.publicacion add constraint fk_publicacion_rubro foreign key (id_rubro) references INNERJOIN.rubro
---alter table INNERJOIN.publicacion add constraint fk_publicacion_grado foreign key (id_grado) references INNERJOIN.grado
---alter table INNERJOIN.publicacion add constraint fk_publicacion_responsable foreign key (id_responsable) references INNERJOIN.usuario
 
 set identity_insert INNERJOIN.publicacion ON
 
@@ -213,8 +197,6 @@ numerada bit --Lo movimos, estaba en ubicaicon_tipo
 )
 
 alter table INNERJOIN.ubicacion add constraint pk_ubicacion primary key (ubicacion_id)
---alter table INNERJOIN.ubicacion add constraint fk_ubicacion_publicacion foreign key (id_publicacion) references INNERJOIN.publicacion
---alter table INNERJOIN.ubicacion add constraint fk_ubicacion_tipo foreign key (id_tipo) references INNERJOIN.ubicacion_tipo
 
 
 create table INNERJOIN.compra (
@@ -228,8 +210,6 @@ compra_fecha date
 )
 
 alter table INNERJOIN.compra add constraint pk_compra primary key (compra_id)
---alter table INNERJOIN.compra add constraint fk_compra_publicacion foreign key (id_publicacion) references INNERJOIN.compra
---alter table INNERJOIN.compra add constraint fk_compra_usuario foreign key (id_usuario) references INNERJOIN.usuario
 
 
 create table INNERJOIN.compra_ubicacion (
@@ -237,8 +217,6 @@ id_compra numeric(10),
 id_ubicacion numeric(10)
 )
 
---alter table INNERJOIN.compra_ubicacion add constraint fk_compraubicacion_compra foreign key (id_compra) references INNERJOIN.compra
---alter table INNERJOIN.compra_ubicacion add constraint fk_compraubicacion_ubicacion foreign key (id_ubicacion) references INNERJOIN.ubicacion
 
 
 create table INNERJOIN.factura (
@@ -249,7 +227,6 @@ factura_total numeric(10,2),
 )
 
 alter table INNERJOIN.factura add constraint pk_factura primary key (factura_id)
---alter table INNERJOIN.factura add constraint fk_factura_empresa foreign key (id_empresa) references INNERJOIN.empresa
 
 
 create table INNERJOIN.factura_item (
@@ -261,8 +238,6 @@ importe_total numeric(10,2),
 descripcion varchar(255) default 'Comision por compra'
 )
 
---alter table INNERJOIN.factura_item add constraint fk_facturaitem_compra foreign key (id_compra) references INNERJOIN.compra
---alter table INNERJOIN.factura_item add constraint fk_facturaitem_factura foreign key (id_factura) references INNERJOIN.factura
 
 
 
@@ -524,3 +499,30 @@ insert into INNERJOIN.producto (descripcion) values
 
 insert into INNERJOIN.premio (puntos,id_producto) values
 (5000,1),(11000,2),(2000,3),(50000,4),(20000,5),(10000,6)
+
+alter table INNERJOIN.factura_item add constraint fk_facturaitem_compra foreign key (id_compra) references INNERJOIN.compra
+alter table INNERJOIN.factura_item add constraint fk_facturaitem_factura foreign key (id_factura) references INNERJOIN.factura
+alter table INNERJOIN.factura add constraint fk_factura_empresa foreign key (id_empresa) references INNERJOIN.empresa
+alter table INNERJOIN.compra_ubicacion add constraint fk_compraubicacion_compra foreign key (id_compra) references INNERJOIN.compra
+alter table INNERJOIN.compra_ubicacion add constraint fk_compraubicacion_ubicacion foreign key (id_ubicacion) references INNERJOIN.ubicacion
+alter table INNERJOIN.compra add constraint fk_compra_publicacion foreign key (id_publicacion) references INNERJOIN.compra
+alter table INNERJOIN.compra add constraint fk_compra_usuario foreign key (id_usuario) references INNERJOIN.usuario
+alter table INNERJOIN.ubicacion add constraint fk_ubicacion_publicacion foreign key (id_publicacion) references INNERJOIN.publicacion
+alter table INNERJOIN.ubicacion add constraint fk_ubicacion_tipo foreign key (id_tipo) references INNERJOIN.ubicacion_tipo
+alter table INNERJOIN.publicacion add constraint fk_publicacion_rubro foreign key (id_rubro) references INNERJOIN.rubro
+alter table INNERJOIN.publicacion add constraint fk_publicacion_grado foreign key (id_grado) references INNERJOIN.grado
+alter table INNERJOIN.publicacion add constraint fk_publicacion_responsable foreign key (id_responsable) references INNERJOIN.usuario
+alter table INNERJOIN.usuario_rol add constraint fk_usuario_usuario foreign key (id_usuario) references INNERJOIN.usuario
+alter table INNERJOIN.usuario_rol add constraint fk_usuario_rol foreign key (id_rol) references INNERJOIN.rol
+alter table INNERJOIN.rol_funcionalidad add constraint fk_rol_rol foreign key (id_rol) references INNERJOIN.rol
+alter table INNERJOIN.rol_funcionalidad add constraint fk_rol_funcionalidad foreign key (id_funcionalidad) references INNERJOIN.funcionalidad
+alter table INNERJOIN.cliente_puntos add constraint fk_cliente_puntos foreign key (cliente_id) references INNERJOIN.cliente
+alter table INNERJOIN.cliente_premio add constraint fk_clientecliente_premio foreign key (id_cliente) references INNERJOIN.cliente
+alter table INNERJOIN.cliente_premio add constraint fk_premiocliente_premio foreign key (id_premio) references INNERJOIN.premio
+alter table INNERJOIN.premio add constraint fk_productopremio foreign key (id_producto) references INNERJOIN.producto
+alter table INNERJOIN.tarjeta_credito add constraint fk_cliente foreign key (cliente_id) references INNERJOIN.cliente
+alter table INNERJOIN.empresa add constraint fk_empresa_usuario foreign key (usuario_id) references INNERJOIN.usuario
+alter table INNERJOIN.cliente add constraint fk_cliente_usuario foreign key (usuario_id) references INNERJOIN.usuario
+CREATE UNIQUE NONCLUSTERED INDEX unq_cuil
+ON INNERJOIN.cliente(cliente_cuil)
+WHERE cliente_cuil IS NOT NULL;
