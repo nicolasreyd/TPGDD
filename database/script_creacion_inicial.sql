@@ -733,6 +733,7 @@ as
 	begin
 		select @id_usuario=usuario_id from INNERJOIN.cliente where cliente_id=@idUsuario
 		update INNERJOIN.cliente set cliente_baja_logica = 0 where cliente_id = @idUsuario
+		update INNERJOIN.usuario set usuario_baja_logica = 0 where usuario_id = @id_usuario
 	end
 		
 		
@@ -740,6 +741,7 @@ as
 	begin
 		select @id_usuario=empresa_id from INNERJOIN.empresa where empresa_id=@idUsuario
 		update INNERJOIN.empresa set empresa_baja_logica = 0 where empresa_id = @idUsuario
+		update INNERJOIN.usuario set usuario_baja_logica = 0 where usuario_id = @id_usuario
 	end			
 
 	if (@tipoUsuario <> 'cliente') and (@tipoUsuario <> 'empresa') RAISERROR('Tipo incorrecto de usuario (debe ser "cliente" o "empresa")',16,1)
