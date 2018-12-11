@@ -326,7 +326,7 @@ namespace PalcoNet
             }
             dataMail.Close();
 
-            String query = "insert into INNERJOIN.compra values (" + idPublicacion + ", '" + App.currentUser.user_id + "','Tarjeta','" + mail + "'," + suma + "); select SCOPE_IDENTITY()";
+            String query = "insert into INNERJOIN.compra values (" + idPublicacion + ", '" + App.currentUser.user_id + "','Tarjeta','" + mail + "'," + suma + ",'"+NowDate+"'); select SCOPE_IDENTITY()";
             Decimal id_generado = command_insert(query);
             if (id_generado < 0)
             {
@@ -344,6 +344,11 @@ namespace PalcoNet
                     id_ubicacion = idUbicacion
                 });
             }
+            DateTime nowDate = DateTime.Parse(NowDate);
+            nowDate.AddDays(120);
+            String queryPuntos = "insert into INNERJOIN.cliente_puntos values (" + getClienteId() + ", " + suma + ",'" + nowDate.ToString("yyyy/MM/dd")  + "'); select SCOPE_IDENTITY()";
+            Decimal id_puntos = command_insert(queryPuntos);
+
             return 1;
         }
 

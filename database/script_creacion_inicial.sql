@@ -480,3 +480,47 @@ insert into INNERJOIN.factura_item (id_compra,id_factura,comision,importe_total,
 select id,Factura_Nro,Item_Factura_Monto,(select compra_importe_total from INNERJOIN.compra where compra_id=id),Item_Factura_Descripcion
 FROM INNERJOIN.compra_temp
 where Factura_Nro is not null
+
+insert into INNERJOIN.rol_funcionalidad values
+(1, 1),
+(1, 6),
+(1, 7),
+(1, 2),
+(3, 1),
+(3, 10),
+(3, 8),
+(3, 9),
+(2, 1),
+(2, 2),
+(2, 3),
+(2, 4),
+(2, 5),
+(2, 7),
+(2, 9),
+(2, 11),
+(2, 12),
+(4, 1),
+(4, 2),
+(4, 3),
+(4, 4),
+(4, 5),
+(4, 6),
+(4, 7),
+(4, 8),
+(4, 9),
+(4, 10),
+(4, 11),
+(4, 12),
+(4, 13)
+
+insert into INNERJOIN.usuario_rol (id_usuario,id_rol)
+select usuario_id,(select rol_id from INNERJOIN.rol where rol_nombre='Cliente') from INNERJOIN.cliente
+
+insert into INNERJOIN.usuario_rol (id_usuario,id_rol)
+select usuario_id,(select rol_id from INNERJOIN.rol where rol_nombre='Empresa') from INNERJOIN.empresa
+
+insert into INNERJOIN.producto (descripcion) values
+('Aire Acondicionado'),('TV'),('Licuadora'),('Cafetera'),('Heladera'),('Bicicleta')
+
+insert into INNERJOIN.premio (puntos,id_producto) values
+(5000,1),(11000,2),(2000,3),(50000,4),(20000,5),(10000,6)

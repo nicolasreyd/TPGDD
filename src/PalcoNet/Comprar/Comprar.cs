@@ -31,6 +31,10 @@ namespace PalcoNet.Comprar
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (dataGridView1.Rows[e.RowIndex].Cells.Count == 1)
+            {
+                return;
+            }
             Decimal id = Convert.ToDecimal(dataGridView1.Rows[e.RowIndex].Cells[1].Value);
             List<Tarjeta> tarjetas = App.db.getTarjetas();
             if (tarjetas.Count()>0)
@@ -141,6 +145,10 @@ namespace PalcoNet.Comprar
 
         private DataTable Split(DataTable tablaCompras)
         {
+            if(tablaCompras.Rows.Count == 0)
+            {
+                return new DataTable();
+            }
             lbl_Pagina.Text = (this.pagina + 1).ToString();
             HabilitarBotones();
             return tablaCompras.Select().Skip(Convert.ToInt32(this.items_por_pagina * this.pagina)).Take(this.items_por_pagina).CopyToDataTable();
